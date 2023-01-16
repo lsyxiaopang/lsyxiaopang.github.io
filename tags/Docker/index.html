@@ -6,10 +6,6 @@
     
     <meta name="author" content="Songyuli">
     
-    <meta name="description" content="完成路径规划的RoutePlanner类,实现从点集(datapoints)到路径命令(routecmd)的转换
-使用算法使用的算法参考自参考资料,我们的问题是一个旅行商问题,因此没有一个多项式时间内可以实现的最优算法
-但是我们需要注意到,我们所面临的图是一个完全图,并且近似满足三角不等式.因此可以">
-    
     
 
     
@@ -21,7 +17,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>3D位移平台路径开发器记录1 | Songyuli&#39;s blog</title>
+    <title>Tag: Docker | Songyuli&#39;s blog</title>
 
     <!-- Bootstrap -->
     
@@ -89,7 +85,7 @@
         
     $(function() {
         // page-id...
-        var pageId = "2023/01/16/3Dmover/3Dmove2/";
+        var pageId = "tags/Docker/index.html";
         pageId = pageId.substr(0, pageId.indexOf("/"));
         if(pageId === "") pageId = "index";
         
@@ -97,53 +93,45 @@
     });
     </script>
 
-    <article class="post container">
-    <div class="well post-body first-post last-post">
-        <h1>3D位移平台路径开发器记录1</h1>
-        
-        <div class="time-info">
-发表于:<time datetime="2023-01-15T16:13:13.000Z" itemprop="datePublished">2023-01-16</time>，更新于:<time datetime="2023-01-15T16:15:33.222Z" itemprop="dateModified">2023-01-16</time>，By <a href="https://lsyxiaopang.github.io" title="Songyuli">Songyuli</a>
+    
+<div class="container archive-body">
+    <div class="row">
+        <div class="col-xs-3 well">
+            <div class="archive-title" >
+                <h2 class="tag-icon">Docker</h2>
+                <div>
+                    <a href="/tags"><< 返回标签列表</a> 
+                </div>
+            </div>
         </div>
         
-        <div class="post-body-inner">
-            <div id="toc" class="toc-article well">
-                <strong class="toc-title">大纲</strong>
-                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%AE%97%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">使用算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">实现</span></a></li></ol>
-            </div>
+        <div class="col-xs-9" id="tag-list-body">
             
-            <p>完成路径规划的<code>RoutePlanner</code>类,实现从点集(<code>datapoints</code>)到路径命令(<code>routecmd</code>)的转换</p>
-<h3 id="使用算法"><a href="#使用算法" class="headerlink" title="使用算法"></a>使用算法</h3><p>使用的算法参考自<a target="_blank" rel="noopener" href="https://zem12345678.github.io/2019/03/14/%E4%BD%BF%E7%94%A8%E8%BF%91%E4%BC%BC%E7%AE%97%E6%B3%95%E8%A7%A3%E5%86%B3%E6%97%85%E8%A1%8C%E5%95%86%EF%BC%88TSP%EF%BC%89%E9%97%AE%E9%A2%98">参考资料</a>,我们的问题是一个旅行商问题,因此没有一个多项式时间内可以实现的最优算法</p>
-<p>但是我们需要注意到,我们所面临的图是一个完全图,并且近似满足三角不等式.因此可以使用最小生成树的方法得到近似解,其结果不会大于最优解的两倍</p>
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>由于未来需要保留避障措施,但是避障之后的路径可以用一个新的路径代替,因此是通过<strong>修改路径获取函数实现</strong>(为未来预留接口)</p>
-<blockquote>
-<p>这样做可能导致三角不等式不成立,但是影响应该不大</p>
-</blockquote>
-<p><code>datapoints</code>属性在修改时会重新计算<code>route</code>,因此<em>不要频繁修改点集</em></p>
+            <article class="post">
+                <div class="jumbotron">
+                    <h1><a href="/2023/01/16/misc/abouteasyconnect/" title="关于EasyConnect可能存在的问题以及解决方案">关于EasyConnect可能存在的问题以及解决方案</a></h1>
 
+                    
+                        <p>事情起因今天我刷到了一个视频了解到EasyConnect似乎有滥用权限,泄露用户数据的可能,因此希望找到一种方法,在正常访问内网资源的同时实现对EasyConnect的控制.
+解决手段我采用的是视频中提供的方案,是docker-easyconnect,[此为源代码地址][http</p>
+                    
 
-			
-            <section class="comment">
-<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="/2023/01/16/3Dmover/3Dmove2/" data-title="3D位移平台路径开发器记录1" data-url="https://lsyxiaopang.github.io/2023/01/16/3Dmover/3Dmove2/"></div>
-<!-- 多说评论框 end -->
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"lsy"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0]
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-<!-- 多说公共JS代码 end -->
-</section>
+                    <p class="say-title">
+                        —— <img src="ava.gif" class="img-circle index-post-avatar" />
+                        <a href="https://lsyxiaopang.github.io" target="_blank" title="Songyuli">Songyuli</a>
+                        于2023-01-16自豪地以 <a class="article-tag--link" href="/tags/Docker/" rel="tag">Docker</a>, <a class="article-tag--link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a>, <a class="article-tag--link" href="/tags/%E9%80%9A%E8%AE%AF%E5%AE%89%E5%85%A8/" rel="tag">通讯安全</a> 唠嗑
+                    </p>
+                </div>
+            </article>
+            
+            
+            
         </div>
     </div>
-</article>
-
+        
+    <div class="col-xs-19 all-list-box">
+    </div>
+</div>
     <footer id="footer">
     <div id="bottom-tip">
         Songyuli&#39;s blog

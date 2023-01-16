@@ -6,10 +6,8 @@
     
     <meta name="author" content="Songyuli">
     
-    <meta name="description" content="程序功能预想中的程序应该实现以下几个功能:
-
-对路径的规划:获得带测量点,避免和已有待测物体发生撞车,智能更新测量点(类似于绘制函数的时候梯度变化大的点多,梯度变化小的点少)
-移动命令的执行:与grbl进行通讯实现移动(通过传输GCode的方式),实时获知位置,获知出现撞车或者达到极限等状况,自定义">
+    <meta name="description" content="事情起因今天我刷到了一个视频了解到EasyConnect似乎有滥用权限,泄露用户数据的可能,因此希望找到一种方法,在正常访问内网资源的同时实现对EasyConnect的控制.
+解决手段我采用的是视频中提供的方案,是docker-easyconnect,[此为源代码地址][https://github">
     
     
 
@@ -22,7 +20,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>位移平台程序应当满足的功能 | Songyuli&#39;s blog</title>
+    <title>关于EasyConnect可能存在的问题以及解决方案 | Songyuli&#39;s blog</title>
 
     <!-- Bootstrap -->
     
@@ -90,7 +88,7 @@
         
     $(function() {
         // page-id...
-        var pageId = "2023/01/16/3Dmover/3Dmove1/";
+        var pageId = "2023/01/16/misc/abouteasyconnect/";
         pageId = pageId.substr(0, pageId.indexOf("/"));
         if(pageId === "") pageId = "index";
         
@@ -100,42 +98,33 @@
 
     <article class="post container">
     <div class="well post-body first-post last-post">
-        <h1>位移平台程序应当满足的功能</h1>
+        <h1>关于EasyConnect可能存在的问题以及解决方案</h1>
         
         <div class="time-info">
-发表于:<time datetime="2023-01-15T16:04:08.000Z" itemprop="datePublished">2023-01-16</time>，更新于:<time datetime="2023-01-15T16:12:55.791Z" itemprop="dateModified">2023-01-16</time>，By <a href="https://lsyxiaopang.github.io" title="Songyuli">Songyuli</a>
+发表于:<time datetime="2023-01-16T14:06:25.000Z" itemprop="datePublished">2023-01-16</time>，更新于:<time datetime="2023-01-16T14:56:07.142Z" itemprop="dateModified">2023-01-16</time>，By <a href="https://lsyxiaopang.github.io" title="Songyuli">Songyuli</a>
         </div>
         
         <div class="post-body-inner">
             <div id="toc" class="toc-article well">
                 <strong class="toc-title">大纲</strong>
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E5%8A%9F%E8%83%BD"><span class="toc-number">1.</span> <span class="toc-text">程序功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BD%95%E4%B8%8D%E4%BD%BF%E7%94%A8%E5%A6%82kliment%E8%BF%99%E6%A0%B7%E7%9A%84%E7%A8%8B%E5%BA%8F"><span class="toc-number">2.</span> <span class="toc-text">为何不使用如kliment这样的程序</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E6%83%85%E8%B5%B7%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">事情起因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%89%8B%E6%AE%B5"><span class="toc-number">2.</span> <span class="toc-text">解决手段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%9C"><span class="toc-number">3.</span> <span class="toc-text">结果</span></a></li></ol>
             </div>
             
-            <h2 id="程序功能"><a href="#程序功能" class="headerlink" title="程序功能"></a>程序功能</h2><p>预想中的程序应该实现以下几个功能:</p>
-<ol>
-<li>对路径的规划:获得带测量点,<em>避免和已有待测物体发生撞车</em>,<em>智能更新测量点</em>(类似于绘制函数的时候梯度变化大的点多,梯度变化小的点少)</li>
-<li>移动命令的执行:<del>与grbl进行通讯实现移动(通过传输GCode的方式),实时获知位置</del>,获知出现撞车或者达到极限等状况,自定义原点</li>
-<li>数据的获取与处理:<del>原始数据获取(厂家有提供库)</del>,<em>数据不确定度估算与定标</em>(需要结合技术手册以及探头设计进一步研究)</li>
-<li>中央控制程序:<del>将电机等的状态显示出来</del>,3D显示路径以及测量结果</li>
-</ol>
-<h2 id="为何不使用如kliment这样的程序"><a href="#为何不使用如kliment这样的程序" class="headerlink" title="为何不使用如kliment这样的程序"></a>为何不使用如kliment这样的程序</h2><p>因为<code>kliment</code>是设计给3D打印机而非我们所使用的测量装置的</p>
-<p>其优点有:</p>
-<ol>
-<li>具有较为完善的各种错误的处理功能(但是grbl不支持)</li>
-<li>界面比较漂亮</li>
-<li>支持stl文件的导入等</li>
-</ol>
-<p>但是我目前已经实现了gcode的传输以及实时的位置获取,<code>klimenr</code>可以为未来改进自定义原点或检查异常情况提供灵感,但是没有必要依赖其实现</p>
-<p>主要原因在于<code>klimenr</code>缺乏开发文档,研究其源码会非常困难,并且其完全依赖于下位机的gcode功能(例如温度获取),但是对于我们现在的目标这么做并不切合实际.那么这样会导致可能存在解析gcode的”中间商”,将问题弄得过于复杂.</p>
-<p>我的观点在于目前几个部分的模块分别开发(目前已经实现了一个可以控制grbl移动以及控制AD卡读取数据的一个控制程序),剩余的部分自行开发(当然像处理3D模型这样的问题究竟是使用像VTK这样的工具还是像使用slicer这样的小型工具还有待研究)</p>
-<p>而最后的图形界面(虽然现在有一个基于CUI的”伪”图形界面),这个的制作属于比较细枝末节的问题(甚至最后可以扔给Labview解决),我们现在就不考虑了</p>
+            <h2 id="事情起因"><a href="#事情起因" class="headerlink" title="事情起因"></a>事情起因</h2><p>今天我刷到了一个<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV163411Z7BD">视频</a>了解到<code>EasyConnect</code>似乎有滥用权限,泄露用户数据的可能,因此希望找到一种方法,在正常访问内网资源的同时实现对<code>EasyConnect</code>的控制.</p>
+<h2 id="解决手段"><a href="#解决手段" class="headerlink" title="解决手段"></a>解决手段</h2><p>我采用的是视频中提供的方案,是<code>docker-easyconnect</code>,[此为源代码地址][<a target="_blank" rel="noopener" href="https://github.com/Hagb/docker-easyconnect]">https://github.com/Hagb/docker-easyconnect]</a></p>
+<p>在操作的时候,需要使用<code>Docker</code>环境进行隔离,刚好也对<code>Docker</code>环境进行学习</p>
+<blockquote>
+<p>需要注意的,在使用<code>socks5</code>代理的时候,把端口从1080改为其他类型的端口</p>
+</blockquote>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>算是实现了部分的功能,在<code>Docker</code>上顺利登陆了,并且使用<code>Firefox</code>上的<code>SwichyOmega</code>实现对于流量的分流(基于<code>socks5</code>原理)(不过目前只代理了&#96;<em>.fudan.edu.cn</em>网页),这么做可以保障我在使用内网资源的时候同时可以访问外网资料</p>
+<p>不过,这样的连接存在较为严重的稳定性问题,问题比较像<a target="_blank" rel="noopener" href="https://github.com/Hagb/docker-easyconnect/issues/177">一个issue</a>,如何解决目前不明.</p>
+<p>同时,非常遗憾的,使用这种手段无法解决我使用<code>ssh</code>的问题,而网上的资料似乎主要针对<code>Linux</code>系统,因此还是无法摆脱<code>EasyConnect</code>的困扰.</p>
 
 
 			
             <section class="comment">
 <!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="/2023/01/16/3Dmover/3Dmove1/" data-title="位移平台程序应当满足的功能" data-url="https://lsyxiaopang.github.io/2023/01/16/3Dmover/3Dmove1/"></div>
+	<div class="ds-thread" data-thread-key="/2023/01/16/misc/abouteasyconnect/" data-title="关于EasyConnect可能存在的问题以及解决方案" data-url="https://lsyxiaopang.github.io/2023/01/16/misc/abouteasyconnect/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

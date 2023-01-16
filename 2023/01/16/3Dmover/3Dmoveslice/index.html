@@ -84,7 +84,7 @@
     
     <script>
     var backRoot = "/images/background/";
-    var backArray = [ "1.png", "2.png", "3.jpg", "4.png", "5.jpg", "6.jpg", "7.jpg", "8.jpg",  ];
+    var backArray = [ "1.png", "2.png", "3.jpg", "4.png", "5.jpg", "6.jpg", "7.png", "8.jpg", "9.png",  ];
         
     $(function() {
         // page-id...
@@ -101,13 +101,13 @@
         <h1>处理3D模型</h1>
         
         <div class="time-info">
-发表于:<time datetime="2023-01-15T16:17:07.000Z" itemprop="datePublished">2023-01-16</time>，更新于:<time datetime="2023-01-15T16:35:23.494Z" itemprop="dateModified">2023-01-16</time>，By <a href="https://lsyxiaopang.github.io" title="Songyuli">Songyuli</a>
+发表于:<time datetime="2023-01-15T16:17:07.000Z" itemprop="datePublished">2023-01-16</time>，更新于:<time datetime="2023-01-16T13:52:53.526Z" itemprop="dateModified">2023-01-16</time>，By <a href="https://lsyxiaopang.github.io" title="Songyuli">Songyuli</a>
         </div>
         
         <div class="post-body-inner">
             <div id="toc" class="toc-article well">
                 <strong class="toc-title">大纲</strong>
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E4%BA%8Emeshcut%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">对于meshcut库的使用</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E4%BA%8Emeshcut%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">对于meshcut库的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E4%B8%80%E6%9D%A1%E7%BA%BF%E6%98%AF%E5%90%A6%E4%B8%8E%E5%A4%9A%E8%BE%B9%E5%BD%A2%E7%9B%B8%E4%BA%A4"><span class="toc-number">2.</span> <span class="toc-text">判断一条线是否与多边形相交</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text">算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.2.</span> <span class="toc-text">实现</span></a></li></ol></li></ol>
             </div>
             
             <p>为了实现通过用户给的3D模型实现避障功能的路径规划,我们采取首先对模型进行切片,然后再通过修改路径长度和两点之间路径获取的函数完成</p>
@@ -118,8 +118,27 @@
 <p>而其所使用的源码如下</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> stl</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> meshcut</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_mesh</span>(<span class="params">m:stl.mesh.Mesh</span>):<span class="comment">#从stl文件中创建mesh</span></span><br><span class="line">    <span class="comment"># Flatten our vert array to Nx3 and generate corresponding faces array</span></span><br><span class="line">    verts = m.vectors.reshape(-<span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">    faces = np.arange(<span class="built_in">len</span>(verts)).reshape(-<span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">    verts, faces = meshcut.merge_close_vertices(verts, faces)</span><br><span class="line">    <span class="keyword">return</span> meshcut.TriangleMesh(verts,faces)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    m=stl.mesh.Mesh.from_file(<span class="string">&quot;up.stl&quot;</span>)</span><br><span class="line">    mesh=create_mesh(m)</span><br><span class="line"></span><br><span class="line">    i=<span class="number">1</span></span><br><span class="line">    z=<span class="number">1</span><span class="comment">#z坐标</span></span><br><span class="line">    <span class="keyword">while</span>(i!=<span class="number">0</span>):<span class="comment">#在没有交点是会报错,程序自动终止</span></span><br><span class="line">        plane_origin=np.array([<span class="number">0</span>,<span class="number">0</span>,z])</span><br><span class="line">        plane_n=np.array([<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line">        plane=meshcut.Plane(plane_origin,plane_n)<span class="comment">#创建平面</span></span><br><span class="line"></span><br><span class="line">        p=meshcut.cross_section_mesh(mesh,plane)<span class="comment">#求解相交部分多边形</span></span><br><span class="line">        x=p[<span class="number">0</span>][:,<span class="number">0</span>]</span><br><span class="line">        x=np.hstack([x,np.array(x[<span class="number">0</span>])])</span><br><span class="line">        y=p[<span class="number">0</span>][:,<span class="number">1</span>]</span><br><span class="line">        y=np.hstack([y,np.array(y[<span class="number">0</span>])])</span><br><span class="line">        plt.plot(x,y)</span><br><span class="line">        plt.savefig(<span class="string">&quot;&#123;&#125;.png&quot;</span>.<span class="built_in">format</span>(z))</span><br><span class="line">        z=z+<span class="number">1</span></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
 
+<h2 id="判断一条线是否与多边形相交"><a href="#判断一条线是否与多边形相交" class="headerlink" title="判断一条线是否与多边形相交"></a>判断一条线是否与多边形相交</h2><h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>接下来我们来讨论一下关于碰撞检测这一部分的内容.</p>
+<p>多边形是由有限个点首尾相连而成的,那么假如一条线段与多边形相交,那么其必然与多边形的至少一条边相交.因此问题就转化为<em>判断一条线段是否与一个线段集中线段相交</em>.</p>
+<p>而对于判断两线段是否相交的方法,记第一条线段两点为$A_1,A_2$,第二条线段两点为$B_1,B_2$,如果从线段一指向线段二某点(通常使用某个端点)的两个矢量与线段二的叉乘异号,表明$A_1,A_2$分别位于第二条线段两侧.同理,可以判断$B_1,B_2$是否位于第一条线段两侧.如果两个条件同时满足,那么就可以说明线段相交.</p>
+<p>这一手段<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhouzi2018/article/details/81871875">参考资料</a></p>
+<blockquote>
+<p>特殊情况,判断点是否在多边形内,可以用相似的方法,通过过该点做一条射线,然后统计相交点数,如果相交点数为偶数,则点在多边形内,否则在多边形外</p>
+</blockquote>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>在实现这个问题的同时,需要考虑到Python在处理大量的<code>for</code>循环时效率非常低下,因此需要对操作进行向量化处理.</p>
+<p>假定$A_x,A_y,B_x,B_y$为$n,n,m,m$维列向量,定义$C_{ij}$的值等于$A_{i}\times B_{j}$为行列式的值,根据线性代数相关知识,我们可以得到$C&#x3D;A_xB^T_y-A_yB_x^T$</p>
+<blockquote>
+<p>如此操作时需要注意对<code>array</code>进行<code>reshape</code></p>
+</blockquote>
+<p>下面展示了实现矢量集叉乘和判断线段集是否相交的代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calc_cross</span>(<span class="params">a: np.array, b: np.array</span>):</span><br><span class="line">        <span class="comment"># 计算两个二维向量集的叉乘</span></span><br><span class="line">        ax = a[:, <span class="number">0</span>].reshape(-<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">        ay = a[:, <span class="number">1</span>].reshape(-<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">        bx = b[:, <span class="number">0</span>].reshape(<span class="number">1</span>, -<span class="number">1</span>)</span><br><span class="line">        by = b[:, <span class="number">1</span>].reshape(<span class="number">1</span>, -<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> np.dot(ax, by)-np.dot(ay, bx)</span><br></pre></td></tr></table></figure>
 
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">check_crossing</span>(<span class="params">lines1: np.array, lines2: np.array</span>):</span><br><span class="line">        begs1 = lines1[:, <span class="number">0</span>, :]</span><br><span class="line">        begs2 = lines2[:, <span class="number">0</span>, :]</span><br><span class="line">        ends1 = lines1[:, <span class="number">1</span>, :]</span><br><span class="line">        ends2 = lines2[:, <span class="number">1</span>, :]</span><br><span class="line">        l1 = ends1-begs1</span><br><span class="line">        l2 = ends2-begs2</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 检查线2是否分隔线1</span></span><br><span class="line">        v1 = begs2-begs1</span><br><span class="line">        v2 = begs2-ends1</span><br><span class="line">        c1 = calc_cross(v1, l2)</span><br><span class="line">        c2 = calc_cross(v2, l2)</span><br><span class="line">        c = c1*c2  <span class="comment"># 计算两矩阵各个元素相乘(比较同号异号)</span></span><br><span class="line">        bca = c &lt; <span class="number">0</span>  <span class="comment"># 分割线1</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 检查线1是否分隔线2</span></span><br><span class="line">        v1 = begs1-begs2</span><br><span class="line">        v2 = begs1-ends2</span><br><span class="line">        c1 = calc_cross(v1, l1)</span><br><span class="line">        c2 = calc_cross(v2, l1)</span><br><span class="line">        c = c1*c2  <span class="comment"># 计算两矩阵各个元素相乘(比较同号异号)</span></span><br><span class="line">        bcb = c &lt; <span class="number">0</span>  <span class="comment"># 分割线2</span></span><br><span class="line"></span><br><span class="line">        bc = np.<span class="built_in">all</span>([bca, bcb], axis=<span class="number">0</span>)  <span class="comment"># 同时分割</span></span><br><span class="line">        <span class="keyword">return</span> bc  <span class="comment"># 第i行第j列元素判断lines1的第i根线与lines2的第j根线是否相交</span></span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p>这个时候我意识到了一个问题:在实际的移动过程中,z轴的移动无法控制,因此需要在路径规划的过程中对z轴进行单独处理</p>
+<p>因此:在每一次移动时,首先移动z轴,然后就可以理解为平面内运动</p>
+</blockquote>
 
 
 			
@@ -168,10 +187,20 @@ var duoshuoQuery = {short_name:"lsy"};
         Songyuli&#39;s blog
     </div>
         <small>该博客由 <a href="https://hexo.io/" target="_blank">Hexo</a> 强力驱动，搭载 <a href="https://github.com/XadillaX/hexadillax" target="_blank">Hexadillax</a> 主题</small><br />
-        <small>&copy; 2014 Songyuli</small>
+        <small>&copy; 2023 Songyuli</small>
     </footer>
 
     
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
 
 
 </body>
