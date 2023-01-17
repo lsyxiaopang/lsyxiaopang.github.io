@@ -6,6 +6,32 @@
     
     <meta name="author" content="Songyuli">
     
+    <meta name="description" content="VSCode作为一个常用的编辑器(有时可以作为集成开发环境),其拥有许多重要的”特殊功能”,在这里进行笔记,以便未来查阅
+快捷键正则表达式搜索替换正则表达式速查表
+
+
+
+转义字符
+匹配内容
+
+
+
+
+\t
+tab
+
+
+\r
+回车符号\r
+
+
+\n
+换行符号\n
+
+
+\
+特殊符号转义，如”“ ，转义后匹">
+    
     
 
     
@@ -17,7 +43,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>VSCode | Songyuli&#39;s blog</title>
+    <title>VSCode特别功能总结 | Songyuli&#39;s blog</title>
 
     <!-- Bootstrap -->
     
@@ -95,24 +121,124 @@
 
     <article class="post container">
     <div class="well post-body first-post last-post">
-        <h1>VSCode</h1>
+        <h1>VSCode特别功能总结</h1>
         
         <div class="time-info">
-发表于:<time datetime="2023-01-17T09:08:42.000Z" itemprop="datePublished">2023-01-17</time>，更新于:<time datetime="2023-01-17T09:08:42.583Z" itemprop="dateModified">2023-01-17</time>，By <a href="https://lsyxiaopang.github.io" title="Songyuli">Songyuli</a>
+发表于:<time datetime="2023-01-17T09:08:42.000Z" itemprop="datePublished">2023-01-17</time>，更新于:<time datetime="2023-01-17T10:30:01.068Z" itemprop="dateModified">2023-01-17</time>，By <a href="https://lsyxiaopang.github.io" title="Songyuli">Songyuli</a>
         </div>
         
         <div class="post-body-inner">
             <div id="toc" class="toc-article well">
                 <strong class="toc-title">大纲</strong>
-                
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-number">1.</span> <span class="toc-text">快捷键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%90%9C%E7%B4%A2%E6%9B%BF%E6%8D%A2"><span class="toc-number">2.</span> <span class="toc-text">正则表达式搜索替换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="toc-number">2.1.</span> <span class="toc-text">正则表达式速查表</span></a></li></ol></li></ol>
             </div>
             
-            
+            <p>VSCode作为一个常用的编辑器(有时可以作为集成开发环境),其拥有许多重要的”特殊功能”,在这里进行笔记,以便未来查阅</p>
+<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><h2 id="正则表达式搜索替换"><a href="#正则表达式搜索替换" class="headerlink" title="正则表达式搜索替换"></a>正则表达式搜索替换</h2><h3 id="正则表达式速查表"><a href="#正则表达式速查表" class="headerlink" title="正则表达式速查表"></a>正则表达式速查表</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>转义字符</th>
+<th>匹配内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\t</td>
+<td>tab</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>回车符号\r</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>换行符号\n</td>
+</tr>
+<tr>
+<td>\</td>
+<td>特殊符号转义，如”<em>“ ，转义后匹配的是字符”</em>“， “(” 匹配的是括号”(“</td>
+</tr>
+<tr>
+<td>[字符序列]</td>
+<td>匹配[ ]中的任意字符，如[ae]，字符a和字符e均匹配</td>
+</tr>
+<tr>
+<td><sup><a href="#fn_字符序列" id="reffn_字符序列">字符序列</a></sup></td>
+<td>匹配不在[ ]中的任意字符，如<sup><a href="#fn_ae" id="reffn_ae">ae</a></sup>除了a和e，其他字符都匹配</td>
+</tr>
+<tr>
+<td>[字符1-字符2]</td>
+<td>匹配在[ ]之间的任意字符，如[a-x]，就是匹配a和x之间的所有字符（包括a和x）</td>
+</tr>
+<tr>
+<td><strong>.</strong></td>
+<td>匹配任意单个字符(除了\n)</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配所有单词字符（如”a”，“3”，“E”，但不匹配”?”，”.”等）</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>和\w相反，匹配所有非单词字符</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配空格</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>和\s相反，匹配非空格</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配数字字符，如”1”，“4”，”9”等</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>和\d相反，匹配除了数字字符外的其他字符</td>
+</tr>
+<tr>
+<td>*</td>
+<td>将前面的元素匹配0到多次，如”\d*.\d”，可以匹配”19.9”，”.0”,“129.9”</td>
+</tr>
+<tr>
+<td>+</td>
+<td>将前面的元素匹配1到多次，如”be+”，可以匹配”be”， “beeeeee”</td>
+</tr>
+<tr>
+<td>？</td>
+<td>将前面的元素匹配0次或者一次，如”rai?n” 可以且只可以匹配 “ran” 或者 “rain”</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>n是个数字，将前面的元素匹配n次，如”be{3}“可以且只可以匹配 ”beee”</td>
+</tr>
+<tr>
+<td>{n, m}</td>
+<td>将前面的元素匹配至少n次，最多m次，如”be{1,3}” 可以且只可以匹配”be”,“bee”, “beee”</td>
+</tr>
+<tr>
+<td>\</td>
+<td></td>
+<td>相当于”或”,表示匹配由</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>而正则表达式中的”子模式”<code>()</code>,在替换时可以使用<code>$1</code>来相应的替换.</p>
+<p>例如对于<code>anaconda</code>导出的<code>environment.yml</code>文件,其一部分格式如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- packagename=0.0.0=aaaaa</span><br></pre></td></tr></table></figure>
+<p>由于在跨操作系统迁移时要将后面那个详细版本给去掉因此可以使用替换功能</p>
+<p>查找<code>(.=.)=.</code></p>
+<p>替换为<code>$1</code></p>
+
 
 			
             <section class="comment">
 <!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="/2023/01/17/misc/VSCode/" data-title="VSCode" data-url="https://lsyxiaopang.github.io/2023/01/17/misc/VSCode/"></div>
+	<div class="ds-thread" data-thread-key="/2023/01/17/misc/VSCode/" data-title="VSCode特别功能总结" data-url="https://lsyxiaopang.github.io/2023/01/17/misc/VSCode/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -141,6 +267,16 @@ var duoshuoQuery = {short_name:"lsy"};
     </footer>
 
     
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?a26a4b5f01f1bfaf3d1043136dd57470";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
 
 
 </body>

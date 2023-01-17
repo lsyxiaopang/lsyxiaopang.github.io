@@ -6,8 +6,9 @@
     
     <meta name="author" content="Songyuli">
     
-    <meta name="description" content="事情起因今天我刷到了一个视频了解到EasyConnect似乎有滥用权限,泄露用户数据的可能,因此希望找到一种方法,在正常访问内网资源的同时实现对EasyConnect的控制.
-解决手段我采用的是视频中提供的方案,是docker-easyconnect,[此为源代码地址][https://github">
+    <meta name="description" content="之前在制作控制程序的时候,有一些不够优雅的地方,今天决定对这些问题进行修正
+事件驱动之前的工作是通过不断地询问实现的,我们要实现与串口交互的部分不断询问,而上层则是通过事件去驱动,这样可以极大程度简便工作流程,并且为未来处理碰撞等问题提供解决方案.
+对于电机电机输入一个MoveControlCall">
     
     
 
@@ -20,7 +21,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>关于EasyConnect可能存在的问题以及解决方案 | Songyuli&#39;s blog</title>
+    <title>对控制驱动的改进 | Songyuli&#39;s blog</title>
 
     <!-- Bootstrap -->
     
@@ -88,7 +89,7 @@
         
     $(function() {
         // page-id...
-        var pageId = "2023/01/16/misc/abouteasyconnect/";
+        var pageId = "2023/01/17/3Dmover/new-motor-driver/";
         pageId = pageId.substr(0, pageId.indexOf("/"));
         if(pageId === "") pageId = "index";
         
@@ -98,33 +99,37 @@
 
     <article class="post container">
     <div class="well post-body first-post last-post">
-        <h1>关于EasyConnect可能存在的问题以及解决方案</h1>
+        <h1>对控制驱动的改进</h1>
         
         <div class="time-info">
-发表于:<time datetime="2023-01-16T14:06:25.000Z" itemprop="datePublished">2023-01-16</time>，更新于:<time datetime="2023-01-16T14:56:07.142Z" itemprop="dateModified">2023-01-16</time>，By <a href="https://lsyxiaopang.github.io" title="Songyuli">Songyuli</a>
+发表于:<time datetime="2023-01-17T14:14:16.000Z" itemprop="datePublished">2023-01-17</time>，更新于:<time datetime="2023-01-17T15:09:00.066Z" itemprop="dateModified">2023-01-17</time>，By <a href="https://lsyxiaopang.github.io" title="Songyuli">Songyuli</a>
         </div>
         
         <div class="post-body-inner">
             <div id="toc" class="toc-article well">
                 <strong class="toc-title">大纲</strong>
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E6%83%85%E8%B5%B7%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">事情起因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%89%8B%E6%AE%B5"><span class="toc-number">2.</span> <span class="toc-text">解决手段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%9C"><span class="toc-number">3.</span> <span class="toc-text">结果</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8"><span class="toc-number">1.</span> <span class="toc-text">事件驱动</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E4%BA%8E%E7%94%B5%E6%9C%BA"><span class="toc-number">1.1.</span> <span class="toc-text">对于电机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E4%BA%8E%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-number">1.2.</span> <span class="toc-text">对于控制器</span></a></li></ol></li></ol>
             </div>
             
-            <h2 id="事情起因"><a href="#事情起因" class="headerlink" title="事情起因"></a>事情起因</h2><p>今天我刷到了一个<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV163411Z7BD">视频</a>了解到<code>EasyConnect</code>似乎有滥用权限,泄露用户数据的可能,因此希望找到一种方法,在正常访问内网资源的同时实现对<code>EasyConnect</code>的控制.</p>
-<h2 id="解决手段"><a href="#解决手段" class="headerlink" title="解决手段"></a>解决手段</h2><p>我采用的是视频中提供的方案,是<code>docker-easyconnect</code>,[此为源代码地址][<a target="_blank" rel="noopener" href="https://github.com/Hagb/docker-easyconnect]">https://github.com/Hagb/docker-easyconnect]</a></p>
-<p>在操作的时候,需要使用<code>Docker</code>环境进行隔离,刚好也对<code>Docker</code>环境进行学习</p>
+            <p>之前在制作控制程序的时候,有一些不够优雅的地方,今天决定对这些问题进行修正</p>
+<h2 id="事件驱动"><a href="#事件驱动" class="headerlink" title="事件驱动"></a>事件驱动</h2><p>之前的工作是通过不断地询问实现的,我们要实现<strong>与串口交互的部分不断询问,而上层则是通过事件去驱动</strong>,这样可以极大程度简便工作流程,并且为未来处理碰撞等问题提供解决方案.</p>
+<h3 id="对于电机"><a href="#对于电机" class="headerlink" title="对于电机"></a>对于电机</h3><p>电机输入一个<code>MoveControlCallbacksBase</code>,其中规定了三种可能的情况:状态更新,碰撞和坐标更新</p>
 <blockquote>
-<p>需要注意的,在使用<code>socks5</code>代理的时候,把端口从1080改为其他类型的端口</p>
+<p>这些函数只有在值改变的时候才会调用</p>
 </blockquote>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>算是实现了部分的功能,在<code>Docker</code>上顺利登陆了,并且使用<code>Firefox</code>上的<code>SwichyOmega</code>实现对于流量的分流(基于<code>socks5</code>原理)(不过目前只代理了&#96;<em>.fudan.edu.cn</em>网页),这么做可以保障我在使用内网资源的时候同时可以访问外网资料</p>
-<p>不过,这样的连接存在较为严重的稳定性问题,问题比较像<a target="_blank" rel="noopener" href="https://github.com/Hagb/docker-easyconnect/issues/177">一个issue</a>,如何解决目前不明.</p>
-<p>同时,非常遗憾的,使用这种手段无法解决我使用<code>ssh</code>的问题,而网上的资料似乎主要针对<code>Linux</code>系统,因此还是无法摆脱<code>EasyConnect</code>的困扰.</p>
+<p>这样的话<code>MoveControl</code>类只留下了一个接受命令并阻塞运行的<code>run</code>方法(在阻塞运行时,坐标会更新),并且保留了两个公开可修改属性</p>
+<ol>
+<li><code>refreshtime</code>:控制多久刷新一次坐标信息</li>
+<li><code>feed_rate</code>:控制移动速度</li>
+</ol>
+<h3 id="对于控制器"><a href="#对于控制器" class="headerlink" title="对于控制器"></a>对于控制器</h3><p>计划将控制器的构造函数的参数<strong>不出现</strong>有关移动控制和测量控制的函数,这样可以保证更好的封装</p>
+<p>然后和电机保持一样的<strong>回调控制方式</strong></p>
 
 
 			
             <section class="comment">
 <!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="/2023/01/16/misc/abouteasyconnect/" data-title="关于EasyConnect可能存在的问题以及解决方案" data-url="https://lsyxiaopang.github.io/2023/01/16/misc/abouteasyconnect/"></div>
+	<div class="ds-thread" data-thread-key="/2023/01/17/3Dmover/new-motor-driver/" data-title="对控制驱动的改进" data-url="https://lsyxiaopang.github.io/2023/01/17/3Dmover/new-motor-driver/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
