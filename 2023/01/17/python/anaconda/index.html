@@ -1,0 +1,224 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta name="author" content="Songyuli">
+    
+    <meta name="description" content="像环境配置这样的问题虽然如果想非常快弄完,也不难(你甚至可以去Mircosoft Store里面下载一个Python环境),然而,这么做*后患无穷,尤其是等到要安装一些复杂的包的时候.因此,在这篇文章中,我将介绍conda的使用和Python中最常见的两个环境IPython和Jupyter Note">
+    
+    
+
+    
+    <link rel="alternative" href="YOUR_RSS_ADDRESS" title="Songyuli&#39;s blog" type="application/atom+xml">
+    
+    
+    
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Python环境配置 | Songyuli&#39;s blog</title>
+
+    <!-- Bootstrap -->
+    
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Javascript -->
+    <script src="/js/jquery-2.1.0.min.js"></script>
+    <script src="/js/jquery.backstretch.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/headroom.min.js"></script>
+    <script src="/js/jquery.headroom.min.js"></script> 
+    <script src="/js/common.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://lsyxiaopang.github.io" title="Songyuli's blog">Songyuli&#39;s blog</a>
+            </div>
+
+            <div role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
+                
+
+                <ul class="nav navbar-nav">
+                    
+                    <li id="nav-index"><a href="/">首页</a></li>
+                    
+                    <li id="nav-archives"><a href="/archives">归档</a></li>
+                    
+                    <li id="nav-tags"><a href="/tags">标签</a></li>
+                    
+                    <li id="nav-categories"><a href="/categories">分类</a></li>
+                    
+                    <li id="nav-curriculumvitae"><a href="/curriculumvitae">关于</a></li>
+                    
+                    <li id="nav-links"><a href="/links">链接</a></li>
+                    
+                    
+                    <li><a href="https://github.com/lsyxiaopang" target="_blank">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <script>
+    var backRoot = "/images/background/";
+    var backArray = [ "1.png", "2.png", "3.jpg", "4.png", "5.jpg", "6.jpg", "7.png", "8.jpg", "9.png",  ];
+        
+    $(function() {
+        // page-id...
+        var pageId = "2023/01/17/python/anaconda/";
+        pageId = pageId.substr(0, pageId.indexOf("/"));
+        if(pageId === "") pageId = "index";
+        
+        $("#nav-" + pageId).addClass("active");
+    });
+    </script>
+
+    <article class="post container">
+    <div class="well post-body first-post last-post">
+        <h1>Python环境配置</h1>
+        
+        <div class="time-info">
+发表于:<time datetime="2023-01-17T08:48:40.000Z" itemprop="datePublished">2023-01-17</time>，更新于:<time datetime="2023-01-17T09:07:56.300Z" itemprop="dateModified">2023-01-17</time>，By <a href="https://lsyxiaopang.github.io" title="Songyuli">Songyuli</a>
+        </div>
+        
+        <div class="post-body-inner">
+            <div id="toc" class="toc-article well">
+                <strong class="toc-title">大纲</strong>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#conda%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">conda的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8conda"><span class="toc-number">1.1.</span> <span class="toc-text">为什么要用conda</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#anaconda%E7%9A%84%E5%AE%89%E8%A3%85"><span class="toc-number">1.2.</span> <span class="toc-text">anaconda的安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#anaconda%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.3.</span> <span class="toc-text">anaconda的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%8E%AF%E5%A2%83"><span class="toc-number">1.3.1.</span> <span class="toc-text">创建新环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.3.2.</span> <span class="toc-text">安装包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AC%E7%A7%BB%E7%8E%AF%E5%A2%83"><span class="toc-number">1.3.3.</span> <span class="toc-text">转移环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BA%90%E9%85%8D%E7%BD%AE"><span class="toc-number">1.3.4.</span> <span class="toc-text">源配置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VSCode%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">VSCode的安装与使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#VSCode%E7%9A%84%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6"><span class="toc-number">2.1.</span> <span class="toc-text">VSCode的常用插件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E%E6%83%B3%E8%A6%81%E6%8F%90%E9%86%92%E7%9A%84"><span class="toc-number">3.</span> <span class="toc-text">最后想要提醒的</span></a></li></ol>
+            </div>
+            
+            <p>像环境配置这样的问题虽然如果想非常快弄完,也不难(你甚至可以去Mircosoft Store里面下载一个Python环境),然而,这么做*<strong>后患无穷</strong>,尤其是等到要安装一些复杂的包的时候.因此,在这篇文章中,我将介绍<code>conda</code>的使用和Python中最常见的两个环境<code>IPython</code>和<code>Jupyter Notebook</code>的相关配置,以及使用<code>VScode</code>编辑器.</p>
+<h2 id="conda的使用"><a href="#conda的使用" class="headerlink" title="conda的使用"></a><code>conda</code>的使用</h2><h3 id="为什么要用conda"><a href="#为什么要用conda" class="headerlink" title="为什么要用conda"></a>为什么要用<code>conda</code></h3><blockquote>
+<blockquote>
+<p><em>Package, dependency and environment management for any language—Python, R, Ruby, Lua, Scala, Java, JavaScript, C&#x2F; C++, FORTRAN</em></p>
+</blockquote>
+</blockquote>
+<p><code>conda</code>作为一个包管理器,可以保证你的电脑上同时存在多个不同的Python版本,并且每一个版本之间都相互独立,互不干扰(为何同时要有多个版本,因为许多包<strong>不是向下兼容的</strong>.简单的说,就是对于一个依赖,安装其最新的版本<strong>并不总是一个好的选择</strong>)</p>
+<p>这是其优点的一方面,而另外一个方面则更为重要,在<code>conda</code>中,你可以打包,发布你的程序,这样可以非常方便的实现代码的共享(这可比直接拷贝源文件来得方便)</p>
+<p>而我们这次使用的是<code>conda</code>的一个发行版(?有可能是别的名称)<code>anaconda</code>,并且以我个人电脑为例,讨论其安装与使用.</p>
+<h3 id="anaconda的安装"><a href="#anaconda的安装" class="headerlink" title="anaconda的安装"></a><code>anaconda</code>的安装</h3><p>首先在<a target="_blank" rel="noopener" href="https://www.anaconda.com/">官网</a>上下载<code>anaconda</code>(这个时候要养成在官网下载的习惯,不要下一堆杂七杂八的东西)</p>
+<p>然后安装<code>anaconda</code>,首先它会问你是给<code>本用户安装</code>还是<code>给所有用户安装</code>,我个人建议是前者(但实际上就我所知,99%家里的Windows电脑只有一个用户)</p>
+<p>之后就会有这样一个提示框</p>
+<p><img src="/2023/01/17/python/anaconda/1.png" alt="image-20230117094427619"></p>
+<p>这里有两个选项,我刚好要和推荐配置唱一波反调:</p>
+<ol>
+<li>第一个选项有关于环境变量,虽然上面并不建议添加到环境变量,但是如果不这么做,很多时候会非常麻烦</li>
+<li>第二个选项是覆盖原有Python成为默认环境,我个人倾向于如果已经有Python环境了,就不要覆盖,免得影响现有依赖</li>
+</ol>
+<p>然后就是点击<code>Install</code>等待其安装.</p>
+<h3 id="anaconda的使用"><a href="#anaconda的使用" class="headerlink" title="anaconda的使用"></a><code>anaconda</code>的使用</h3><p>安装完<code>anaconda</code>之后,你可以打开你电脑上的<code>Anaconda Powershell Prompt</code>,然后可以看见一个命令行界面</p>
+<p><img src="/2023/01/17/python/anaconda/2.png" alt="image-20230117095543879"></p>
+<p>不过与<code>Powershell</code>不同的是,在<code>anaconda</code>里面有一个<code>(base)</code>,这意味着你目前处于一个基础环境.</p>
+<p>然后如果你在其中输入<code>IPython</code>,那么就会有<code>IPython</code>的界面跳出来,表明其已经被安装了.</p>
+<p>而<code>Jupyter</code>环境则可以通过输入<code>jupyter notebook</code>尝试,你们会得到这样的界面:</p>
+<p><img src="/2023/01/17/python/anaconda/3.png" alt="image-20230117100215561"></p>
+<p>表明<code>Jupyter</code>内核已经启动,然后你需要使用浏览器去连接这个内核</p>
+<blockquote>
+<p>怎么连接希望大家自己想想,毕竟大家都懂英文</p>
+</blockquote>
+<p>但是实际上,我更加推荐使用<code>VSCode</code>作为<code>Jupyter</code>的编辑器,不过<code>jupyter</code>命令有别的功能,比如转换笔记本,大家可以去查找一下.</p>
+<h4 id="创建新环境"><a href="#创建新环境" class="headerlink" title="创建新环境"></a>创建新环境</h4><p>好,现在假设我需要创造一个环境用来给我做机器学习,那么我们可以用</p>
+<p><code>conda create -n &quot;machine-learning&quot; python=3.8</code>来创建,这里我配置了一个名字叫”machine-learning”的环境,使用的python版本为3.8</p>
+<p>安装好之后,在<code>anaconda</code>里面输入<code>conda info -e</code>(展示所有的环境),就可以看到这样的结果</p>
+<p><img src="/2023/01/17/python/anaconda/4.png" alt="image-20230117101138010"></p>
+<p>这表明新的环境已经被成功安装,然后输一下<code>ipython</code>试一试</p>
+<p><img src="/2023/01/17/python/anaconda/5.png" alt="image-20230117134918357"></p>
+<p>淦,出错了,<strong>还是原来的python环境没变</strong></p>
+<p>经过分析,我发现这个是我电脑原本安装的python,<strong>由于我的<code>conda</code>环境里面并没有<code>ipython</code>,因此在寻找的时候按照先后顺序就找到了自己电脑的<code>ipython</code></strong></p>
+<p>因此,<em><strong>在使用<code>conda</code>的时候,务必注意环境里面你打开的究竟是哪个内核.</strong></em></p>
+<h4 id="安装包"><a href="#安装包" class="headerlink" title="安装包"></a>安装包</h4><p>比如说,我现在要安装<code>sklearn</code>库,那么我就在网上搜索<code>sklearn anaconda</code>,然后就搜到了安装指令<code>conda install -c anaconda scikit-learn</code><a target="_blank" rel="noopener" href="https://anaconda.org/anaconda/scikit-learn">网址</a></p>
+<p>把这输进去(注意检查当前的环境),然后安装即可</p>
+<p>其会自动安装依赖,比如:</p>
+<p><img src="/2023/01/17/python/anaconda/9.png" alt="image-20230117141643636"></p>
+<h4 id="转移环境"><a href="#转移环境" class="headerlink" title="转移环境"></a>转移环境</h4><p>假如你千辛万苦配好一个环境并且成功运行了一套程序,然后你需要移到别的电脑上运行(这台电脑可能是别的系统)</p>
+<p>你可以采用<code>conda env export &gt; environment.yml</code>来创建一个配置文件,然后把这个文件复制到另外一台电脑(可能是集群),然后<code>conda env create -f environment.yml</code>,就可以在不同的操作系统平台上复现环境</p>
+<blockquote>
+<p>这种情况并不少见,你可能希望在自己电脑上(Windows或Mac)编程,然后到集群上(Linux)运行</p>
+</blockquote>
+<p>可以参考一下<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/dea48074b5b8">这个网页</a></p>
+<blockquote>
+<p>需要注意删除一些不必要的库以提升可移植性</p>
+</blockquote>
+<h4 id="源配置"><a href="#源配置" class="headerlink" title="源配置"></a>源配置</h4><p>由于一些众所周知的原因,大家需要使用国内镜像站,可以给一个网址</p>
+<h2 id="VSCode的安装与使用"><a href="#VSCode的安装与使用" class="headerlink" title="VSCode的安装与使用"></a><code>VSCode</code>的安装与使用</h2><p><code>VSCode</code>作为一个常用编辑器,其安装并不复杂,这个大家自己网上搜就可以了.</p>
+<h3 id="VSCode的常用插件"><a href="#VSCode的常用插件" class="headerlink" title="VSCode的常用插件"></a>VSCode的常用插件</h3><ol>
+<li>Better Comments</li>
+<li>Jupyter(注意,在使用前,需要安装好<code>Jupyter</code>内核)</li>
+<li>Python(为python程序设计提供IDE环境)</li>
+</ol>
+<h2 id="最后想要提醒的"><a href="#最后想要提醒的" class="headerlink" title="最后想要提醒的"></a>最后想要提醒的</h2><p>在每次打开程序的时候,务必要注意打开的python版本</p>
+<p>比如:</p>
+<p><img src="/2023/01/17/python/anaconda/6.png" alt="image-20230117140557615"></p>
+<p><img src="/2023/01/17/python/anaconda/7.png" alt="image-20230117140625609"></p>
+<p><img src="/2023/01/17/python/anaconda/8.png" alt="image-20230117141531520"></p>
+
+
+			
+            <section class="comment">
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="/2023/01/17/python/anaconda/" data-title="Python环境配置" data-url="https://lsyxiaopang.github.io/2023/01/17/python/anaconda/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"lsy"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+</section>
+        </div>
+    </div>
+</article>
+
+    <footer id="footer">
+    <div id="bottom-tip">
+        Songyuli&#39;s blog
+    </div>
+        <small>该博客由 <a href="https://hexo.io/" target="_blank">Hexo</a> 强力驱动，搭载 <a href="https://github.com/XadillaX/hexadillax" target="_blank">Hexadillax</a> 主题</small><br />
+        <small>&copy; 2023 Songyuli</small>
+    </footer>
+
+    
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+
+</body>
+</html>
+

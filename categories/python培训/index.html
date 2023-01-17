@@ -17,7 +17,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Category:   | Songyuli&#39;s blog</title>
+    <title>Category: python培训 | Songyuli&#39;s blog</title>
 
     <!-- Bootstrap -->
     
@@ -85,7 +85,7 @@
         
     $(function() {
         // page-id...
-        var pageId = "categories/index.html";
+        var pageId = "categories/python培训/index.html";
         pageId = pageId.substr(0, pageId.indexOf("/"));
         if(pageId === "") pageId = "index";
         
@@ -94,51 +94,43 @@
     </script>
 
     
-
 <div class="container archive-body">
     <div class="row">
         <div class="col-xs-3 well">
-            <div class="category-title" >
-                <h2 class="category-icon">分类</h2>
-                
-                <a data-src="/categories/3D位移测量平台设计/" href="#3D位移测量平台设计" title="3D位移测量平台设计">3D位移测量平台设计<sup>3</sup></a>
-                
-                <a data-src="/categories/Python设计控制系统/" href="#Python设计控制系统" title="Python设计控制系统">Python设计控制系统<sup>2</sup></a>
-                
-                <a data-src="/categories/maxi1820/" href="#maxi1820" title="maxi1820">maxi1820<sup>1</sup></a>
-                
-                <a data-src="/categories/python培训/" href="#python培训" title="python培训">python培训<sup>1</sup></a>
-                
-                <a data-src="/categories/杂项/" href="#杂项" title="杂项">杂项<sup>1</sup></a>
-                
+            <div class="archive-title" >
+                <h2 class="tag-icon">python培训</h2>
+                <div>
+                    <a href="/categories"><< 返回标签列表</a> 
+                </div>
             </div>
         </div>
         
-        <div class="all-list-box">
+        <div class="col-xs-9" id="category-list-body">
+            
+            <article class="post">
+                <div class="jumbotron">
+                    <h1><a href="/2023/01/17/python/anaconda/" title="Python环境配置">Python环境配置</a></h1>
+
+                    
+                        <p>像环境配置这样的问题虽然如果想非常快弄完,也不难(你甚至可以去Mircosoft Store里面下载一个Python环境),然而,这么做*后患无穷,尤其是等到要安装一些复杂的包的时候.因此,在这篇文章中,我将介绍conda的使用和Python中最常见的两个环境IPython和Ju</p>
+                    
+
+                    <p class="say-title">
+                        —— <img src="ava.gif" class="img-circle index-post-avatar" />
+                        <a href="https://lsyxiaopang.github.io" target="_blank" title="Songyuli">Songyuli</a>
+                        于2023-01-17对有关以 <a class="article-tag--link" href="/tags/conda/" rel="tag">conda</a>, <a class="article-tag--link" href="/tags/python/" rel="tag">python</a> 话题的讨论
+                    </p>
+                </div>
+            </article>
+            
+            
+            
         </div>
     </div>
+        
+    <div class="col-xs-19 all-list-box">
+    </div>
 </div>
-    
-<script>
-$(function() {
-    var box = $('.all-list-box');
-    var first = $('.category-title a:first-of-type');
-    var list = $('.category-title a');
-    
-    box.load(first.attr('data-src').toString() + ' #category-list-body');
-    first.addClass('currentTag');
-    list.each(function() {
-        $(this).click(function() {
-            var listSrc = $(this).attr('data-src').toString() + ' #category-list-body';
-            box.load(listSrc);
-            list.removeClass('currentTag');
-            $(this).addClass('currentTag');
-        });
-    });
-});
-</script>
-
-
     <footer id="footer">
     <div id="bottom-tip">
         Songyuli&#39;s blog
