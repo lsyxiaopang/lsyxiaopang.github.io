@@ -17,15 +17,15 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="被控对象的行为准备工作为了更加方便地绘制相关图像,在这里要进行相应的准备工作 1234import matplotlib.pyplot as pltimport numpy as npimport control as ct from control.matlab import * 绘图时用以确定线条类型 123456def line_generator():    linestyle&#x3D;[&amp;quo">
+  <meta name="description" content="被控对象的行为准备工作为了更加方便地绘制相关图像,在这里要进行相应的准备工作 1234import matplotlib.pyplot as pltimport numpy as npimport control as ct from control.matlab import *  绘图时用以确定线条类型 123456def line_generator():    linestyle&#x3D;[&amp;qu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="被控对象的行为">
 <meta property="og:url" content="https://lsyxiaopang.github.io/2023/01/15/control%20system/control2/index.html">
 <meta property="og:site_name" content="Songyuli&#39;s blog">
-<meta property="og:description" content="被控对象的行为准备工作为了更加方便地绘制相关图像,在这里要进行相应的准备工作 1234import matplotlib.pyplot as pltimport numpy as npimport control as ct from control.matlab import * 绘图时用以确定线条类型 123456def line_generator():    linestyle&#x3D;[&amp;quo">
+<meta property="og:description" content="被控对象的行为准备工作为了更加方便地绘制相关图像,在这里要进行相应的准备工作 1234import matplotlib.pyplot as pltimport numpy as npimport control as ct from control.matlab import *  绘图时用以确定线条类型 123456def line_generator():    linestyle&#x3D;[&amp;qu">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://lsyxiaopang.github.io/2023/01/15/control%20system/control2/output_11_0.png">
 <meta property="og:image" content="https://lsyxiaopang.github.io/2023/01/15/control%20system/control2/output_13_0.png">
@@ -46,7 +46,7 @@
 <meta property="og:image" content="https://lsyxiaopang.github.io/2023/01/15/control%20system/control2/output_61_1.png">
 <meta property="og:image" content="https://lsyxiaopang.github.io/2023/01/15/control%20system/control2/output_63_0.png">
 <meta property="article:published_time" content="2023-01-15T05:25:56.000Z">
-<meta property="article:modified_time" content="2023-01-15T12:24:24.106Z">
+<meta property="article:modified_time" content="2023-01-24T14:17:43.993Z">
 <meta property="article:author" content="Songyuli">
 <meta property="article:tag" content="控制系统">
 <meta name="twitter:card" content="summary">
@@ -123,6 +123,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -157,11 +158,38 @@
     <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -171,6 +199,9 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/lsyxiaopang" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
 
 
     <main class="main">
@@ -207,10 +238,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-01-15 13:25:56 / Modified: 20:24:24" itemprop="dateCreated datePublished" datetime="2023-01-15T13:25:56+08:00">2023-01-15</time>
+              <time title="Created: 2023-01-15 13:25:56" itemprop="dateCreated datePublished" datetime="2023-01-15T13:25:56+08:00">2023-01-15</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-01-24 22:17:43" itemprop="dateModified" datetime="2023-01-24T22:17:43+08:00">2023-01-24</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -222,6 +259,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/01/15/control%20system/control2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/15/control system/control2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -234,96 +285,137 @@
       
         <h1 id="被控对象的行为"><a href="#被控对象的行为" class="headerlink" title="被控对象的行为"></a>被控对象的行为</h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>为了更加方便地绘制相关图像,在这里要进行相应的准备工作</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> control <span class="keyword">as</span> ct </span><br><span class="line"><span class="keyword">from</span> control.matlab <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure>
+
 <p>绘图时用以确定线条类型</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">line_generator</span>():</span><br><span class="line">    linestyle=[<span class="string">&quot;-&quot;</span>,<span class="string">&quot;--&quot;</span>,<span class="string">&quot;-.&quot;</span>,<span class="string">&quot;:&quot;</span>]</span><br><span class="line">    lineid=<span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">yield</span> linestyle[lineid] <span class="comment">#* 这个yield用法很有趣,可以学习一下</span></span><br><span class="line">        lineid=(lineid+<span class="number">1</span>)%<span class="built_in">len</span>(linestyle)</span><br></pre></td></tr></table></figure>
+
 <p>用以完善绘图</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">plot_set</span>(<span class="params">fig_ax,*args</span>):</span><br><span class="line">    fig_ax.set_xlabel(args[<span class="number">0</span>])</span><br><span class="line">    fig_ax.set_ylabel(args[<span class="number">1</span>])</span><br><span class="line">    fig_ax.grid(ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)==<span class="number">3</span>:</span><br><span class="line">        fig_ax.legend(loc=args[<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+
 <p>用以完善伯德图函数</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">bodeplot_set</span>(<span class="params">fig_ax,*args</span>):</span><br><span class="line">    fig_ax[<span class="number">0</span>].grid(which=<span class="string">&#x27;both&#x27;</span>,ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">0</span>].set_ylabel(<span class="string">&#x27;Gain [dB]&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].grid(which=<span class="string">&#x27;both&#x27;</span>,ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].set_xlabel(<span class="string">&#x27;$\omega$ [rad/s]&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].set_ylabel(<span class="string">&#x27;Phase [deg]&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)&gt;<span class="number">0</span>:</span><br><span class="line">        fig_ax[<span class="number">1</span>].legend(loc=args[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)&gt;<span class="number">1</span>:</span><br><span class="line">        fig_ax[<span class="number">0</span>].legend(loc=args[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
-<h2 id="时域响应"><a href="#时域响应" class="headerlink" title="时域响应"></a>时域响应</h2><p>在这一部分,我们选取常见的阶跃函数<code>step</code>对于一阶和二阶的滞后系统进行描述</p>
-<h3 id="一阶滞后系统"><a href="#一阶滞后系统" class="headerlink" title="一阶滞后系统"></a>一阶滞后系统</h3><p>之前用来描述有阻尼手推车系统的传递函数的传递函数为</p>
-<script type="math/tex; mode=display">\mathcal{P}(s)=\frac{\frac{1}{\mu}}{1+\frac{M}{\mu}s}</script><p>可以将$\frac{1}{\mu}$简化为增益$K$,$\frac{M}{\mu}$简化为时间常数$T$,<br>这一类系统的阶跃响应可以被表示为</p>
+
+<h2 id="时域响应"><a href="#时域响应" class="headerlink" title="时域响应"></a>时域响应</h2><span id="more"></span>
+
+<p>在这一部分,我们选取常见的阶跃函数<code>step</code>对于一阶和二阶的滞后系统进行描述</p>
+<h3 id="一阶滞后系统"><a href="#一阶滞后系统" class="headerlink" title="一阶滞后系统"></a>一阶滞后系统</h3><p>之前用来描述有阻尼手推车系统的传递函数的传递函数为<br>$$\mathcal{P}(s)&#x3D;\frac{\frac{1}{\mu}}{1+\frac{M}{\mu}s}$$<br>可以将$\frac{1}{\mu}$简化为增益$K$,$\frac{M}{\mu}$简化为时间常数$T$,<br>这一类系统的阶跃响应可以被表示为</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ts,k=<span class="number">0.5</span>,<span class="number">1</span></span><br><span class="line">p=tf([<span class="number">0</span>,k],[ts,<span class="number">1</span>])</span><br><span class="line">y,t=step(p,np.linspace(<span class="number">0</span>,<span class="number">5</span>,<span class="number">100</span>))</span><br><span class="line"></span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,y)</span><br><span class="line">plot_set(ax,<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;y&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_11_0.png" alt="png"><br>​    </p>
-<p>其中,我们需要注意到,$T$代表系统达到稳定值的63.2\%所需要的时间.<br>下面展示了在不同的$T$下系统的变化</p>
+
+
+<p>​<br><img src="/2023/01/15/control%20system/control2/output_11_0.png" alt="png"><br>​    </p>
+<p>其中,我们需要注意到,$T$代表系统达到稳定值的63.2%所需要的时间.<br>下面展示了在不同的$T$下系统的变化</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ls=line_generator()</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line"></span><br><span class="line">k=<span class="number">1</span></span><br><span class="line">tl=[<span class="number">0.1</span>,<span class="number">0.5</span>,<span class="number">1</span>]</span><br><span class="line"><span class="keyword">for</span> tt <span class="keyword">in</span> tl:</span><br><span class="line">    p=tf([<span class="number">0</span>,k],[tt,<span class="number">1</span>])</span><br><span class="line">    y,t=step(p,np.linspace(<span class="number">0</span>,<span class="number">5</span>,<span class="number">100</span>))</span><br><span class="line">    ax.plot(t,y,<span class="built_in">next</span>(ls),label=<span class="string">&quot;T=&quot;</span>+<span class="built_in">str</span>(tt))</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;y&quot;</span>,<span class="string">&quot;best&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_13_0.png" alt="png"><br>​    </p>
+
+
+<p>​<br><img src="/2023/01/15/control%20system/control2/output_13_0.png" alt="png"><br>​    </p>
 <p>可以明显看出$T$越大,达到平衡就越慢,$K$为增益,在这里不再加以演示了</p>
-<h3 id="二阶滞后系统"><a href="#二阶滞后系统" class="headerlink" title="二阶滞后系统"></a>二阶滞后系统</h3><p>如果考量一个阻尼弹簧的模型,我们可以得到其传递模型为</p>
-<script type="math/tex; mode=display">\mathcal{P}(s)=\frac{\omega_n^2}{s^2+2\zeta\omega_ns+\omega_n^2}</script><p>式中$\zeta$被称为阻尼系数,$\omega_n$被称为无阻尼自然频率.<br>这样的系统被称为<strong>二阶滞后系统</strong></p>
+<h3 id="二阶滞后系统"><a href="#二阶滞后系统" class="headerlink" title="二阶滞后系统"></a>二阶滞后系统</h3><p>如果考量一个阻尼弹簧的模型,我们可以得到其传递模型为<br>$$\mathcal{P}(s)&#x3D;\frac{\omega_n^2}{s^2+2\zeta\omega_ns+\omega_n^2}$$<br>式中$\zeta$被称为阻尼系数,$\omega_n$被称为无阻尼自然频率.<br>这样的系统被称为<strong>二阶滞后系统</strong></p>
 <blockquote>
 <p>实际上就是阻尼振动(LCR振荡的模型)</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">zeta,omega0=<span class="number">0.4</span>,<span class="number">5</span></span><br><span class="line">p=tf([<span class="number">0</span>,omega0**<span class="number">2</span>],[<span class="number">1</span>,<span class="number">2</span>*zeta*omega0,omega0**<span class="number">2</span>])</span><br><span class="line">y,t=step(p,np.linspace(<span class="number">0</span>,<span class="number">5</span>,<span class="number">100</span>))</span><br><span class="line"></span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,y)</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;y&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_16_0.png" alt="png"><br>​    </p>
+
+
+<p>​<br><img src="/2023/01/15/control%20system/control2/output_16_0.png" alt="png"><br>​    </p>
 <p>可以注意到响应图象呈现先增大后减小(中间存在过冲)<strong>过冲</strong>在二阶滞后系统时有发生.<br>下面展现出过冲在不同的阻尼系数下的表现</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ls=line_generator()</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line"></span><br><span class="line">omega=<span class="number">5</span></span><br><span class="line">beta=[<span class="number">0.3</span>,<span class="number">0.5</span>,<span class="number">1</span>]</span><br><span class="line"><span class="keyword">for</span> tt <span class="keyword">in</span> beta:</span><br><span class="line">    p=tf([<span class="number">0</span>,omega**<span class="number">2</span>],[<span class="number">1</span>,<span class="number">2</span>*tt*omega,omega**<span class="number">2</span>])</span><br><span class="line">    y,t=step(p,np.linspace(<span class="number">0</span>,<span class="number">5</span>,<span class="number">100</span>))</span><br><span class="line">    ax.plot(t,y,<span class="built_in">next</span>(ls),label=<span class="string">&quot;$\zeta$=&quot;</span>+<span class="built_in">str</span>(tt))</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;y&quot;</span>,<span class="string">&quot;best&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_18_0.png" alt="png"><br>​    </p>
+
+
+<p>​<br><img src="/2023/01/15/control%20system/control2/output_18_0.png" alt="png"><br>​    </p>
 <p>可以注意到随着$\zeta$增加,过冲逐渐减小,乃至消失,而不同的$\omega_n$的影响可以如下图所示</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ls=line_generator()</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line"></span><br><span class="line">omegas=[<span class="number">1</span>,<span class="number">5</span>,<span class="number">10</span>]</span><br><span class="line">tt=<span class="number">0.3</span></span><br><span class="line"><span class="keyword">for</span> omega <span class="keyword">in</span> omegas:</span><br><span class="line">    p=tf([<span class="number">0</span>,omega**<span class="number">2</span>],[<span class="number">1</span>,<span class="number">2</span>*tt*omega,omega**<span class="number">2</span>])</span><br><span class="line">    y,t=step(p,np.linspace(<span class="number">0</span>,<span class="number">5</span>,<span class="number">100</span>))</span><br><span class="line">    ax.plot(t,y,<span class="built_in">next</span>(ls),label=<span class="string">&quot;$\omega_n$=&quot;</span>+<span class="built_in">str</span>(omega))</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;y&quot;</span>,<span class="string">&quot;best&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_20_0.png" alt="png"><br>​    </p>
+
+
+<p>​<br><img src="/2023/01/15/control%20system/control2/output_20_0.png" alt="png"><br>​    </p>
 <p>可见$\omega_n$不会改变响应的大小,只会改变响应速度</p>
 <blockquote>
 <p>下面展现了一个高阶响应系统的阶跃响应</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">p=tf([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>])</span><br><span class="line">y,t=step(p,np.linspace(<span class="number">0</span>,<span class="number">5</span>,<span class="number">100</span>))</span><br><span class="line"></span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,y)</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;y&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_23_0.png" alt="png"><br>​    </p>
+
+
+<p>​<br><img src="/2023/01/15/control%20system/control2/output_23_0.png" alt="png"><br>​    </p>
 <h2 id="状态空间模型的时域响应"><a href="#状态空间模型的时域响应" class="headerlink" title="状态空间模型的时域响应"></a>状态空间模型的时域响应</h2><p>在状态空间模型中,我们还会考虑不同的初始值会给出什么样不同的结果</p>
 <blockquote>
-<p>状态空间模型(单输入,单输出)定义</p>
-<script type="math/tex; mode=display">\mathbf{\dot{x}}(t)=\mathrm{A}\mathbf{x}(t)+\mathbf{B}u(t)</script><script type="math/tex; mode=display">y(t)=\mathrm{C}\mathbf{x}(t)+Du(t)</script><p>我们考虑一个系统,其中$A=\left[\begin{matrix}0&amp;1\-4&amp;-5\end{matrix}\right],B=\left[\begin{matrix}0\\1\end{matrix}\right],C=\left[\begin{matrix}1&amp;0\\0&amp;1\end{matrix}\right],D=\left[\begin{matrix}0\\0\end{matrix}\right]$,为了便于观察中间状态的行为,将$C$设定为单位阵<br>而在Python中,可以利用<code>initial</code>函数获得系统对于初值的响应</p>
+<p>状态空间模型(单输入,单输出)定义<br>$$\mathbf{\dot{x}}(t)&#x3D;\mathrm{A}\mathbf{x}(t)+\mathbf{B}u(t)$$<br>$$y(t)&#x3D;\mathrm{C}\mathbf{x}(t)+Du(t)$$<br>我们考虑一个系统,其中$A&#x3D;\left[\begin{matrix}0&amp;1\-4&amp;-5\end{matrix}\right],B&#x3D;\left[\begin{matrix}0\1\end{matrix}\right],C&#x3D;\left[\begin{matrix}1&amp;0\0&amp;1\end{matrix}\right],D&#x3D;\left[\begin{matrix}0\0\end{matrix}\right]$,为了便于观察中间状态的行为,将$C$设定为单位阵<br>而在Python中,可以利用<code>initial</code>函数获得系统对于初值的响应</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">A=[[<span class="number">0</span>,<span class="number">1</span>],[-<span class="number">4</span>,-<span class="number">0.5</span>]]</span><br><span class="line">B=[[<span class="number">0</span>],[<span class="number">1</span>]]</span><br><span class="line">C=[[<span class="number">1</span>,<span class="number">0</span>],[<span class="number">0</span>,<span class="number">1</span>]]</span><br><span class="line">D=[[<span class="number">0</span>],[<span class="number">0</span>]]</span><br><span class="line">P=ss(A,B,C,D)</span><br><span class="line">x0=[-<span class="number">0.3</span>,<span class="number">0.4</span>]</span><br><span class="line">x,t=initial(P,np.linspace(<span class="number">0</span>,<span class="number">30</span>,<span class="number">1000</span>),x0)</span><br><span class="line"></span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,x[:,<span class="number">0</span>],label=<span class="string">&#x27;$x_1$&#x27;</span>)</span><br><span class="line">ax.plot(t,x[:,<span class="number">1</span>],<span class="string">&#x27;-.&#x27;</span>,label=<span class="string">&#x27;$x_2$&#x27;</span>)</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;x&quot;</span>,<span class="string">&#x27;best&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_25_0.png" alt="png"><br>​    </p>
-<p>可以注意到,两个状态(分别对应于阻尼运动的位置和速度)最终都会趋向0,这是阻尼运动的特征<br>对于一个微分方程$\dot{x}(t)=ax(t)$,其具有解$x(t)=e^{at}x(0)$,而将$a$替换为矩阵$\mathrm{A}$可以得到状态方程的解为</p>
-<script type="math/tex; mode=display">\mathbf{x}(t)=e^{\mathrm{A}t}\mathbf{x}(0)</script><p>如果可以计算出这个指数,那么就可以得到状态方程的行为特征</p>
+
+
+<p>​<br><img src="/2023/01/15/control%20system/control2/output_25_0.png" alt="png"><br>​    </p>
+<p>可以注意到,两个状态(分别对应于阻尼运动的位置和速度)最终都会趋向0,这是阻尼运动的特征<br>对于一个微分方程$\dot{x}(t)&#x3D;ax(t)$,其具有解$x(t)&#x3D;e^{at}x(0)$,而将$a$替换为矩阵$\mathrm{A}$可以得到状态方程的解为<br>$$\mathbf{x}(t)&#x3D;e^{\mathrm{A}t}\mathbf{x}(0)$$<br>如果可以计算出这个指数,那么就可以得到状态方程的行为特征</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scipy.linalg</span><br><span class="line">mA=np.array(A)</span><br><span class="line">t=<span class="number">10</span></span><br><span class="line">scipy.linalg.expm(mA*t)</span><br></pre></td></tr></table></figure>
+
+
+
+
 <pre><code>array([[ 0.05345953,  0.03466486],
        [-0.13865943,  0.0361271 ]])
-</code></pre><p>接下来我们考虑具有输入的情况,利用下面的求解公式</p>
-<script type="math/tex; mode=display">\mathrm{x}(t)=e^{\mathrm{A}t}\mathrm{x}(0)+\int_0^te^{\mathrm{A}(t-t_s)}\mathrm{B}u(t_s)\mathrm{d}t_s</script><p>其中右边第一项为<strong>零输入响应</strong>,第二项为<strong>零初值响应</strong><br>接下来来看一下之前函数$x=\left[\begin{matrix}0\\0\end{matrix}\right]$时的零初值响应,输入为阶跃输入</p>
+</code></pre>
+<p>接下来我们考虑具有输入的情况,利用下面的求解公式<br>$$\mathrm{x}(t)&#x3D;e^{\mathrm{A}t}\mathrm{x}(0)+\int_0^te^{\mathrm{A}(t-t_s)}\mathrm{B}u(t_s)\mathrm{d}t_s$$<br>其中右边第一项为<strong>零输入响应</strong>,第二项为<strong>零初值响应</strong><br>接下来来看一下之前函数$x&#x3D;\left[\begin{matrix}0\0\end{matrix}\right]$时的零初值响应,输入为阶跃输入</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Td=np.linspace(<span class="number">0</span>,<span class="number">20</span>,<span class="number">1000</span>)</span><br><span class="line">x,t=step(P,Td)</span><br><span class="line"></span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,x[:,<span class="number">0</span>],label=<span class="string">&quot;$x_1$&quot;</span>)</span><br><span class="line">ax.plot(t,x[:,<span class="number">1</span>],ls=<span class="string">&quot;-.&quot;</span>,label=<span class="string">&quot;$x_2$&quot;</span>)</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;x&quot;</span>,<span class="string">&#x27;best&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_29_0.png" alt="png"><br>​    </p>
+
+
+<p>​<br><img src="/2023/01/15/control%20system/control2/output_29_0.png" alt="png"><br>​    </p>
 <p>我们可以进一步将之前的零输入响应添加进去,只要将两者相加即可,或者使用<code>lsim</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Td=np.linspace(<span class="number">0</span>,<span class="number">20</span>,<span class="number">1000</span>)</span><br><span class="line">x1,t=step(P,Td)</span><br><span class="line">x2,t=initial(P,Td,[<span class="number">0.3</span>,-<span class="number">0.4</span>])</span><br><span class="line">x=x1[...,<span class="number">0</span>]+x2</span><br><span class="line"></span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,x[:,<span class="number">0</span>],label=<span class="string">&quot;$x_1$&quot;</span>)</span><br><span class="line">ax.plot(t,x[:,<span class="number">1</span>],ls=<span class="string">&quot;-.&quot;</span>,label=<span class="string">&quot;$x_2$&quot;</span>)</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;x&quot;</span>,<span class="string">&#x27;best&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_31_0.png" alt="png"><br>​    </p>
-<p>下面我们可以稍稍修改一下代码,实现$u(t)=3\sin 5t,x(0)=[0.5,1]^T$时系统响应</p>
+
+
+<p>​<br><img src="/2023/01/15/control%20system/control2/output_31_0.png" alt="png"><br>​    </p>
+<p>下面我们可以稍稍修改一下代码,实现$u(t)&#x3D;3\sin 5t,x(0)&#x3D;[0.5,1]^T$时系统响应</p>
 <blockquote>
 <p>对于一般的响应,建议还是使用<code>lsim</code>实现</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Td=np.linspace(<span class="number">0</span>,<span class="number">20</span>,<span class="number">1000</span>)</span><br><span class="line">x1=<span class="number">3</span>*np.sin(<span class="number">5</span>*Td)</span><br><span class="line">x2,t=initial(P,Td,[<span class="number">0.5</span>,<span class="number">1</span>])</span><br><span class="line">x,_,_=lsim(P,x1,Td,[<span class="number">0.5</span>,<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,x[:,<span class="number">0</span>],label=<span class="string">&quot;$x_1$&quot;</span>)</span><br><span class="line">ax.plot(t,x[:,<span class="number">1</span>],ls=<span class="string">&quot;-.&quot;</span>,label=<span class="string">&quot;$x_2$&quot;</span>)</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;x&quot;</span>,<span class="string">&#x27;best&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_33_0.png" alt="png"><br>​    </p>
+
+
+<p>​<br><img src="/2023/01/15/control%20system/control2/output_33_0.png" alt="png"><br>​    </p>
 <h2 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h2><p>在研究系统工作时,我们发现一部分值可能会导致系统发散,即系统<strong>不稳定</strong>,我们需要研究系统的稳定性取决于哪些因素 </p>
 <h3 id="输入输出稳定性"><a href="#输入输出稳定性" class="headerlink" title="输入输出稳定性"></a>输入输出稳定性</h3><p>如果输入信号有界,输出也有界,这种情况被称作<strong>输入输出稳定(BIBO稳定)</strong>  </p>
 <blockquote>
 <p>判断不稳定的方法<br>观察传递函数$\mathcal{P}(s)$的极点(其中代数式达到无穷的情况)<br>在python中可以使用<code>pole</code>函数寻找到传递函数的极点</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">P1=tf([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;P1:&quot;</span>,pole(P1))</span><br></pre></td></tr></table></figure>
+
 <pre><code>P1: [-1.+0.j]
-</code></pre><p>接下来看看二阶滞后函数中$K=1,\omega_n=1,\zeta=0.025$时的传递函数的极点</p>
+</code></pre>
+<p>接下来看看二阶滞后函数中$K&#x3D;1,\omega_n&#x3D;1,\zeta&#x3D;0.025$时的传递函数的极点</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">P2=tf([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">0.05</span>,<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;P2:&quot;</span>,pole(P2))</span><br></pre></td></tr></table></figure>
+
 <pre><code>P2: [-0.025+0.99968745j -0.025-0.99968745j]
-</code></pre><p><strong><em>系统处于输入输出稳定条件为:传递函数的所有极点实部均为负数</em></strong><br>实部为负值的极点为<strong>稳定极点</strong>,否则为<strong>不稳定极点</strong></p>
-<h3 id="渐进稳定性"><a href="#渐进稳定性" class="headerlink" title="渐进稳定性"></a>渐进稳定性</h3><p>前面介绍的是相对于传递函数而言的,现在讨论状态空间模型,可以通过观察系统的A矩阵的<strong>特征值</strong>实现对稳定性的观测,则有:<br><strong><em>系统稳定的充分必要条件:矩阵A所有特征值的实部均为负数</em></strong></p>
-<p>但是同时需要注意到的是这里的稳定性具有<strong>渐进</strong>的特性即</p>
-<script type="math/tex; mode=display">\lim_{t\to\infin}x(t)=0</script><p>如果具有渐进稳定性,那么对于有界输入,存在有界输出(<strong>逆命题不成立</strong>)</p>
+</code></pre>
+<p><em><strong>系统处于输入输出稳定条件为:传递函数的所有极点实部均为负数</strong></em><br>实部为负值的极点为<strong>稳定极点</strong>,否则为<strong>不稳定极点</strong></p>
+<h3 id="渐进稳定性"><a href="#渐进稳定性" class="headerlink" title="渐进稳定性"></a>渐进稳定性</h3><p>前面介绍的是相对于传递函数而言的,现在讨论状态空间模型,可以通过观察系统的A矩阵的<strong>特征值</strong>实现对稳定性的观测,则有:<br><em><strong>系统稳定的充分必要条件:矩阵A所有特征值的实部均为负数</strong></em></p>
+<p>但是同时需要注意到的是这里的稳定性具有<strong>渐进</strong>的特性即<br>$$\lim_{t\to\infin}x(t)&#x3D;0$$<br>如果具有渐进稳定性,那么对于有界输入,存在有界输出(<strong>逆命题不成立</strong>)</p>
 <p>使用<code>np.linalg.eigvals</code>可以求得矩阵的特征值</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A=np.array([[<span class="number">0</span>,<span class="number">1</span>],[-<span class="number">4</span>,-<span class="number">5</span>]])</span><br><span class="line">np.linalg.eigvals(A)</span><br></pre></td></tr></table></figure>
+
+
+
+
 <pre><code>array([-1., -4.])
-</code></pre><p>而通过绘制相平面图(即状态$x$的演化轨迹)如下代码所示</p>
+</code></pre>
+<p>而通过绘制相平面图(即状态$x$的演化轨迹)如下代码所示</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">make_phase</span>(<span class="params">matA,w=<span class="number">1.5</span></span>):</span><br><span class="line">    Y,X=np.mgrid[-w:w:<span class="number">100j</span>,-w:w:<span class="number">100j</span>]</span><br><span class="line">    s,v=np.linalg.eig(matA)</span><br><span class="line">    <span class="built_in">print</span>(s)</span><br><span class="line"></span><br><span class="line">    U=matA[<span class="number">0</span>,<span class="number">0</span>]*X+matA[<span class="number">0</span>,<span class="number">1</span>]*Y</span><br><span class="line">    V=matA[<span class="number">1</span>,<span class="number">0</span>]*X+matA[<span class="number">1</span>,<span class="number">1</span>]*Y</span><br><span class="line"></span><br><span class="line">    t=np.arange(-k,k,<span class="number">0.01</span>)</span><br><span class="line">    fig,ax=plt.subplots()</span><br><span class="line">    <span class="keyword">if</span> s.imag[<span class="number">0</span>]==<span class="number">0</span> <span class="keyword">and</span> s.imag[<span class="number">1</span>]==<span class="number">0</span>:</span><br><span class="line">        ax.plot(t,(v[<span class="number">1</span>,<span class="number">0</span>]/v[<span class="number">0</span>,<span class="number">0</span>])*t,ls=<span class="string">&quot;-&quot;</span>)</span><br><span class="line">        ax.plot(t,(v[<span class="number">1</span>,<span class="number">1</span>]/v[<span class="number">0</span>,<span class="number">1</span>])*t,ls=<span class="string">&quot;-&quot;</span>)</span><br><span class="line">    ax.streamplot(X,Y,U,V,density=<span class="number">0.7</span>,color=<span class="string">&#x27;k&#x27;</span>)</span><br><span class="line">    plot_set(ax,<span class="string">&#x27;$x_1$&#x27;</span>,<span class="string">&#x27;$x_2&#x27;</span>)</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
 <p>先来刚刚那个矩阵</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make_phase(A,w=<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+
 <pre><code>[-1. -4.]
-</code></pre><p><img src="output_45_1.png" alt="png"></p>
+</code></pre>
+<p><img src="/2023/01/15/control%20system/control2/output_45_1.png" alt="png"></p>
 <p>可以注意到,所有的箭头都指向不动线的,下面展示如果特征值大于零会如何</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make_phase(np.array([[<span class="number">0</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">4</span>]]),w=<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+
 <pre><code>[-0.23606798  4.23606798]
-</code></pre><p><img src="output_47_1.png" alt="png"></p>
+</code></pre>
+<p><img src="/2023/01/15/control%20system/control2/output_47_1.png" alt="png"></p>
 <p>还有没有实数特征值的</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make_phase(np.array([[np.cos(<span class="number">0.5</span>),np.sin(<span class="number">0.5</span>)],[-np.sin(<span class="number">0.5</span>),np.cos(<span class="number">0.5</span>)]]),w=<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+
 <pre><code>[0.87758256+0.47942554j 0.87758256-0.47942554j]
-</code></pre><p><img src="output_49_1.png" alt="png"></p>
+</code></pre>
+<p><img src="/2023/01/15/control%20system/control2/output_49_1.png" alt="png"></p>
 <p>这些极点和系统行为密切相关,若极点负值越大,那么<strong>响应越迅速</strong></p>
 <p>当极点的虚部不为零时,会出现振荡,虚部越大<strong>振荡越快</strong></p>
 <p>观察实部,可以得到振荡<strong>振幅</strong>;观察虚部,可以得到振荡<strong>周期</strong></p>
@@ -331,6 +423,7 @@
 <p>但是在现实状况下,实现冲激输入非常困难,因此我们需要对信号进行傅里叶变换,研究输入输出的频域响应得到结果</p>
 <p>我们可以观察二阶滞后系统在输入正弦波时的响应</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">fig,ax=plt.subplots(<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">zeta=<span class="number">0.7</span></span><br><span class="line">omega_n=<span class="number">5</span></span><br><span class="line">P=tf([<span class="number">0</span>,omega_n**<span class="number">2</span>],[<span class="number">1</span>,<span class="number">2</span>*zeta*omega_n,omega_n**<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">freq=[<span class="number">2</span>,<span class="number">5</span>,<span class="number">10</span>,<span class="number">20</span>]</span><br><span class="line">Td=np.linspace(<span class="number">0</span>,<span class="number">5</span>,<span class="number">1000</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>):</span><br><span class="line">        u=np.sin(freq[<span class="number">2</span>*i+j]*Td)</span><br><span class="line">        y,t,x0=lsim(P,u,Td,<span class="number">0</span>)</span><br><span class="line">        ax[i,j].plot(t,u,ls=<span class="string">&#x27;--&#x27;</span>,label=<span class="string">&#x27;u&#x27;</span>)</span><br><span class="line">        ax[i,j].plot(t,y,label=<span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">        plot_set(ax[i,j],<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;u,y&#x27;</span>)</span><br><span class="line">ax[<span class="number">0</span>,<span class="number">0</span>].legend()</span><br></pre></td></tr></table></figure>
+
 <pre><code>C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\timeresp.py:935: UserWarning: return_x specified for a transfer function system. Internal conversion to state space used; results may meaningless.
   warnings.warn(
 C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\timeresp.py:935: UserWarning: return_x specified for a transfer function system. Internal conversion to state space used; results may meaningless.
@@ -345,48 +438,57 @@ C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\timeresp.py:935
 
 
 &lt;matplotlib.legend.Legend at 0x1aa4e6be160&gt;
-</code></pre><p>​<br><img src="output_53_2.png" alt="png"><br>​    </p>
+</code></pre>
+<p>​<br><img src="/2023/01/15/control%20system/control2/output_53_2.png" alt="png"><br>​    </p>
 <p>可以注意到随着频率逐渐增大,振幅逐渐减小,同时相位的滞后就会比较大</p>
 <p>对于各个频率,振幅比以$20\log_10\frac{B(\omega)}{A}$(分贝,dB)表示,绘制出图象为幅频图<br>将相位(deg)绘出的图形称为相频图,两者合称伯德图</p>
 <blockquote>
 <p>可以使用<code>bode</code>获得伯德图(记得转换)</p>
 </blockquote>
-<h3 id="一阶滞后系统的频域响应"><a href="#一阶滞后系统的频域响应" class="headerlink" title="一阶滞后系统的频域响应"></a>一阶滞后系统的频域响应</h3><p>下面我们来研究一阶滞后系统的伯德图,我们分别取时间常数$T=1,0.5,0.1$</p>
+<h3 id="一阶滞后系统的频域响应"><a href="#一阶滞后系统的频域响应" class="headerlink" title="一阶滞后系统的频域响应"></a>一阶滞后系统的频域响应</h3><p>下面我们来研究一阶滞后系统的伯德图,我们分别取时间常数$T&#x3D;1,0.5,0.1$</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">K=<span class="number">1</span></span><br><span class="line">T=[<span class="number">1</span>,<span class="number">0.5</span>,<span class="number">0.1</span>]</span><br><span class="line">Ls=line_generator()</span><br><span class="line">fig,ax=plt.subplots(<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(T)):</span><br><span class="line">    P=tf([<span class="number">0</span>,K],[T[i],<span class="number">1</span>])</span><br><span class="line">    gain,phase,w=bode(P,logspace(-<span class="number">2</span>,<span class="number">2</span>),Plot=<span class="literal">False</span>)</span><br><span class="line">    pltargs=&#123;<span class="string">&#x27;ls&#x27;</span>:<span class="built_in">next</span>(Ls),<span class="string">&#x27;label&#x27;</span>:<span class="string">&#x27;T=&#x27;</span>+<span class="built_in">str</span>(T[i])&#125;</span><br><span class="line">    ax[<span class="number">0</span>].semilogx(w,<span class="number">20</span>*np.log10(gain),**pltargs)</span><br><span class="line">    ax[<span class="number">1</span>].semilogx(w,phase*<span class="number">180</span>/np.pi,**pltargs)</span><br><span class="line">bodeplot_set(ax,<span class="number">3</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
 <pre><code>C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187: FutureWarning: &#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;
   warnings.warn(&quot;&#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;&quot;,
 C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187: FutureWarning: &#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;
   warnings.warn(&quot;&#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;&quot;,
 C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187: FutureWarning: &#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;
   warnings.warn(&quot;&#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;&quot;,
-</code></pre><p><img src="output_56_1.png" alt="png"></p>
+</code></pre>
+<p><img src="/2023/01/15/control%20system/control2/output_56_1.png" alt="png"></p>
 <p>可以注意到,随着频率的提高,输出信号会发生衰减和相移,时间常数$T$越大,衰减和相移越为明显</p>
 <blockquote>
 <p>这很好理解,时间常数越大,代表响应越慢,自然衰减和相移就大  </p>
 </blockquote>
 <p>一般可以认为,在$\frac{1}{T}$的范围之内,输入信号振幅与输出信号相似(此时相移45°)</p>
-<h2 id="二阶滞后系统的频域响应"><a href="#二阶滞后系统的频域响应" class="headerlink" title="二阶滞后系统的频域响应"></a>二阶滞后系统的频域响应</h2><p>在这一部分,我们来研究一下二阶滞后系统的频域响应,取阻尼系数$\zeta=1,0.7,0.4$</p>
+<h2 id="二阶滞后系统的频域响应"><a href="#二阶滞后系统的频域响应" class="headerlink" title="二阶滞后系统的频域响应"></a>二阶滞后系统的频域响应</h2><p>在这一部分,我们来研究一下二阶滞后系统的频域响应,取阻尼系数$\zeta&#x3D;1,0.7,0.4$</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">zeta=[<span class="number">1</span>,<span class="number">0.7</span>,<span class="number">0.4</span>]</span><br><span class="line">omega=<span class="number">1</span></span><br><span class="line">Ls=line_generator()</span><br><span class="line">fig,ax=plt.subplots(<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(T)):</span><br><span class="line">    P=tf([<span class="number">0</span>,omega**<span class="number">2</span>],[<span class="number">1</span>,<span class="number">2</span>*zeta[i]*omega,omega**<span class="number">2</span>])</span><br><span class="line">    gain,phase,w=bode(P,logspace(-<span class="number">2</span>,<span class="number">2</span>),Plot=<span class="literal">False</span>)</span><br><span class="line">    pltargs=&#123;<span class="string">&#x27;ls&#x27;</span>:<span class="built_in">next</span>(Ls),<span class="string">&#x27;label&#x27;</span>:<span class="string">&#x27;$\zeta$=&#x27;</span>+<span class="built_in">str</span>(T[i])&#125;</span><br><span class="line">    ax[<span class="number">0</span>].semilogx(w,<span class="number">20</span>*np.log10(gain),**pltargs)</span><br><span class="line">    ax[<span class="number">1</span>].semilogx(w,phase*<span class="number">180</span>/np.pi,**pltargs)</span><br><span class="line">bodeplot_set(ax,<span class="number">3</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
 <pre><code>C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187: FutureWarning: &#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;
   warnings.warn(&quot;&#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;&quot;,
 C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187: FutureWarning: &#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;
   warnings.warn(&quot;&#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;&quot;,
 C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187: FutureWarning: &#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;
   warnings.warn(&quot;&#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;&quot;,
-</code></pre><p><img src="output_59_1.png" alt="png"></p>
+</code></pre>
+<p><img src="/2023/01/15/control%20system/control2/output_59_1.png" alt="png"></p>
 <p>通过观察伯德图,我们可以得到在高频段振幅会逐渐减小,虽然在较高频下振幅的衰减与$\zeta$无关,但是如果$\zeta$较低,会出现过冲(类似于共振)<br>相位在二姐滞后系统最终会移相180°</p>
 <p>我们再来看看改变频率$\omega_n$的结果</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">zeta=<span class="number">0.5</span></span><br><span class="line">omega=[<span class="number">1</span>,<span class="number">5</span>,<span class="number">10</span>]</span><br><span class="line">Ls=line_generator()</span><br><span class="line">fig,ax=plt.subplots(<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(T)):</span><br><span class="line">    P=tf([<span class="number">0</span>,omega[i]**<span class="number">2</span>],[<span class="number">1</span>,<span class="number">2</span>*zeta*omega[i],omega[i]**<span class="number">2</span>])</span><br><span class="line">    gain,phase,w=bode(P,logspace(-<span class="number">2</span>,<span class="number">2</span>),Plot=<span class="literal">False</span>)</span><br><span class="line">    pltargs=&#123;<span class="string">&#x27;ls&#x27;</span>:<span class="built_in">next</span>(Ls),<span class="string">&#x27;label&#x27;</span>:<span class="string">&#x27;$\omega$=&#x27;</span>+<span class="built_in">str</span>(T[i])&#125;</span><br><span class="line">    ax[<span class="number">0</span>].semilogx(w,<span class="number">20</span>*np.log10(gain),**pltargs)</span><br><span class="line">    ax[<span class="number">1</span>].semilogx(w,phase*<span class="number">180</span>/np.pi,**pltargs)</span><br><span class="line">bodeplot_set(ax,<span class="number">3</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
 <pre><code>C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187: FutureWarning: &#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;
   warnings.warn(&quot;&#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;&quot;,
 C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187: FutureWarning: &#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;
   warnings.warn(&quot;&#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;&quot;,
 C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187: FutureWarning: &#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;
   warnings.warn(&quot;&#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;&quot;,
-</code></pre><p><img src="output_61_1.png" alt="png"></p>
+</code></pre>
+<p><img src="/2023/01/15/control%20system/control2/output_61_1.png" alt="png"></p>
 <p>可以注意到,随着$\omega_n$的增大,其相移和衰减的程度都下降了,而在固有频率处,刚好相移为90°</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">P=tf([<span class="number">1</span>,<span class="number">3</span>],[<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>])</span><br><span class="line">b=bode(P,logspace(-<span class="number">2</span>,<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_63_0.png" alt="png"><br>​    </p>
+
+
+<p>​<br><img src="/2023/01/15/control%20system/control2/output_63_0.png" alt="png"><br>​    </p>
 
     </div>
 
@@ -424,6 +526,13 @@ C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -484,20 +593,20 @@ C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -567,6 +676,10 @@ C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 
@@ -640,6 +753,37 @@ C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187
     
 
   
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://UNICODE_STRING.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://lsyxiaopang.github.io/2023/01/15/control%20system/control2/";
+    this.page.identifier = "2023/01/15/control system/control2/";
+    this.page.title = "被控对象的行为";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://UNICODE_STRING.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
 
 </body>
 </html>

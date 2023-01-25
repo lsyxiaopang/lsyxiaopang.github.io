@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="请注意:在本文中包含了一些非常危险的行为,在使用前请务必三思  事情起因因为之前我做过一个处理误差的库的尝试,虽然构造了一个可以自动计算常见误差形式的类,然而这样一个类用在科学计算上的价值却不大,原因就在于这么做没法使用python中的常用数学计算库numpy,那么我就开始动起了歪脑筋:是不是可以通过修改np.ndarray一些函数支持来实现我所想要的功能 就以__add__为例,我可以创建一个">
@@ -28,7 +28,7 @@
 <meta property="og:description" content="请注意:在本文中包含了一些非常危险的行为,在使用前请务必三思  事情起因因为之前我做过一个处理误差的库的尝试,虽然构造了一个可以自动计算常见误差形式的类,然而这样一个类用在科学计算上的价值却不大,原因就在于这么做没法使用python中的常用数学计算库numpy,那么我就开始动起了歪脑筋:是不是可以通过修改np.ndarray一些函数支持来实现我所想要的功能 就以__add__为例,我可以创建一个">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-01-18T16:14:09.000Z">
-<meta property="article:modified_time" content="2023-01-19T04:33:34.000Z">
+<meta property="article:modified_time" content="2023-01-19T04:33:34.693Z">
 <meta property="article:author" content="Songyuli">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="作死行为">
@@ -105,6 +105,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -139,11 +140,38 @@
     <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -153,6 +181,9 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/lsyxiaopang" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
 
 
     <main class="main">
@@ -204,6 +235,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/01/19/Pyerror/forbiddenfruit/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/19/Pyerror/forbiddenfruit/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -221,6 +266,7 @@
 <p>就以<code>__add__</code>为例,我可以创建一个新函数去替代<code>__add__</code>以实现我的功能.</p>
 <p>于是尝试了一下<code>np.ndarray.__add__=myadd</code>,很不幸,解释器告诉我</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TypeError: can&#x27;t set attributes of built-in/extension type &#x27;numpy.ndarray&#x27;</span><br></pre></td></tr></table></figure>
+
 <p>我考虑了一下,发现原因是<code>numpy</code>不是由python编写的,因此也无法直接使用python修改动态类型的手段.</p>
 <h2 id="解决-forbiddenfruit"><a href="#解决-forbiddenfruit" class="headerlink" title="解决:forbiddenfruit"></a>解决:<code>forbiddenfruit</code></h2><p>正在我表示绝望准备放弃的时候(原本准备用类继承实现功能),突然看到了<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/345547458">一篇文章</a></p>
 <p>在这篇文章,作者介绍了一个神奇又危险的库<code>forbiddenfruit</code>(<a target="_blank" rel="noopener" href="https://pypi.org/project/forbiddenfruit/">下载地址</a>),在这个库里,你可以替换python内置的类型</p>
@@ -230,6 +276,7 @@
 </blockquote>
 <p>那么下面我可以来演示一下如何替换掉python中list的加法方法</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> forbiddenfruit <span class="keyword">import</span> curse</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">change_list_add</span>():</span><br><span class="line">    old_add=<span class="built_in">list</span>.__add__<span class="comment">#保存原来加法实现</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">new_add</span>(<span class="params">self,o</span>):</span><br><span class="line">        <span class="keyword">return</span> old_add(old_add(self,[<span class="string">&quot; &quot;</span>]),o)<span class="comment">#新的加法</span></span><br><span class="line">    curse(<span class="built_in">list</span>,<span class="string">&quot;__add__&quot;</span>,new_add)<span class="comment">#替换掉原有加法</span></span><br><span class="line">change_list_add()</span><br></pre></td></tr></table></figure>
+
 <p>然后未来进行列表加法时大家就会惊奇地发现列表两个元素之间总是会有一个空格</p>
 <blockquote>
 <p>在实际的生产中,这样的做法可能会导致暴力事件的发生</p>
@@ -257,7 +304,10 @@
     <a href="/2023/01/19/MPS010602/make-wheel/" rel="prev" title="创建wheels">
       <i class="fa fa-chevron-left"></i> 创建wheels
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/01/19/Indexs/hello-world/" rel="next" title="Hello World">
+      Hello World <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -270,6 +320,13 @@
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -330,20 +387,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -415,6 +472,10 @@
 
 
 
+  
+<script src="/js/local-search.js"></script>
+
+
 
 
 
@@ -431,6 +492,37 @@
   
 
   
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://UNICODE_STRING.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://lsyxiaopang.github.io/2023/01/19/Pyerror/forbiddenfruit/";
+    this.page.identifier = "2023/01/19/Pyerror/forbiddenfruit/";
+    this.page.title = "forbiddenfruit修改ndarray";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://UNICODE_STRING.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
 
 </body>
 </html>

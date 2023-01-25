@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Fitting pointsWe chose three typical points from the HID graph.  The first pointThe first point is the observation is the three observation in P14661084 and we use the low energy and mid energy part o">
@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lsyxiaopang.github.io/2023/01/15/maxi1820/maxi1/fitLH.png">
 <meta property="og:image" content="https://lsyxiaopang.github.io/2023/01/15/maxi1820/maxi1/fit3.png">
 <meta property="article:published_time" content="2023-01-15T13:24:08.000Z">
-<meta property="article:modified_time" content="2023-01-15T14:38:48.063Z">
+<meta property="article:modified_time" content="2023-01-24T08:39:04.962Z">
 <meta property="article:author" content="Songyuli">
 <meta property="article:tag" content="maxi1820">
 <meta property="article:tag" content="X-ray spectrum fitting">
@@ -110,6 +110,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -144,11 +145,38 @@
     <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -158,6 +186,9 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/lsyxiaopang" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
 
 
     <main class="main">
@@ -194,10 +225,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-01-15 21:24:08 / Modified: 22:38:48" itemprop="dateCreated datePublished" datetime="2023-01-15T21:24:08+08:00">2023-01-15</time>
+              <time title="Created: 2023-01-15 21:24:08" itemprop="dateCreated datePublished" datetime="2023-01-15T21:24:08+08:00">2023-01-15</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-01-24 16:39:04" itemprop="dateModified" datetime="2023-01-24T16:39:04+08:00">2023-01-24</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -209,6 +246,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/01/15/maxi1820/maxi1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/15/maxi1820/maxi1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -220,12 +271,11 @@
 
       
         <h2 id="Fitting-points"><a href="#Fitting-points" class="headerlink" title="Fitting points"></a>Fitting points</h2><p>We chose three typical points from the HID graph.</p>
-<p><img src="hid.png" alt="hid"></p>
+<p><img src="/2023/01/15/maxi1820/maxi1/hid.png" alt="hid"></p>
 <h2 id="The-first-point"><a href="#The-first-point" class="headerlink" title="The first point"></a>The first point</h2><p>The first point is the observation is the three observation in <code>P14661084</code> and we use the low energy and mid energy part of the spectrum.</p>
 <p>We combine the spectra in <code>P14661084</code> and use the model <code>constant*TBabs*(simplcutx*(diskbb+relxillCp)+xillverCp)</code>(The reason why I didn’t use the model <code>mbknpo</code> is that if I add this model, then the spectrum of the very low energy(about 2keV) may not fit well), and I got the best-fit like this.</p>
-<p><img src="fitLS.png" alt="fitLS"></p>
+<p><img src="/2023/01/15/maxi1820/maxi1/fitLS.png" alt="fitLS"></p>
 <p>Also, we calculate the error of each parameter, and got the table below</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -236,8 +286,7 @@
 <th>range</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>3</td>
 <td><code>simplcutx</code></td>
 <td><code>Gamma</code></td>
@@ -328,15 +377,12 @@
 <td>1.02040</td>
 <td>1.01158~1.03362(-0.00881818,0.0132216)</td>
 </tr>
-</tbody>
-</table>
-</div>
-<h2 id="The-second-point"><a href="#The-second-point" class="headerlink" title="The second point"></a>The second point</h2><p>The second point is the three observation in ``, we used all the energy part of the spectrum.</p>
+</tbody></table>
+<h2 id="The-second-point"><a href="#The-second-point" class="headerlink" title="The second point"></a>The second point</h2><p>The second point is the three observation in &#96;&#96;, we used all the energy part of the spectrum.</p>
 <p>Also, we used the model <code>constant*TBabs*(simplcutx*(diskbb+relxillCp)+xillverCp)</code>to fit the spectrum. And ignored the spectrum between 21keV to 23keV. This time, however, we found that the model cannot fit the spectrum very well, especially at about Fe-line and at about 25 keV. </p>
 <p>The unfolded spectrum and the ratio is like below:</p>
-<p><img src="fitLH.png" alt="fitLH"></p>
+<p><img src="/2023/01/15/maxi1820/maxi1/fitLH.png" alt="fitLH"></p>
 <p>We calculated the error of each parameter, and got the table below:</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -347,8 +393,7 @@
 <th>range</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>3</td>
 <td><code>simplcutx</code></td>
 <td><code>Gamma</code></td>
@@ -395,14 +440,14 @@
 <td><code>relxillCp</code></td>
 <td><code>Incl</code></td>
 <td>41.5373</td>
-<td>38.802~-9.07362(-2.73533,4.29916)</td>
+<td>38.802~???(-2.73533,4.29916)</td>
 </tr>
 <tr>
 <td>14</td>
 <td><code>relxillCp</code></td>
 <td><code>Rin</code></td>
 <td>-14.5510</td>
-<td>-18.111~-1.00407(-3.56002,5.47737)</td>
+<td>-18.111~-9.07362(-3.56002,5.47737)</td>
 </tr>
 <tr>
 <td>18</td>
@@ -446,14 +491,125 @@
 <td>1.05928</td>
 <td>1.05126~1.06678(-0.00801573,0.00750175)</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <p>I noticed that the range of the parameter <code>Rin</code>  is quite large, which may be related to the unfitted Fe-line.</p>
 <h2 id="The-third-point"><a href="#The-third-point" class="headerlink" title="The third point"></a>The third point</h2><p>The second point is the two observation in <code>P0114661136</code>, we used all the energy part of the spectrum.</p>
 <p>We use the model <code>constant*TBabs*(simplcutx*(diskbb+mbnkpo*relxillCp)+xillverCp)</code> to fit the spectrum. And ignored the spectrum between 21keV to 23keV. This time except the problem at about 20keV and 25keV, the model can fit the spectrum quite well.</p>
-<p>The unfolded spectrum and the ratio is like below:<img src="fit3.png" alt="fit3"></p>
-<p>We calculated the error of each parameter, and got the table below:<br>| par  | model         | par name   | value     | range                                     |<br>| —— | ——————- | ————— | ————- | ———————————————————————- |<br>| 3    | <code>simplcutx</code>   | <code>Gamma</code>    | 1.70835   |1.69696~1.71736(-0.0113903,0.00900463)|<br>| 4    | <code>simplcutx</code>   | <code>FracSctr</code> | 0.423500  |0.388402~0.452862 (-0.0350982,0.0293619)|<br>| 6    | <code>simplcutx</code>   | <code>kT_e</code>     | 296.876  |156.831~0(-140.045,-296.876)|<br>| 7    | <code>diskbb</code>      | <code>Tin</code>      | 0.521368  | 0.499858~0.547507(-0.0215105,0.0261386) |<br>| 8    | <code>diskbb</code>      | <code>norm</code>     | 1679.12 | 1315.87~2075.26(-363.28,396.115)          |<br>| 11    | <code>relxillCp</code>   | <code>Index1</code>   | 10.00000  |4.04933~0 (-5.95067,-10)                  |<br>| 15   | <code>relxillCp</code>   | <code>Incl</code>     | 44.0274  |41.2731~48.205 (-2.75424,4.17761)         |<br>| 16   | <code>relxillCp</code>   | <code>Rin</code>      | -4.37220  |-5.43035 ~-3.03198 (-1.05815,1.34022) |<br>| 20   | <code>relxillCp</code>   | <code>logxi</code>    | 3.64956   |3.48269~3.80451(-0.166872,0.154944)       |<br>| 21   | <code>relxillCp</code>   | <code>Afe</code>      | 10.0000   | 7.14676~0 (-2.85324,-10)                  |<br>| 24   | <code>relxillCp</code>   | <code>norm</code>     | 07.31228E-3  | 0.0061945~0.00893408(-0.00111789,0.00162169)   |<br>| 32   | <code>xillverCp</code>   | <code>norm</code>     | 2.39388E-11 | 0~0.000333344(-6.82725e-15,0.000333344)      |<br>| 33   | <code>constant</code>(2) | <code>factor</code>   | 1.00827   |0.985256~1.02789 (-0.0230121,0.0196176)   |<br>|65|<code>constant</code>(3) | <code>factor</code>   | 1.03501   | 1.00417~1.06166(-0.0308423,0.0266517)    |</p>
+<p>The unfolded spectrum and the ratio is like below:<img src="/2023/01/15/maxi1820/maxi1/fit3.png" alt="fit3"></p>
+<p>We calculated the error of each parameter, and got the table below:</p>
+<table>
+<thead>
+<tr>
+<th>par</th>
+<th>model</th>
+<th>par name</th>
+<th>value</th>
+<th>range</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3</td>
+<td><code>simplcutx</code></td>
+<td><code>Gamma</code></td>
+<td>1.70835</td>
+<td>1.69696~1.71736(-0.0113903,0.00900463)</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>simplcutx</code></td>
+<td><code>FracSctr</code></td>
+<td>0.423500</td>
+<td>0.388402~0.452862 (-0.0350982,0.0293619)</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>simplcutx</code></td>
+<td><code>kT_e</code></td>
+<td>296.876</td>
+<td>156.831~0(-140.045,-296.876)</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>diskbb</code></td>
+<td><code>Tin</code></td>
+<td>0.521368</td>
+<td>0.499858~0.547507(-0.0215105,0.0261386)</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>diskbb</code></td>
+<td><code>norm</code></td>
+<td>1679.12</td>
+<td>1315.87~2075.26(-363.28,396.115)</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>relxillCp</code></td>
+<td><code>Index1</code></td>
+<td>10.00000</td>
+<td>4.04933~0 (-5.95067,-10)</td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>relxillCp</code></td>
+<td><code>Incl</code></td>
+<td>44.0274</td>
+<td>41.2731~48.205 (-2.75424,4.17761)</td>
+</tr>
+<tr>
+<td>16</td>
+<td><code>relxillCp</code></td>
+<td><code>Rin</code></td>
+<td>-4.37220</td>
+<td>-5.43035 ~-3.03198 (-1.05815,1.34022)</td>
+</tr>
+<tr>
+<td>20</td>
+<td><code>relxillCp</code></td>
+<td><code>logxi</code></td>
+<td>3.64956</td>
+<td>3.48269~3.80451(-0.166872,0.154944)</td>
+</tr>
+<tr>
+<td>21</td>
+<td><code>relxillCp</code></td>
+<td><code>Afe</code></td>
+<td>10.0000</td>
+<td>7.14676~0 (-2.85324,-10)</td>
+</tr>
+<tr>
+<td>24</td>
+<td><code>relxillCp</code></td>
+<td><code>norm</code></td>
+<td>07.31228E-3</td>
+<td>0.0061945~0.00893408(-0.00111789,0.00162169)</td>
+</tr>
+<tr>
+<td>32</td>
+<td><code>xillverCp</code></td>
+<td><code>norm</code></td>
+<td>2.39388E-11</td>
+<td>0~0.000333344(-6.82725e-15,0.000333344)</td>
+</tr>
+<tr>
+<td>33</td>
+<td><code>constant</code>(2)</td>
+<td><code>factor</code></td>
+<td>1.00827</td>
+<td>0.985256~1.02789 (-0.0230121,0.0196176)</td>
+</tr>
+<tr>
+<td>65</td>
+<td><code>constant</code>(3)</td>
+<td><code>factor</code></td>
+<td>1.03501</td>
+<td>1.00417~1.06166(-0.0308423,0.0266517)</td>
+</tr>
+</tbody></table>
+<h2 id="Discussions"><a href="#Discussions" class="headerlink" title="Discussions"></a>Discussions</h2><ol>
+<li>In real world ,the <code>Incl</code> should not change with time, so we should fix it to some value (In the &#x3D;&#x3D;NuSTAR&#x3D;&#x3D; it is 63, but we’ve found that it cannot fit very well)</li>
+<li>We don’t need to get the best fit because our goal is to fit <strong>all</strong> the observations, so if the <code>Reduced Chi-Squared</code>(Chi-Squared&#x2F;Degrees of freedom)is under 1.2,although it is still not the best fit ,it would be ok.</li>
+</ol>
 
     </div>
 
@@ -492,6 +648,13 @@
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -538,7 +701,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Fitting-points"><span class="nav-number">1.</span> <span class="nav-text">Fitting points</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-first-point"><span class="nav-number">2.</span> <span class="nav-text">The first point</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-second-point"><span class="nav-number">3.</span> <span class="nav-text">The second point</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-third-point"><span class="nav-number">4.</span> <span class="nav-text">The third point</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Fitting-points"><span class="nav-number">1.</span> <span class="nav-text">Fitting points</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-first-point"><span class="nav-number">2.</span> <span class="nav-text">The first point</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-second-point"><span class="nav-number">3.</span> <span class="nav-text">The second point</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-third-point"><span class="nav-number">4.</span> <span class="nav-text">The third point</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Discussions"><span class="nav-number">5.</span> <span class="nav-text">Discussions</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -552,20 +715,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -637,6 +800,10 @@
 
 
 
+  
+<script src="/js/local-search.js"></script>
+
+
 
 
 
@@ -653,6 +820,37 @@
   
 
   
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://UNICODE_STRING.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://lsyxiaopang.github.io/2023/01/15/maxi1820/maxi1/";
+    this.page.identifier = "2023/01/15/maxi1820/maxi1/";
+    this.page.title = "The results and the problems in fitting the spectrum of the maxi1820+70";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://UNICODE_STRING.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
 
 </body>
 </html>

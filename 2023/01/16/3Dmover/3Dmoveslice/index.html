@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="为了实现通过用户给的3D模型实现避障功能的路径规划,我们采取首先对模型进行切片,然后再通过修改路径长度和两点之间路径获取的函数完成 对于meshcut库的使用可以实现3D建模处理的库有很多,但如果仅仅是想要一个切面就将vtk搬出来未免就有一点大材小用了,通过寻找,我找到了一个meshcut库,其可以将stl文件和定义的平面求得交线. meshcut库的开发主页 下面是使用meshcut库实现对一个">
@@ -29,7 +29,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://lsyxiaopang.github.io/2023/01/16/3Dmover/3Dmoveslice/42.png">
 <meta property="article:published_time" content="2023-01-15T16:17:07.000Z">
-<meta property="article:modified_time" content="2023-01-16T13:52:53.526Z">
+<meta property="article:modified_time" content="2023-01-16T13:52:53.000Z">
 <meta property="article:author" content="Songyuli">
 <meta property="article:tag" content="3D位移平台">
 <meta property="article:tag" content="计算机图形学">
@@ -107,6 +107,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -141,11 +142,38 @@
     <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -155,6 +183,9 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/lsyxiaopang" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
 
 
     <main class="main">
@@ -206,6 +237,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/01/16/3Dmover/3Dmoveslice/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/16/3Dmover/3Dmoveslice/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -220,9 +265,10 @@
 <h2 id="对于meshcut库的使用"><a href="#对于meshcut库的使用" class="headerlink" title="对于meshcut库的使用"></a>对于<code>meshcut</code>库的使用</h2><p>可以实现3D建模处理的库有很多,但如果仅仅是想要一个切面就将<code>vtk</code>搬出来未免就有一点大材小用了,通过寻找,我找到了一个<code>meshcut</code>库,其可以将<code>stl</code>文件和定义的平面求得交线.</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/julienr/meshcut">meshcut库</a>的开发主页</p>
 <p>下面是使用<code>meshcut</code>库实现对一个3D模型切割的效果图</p>
-<p><img src="42.png" alt="42"></p>
+<p><img src="/2023/01/16/3Dmover/3Dmoveslice/42.png" alt="42"></p>
 <p>而其所使用的源码如下</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> stl</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> meshcut</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_mesh</span>(<span class="params">m:stl.mesh.Mesh</span>):<span class="comment">#从stl文件中创建mesh</span></span><br><span class="line">    <span class="comment"># Flatten our vert array to Nx3 and generate corresponding faces array</span></span><br><span class="line">    verts = m.vectors.reshape(-<span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">    faces = np.arange(<span class="built_in">len</span>(verts)).reshape(-<span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">    verts, faces = meshcut.merge_close_vertices(verts, faces)</span><br><span class="line">    <span class="keyword">return</span> meshcut.TriangleMesh(verts,faces)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    m=stl.mesh.Mesh.from_file(<span class="string">&quot;up.stl&quot;</span>)</span><br><span class="line">    mesh=create_mesh(m)</span><br><span class="line"></span><br><span class="line">    i=<span class="number">1</span></span><br><span class="line">    z=<span class="number">1</span><span class="comment">#z坐标</span></span><br><span class="line">    <span class="keyword">while</span>(i!=<span class="number">0</span>):<span class="comment">#在没有交点是会报错,程序自动终止</span></span><br><span class="line">        plane_origin=np.array([<span class="number">0</span>,<span class="number">0</span>,z])</span><br><span class="line">        plane_n=np.array([<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line">        plane=meshcut.Plane(plane_origin,plane_n)<span class="comment">#创建平面</span></span><br><span class="line"></span><br><span class="line">        p=meshcut.cross_section_mesh(mesh,plane)<span class="comment">#求解相交部分多边形</span></span><br><span class="line">        x=p[<span class="number">0</span>][:,<span class="number">0</span>]</span><br><span class="line">        x=np.hstack([x,np.array(x[<span class="number">0</span>])])</span><br><span class="line">        y=p[<span class="number">0</span>][:,<span class="number">1</span>]</span><br><span class="line">        y=np.hstack([y,np.array(y[<span class="number">0</span>])])</span><br><span class="line">        plt.plot(x,y)</span><br><span class="line">        plt.savefig(<span class="string">&quot;&#123;&#125;.png&quot;</span>.<span class="built_in">format</span>(z))</span><br><span class="line">        z=z+<span class="number">1</span></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
 <h2 id="判断一条线是否与多边形相交"><a href="#判断一条线是否与多边形相交" class="headerlink" title="判断一条线是否与多边形相交"></a>判断一条线是否与多边形相交</h2><h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>接下来我们来讨论一下关于碰撞检测这一部分的内容.</p>
 <p>多边形是由有限个点首尾相连而成的,那么假如一条线段与多边形相交,那么其必然与多边形的至少一条边相交.因此问题就转化为<em>判断一条线段是否与一个线段集中线段相交</em>.</p>
 <p>而对于判断两线段是否相交的方法,记第一条线段两点为$A_1,A_2$,第二条线段两点为$B_1,B_2$,如果从线段一指向线段二某点(通常使用某个端点)的两个矢量与线段二的叉乘异号,表明$A_1,A_2$分别位于第二条线段两侧.同理,可以判断$B_1,B_2$是否位于第一条线段两侧.如果两个条件同时满足,那么就可以说明线段相交.</p>
@@ -231,13 +277,15 @@
 <p>特殊情况,判断点是否在多边形内,可以用相似的方法,通过过该点做一条射线,然后统计相交点数,如果相交点数为偶数,则点在多边形内,否则在多边形外</p>
 </blockquote>
 <h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>在实现这个问题的同时,需要考虑到Python在处理大量的<code>for</code>循环时效率非常低下,因此需要对操作进行向量化处理.</p>
-<p>假定$A_x,A_y,B_x,B_y$为$n,n,m,m$维列向量,定义$C_{ij}$的值等于$A_{i}\times B_{j}$为行列式的值,根据线性代数相关知识,我们可以得到$C=A_xB^T_y-A_yB_x^T$</p>
+<p>假定$A_x,A_y,B_x,B_y$为$n,n,m,m$维列向量,定义$C_{ij}$的值等于$A_{i}\times B_{j}$为行列式的值,根据线性代数相关知识,我们可以得到$C&#x3D;A_xB^T_y-A_yB_x^T$</p>
 <blockquote>
 <p>如此操作时需要注意对<code>array</code>进行<code>reshape</code></p>
 </blockquote>
 <p>下面展示了实现矢量集叉乘和判断线段集是否相交的代码</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calc_cross</span>(<span class="params">a: np.array, b: np.array</span>):</span><br><span class="line">        <span class="comment"># 计算两个二维向量集的叉乘</span></span><br><span class="line">        ax = a[:, <span class="number">0</span>].reshape(-<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">        ay = a[:, <span class="number">1</span>].reshape(-<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">        bx = b[:, <span class="number">0</span>].reshape(<span class="number">1</span>, -<span class="number">1</span>)</span><br><span class="line">        by = b[:, <span class="number">1</span>].reshape(<span class="number">1</span>, -<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> np.dot(ax, by)-np.dot(ay, bx)</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">check_crossing</span>(<span class="params">lines1: np.array, lines2: np.array</span>):</span><br><span class="line">        begs1 = lines1[:, <span class="number">0</span>, :]</span><br><span class="line">        begs2 = lines2[:, <span class="number">0</span>, :]</span><br><span class="line">        ends1 = lines1[:, <span class="number">1</span>, :]</span><br><span class="line">        ends2 = lines2[:, <span class="number">1</span>, :]</span><br><span class="line">        l1 = ends1-begs1</span><br><span class="line">        l2 = ends2-begs2</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 检查线2是否分隔线1</span></span><br><span class="line">        v1 = begs2-begs1</span><br><span class="line">        v2 = begs2-ends1</span><br><span class="line">        c1 = calc_cross(v1, l2)</span><br><span class="line">        c2 = calc_cross(v2, l2)</span><br><span class="line">        c = c1*c2  <span class="comment"># 计算两矩阵各个元素相乘(比较同号异号)</span></span><br><span class="line">        bca = c &lt; <span class="number">0</span>  <span class="comment"># 分割线1</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 检查线1是否分隔线2</span></span><br><span class="line">        v1 = begs1-begs2</span><br><span class="line">        v2 = begs1-ends2</span><br><span class="line">        c1 = calc_cross(v1, l1)</span><br><span class="line">        c2 = calc_cross(v2, l1)</span><br><span class="line">        c = c1*c2  <span class="comment"># 计算两矩阵各个元素相乘(比较同号异号)</span></span><br><span class="line">        bcb = c &lt; <span class="number">0</span>  <span class="comment"># 分割线2</span></span><br><span class="line"></span><br><span class="line">        bc = np.<span class="built_in">all</span>([bca, bcb], axis=<span class="number">0</span>)  <span class="comment"># 同时分割</span></span><br><span class="line">        <span class="keyword">return</span> bc  <span class="comment"># 第i行第j列元素判断lines1的第i根线与lines2的第j根线是否相交</span></span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>这个时候我意识到了一个问题:在实际的移动过程中,z轴的移动无法控制,因此需要在路径规划的过程中对z轴进行单独处理</p>
 <p>因此:在每一次移动时,首先移动z轴,然后就可以理解为平面内运动</p>
@@ -280,6 +328,13 @@
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -340,20 +395,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -423,6 +478,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 
@@ -496,6 +555,37 @@
     
 
   
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://UNICODE_STRING.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://lsyxiaopang.github.io/2023/01/16/3Dmover/3Dmoveslice/";
+    this.page.identifier = "2023/01/16/3Dmover/3Dmoveslice/";
+    this.page.title = "处理3D模型";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://UNICODE_STRING.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
 
 </body>
 </html>

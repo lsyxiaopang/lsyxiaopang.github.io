@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta property="og:type" content="website">
@@ -99,6 +99,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -133,11 +134,38 @@
     <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -147,6 +175,9 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/lsyxiaopang" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
 
 
     <main class="main">
@@ -156,6 +187,304 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/16/3Dmover/3Dmoveslice/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Songyuli">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songyuli's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/01/16/3Dmover/3Dmoveslice/" class="post-title-link" itemprop="url">处理3D模型</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-01-16 00:17:07 / Modified: 21:52:53" itemprop="dateCreated datePublished" datetime="2023-01-16T00:17:07+08:00">2023-01-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/3D%E4%BD%8D%E7%A7%BB%E6%B5%8B%E9%87%8F%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">3D位移测量平台设计</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/01/16/3Dmover/3Dmoveslice/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/16/3Dmover/3Dmoveslice/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>为了实现通过用户给的3D模型实现避障功能的路径规划,我们采取首先对模型进行切片,然后再通过修改路径长度和两点之间路径获取的函数完成</p>
+<h2 id="对于meshcut库的使用"><a href="#对于meshcut库的使用" class="headerlink" title="对于meshcut库的使用"></a>对于<code>meshcut</code>库的使用</h2><p>可以实现3D建模处理的库有很多,但如果仅仅是想要一个切面就将<code>vtk</code>搬出来未免就有一点大材小用了,通过寻找,我找到了一个<code>meshcut</code>库,其可以将<code>stl</code>文件和定义的平面求得交线.</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/julienr/meshcut">meshcut库</a>的开发主页</p>
+<p>下面是使用<code>meshcut</code>库实现对一个3D模型切割的效果图</p>
+<p><img src="/2023/01/16/3Dmover/3Dmoveslice/42.png" alt="42"></p>
+<p>而其所使用的源码如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> stl</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> meshcut</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_mesh</span>(<span class="params">m:stl.mesh.Mesh</span>):<span class="comment">#从stl文件中创建mesh</span></span><br><span class="line">    <span class="comment"># Flatten our vert array to Nx3 and generate corresponding faces array</span></span><br><span class="line">    verts = m.vectors.reshape(-<span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">    faces = np.arange(<span class="built_in">len</span>(verts)).reshape(-<span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">    verts, faces = meshcut.merge_close_vertices(verts, faces)</span><br><span class="line">    <span class="keyword">return</span> meshcut.TriangleMesh(verts,faces)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    m=stl.mesh.Mesh.from_file(<span class="string">&quot;up.stl&quot;</span>)</span><br><span class="line">    mesh=create_mesh(m)</span><br><span class="line"></span><br><span class="line">    i=<span class="number">1</span></span><br><span class="line">    z=<span class="number">1</span><span class="comment">#z坐标</span></span><br><span class="line">    <span class="keyword">while</span>(i!=<span class="number">0</span>):<span class="comment">#在没有交点是会报错,程序自动终止</span></span><br><span class="line">        plane_origin=np.array([<span class="number">0</span>,<span class="number">0</span>,z])</span><br><span class="line">        plane_n=np.array([<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line">        plane=meshcut.Plane(plane_origin,plane_n)<span class="comment">#创建平面</span></span><br><span class="line"></span><br><span class="line">        p=meshcut.cross_section_mesh(mesh,plane)<span class="comment">#求解相交部分多边形</span></span><br><span class="line">        x=p[<span class="number">0</span>][:,<span class="number">0</span>]</span><br><span class="line">        x=np.hstack([x,np.array(x[<span class="number">0</span>])])</span><br><span class="line">        y=p[<span class="number">0</span>][:,<span class="number">1</span>]</span><br><span class="line">        y=np.hstack([y,np.array(y[<span class="number">0</span>])])</span><br><span class="line">        plt.plot(x,y)</span><br><span class="line">        plt.savefig(<span class="string">&quot;&#123;&#125;.png&quot;</span>.<span class="built_in">format</span>(z))</span><br><span class="line">        z=z+<span class="number">1</span></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+<h2 id="判断一条线是否与多边形相交"><a href="#判断一条线是否与多边形相交" class="headerlink" title="判断一条线是否与多边形相交"></a>判断一条线是否与多边形相交</h2><h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>接下来我们来讨论一下关于碰撞检测这一部分的内容.</p>
+<p>多边形是由有限个点首尾相连而成的,那么假如一条线段与多边形相交,那么其必然与多边形的至少一条边相交.因此问题就转化为<em>判断一条线段是否与一个线段集中线段相交</em>.</p>
+<p>而对于判断两线段是否相交的方法,记第一条线段两点为$A_1,A_2$,第二条线段两点为$B_1,B_2$,如果从线段一指向线段二某点(通常使用某个端点)的两个矢量与线段二的叉乘异号,表明$A_1,A_2$分别位于第二条线段两侧.同理,可以判断$B_1,B_2$是否位于第一条线段两侧.如果两个条件同时满足,那么就可以说明线段相交.</p>
+<p>这一手段<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhouzi2018/article/details/81871875">参考资料</a></p>
+<blockquote>
+<p>特殊情况,判断点是否在多边形内,可以用相似的方法,通过过该点做一条射线,然后统计相交点数,如果相交点数为偶数,则点在多边形内,否则在多边形外</p>
+</blockquote>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>在实现这个问题的同时,需要考虑到Python在处理大量的<code>for</code>循环时效率非常低下,因此需要对操作进行向量化处理.</p>
+<p>假定$A_x,A_y,B_x,B_y$为$n,n,m,m$维列向量,定义$C_{ij}$的值等于$A_{i}\times B_{j}$为行列式的值,根据线性代数相关知识,我们可以得到$C&#x3D;A_xB^T_y-A_yB_x^T$</p>
+<blockquote>
+<p>如此操作时需要注意对<code>array</code>进行<code>reshape</code></p>
+</blockquote>
+<p>下面展示了实现矢量集叉乘和判断线段集是否相交的代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calc_cross</span>(<span class="params">a: np.array, b: np.array</span>):</span><br><span class="line">        <span class="comment"># 计算两个二维向量集的叉乘</span></span><br><span class="line">        ax = a[:, <span class="number">0</span>].reshape(-<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">        ay = a[:, <span class="number">1</span>].reshape(-<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">        bx = b[:, <span class="number">0</span>].reshape(<span class="number">1</span>, -<span class="number">1</span>)</span><br><span class="line">        by = b[:, <span class="number">1</span>].reshape(<span class="number">1</span>, -<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> np.dot(ax, by)-np.dot(ay, bx)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">check_crossing</span>(<span class="params">lines1: np.array, lines2: np.array</span>):</span><br><span class="line">        begs1 = lines1[:, <span class="number">0</span>, :]</span><br><span class="line">        begs2 = lines2[:, <span class="number">0</span>, :]</span><br><span class="line">        ends1 = lines1[:, <span class="number">1</span>, :]</span><br><span class="line">        ends2 = lines2[:, <span class="number">1</span>, :]</span><br><span class="line">        l1 = ends1-begs1</span><br><span class="line">        l2 = ends2-begs2</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 检查线2是否分隔线1</span></span><br><span class="line">        v1 = begs2-begs1</span><br><span class="line">        v2 = begs2-ends1</span><br><span class="line">        c1 = calc_cross(v1, l2)</span><br><span class="line">        c2 = calc_cross(v2, l2)</span><br><span class="line">        c = c1*c2  <span class="comment"># 计算两矩阵各个元素相乘(比较同号异号)</span></span><br><span class="line">        bca = c &lt; <span class="number">0</span>  <span class="comment"># 分割线1</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 检查线1是否分隔线2</span></span><br><span class="line">        v1 = begs1-begs2</span><br><span class="line">        v2 = begs1-ends2</span><br><span class="line">        c1 = calc_cross(v1, l1)</span><br><span class="line">        c2 = calc_cross(v2, l1)</span><br><span class="line">        c = c1*c2  <span class="comment"># 计算两矩阵各个元素相乘(比较同号异号)</span></span><br><span class="line">        bcb = c &lt; <span class="number">0</span>  <span class="comment"># 分割线2</span></span><br><span class="line"></span><br><span class="line">        bc = np.<span class="built_in">all</span>([bca, bcb], axis=<span class="number">0</span>)  <span class="comment"># 同时分割</span></span><br><span class="line">        <span class="keyword">return</span> bc  <span class="comment"># 第i行第j列元素判断lines1的第i根线与lines2的第j根线是否相交</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这个时候我意识到了一个问题:在实际的移动过程中,z轴的移动无法控制,因此需要在路径规划的过程中对z轴进行单独处理</p>
+<p>因此:在每一次移动时,首先移动z轴,然后就可以理解为平面内运动</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/16/3Dmover/3Dmove2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Songyuli">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songyuli's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/01/16/3Dmover/3Dmove2/" class="post-title-link" itemprop="url">3D位移平台路径开发器记录1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-01-16 00:13:13 / Modified: 00:15:33" itemprop="dateCreated datePublished" datetime="2023-01-16T00:13:13+08:00">2023-01-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/3D%E4%BD%8D%E7%A7%BB%E6%B5%8B%E9%87%8F%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">3D位移测量平台设计</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/01/16/3Dmover/3Dmove2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/16/3Dmover/3Dmove2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>完成路径规划的<code>RoutePlanner</code>类,实现从点集(<code>datapoints</code>)到路径命令(<code>routecmd</code>)的转换</p>
+<h3 id="使用算法"><a href="#使用算法" class="headerlink" title="使用算法"></a>使用算法</h3><p>使用的算法参考自<a target="_blank" rel="noopener" href="https://zem12345678.github.io/2019/03/14/%E4%BD%BF%E7%94%A8%E8%BF%91%E4%BC%BC%E7%AE%97%E6%B3%95%E8%A7%A3%E5%86%B3%E6%97%85%E8%A1%8C%E5%95%86%EF%BC%88TSP%EF%BC%89%E9%97%AE%E9%A2%98">参考资料</a>,我们的问题是一个旅行商问题,因此没有一个多项式时间内可以实现的最优算法</p>
+<p>但是我们需要注意到,我们所面临的图是一个完全图,并且近似满足三角不等式.因此可以使用最小生成树的方法得到近似解,其结果不会大于最优解的两倍</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>由于未来需要保留避障措施,但是避障之后的路径可以用一个新的路径代替,因此是通过<strong>修改路径获取函数实现</strong>(为未来预留接口)</p>
+<blockquote>
+<p>这样做可能导致三角不等式不成立,但是影响应该不大</p>
+</blockquote>
+<p><code>datapoints</code>属性在修改时会重新计算<code>route</code>,因此<em>不要频繁修改点集</em></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/16/3Dmover/3Dmove1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Songyuli">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songyuli's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/01/16/3Dmover/3Dmove1/" class="post-title-link" itemprop="url">位移平台程序应当满足的功能</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-01-16 00:04:08 / Modified: 00:12:55" itemprop="dateCreated datePublished" datetime="2023-01-16T00:04:08+08:00">2023-01-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/3D%E4%BD%8D%E7%A7%BB%E6%B5%8B%E9%87%8F%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">3D位移测量平台设计</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/01/16/3Dmover/3Dmove1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/16/3Dmover/3Dmove1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="程序功能"><a href="#程序功能" class="headerlink" title="程序功能"></a>程序功能</h2><p>预想中的程序应该实现以下几个功能:</p>
+<ol>
+<li>对路径的规划:获得带测量点,<em>避免和已有待测物体发生撞车</em>,<em>智能更新测量点</em>(类似于绘制函数的时候梯度变化大的点多,梯度变化小的点少)</li>
+<li>移动命令的执行:<del>与grbl进行通讯实现移动(通过传输GCode的方式),实时获知位置</del>,获知出现撞车或者达到极限等状况,自定义原点</li>
+<li>数据的获取与处理:<del>原始数据获取(厂家有提供库)</del>,<em>数据不确定度估算与定标</em>(需要结合技术手册以及探头设计进一步研究)</li>
+<li>中央控制程序:<del>将电机等的状态显示出来</del>,3D显示路径以及测量结果</li>
+</ol>
+<h2 id="为何不使用如kliment这样的程序"><a href="#为何不使用如kliment这样的程序" class="headerlink" title="为何不使用如kliment这样的程序"></a>为何不使用如kliment这样的程序</h2><p>因为<code>kliment</code>是设计给3D打印机而非我们所使用的测量装置的</p>
+<p>其优点有:</p>
+<ol>
+<li>具有较为完善的各种错误的处理功能(但是grbl不支持)</li>
+<li>界面比较漂亮</li>
+<li>支持stl文件的导入等</li>
+</ol>
+<p>但是我目前已经实现了gcode的传输以及实时的位置获取,<code>klimenr</code>可以为未来改进自定义原点或检查异常情况提供灵感,但是没有必要依赖其实现</p>
+<p>主要原因在于<code>klimenr</code>缺乏开发文档,研究其源码会非常困难,并且其完全依赖于下位机的gcode功能(例如温度获取),但是对于我们现在的目标这么做并不切合实际.那么这样会导致可能存在解析gcode的”中间商”,将问题弄得过于复杂.</p>
+<p>我的观点在于目前几个部分的模块分别开发(目前已经实现了一个可以控制grbl移动以及控制AD卡读取数据的一个控制程序),剩余的部分自行开发(当然像处理3D模型这样的问题究竟是使用像VTK这样的工具还是像使用slicer这样的小型工具还有待研究)</p>
+<p>而最后的图形界面(虽然现在有一个基于CUI的”伪”图形界面),这个的制作属于比较细枝末节的问题(甚至最后可以扔给Labview解决),我们现在就不考虑了</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -183,10 +512,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-01-15 23:40:19 / Modified: 23:48:17" itemprop="dateCreated datePublished" datetime="2023-01-15T23:40:19+08:00">2023-01-15</time>
+              <time title="Created: 2023-01-15 23:40:19" itemprop="dateCreated datePublished" datetime="2023-01-15T23:40:19+08:00">2023-01-15</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-01-24 22:17:05" itemprop="dateModified" datetime="2023-01-24T22:17:05+08:00">2023-01-24</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -198,6 +533,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/01/15/control%20system/control1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/15/control system/control1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -209,69 +558,20 @@
 
       
           <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
-<h2 id="描述控制系统"><a href="#描述控制系统" class="headerlink" title="描述控制系统"></a>描述控制系统</h2><pre><code class="lang-在这一部分,假设$u(t)$为系统某一时刻的输入,$y(t)$为系统某一时刻的输出$t$为时间```">
 
-
-利用递推法即$y_n=\Sigma f(y_k)+g(u_n)$,我们可以得到一个齐次线性微分方程描述输出和输入之间的关系
-$$\Sigma_k^n\frac&#123;\mathbb&#123;d&#125;^k&#125;&#123;\mathbb&#123;d&#125;t^k&#125;a_ky(t)=\Sigma_i^n\frac&#123;\mathbb&#123;d&#125;^i&#125;&#123;\mathbb&#123;d&#125;t^i&#125;b_ku(t)$$
-&gt; 对于一些特殊情况,例如系统的状态与其历史无关,那么系统可以被简化为$y(t)=b_0u(t)$
-&gt; 下面将对一个常见模型进行建模
-
-
-----
-### 垂直驱动机械臂模型
-$$J\ddot&#123;\theta&#125;(t)+\mu\dot&#123;\theta&#125;(t)+Mgl\sin \theta(t)=u(t)$$
-```臂转动惯量为$J$,质量为$M$,重力加速度为$g$,考虑阻尼作用,整体外部扭矩被表示为$u$
-</code></pre>
-<p>但是这不是一个线性微分方程(由于$\sin$的存在),因此我们可以对$\theta$进行小角度假设,那么就可以得到一个线性微分方程</p>
-<script type="math/tex; mode=display">J\ddot{\theta}(t)+\mu\dot{\theta}(t)+Mgl\theta(t)=u(t)</script><h3 id="控制工程所使用的模型描述"><a href="#控制工程所使用的模型描述" class="headerlink" title="控制工程所使用的模型描述"></a>控制工程所使用的模型描述</h3><p>由于微分方程往往很高阶,因此直接分析会非常困难.<br>将微分方程转换为”传递函数模型”或者是”状态方程模型”</p>
-<h2 id="传递函数模型"><a href="#传递函数模型" class="headerlink" title="传递函数模型"></a>传递函数模型</h2><p>传递函数模型形式$\mathcal{P}(s)=\frac{\Sigma^m_k b_ks^k}{\Sigma^n_i b_is^i}$<br>利用这种模型,可以将在时间域上的微积分操作转化为在$s$上的乘法操作,例如说<script type="math/tex">\dot{y(t)}\to sy(s)</script><br>$\mathcal{P}(s)=\frac{y(s)}{u(s)}$其中$y(s)=\mathcal{L}[y(t)],u(s)=\mathcal{L}[u(t)]$</p>
+<h2 id="描述控制系统"><a href="#描述控制系统" class="headerlink" title="描述控制系统"></a>描述控制系统</h2><p><code>在这一部分,假设$u(t)$为系统某一时刻的输入,$y(t)$为系统某一时刻的输出$t$为时间</code></p>
+<p>利用递推法即$y_n&#x3D;\Sigma f(y_k)+g(u_n)$,我们可以得到一个齐次线性微分方程描述输出和输入之间的关系<br>$$\Sigma_k^n\frac{\mathbb{d}^k}{\mathbb{d}t^k}a_ky(t)&#x3D;\Sigma_i^n\frac{\mathbb{d}^i}{\mathbb{d}t^i}b_ku(t)$$</p>
 <blockquote>
-<p>拉普拉斯变换$\mathcal{L}$,定义<script type="math/tex">g(s)=\mathcal{L}[g(t)]:=\int_0^\infin g(t)e^{-st}\mathbb{d}t</script><br>对其进行$N$次积分相当于除以$s^N$,微分则相反</p>
+<p>对于一些特殊情况,例如系统的状态与其历史无关,那么系统可以被简化为$y(t)&#x3D;b_0u(t)$<br>下面将对一个常见模型进行建模</p>
 </blockquote>
-<h3 id="传递函数举例"><a href="#传递函数举例" class="headerlink" title="传递函数举例"></a>传递函数举例</h3><p>对于之前的机械臂模型,我们可以将传递函数写作</p>
-<script type="math/tex; mode=display">\mathcal{P}(s)=\frac{1}{s^2J+\mu s+Mgl}</script><p>也可以利用Python中的(<code>tf</code>)函数来表示,例如我们现在有一个控制函数</p>
-<script type="math/tex; mode=display">\mathcal{P}(s)=\frac{1}{s^2+2s+3}</script><p>可以用以下代码表示</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> control</span><br><span class="line">np=[<span class="number">0</span>,<span class="number">1</span>]</span><br><span class="line">dp=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">p=control.tf(np,dp)</span><br><span class="line"><span class="built_in">print</span>(p)</span><br></pre></td></tr></table></figure>
-<pre><code>      1
--------------
-s^2 + 2 s + 3
-</code></pre><p>​    </p>
-<p>或者像这样<script type="math/tex">\mathcal{P}(s)=\frac{s+2}{(s+1)(s+2)^2}</script></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(control.tf([<span class="number">1</span>,<span class="number">2</span>],[<span class="number">1</span>,<span class="number">1</span>])*control.tf([<span class="number">1</span>],[<span class="number">1</span>,<span class="number">2</span>])**<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-<pre><code>        s + 2
----------------------
-s^3 + 5 s^2 + 8 s + 4
-</code></pre><p>​    </p>
-<p>可以利用(<code>tfdata</code>)重新获取分母和分子</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[[nump]],[[denp]]=control.tfdata(p)</span><br><span class="line"><span class="built_in">print</span>(nump,denp)</span><br></pre></td></tr></table></figure>
-<pre><code>[1] [1 2 3]
-</code></pre><h2 id="状态空间模型"><a href="#状态空间模型" class="headerlink" title="状态空间模型"></a>状态空间模型</h2><p>状态空间模型可以<strong>将多元高阶微分方程表示为一阶微分方程的形式</strong><br>通常可以编写为两个(两组)方程</p>
-<script type="math/tex; mode=display">
-\dot{x}(t)=Ax(t)+Bu(t)\qquad (状态方程)</script><p>和</p>
-<script type="math/tex; mode=display">
-y(t)=Cx(t)+Du(t)\qquad (输出方程)</script><p>需要注意的是,$ABCD$都可以是矩阵,$xyu$都可以是矢量,但是我们主要考虑单输入单输出情况(但是$x$可能还是矢量)</p>
-<blockquote>
-<p>如何建模?<br>考虑$p=\frac{\mathbb{d}}{\mathbb{d}t}$,那么可以假设$p$的多项式$A(p)$和$B(p)$,于是我们就可以定义一个新变量$v$,有<br>$A(p)=u,y=B(p)v$<br>可以定义$x$向量为$v$的各阶导数,就可以写出原来的方程</p>
-</blockquote>
-<h3 id="机械臂的状态空间模型"><a href="#机械臂的状态空间模型" class="headerlink" title="机械臂的状态空间模型"></a>机械臂的状态空间模型</h3><p>下面以之前的机械臂为例,讨论一下状态空间模型的推导<br>由于机械臂运动状态由角度和角速度确定,因此$x=\left[\begin{matrix}\theta\\\dot{\theta}\end{matrix}\right]$,然后其状态方程为</p>
-<script type="math/tex; mode=display">\dot{x}(t)=\left[\begin{matrix}\dot{\theta}\\\ddot{\theta}\end{matrix}\right]=\left[\begin{matrix}0&1\\-\frac{Mgl}{J}&-\frac{\mu}{J}\end{matrix}\right]x(t)+\left[\begin{matrix}0\\\frac{1}{J}\end{matrix}\right]u(t)</script><p>输出方程为</p>
-<script type="math/tex; mode=display">y(t)=\left[\begin{matrix}1&0\end{matrix}\right]x(t)</script><h3 id="状态空间模型的Python代码"><a href="#状态空间模型的Python代码" class="headerlink" title="状态空间模型的Python代码"></a>状态空间模型的Python代码</h3><p>可以使用函数<code>ss(A,B,C,D)</code>表示状态空间,非常方便,例如对于一组方程</p>
-<script type="math/tex; mode=display">\dot{x}(t)=\left[\begin{matrix}1&1&2\\2&1&1\\3&4&5\end{matrix}\right]x(t)+\left[\begin{matrix}2\\0\\1\end{matrix}\right]u(t)</script><script type="math/tex; mode=display">y(t)=\left[\begin{matrix}1&1&0\end{matrix}\right]x(t)+u(t)</script><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">&quot;1 1 2;2 1 1;3 4 5&quot;</span></span><br><span class="line">b=<span class="string">&quot;2;0;1&quot;</span></span><br><span class="line">c=<span class="string">&quot;1 1 0&quot;</span></span><br><span class="line">d=<span class="string">&quot;1&quot;</span></span><br><span class="line">control.ss(a,b,c,d).A</span><br></pre></td></tr></table></figure>
-<pre><code>array([[1., 1., 2.],
-       [2., 1., 1.],
-       [3., 4., 5.]])
-</code></pre><h2 id="框图"><a href="#框图" class="headerlink" title="框图"></a>框图</h2><p>可以利用框图来描述控制系统</p>
-<h3 id="串联"><a href="#串联" class="headerlink" title="串联"></a>串联</h3><p>将两个系统输入输出相连,可以得到一个串联的系统,例如将$y=\mathcal{S_1}u$与$z=\mathcal{S_2}y$串联后就得到$z=\mathcal{S_1}\cdot\mathcal{S_2}u$<br>系统可以表示为<script type="math/tex">\mathcal{S=S_1\cdot S_2}</script><br>这一结果不满足交换律,框图如下所示<br>可以使用Python求得系统中串联的结果模型:</p>
-<blockquote>
-<p>需要注意如果使用乘法,那么后作用的系统在前(参考矩阵),反之则是先作用的系统在前</p>
-<h3 id="并联"><a href="#并联" class="headerlink" title="并联"></a>并联</h3><p>将输入分别通过两个过程再叠加(略)</p>
-<h3 id="反馈"><a href="#反馈" class="headerlink" title="反馈"></a>反馈</h3><p>当一个的输出再通过某些形式返回,就构成了反馈系统.例如在一个反馈系统中</p>
-<script type="math/tex; mode=display">y=\mathcal{S_1}r-\mathcal{S_2}y</script><p>那么这个反馈系统可以被化简为</p>
-<script type="math/tex; mode=display">y=\mathcal{S}r\qquad \mathcal{S}=\frac{\mathcal{S_1}}{1+\mathcal{S_1S_2}}</script><p>可以利用<code>feedback</code>实现反馈</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s1=control.tf([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">1</span>])</span><br><span class="line">s2=control.tf([<span class="number">1</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>])</span><br><span class="line">s=control.series(s1,s2)</span><br><span class="line">s</span><br></pre></td></tr></table></figure>
-<script type="math/tex; mode=display">\frac{s + 1}{s^3 + 2 s^2 + 2 s + 1}</script>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/01/15/control%20system/control1/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -313,10 +613,16 @@ y(t)=Cx(t)+Du(t)\qquad (输出方程)</script><p>需要注意的是,$ABCD$都可
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-01-15 21:24:08 / Modified: 22:38:48" itemprop="dateCreated datePublished" datetime="2023-01-15T21:24:08+08:00">2023-01-15</time>
+              <time title="Created: 2023-01-15 21:24:08" itemprop="dateCreated datePublished" datetime="2023-01-15T21:24:08+08:00">2023-01-15</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-01-24 16:39:04" itemprop="dateModified" datetime="2023-01-24T16:39:04+08:00">2023-01-24</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -328,6 +634,20 @@ y(t)=Cx(t)+Du(t)\qquad (输出方程)</script><p>需要注意的是,$ABCD$都可
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/01/15/maxi1820/maxi1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/15/maxi1820/maxi1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -339,12 +659,11 @@ y(t)=Cx(t)+Du(t)\qquad (输出方程)</script><p>需要注意的是,$ABCD$都可
 
       
           <h2 id="Fitting-points"><a href="#Fitting-points" class="headerlink" title="Fitting points"></a>Fitting points</h2><p>We chose three typical points from the HID graph.</p>
-<p><img src="hid.png" alt="hid"></p>
+<p><img src="/2023/01/15/maxi1820/maxi1/hid.png" alt="hid"></p>
 <h2 id="The-first-point"><a href="#The-first-point" class="headerlink" title="The first point"></a>The first point</h2><p>The first point is the observation is the three observation in <code>P14661084</code> and we use the low energy and mid energy part of the spectrum.</p>
 <p>We combine the spectra in <code>P14661084</code> and use the model <code>constant*TBabs*(simplcutx*(diskbb+relxillCp)+xillverCp)</code>(The reason why I didn’t use the model <code>mbknpo</code> is that if I add this model, then the spectrum of the very low energy(about 2keV) may not fit well), and I got the best-fit like this.</p>
-<p><img src="fitLS.png" alt="fitLS"></p>
+<p><img src="/2023/01/15/maxi1820/maxi1/fitLS.png" alt="fitLS"></p>
 <p>Also, we calculate the error of each parameter, and got the table below</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -355,8 +674,7 @@ y(t)=Cx(t)+Du(t)\qquad (输出方程)</script><p>需要注意的是,$ABCD$都可
 <th>range</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>3</td>
 <td><code>simplcutx</code></td>
 <td><code>Gamma</code></td>
@@ -447,15 +765,12 @@ y(t)=Cx(t)+Du(t)\qquad (输出方程)</script><p>需要注意的是,$ABCD$都可
 <td>1.02040</td>
 <td>1.01158~1.03362(-0.00881818,0.0132216)</td>
 </tr>
-</tbody>
-</table>
-</div>
-<h2 id="The-second-point"><a href="#The-second-point" class="headerlink" title="The second point"></a>The second point</h2><p>The second point is the three observation in ``, we used all the energy part of the spectrum.</p>
+</tbody></table>
+<h2 id="The-second-point"><a href="#The-second-point" class="headerlink" title="The second point"></a>The second point</h2><p>The second point is the three observation in &#96;&#96;, we used all the energy part of the spectrum.</p>
 <p>Also, we used the model <code>constant*TBabs*(simplcutx*(diskbb+relxillCp)+xillverCp)</code>to fit the spectrum. And ignored the spectrum between 21keV to 23keV. This time, however, we found that the model cannot fit the spectrum very well, especially at about Fe-line and at about 25 keV. </p>
 <p>The unfolded spectrum and the ratio is like below:</p>
-<p><img src="fitLH.png" alt="fitLH"></p>
+<p><img src="/2023/01/15/maxi1820/maxi1/fitLH.png" alt="fitLH"></p>
 <p>We calculated the error of each parameter, and got the table below:</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -466,8 +781,7 @@ y(t)=Cx(t)+Du(t)\qquad (输出方程)</script><p>需要注意的是,$ABCD$都可
 <th>range</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>3</td>
 <td><code>simplcutx</code></td>
 <td><code>Gamma</code></td>
@@ -514,14 +828,14 @@ y(t)=Cx(t)+Du(t)\qquad (输出方程)</script><p>需要注意的是,$ABCD$都可
 <td><code>relxillCp</code></td>
 <td><code>Incl</code></td>
 <td>41.5373</td>
-<td>38.802~-9.07362(-2.73533,4.29916)</td>
+<td>38.802~???(-2.73533,4.29916)</td>
 </tr>
 <tr>
 <td>14</td>
 <td><code>relxillCp</code></td>
 <td><code>Rin</code></td>
 <td>-14.5510</td>
-<td>-18.111~-1.00407(-3.56002,5.47737)</td>
+<td>-18.111~-9.07362(-3.56002,5.47737)</td>
 </tr>
 <tr>
 <td>18</td>
@@ -565,14 +879,125 @@ y(t)=Cx(t)+Du(t)\qquad (输出方程)</script><p>需要注意的是,$ABCD$都可
 <td>1.05928</td>
 <td>1.05126~1.06678(-0.00801573,0.00750175)</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <p>I noticed that the range of the parameter <code>Rin</code>  is quite large, which may be related to the unfitted Fe-line.</p>
 <h2 id="The-third-point"><a href="#The-third-point" class="headerlink" title="The third point"></a>The third point</h2><p>The second point is the two observation in <code>P0114661136</code>, we used all the energy part of the spectrum.</p>
 <p>We use the model <code>constant*TBabs*(simplcutx*(diskbb+mbnkpo*relxillCp)+xillverCp)</code> to fit the spectrum. And ignored the spectrum between 21keV to 23keV. This time except the problem at about 20keV and 25keV, the model can fit the spectrum quite well.</p>
-<p>The unfolded spectrum and the ratio is like below:<img src="fit3.png" alt="fit3"></p>
-<p>We calculated the error of each parameter, and got the table below:<br>| par  | model         | par name   | value     | range                                     |<br>| —— | ——————- | ————— | ————- | ———————————————————————- |<br>| 3    | <code>simplcutx</code>   | <code>Gamma</code>    | 1.70835   |1.69696~1.71736(-0.0113903,0.00900463)|<br>| 4    | <code>simplcutx</code>   | <code>FracSctr</code> | 0.423500  |0.388402~0.452862 (-0.0350982,0.0293619)|<br>| 6    | <code>simplcutx</code>   | <code>kT_e</code>     | 296.876  |156.831~0(-140.045,-296.876)|<br>| 7    | <code>diskbb</code>      | <code>Tin</code>      | 0.521368  | 0.499858~0.547507(-0.0215105,0.0261386) |<br>| 8    | <code>diskbb</code>      | <code>norm</code>     | 1679.12 | 1315.87~2075.26(-363.28,396.115)          |<br>| 11    | <code>relxillCp</code>   | <code>Index1</code>   | 10.00000  |4.04933~0 (-5.95067,-10)                  |<br>| 15   | <code>relxillCp</code>   | <code>Incl</code>     | 44.0274  |41.2731~48.205 (-2.75424,4.17761)         |<br>| 16   | <code>relxillCp</code>   | <code>Rin</code>      | -4.37220  |-5.43035 ~-3.03198 (-1.05815,1.34022) |<br>| 20   | <code>relxillCp</code>   | <code>logxi</code>    | 3.64956   |3.48269~3.80451(-0.166872,0.154944)       |<br>| 21   | <code>relxillCp</code>   | <code>Afe</code>      | 10.0000   | 7.14676~0 (-2.85324,-10)                  |<br>| 24   | <code>relxillCp</code>   | <code>norm</code>     | 07.31228E-3  | 0.0061945~0.00893408(-0.00111789,0.00162169)   |<br>| 32   | <code>xillverCp</code>   | <code>norm</code>     | 2.39388E-11 | 0~0.000333344(-6.82725e-15,0.000333344)      |<br>| 33   | <code>constant</code>(2) | <code>factor</code>   | 1.00827   |0.985256~1.02789 (-0.0230121,0.0196176)   |<br>|65|<code>constant</code>(3) | <code>factor</code>   | 1.03501   | 1.00417~1.06166(-0.0308423,0.0266517)    |</p>
+<p>The unfolded spectrum and the ratio is like below:<img src="/2023/01/15/maxi1820/maxi1/fit3.png" alt="fit3"></p>
+<p>We calculated the error of each parameter, and got the table below:</p>
+<table>
+<thead>
+<tr>
+<th>par</th>
+<th>model</th>
+<th>par name</th>
+<th>value</th>
+<th>range</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3</td>
+<td><code>simplcutx</code></td>
+<td><code>Gamma</code></td>
+<td>1.70835</td>
+<td>1.69696~1.71736(-0.0113903,0.00900463)</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>simplcutx</code></td>
+<td><code>FracSctr</code></td>
+<td>0.423500</td>
+<td>0.388402~0.452862 (-0.0350982,0.0293619)</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>simplcutx</code></td>
+<td><code>kT_e</code></td>
+<td>296.876</td>
+<td>156.831~0(-140.045,-296.876)</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>diskbb</code></td>
+<td><code>Tin</code></td>
+<td>0.521368</td>
+<td>0.499858~0.547507(-0.0215105,0.0261386)</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>diskbb</code></td>
+<td><code>norm</code></td>
+<td>1679.12</td>
+<td>1315.87~2075.26(-363.28,396.115)</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>relxillCp</code></td>
+<td><code>Index1</code></td>
+<td>10.00000</td>
+<td>4.04933~0 (-5.95067,-10)</td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>relxillCp</code></td>
+<td><code>Incl</code></td>
+<td>44.0274</td>
+<td>41.2731~48.205 (-2.75424,4.17761)</td>
+</tr>
+<tr>
+<td>16</td>
+<td><code>relxillCp</code></td>
+<td><code>Rin</code></td>
+<td>-4.37220</td>
+<td>-5.43035 ~-3.03198 (-1.05815,1.34022)</td>
+</tr>
+<tr>
+<td>20</td>
+<td><code>relxillCp</code></td>
+<td><code>logxi</code></td>
+<td>3.64956</td>
+<td>3.48269~3.80451(-0.166872,0.154944)</td>
+</tr>
+<tr>
+<td>21</td>
+<td><code>relxillCp</code></td>
+<td><code>Afe</code></td>
+<td>10.0000</td>
+<td>7.14676~0 (-2.85324,-10)</td>
+</tr>
+<tr>
+<td>24</td>
+<td><code>relxillCp</code></td>
+<td><code>norm</code></td>
+<td>07.31228E-3</td>
+<td>0.0061945~0.00893408(-0.00111789,0.00162169)</td>
+</tr>
+<tr>
+<td>32</td>
+<td><code>xillverCp</code></td>
+<td><code>norm</code></td>
+<td>2.39388E-11</td>
+<td>0~0.000333344(-6.82725e-15,0.000333344)</td>
+</tr>
+<tr>
+<td>33</td>
+<td><code>constant</code>(2)</td>
+<td><code>factor</code></td>
+<td>1.00827</td>
+<td>0.985256~1.02789 (-0.0230121,0.0196176)</td>
+</tr>
+<tr>
+<td>65</td>
+<td><code>constant</code>(3)</td>
+<td><code>factor</code></td>
+<td>1.03501</td>
+<td>1.00417~1.06166(-0.0308423,0.0266517)</td>
+</tr>
+</tbody></table>
+<h2 id="Discussions"><a href="#Discussions" class="headerlink" title="Discussions"></a>Discussions</h2><ol>
+<li>In real world ,the <code>Incl</code> should not change with time, so we should fix it to some value (In the &#x3D;&#x3D;NuSTAR&#x3D;&#x3D; it is 63, but we’ve found that it cannot fit very well)</li>
+<li>We don’t need to get the best fit because our goal is to fit <strong>all</strong> the observations, so if the <code>Reduced Chi-Squared</code>(Chi-Squared&#x2F;Degrees of freedom)is under 1.2,although it is still not the best fit ,it would be ok.</li>
+</ol>
 
       
     </div>
@@ -615,10 +1040,16 @@ y(t)=Cx(t)+Du(t)\qquad (输出方程)</script><p>需要注意的是,$ABCD$都可
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-01-15 13:25:56 / Modified: 20:24:24" itemprop="dateCreated datePublished" datetime="2023-01-15T13:25:56+08:00">2023-01-15</time>
+              <time title="Created: 2023-01-15 13:25:56" itemprop="dateCreated datePublished" datetime="2023-01-15T13:25:56+08:00">2023-01-15</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-01-24 22:17:43" itemprop="dateModified" datetime="2023-01-24T22:17:43+08:00">2023-01-24</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -630,6 +1061,20 @@ y(t)=Cx(t)+Du(t)\qquad (输出方程)</script><p>需要注意的是,$ABCD$都可
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/01/15/control%20system/control2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/15/control system/control2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -642,160 +1087,25 @@ y(t)=Cx(t)+Du(t)\qquad (输出方程)</script><p>需要注意的是,$ABCD$都可
       
           <h1 id="被控对象的行为"><a href="#被控对象的行为" class="headerlink" title="被控对象的行为"></a>被控对象的行为</h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>为了更加方便地绘制相关图像,在这里要进行相应的准备工作</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> control <span class="keyword">as</span> ct </span><br><span class="line"><span class="keyword">from</span> control.matlab <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure>
+
 <p>绘图时用以确定线条类型</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">line_generator</span>():</span><br><span class="line">    linestyle=[<span class="string">&quot;-&quot;</span>,<span class="string">&quot;--&quot;</span>,<span class="string">&quot;-.&quot;</span>,<span class="string">&quot;:&quot;</span>]</span><br><span class="line">    lineid=<span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">yield</span> linestyle[lineid] <span class="comment">#* 这个yield用法很有趣,可以学习一下</span></span><br><span class="line">        lineid=(lineid+<span class="number">1</span>)%<span class="built_in">len</span>(linestyle)</span><br></pre></td></tr></table></figure>
+
 <p>用以完善绘图</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">plot_set</span>(<span class="params">fig_ax,*args</span>):</span><br><span class="line">    fig_ax.set_xlabel(args[<span class="number">0</span>])</span><br><span class="line">    fig_ax.set_ylabel(args[<span class="number">1</span>])</span><br><span class="line">    fig_ax.grid(ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)==<span class="number">3</span>:</span><br><span class="line">        fig_ax.legend(loc=args[<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+
 <p>用以完善伯德图函数</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">bodeplot_set</span>(<span class="params">fig_ax,*args</span>):</span><br><span class="line">    fig_ax[<span class="number">0</span>].grid(which=<span class="string">&#x27;both&#x27;</span>,ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">0</span>].set_ylabel(<span class="string">&#x27;Gain [dB]&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].grid(which=<span class="string">&#x27;both&#x27;</span>,ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].set_xlabel(<span class="string">&#x27;$\omega$ [rad/s]&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].set_ylabel(<span class="string">&#x27;Phase [deg]&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)&gt;<span class="number">0</span>:</span><br><span class="line">        fig_ax[<span class="number">1</span>].legend(loc=args[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)&gt;<span class="number">1</span>:</span><br><span class="line">        fig_ax[<span class="number">0</span>].legend(loc=args[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
-<h2 id="时域响应"><a href="#时域响应" class="headerlink" title="时域响应"></a>时域响应</h2><p>在这一部分,我们选取常见的阶跃函数<code>step</code>对于一阶和二阶的滞后系统进行描述</p>
-<h3 id="一阶滞后系统"><a href="#一阶滞后系统" class="headerlink" title="一阶滞后系统"></a>一阶滞后系统</h3><p>之前用来描述有阻尼手推车系统的传递函数的传递函数为</p>
-<script type="math/tex; mode=display">\mathcal{P}(s)=\frac{\frac{1}{\mu}}{1+\frac{M}{\mu}s}</script><p>可以将$\frac{1}{\mu}$简化为增益$K$,$\frac{M}{\mu}$简化为时间常数$T$,<br>这一类系统的阶跃响应可以被表示为</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ts,k=<span class="number">0.5</span>,<span class="number">1</span></span><br><span class="line">p=tf([<span class="number">0</span>,k],[ts,<span class="number">1</span>])</span><br><span class="line">y,t=step(p,np.linspace(<span class="number">0</span>,<span class="number">5</span>,<span class="number">100</span>))</span><br><span class="line"></span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,y)</span><br><span class="line">plot_set(ax,<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;y&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_11_0.png" alt="png"><br>​    </p>
-<p>其中,我们需要注意到,$T$代表系统达到稳定值的63.2\%所需要的时间.<br>下面展示了在不同的$T$下系统的变化</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ls=line_generator()</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line"></span><br><span class="line">k=<span class="number">1</span></span><br><span class="line">tl=[<span class="number">0.1</span>,<span class="number">0.5</span>,<span class="number">1</span>]</span><br><span class="line"><span class="keyword">for</span> tt <span class="keyword">in</span> tl:</span><br><span class="line">    p=tf([<span class="number">0</span>,k],[tt,<span class="number">1</span>])</span><br><span class="line">    y,t=step(p,np.linspace(<span class="number">0</span>,<span class="number">5</span>,<span class="number">100</span>))</span><br><span class="line">    ax.plot(t,y,<span class="built_in">next</span>(ls),label=<span class="string">&quot;T=&quot;</span>+<span class="built_in">str</span>(tt))</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;y&quot;</span>,<span class="string">&quot;best&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_13_0.png" alt="png"><br>​    </p>
-<p>可以明显看出$T$越大,达到平衡就越慢,$K$为增益,在这里不再加以演示了</p>
-<h3 id="二阶滞后系统"><a href="#二阶滞后系统" class="headerlink" title="二阶滞后系统"></a>二阶滞后系统</h3><p>如果考量一个阻尼弹簧的模型,我们可以得到其传递模型为</p>
-<script type="math/tex; mode=display">\mathcal{P}(s)=\frac{\omega_n^2}{s^2+2\zeta\omega_ns+\omega_n^2}</script><p>式中$\zeta$被称为阻尼系数,$\omega_n$被称为无阻尼自然频率.<br>这样的系统被称为<strong>二阶滞后系统</strong></p>
-<blockquote>
-<p>实际上就是阻尼振动(LCR振荡的模型)</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">zeta,omega0=<span class="number">0.4</span>,<span class="number">5</span></span><br><span class="line">p=tf([<span class="number">0</span>,omega0**<span class="number">2</span>],[<span class="number">1</span>,<span class="number">2</span>*zeta*omega0,omega0**<span class="number">2</span>])</span><br><span class="line">y,t=step(p,np.linspace(<span class="number">0</span>,<span class="number">5</span>,<span class="number">100</span>))</span><br><span class="line"></span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,y)</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;y&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_16_0.png" alt="png"><br>​    </p>
-<p>可以注意到响应图象呈现先增大后减小(中间存在过冲)<strong>过冲</strong>在二阶滞后系统时有发生.<br>下面展现出过冲在不同的阻尼系数下的表现</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ls=line_generator()</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line"></span><br><span class="line">omega=<span class="number">5</span></span><br><span class="line">beta=[<span class="number">0.3</span>,<span class="number">0.5</span>,<span class="number">1</span>]</span><br><span class="line"><span class="keyword">for</span> tt <span class="keyword">in</span> beta:</span><br><span class="line">    p=tf([<span class="number">0</span>,omega**<span class="number">2</span>],[<span class="number">1</span>,<span class="number">2</span>*tt*omega,omega**<span class="number">2</span>])</span><br><span class="line">    y,t=step(p,np.linspace(<span class="number">0</span>,<span class="number">5</span>,<span class="number">100</span>))</span><br><span class="line">    ax.plot(t,y,<span class="built_in">next</span>(ls),label=<span class="string">&quot;$\zeta$=&quot;</span>+<span class="built_in">str</span>(tt))</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;y&quot;</span>,<span class="string">&quot;best&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_18_0.png" alt="png"><br>​    </p>
-<p>可以注意到随着$\zeta$增加,过冲逐渐减小,乃至消失,而不同的$\omega_n$的影响可以如下图所示</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ls=line_generator()</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line"></span><br><span class="line">omegas=[<span class="number">1</span>,<span class="number">5</span>,<span class="number">10</span>]</span><br><span class="line">tt=<span class="number">0.3</span></span><br><span class="line"><span class="keyword">for</span> omega <span class="keyword">in</span> omegas:</span><br><span class="line">    p=tf([<span class="number">0</span>,omega**<span class="number">2</span>],[<span class="number">1</span>,<span class="number">2</span>*tt*omega,omega**<span class="number">2</span>])</span><br><span class="line">    y,t=step(p,np.linspace(<span class="number">0</span>,<span class="number">5</span>,<span class="number">100</span>))</span><br><span class="line">    ax.plot(t,y,<span class="built_in">next</span>(ls),label=<span class="string">&quot;$\omega_n$=&quot;</span>+<span class="built_in">str</span>(omega))</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;y&quot;</span>,<span class="string">&quot;best&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_20_0.png" alt="png"><br>​    </p>
-<p>可见$\omega_n$不会改变响应的大小,只会改变响应速度</p>
-<blockquote>
-<p>下面展现了一个高阶响应系统的阶跃响应</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">p=tf([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>])</span><br><span class="line">y,t=step(p,np.linspace(<span class="number">0</span>,<span class="number">5</span>,<span class="number">100</span>))</span><br><span class="line"></span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,y)</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;y&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_23_0.png" alt="png"><br>​    </p>
-<h2 id="状态空间模型的时域响应"><a href="#状态空间模型的时域响应" class="headerlink" title="状态空间模型的时域响应"></a>状态空间模型的时域响应</h2><p>在状态空间模型中,我们还会考虑不同的初始值会给出什么样不同的结果</p>
-<blockquote>
-<p>状态空间模型(单输入,单输出)定义</p>
-<script type="math/tex; mode=display">\mathbf{\dot{x}}(t)=\mathrm{A}\mathbf{x}(t)+\mathbf{B}u(t)</script><script type="math/tex; mode=display">y(t)=\mathrm{C}\mathbf{x}(t)+Du(t)</script><p>我们考虑一个系统,其中$A=\left[\begin{matrix}0&amp;1\-4&amp;-5\end{matrix}\right],B=\left[\begin{matrix}0\\1\end{matrix}\right],C=\left[\begin{matrix}1&amp;0\\0&amp;1\end{matrix}\right],D=\left[\begin{matrix}0\\0\end{matrix}\right]$,为了便于观察中间状态的行为,将$C$设定为单位阵<br>而在Python中,可以利用<code>initial</code>函数获得系统对于初值的响应</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">A=[[<span class="number">0</span>,<span class="number">1</span>],[-<span class="number">4</span>,-<span class="number">0.5</span>]]</span><br><span class="line">B=[[<span class="number">0</span>],[<span class="number">1</span>]]</span><br><span class="line">C=[[<span class="number">1</span>,<span class="number">0</span>],[<span class="number">0</span>,<span class="number">1</span>]]</span><br><span class="line">D=[[<span class="number">0</span>],[<span class="number">0</span>]]</span><br><span class="line">P=ss(A,B,C,D)</span><br><span class="line">x0=[-<span class="number">0.3</span>,<span class="number">0.4</span>]</span><br><span class="line">x,t=initial(P,np.linspace(<span class="number">0</span>,<span class="number">30</span>,<span class="number">1000</span>),x0)</span><br><span class="line"></span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,x[:,<span class="number">0</span>],label=<span class="string">&#x27;$x_1$&#x27;</span>)</span><br><span class="line">ax.plot(t,x[:,<span class="number">1</span>],<span class="string">&#x27;-.&#x27;</span>,label=<span class="string">&#x27;$x_2$&#x27;</span>)</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;x&quot;</span>,<span class="string">&#x27;best&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_25_0.png" alt="png"><br>​    </p>
-<p>可以注意到,两个状态(分别对应于阻尼运动的位置和速度)最终都会趋向0,这是阻尼运动的特征<br>对于一个微分方程$\dot{x}(t)=ax(t)$,其具有解$x(t)=e^{at}x(0)$,而将$a$替换为矩阵$\mathrm{A}$可以得到状态方程的解为</p>
-<script type="math/tex; mode=display">\mathbf{x}(t)=e^{\mathrm{A}t}\mathbf{x}(0)</script><p>如果可以计算出这个指数,那么就可以得到状态方程的行为特征</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scipy.linalg</span><br><span class="line">mA=np.array(A)</span><br><span class="line">t=<span class="number">10</span></span><br><span class="line">scipy.linalg.expm(mA*t)</span><br></pre></td></tr></table></figure>
-<pre><code>array([[ 0.05345953,  0.03466486],
-       [-0.13865943,  0.0361271 ]])
-</code></pre><p>接下来我们考虑具有输入的情况,利用下面的求解公式</p>
-<script type="math/tex; mode=display">\mathrm{x}(t)=e^{\mathrm{A}t}\mathrm{x}(0)+\int_0^te^{\mathrm{A}(t-t_s)}\mathrm{B}u(t_s)\mathrm{d}t_s</script><p>其中右边第一项为<strong>零输入响应</strong>,第二项为<strong>零初值响应</strong><br>接下来来看一下之前函数$x=\left[\begin{matrix}0\\0\end{matrix}\right]$时的零初值响应,输入为阶跃输入</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Td=np.linspace(<span class="number">0</span>,<span class="number">20</span>,<span class="number">1000</span>)</span><br><span class="line">x,t=step(P,Td)</span><br><span class="line"></span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,x[:,<span class="number">0</span>],label=<span class="string">&quot;$x_1$&quot;</span>)</span><br><span class="line">ax.plot(t,x[:,<span class="number">1</span>],ls=<span class="string">&quot;-.&quot;</span>,label=<span class="string">&quot;$x_2$&quot;</span>)</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;x&quot;</span>,<span class="string">&#x27;best&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_29_0.png" alt="png"><br>​    </p>
-<p>我们可以进一步将之前的零输入响应添加进去,只要将两者相加即可,或者使用<code>lsim</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Td=np.linspace(<span class="number">0</span>,<span class="number">20</span>,<span class="number">1000</span>)</span><br><span class="line">x1,t=step(P,Td)</span><br><span class="line">x2,t=initial(P,Td,[<span class="number">0.3</span>,-<span class="number">0.4</span>])</span><br><span class="line">x=x1[...,<span class="number">0</span>]+x2</span><br><span class="line"></span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,x[:,<span class="number">0</span>],label=<span class="string">&quot;$x_1$&quot;</span>)</span><br><span class="line">ax.plot(t,x[:,<span class="number">1</span>],ls=<span class="string">&quot;-.&quot;</span>,label=<span class="string">&quot;$x_2$&quot;</span>)</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;x&quot;</span>,<span class="string">&#x27;best&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_31_0.png" alt="png"><br>​    </p>
-<p>下面我们可以稍稍修改一下代码,实现$u(t)=3\sin 5t,x(0)=[0.5,1]^T$时系统响应</p>
-<blockquote>
-<p>对于一般的响应,建议还是使用<code>lsim</code>实现</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Td=np.linspace(<span class="number">0</span>,<span class="number">20</span>,<span class="number">1000</span>)</span><br><span class="line">x1=<span class="number">3</span>*np.sin(<span class="number">5</span>*Td)</span><br><span class="line">x2,t=initial(P,Td,[<span class="number">0.5</span>,<span class="number">1</span>])</span><br><span class="line">x,_,_=lsim(P,x1,Td,[<span class="number">0.5</span>,<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,x[:,<span class="number">0</span>],label=<span class="string">&quot;$x_1$&quot;</span>)</span><br><span class="line">ax.plot(t,x[:,<span class="number">1</span>],ls=<span class="string">&quot;-.&quot;</span>,label=<span class="string">&quot;$x_2$&quot;</span>)</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;x&quot;</span>,<span class="string">&#x27;best&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_33_0.png" alt="png"><br>​    </p>
-<h2 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h2><p>在研究系统工作时,我们发现一部分值可能会导致系统发散,即系统<strong>不稳定</strong>,我们需要研究系统的稳定性取决于哪些因素 </p>
-<h3 id="输入输出稳定性"><a href="#输入输出稳定性" class="headerlink" title="输入输出稳定性"></a>输入输出稳定性</h3><p>如果输入信号有界,输出也有界,这种情况被称作<strong>输入输出稳定(BIBO稳定)</strong>  </p>
-<blockquote>
-<p>判断不稳定的方法<br>观察传递函数$\mathcal{P}(s)$的极点(其中代数式达到无穷的情况)<br>在python中可以使用<code>pole</code>函数寻找到传递函数的极点</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">P1=tf([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;P1:&quot;</span>,pole(P1))</span><br></pre></td></tr></table></figure>
-<pre><code>P1: [-1.+0.j]
-</code></pre><p>接下来看看二阶滞后函数中$K=1,\omega_n=1,\zeta=0.025$时的传递函数的极点</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">P2=tf([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">0.05</span>,<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;P2:&quot;</span>,pole(P2))</span><br></pre></td></tr></table></figure>
-<pre><code>P2: [-0.025+0.99968745j -0.025-0.99968745j]
-</code></pre><p><strong><em>系统处于输入输出稳定条件为:传递函数的所有极点实部均为负数</em></strong><br>实部为负值的极点为<strong>稳定极点</strong>,否则为<strong>不稳定极点</strong></p>
-<h3 id="渐进稳定性"><a href="#渐进稳定性" class="headerlink" title="渐进稳定性"></a>渐进稳定性</h3><p>前面介绍的是相对于传递函数而言的,现在讨论状态空间模型,可以通过观察系统的A矩阵的<strong>特征值</strong>实现对稳定性的观测,则有:<br><strong><em>系统稳定的充分必要条件:矩阵A所有特征值的实部均为负数</em></strong></p>
-<p>但是同时需要注意到的是这里的稳定性具有<strong>渐进</strong>的特性即</p>
-<script type="math/tex; mode=display">\lim_{t\to\infin}x(t)=0</script><p>如果具有渐进稳定性,那么对于有界输入,存在有界输出(<strong>逆命题不成立</strong>)</p>
-<p>使用<code>np.linalg.eigvals</code>可以求得矩阵的特征值</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A=np.array([[<span class="number">0</span>,<span class="number">1</span>],[-<span class="number">4</span>,-<span class="number">5</span>]])</span><br><span class="line">np.linalg.eigvals(A)</span><br></pre></td></tr></table></figure>
-<pre><code>array([-1., -4.])
-</code></pre><p>而通过绘制相平面图(即状态$x$的演化轨迹)如下代码所示</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">make_phase</span>(<span class="params">matA,w=<span class="number">1.5</span></span>):</span><br><span class="line">    Y,X=np.mgrid[-w:w:<span class="number">100j</span>,-w:w:<span class="number">100j</span>]</span><br><span class="line">    s,v=np.linalg.eig(matA)</span><br><span class="line">    <span class="built_in">print</span>(s)</span><br><span class="line"></span><br><span class="line">    U=matA[<span class="number">0</span>,<span class="number">0</span>]*X+matA[<span class="number">0</span>,<span class="number">1</span>]*Y</span><br><span class="line">    V=matA[<span class="number">1</span>,<span class="number">0</span>]*X+matA[<span class="number">1</span>,<span class="number">1</span>]*Y</span><br><span class="line"></span><br><span class="line">    t=np.arange(-k,k,<span class="number">0.01</span>)</span><br><span class="line">    fig,ax=plt.subplots()</span><br><span class="line">    <span class="keyword">if</span> s.imag[<span class="number">0</span>]==<span class="number">0</span> <span class="keyword">and</span> s.imag[<span class="number">1</span>]==<span class="number">0</span>:</span><br><span class="line">        ax.plot(t,(v[<span class="number">1</span>,<span class="number">0</span>]/v[<span class="number">0</span>,<span class="number">0</span>])*t,ls=<span class="string">&quot;-&quot;</span>)</span><br><span class="line">        ax.plot(t,(v[<span class="number">1</span>,<span class="number">1</span>]/v[<span class="number">0</span>,<span class="number">1</span>])*t,ls=<span class="string">&quot;-&quot;</span>)</span><br><span class="line">    ax.streamplot(X,Y,U,V,density=<span class="number">0.7</span>,color=<span class="string">&#x27;k&#x27;</span>)</span><br><span class="line">    plot_set(ax,<span class="string">&#x27;$x_1$&#x27;</span>,<span class="string">&#x27;$x_2&#x27;</span>)</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-<p>先来刚刚那个矩阵</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make_phase(A,w=<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
-<pre><code>[-1. -4.]
-</code></pre><p><img src="output_45_1.png" alt="png"></p>
-<p>可以注意到,所有的箭头都指向不动线的,下面展示如果特征值大于零会如何</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make_phase(np.array([[<span class="number">0</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">4</span>]]),w=<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
-<pre><code>[-0.23606798  4.23606798]
-</code></pre><p><img src="output_47_1.png" alt="png"></p>
-<p>还有没有实数特征值的</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make_phase(np.array([[np.cos(<span class="number">0.5</span>),np.sin(<span class="number">0.5</span>)],[-np.sin(<span class="number">0.5</span>),np.cos(<span class="number">0.5</span>)]]),w=<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
-<pre><code>[0.87758256+0.47942554j 0.87758256-0.47942554j]
-</code></pre><p><img src="output_49_1.png" alt="png"></p>
-<p>这些极点和系统行为密切相关,若极点负值越大,那么<strong>响应越迅速</strong></p>
-<p>当极点的虚部不为零时,会出现振荡,虚部越大<strong>振荡越快</strong></p>
-<p>观察实部,可以得到振荡<strong>振幅</strong>;观察虚部,可以得到振荡<strong>周期</strong></p>
-<h2 id="频域响应"><a href="#频域响应" class="headerlink" title="频域响应"></a>频域响应</h2><p>当输入为<strong>冲激输入</strong>(函数形式为$\delta$函数)时,系统的响应就是传递函数,因此只需要对施加冲激输入后的系统响应进行拉普拉斯变换就可以得到传递函数</p>
-<p>但是在现实状况下,实现冲激输入非常困难,因此我们需要对信号进行傅里叶变换,研究输入输出的频域响应得到结果</p>
-<p>我们可以观察二阶滞后系统在输入正弦波时的响应</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">fig,ax=plt.subplots(<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">zeta=<span class="number">0.7</span></span><br><span class="line">omega_n=<span class="number">5</span></span><br><span class="line">P=tf([<span class="number">0</span>,omega_n**<span class="number">2</span>],[<span class="number">1</span>,<span class="number">2</span>*zeta*omega_n,omega_n**<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">freq=[<span class="number">2</span>,<span class="number">5</span>,<span class="number">10</span>,<span class="number">20</span>]</span><br><span class="line">Td=np.linspace(<span class="number">0</span>,<span class="number">5</span>,<span class="number">1000</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>):</span><br><span class="line">        u=np.sin(freq[<span class="number">2</span>*i+j]*Td)</span><br><span class="line">        y,t,x0=lsim(P,u,Td,<span class="number">0</span>)</span><br><span class="line">        ax[i,j].plot(t,u,ls=<span class="string">&#x27;--&#x27;</span>,label=<span class="string">&#x27;u&#x27;</span>)</span><br><span class="line">        ax[i,j].plot(t,y,label=<span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">        plot_set(ax[i,j],<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;u,y&#x27;</span>)</span><br><span class="line">ax[<span class="number">0</span>,<span class="number">0</span>].legend()</span><br></pre></td></tr></table></figure>
-<pre><code>C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\timeresp.py:935: UserWarning: return_x specified for a transfer function system. Internal conversion to state space used; results may meaningless.
-  warnings.warn(
-C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\timeresp.py:935: UserWarning: return_x specified for a transfer function system. Internal conversion to state space used; results may meaningless.
-  warnings.warn(
-C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\timeresp.py:935: UserWarning: return_x specified for a transfer function system. Internal conversion to state space used; results may meaningless.
-  warnings.warn(
-C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\timeresp.py:935: UserWarning: return_x specified for a transfer function system. Internal conversion to state space used; results may meaningless.
-  warnings.warn(
 
-
-
-
-
-&lt;matplotlib.legend.Legend at 0x1aa4e6be160&gt;
-</code></pre><p>​<br><img src="output_53_2.png" alt="png"><br>​    </p>
-<p>可以注意到随着频率逐渐增大,振幅逐渐减小,同时相位的滞后就会比较大</p>
-<p>对于各个频率,振幅比以$20\log_10\frac{B(\omega)}{A}$(分贝,dB)表示,绘制出图象为幅频图<br>将相位(deg)绘出的图形称为相频图,两者合称伯德图</p>
-<blockquote>
-<p>可以使用<code>bode</code>获得伯德图(记得转换)</p>
-</blockquote>
-<h3 id="一阶滞后系统的频域响应"><a href="#一阶滞后系统的频域响应" class="headerlink" title="一阶滞后系统的频域响应"></a>一阶滞后系统的频域响应</h3><p>下面我们来研究一阶滞后系统的伯德图,我们分别取时间常数$T=1,0.5,0.1$</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">K=<span class="number">1</span></span><br><span class="line">T=[<span class="number">1</span>,<span class="number">0.5</span>,<span class="number">0.1</span>]</span><br><span class="line">Ls=line_generator()</span><br><span class="line">fig,ax=plt.subplots(<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(T)):</span><br><span class="line">    P=tf([<span class="number">0</span>,K],[T[i],<span class="number">1</span>])</span><br><span class="line">    gain,phase,w=bode(P,logspace(-<span class="number">2</span>,<span class="number">2</span>),Plot=<span class="literal">False</span>)</span><br><span class="line">    pltargs=&#123;<span class="string">&#x27;ls&#x27;</span>:<span class="built_in">next</span>(Ls),<span class="string">&#x27;label&#x27;</span>:<span class="string">&#x27;T=&#x27;</span>+<span class="built_in">str</span>(T[i])&#125;</span><br><span class="line">    ax[<span class="number">0</span>].semilogx(w,<span class="number">20</span>*np.log10(gain),**pltargs)</span><br><span class="line">    ax[<span class="number">1</span>].semilogx(w,phase*<span class="number">180</span>/np.pi,**pltargs)</span><br><span class="line">bodeplot_set(ax,<span class="number">3</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-<pre><code>C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187: FutureWarning: &#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;
-  warnings.warn(&quot;&#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;&quot;,
-C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187: FutureWarning: &#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;
-  warnings.warn(&quot;&#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;&quot;,
-C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187: FutureWarning: &#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;
-  warnings.warn(&quot;&#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;&quot;,
-</code></pre><p><img src="output_56_1.png" alt="png"></p>
-<p>可以注意到,随着频率的提高,输出信号会发生衰减和相移,时间常数$T$越大,衰减和相移越为明显</p>
-<blockquote>
-<p>这很好理解,时间常数越大,代表响应越慢,自然衰减和相移就大  </p>
-</blockquote>
-<p>一般可以认为,在$\frac{1}{T}$的范围之内,输入信号振幅与输出信号相似(此时相移45°)</p>
-<h2 id="二阶滞后系统的频域响应"><a href="#二阶滞后系统的频域响应" class="headerlink" title="二阶滞后系统的频域响应"></a>二阶滞后系统的频域响应</h2><p>在这一部分,我们来研究一下二阶滞后系统的频域响应,取阻尼系数$\zeta=1,0.7,0.4$</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">zeta=[<span class="number">1</span>,<span class="number">0.7</span>,<span class="number">0.4</span>]</span><br><span class="line">omega=<span class="number">1</span></span><br><span class="line">Ls=line_generator()</span><br><span class="line">fig,ax=plt.subplots(<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(T)):</span><br><span class="line">    P=tf([<span class="number">0</span>,omega**<span class="number">2</span>],[<span class="number">1</span>,<span class="number">2</span>*zeta[i]*omega,omega**<span class="number">2</span>])</span><br><span class="line">    gain,phase,w=bode(P,logspace(-<span class="number">2</span>,<span class="number">2</span>),Plot=<span class="literal">False</span>)</span><br><span class="line">    pltargs=&#123;<span class="string">&#x27;ls&#x27;</span>:<span class="built_in">next</span>(Ls),<span class="string">&#x27;label&#x27;</span>:<span class="string">&#x27;$\zeta$=&#x27;</span>+<span class="built_in">str</span>(T[i])&#125;</span><br><span class="line">    ax[<span class="number">0</span>].semilogx(w,<span class="number">20</span>*np.log10(gain),**pltargs)</span><br><span class="line">    ax[<span class="number">1</span>].semilogx(w,phase*<span class="number">180</span>/np.pi,**pltargs)</span><br><span class="line">bodeplot_set(ax,<span class="number">3</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-<pre><code>C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187: FutureWarning: &#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;
-  warnings.warn(&quot;&#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;&quot;,
-C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187: FutureWarning: &#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;
-  warnings.warn(&quot;&#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;&quot;,
-C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187: FutureWarning: &#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;
-  warnings.warn(&quot;&#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;&quot;,
-</code></pre><p><img src="output_59_1.png" alt="png"></p>
-<p>通过观察伯德图,我们可以得到在高频段振幅会逐渐减小,虽然在较高频下振幅的衰减与$\zeta$无关,但是如果$\zeta$较低,会出现过冲(类似于共振)<br>相位在二姐滞后系统最终会移相180°</p>
-<p>我们再来看看改变频率$\omega_n$的结果</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">zeta=<span class="number">0.5</span></span><br><span class="line">omega=[<span class="number">1</span>,<span class="number">5</span>,<span class="number">10</span>]</span><br><span class="line">Ls=line_generator()</span><br><span class="line">fig,ax=plt.subplots(<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(T)):</span><br><span class="line">    P=tf([<span class="number">0</span>,omega[i]**<span class="number">2</span>],[<span class="number">1</span>,<span class="number">2</span>*zeta*omega[i],omega[i]**<span class="number">2</span>])</span><br><span class="line">    gain,phase,w=bode(P,logspace(-<span class="number">2</span>,<span class="number">2</span>),Plot=<span class="literal">False</span>)</span><br><span class="line">    pltargs=&#123;<span class="string">&#x27;ls&#x27;</span>:<span class="built_in">next</span>(Ls),<span class="string">&#x27;label&#x27;</span>:<span class="string">&#x27;$\omega$=&#x27;</span>+<span class="built_in">str</span>(T[i])&#125;</span><br><span class="line">    ax[<span class="number">0</span>].semilogx(w,<span class="number">20</span>*np.log10(gain),**pltargs)</span><br><span class="line">    ax[<span class="number">1</span>].semilogx(w,phase*<span class="number">180</span>/np.pi,**pltargs)</span><br><span class="line">bodeplot_set(ax,<span class="number">3</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-<pre><code>C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187: FutureWarning: &#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;
-  warnings.warn(&quot;&#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;&quot;,
-C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187: FutureWarning: &#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;
-  warnings.warn(&quot;&#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;&quot;,
-C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187: FutureWarning: &#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;
-  warnings.warn(&quot;&#39;Plot&#39; keyword is deprecated in bode_plot; use &#39;plot&#39;&quot;,
-</code></pre><p><img src="output_61_1.png" alt="png"></p>
-<p>可以注意到,随着$\omega_n$的增大,其相移和衰减的程度都下降了,而在固有频率处,刚好相移为90°</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">P=tf([<span class="number">1</span>,<span class="number">3</span>],[<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>])</span><br><span class="line">b=bode(P,logspace(-<span class="number">2</span>,<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="output_63_0.png" alt="png"><br>​    </p>
-
+<h2 id="时域响应"><a href="#时域响应" class="headerlink" title="时域响应"></a>时域响应</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/01/15/control%20system/control2/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -849,6 +1159,20 @@ C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187
               </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/01/15/Indexs/My-first-bolg/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/15/Indexs/My-first-bolg/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -968,20 +1292,20 @@ C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1051,6 +1375,10 @@ C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 
@@ -1124,6 +1452,17 @@ C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187
     
 
   
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://UNICODE_STRING.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
 
 </body>
 </html>
