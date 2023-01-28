@@ -20,17 +20,23 @@
     var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="由于我在学习控制系统的时候,感觉Visio绘图手感像坨屎,于是就看中了graphviz这款”所思即所得”的绘图软件,">
+  <meta name="description" content="由于我在学习控制系统的时候,感觉Visio绘图手感像坨屎(我承认是我手不行),但是像流程图这样的东西有特点,即如果你能在这些空间里面把你想要塞的东西全部塞进去,那么优化这样的工作可以是完全交由计算机自行处理的. 在这里,我主要将介绍两种方式进行该类绘图,一种是使用LaTex中tikz包进行绘图,还有一种是使用Graphviz进行绘图">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用graphviz绘图">
+<meta property="og:title" content="所思即所得,一些画图软件(包)介绍">
 <meta property="og:url" content="https://lsyxiaopang.github.io/2023/01/26/misc/graphviz/index.html">
 <meta property="og:site_name" content="Songyuli&#39;s blog">
-<meta property="og:description" content="由于我在学习控制系统的时候,感觉Visio绘图手感像坨屎,于是就看中了graphviz这款”所思即所得”的绘图软件,">
+<meta property="og:description" content="由于我在学习控制系统的时候,感觉Visio绘图手感像坨屎(我承认是我手不行),但是像流程图这样的东西有特点,即如果你能在这些空间里面把你想要塞的东西全部塞进去,那么优化这样的工作可以是完全交由计算机自行处理的. 在这里,我主要将介绍两种方式进行该类绘图,一种是使用LaTex中tikz包进行绘图,还有一种是使用Graphviz进行绘图">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/01/26/misc/graphviz/test-1.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/01/26/misc/graphviz/image-20230127220705981.png">
 <meta property="article:published_time" content="2023-01-26T14:56:18.000Z">
-<meta property="article:modified_time" content="2023-01-26T16:22:10.509Z">
+<meta property="article:modified_time" content="2023-01-28T14:13:07.320Z">
 <meta property="article:author" content="Songyuli">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="LaTex">
+<meta property="article:tag" content="绘图">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lsyxiaopang.github.io/2023/01/26/misc/graphviz/test-1.png">
 
 <link rel="canonical" href="https://lsyxiaopang.github.io/2023/01/26/misc/graphviz/">
 
@@ -45,7 +51,7 @@
   };
 </script>
 
-  <title>使用graphviz绘图 | Songyuli's blog</title>
+  <title>所思即所得,一些画图软件(包)介绍 | Songyuli's blog</title>
   
 
 
@@ -209,7 +215,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          使用graphviz绘图
+          所思即所得,一些画图软件(包)介绍
         </h1>
 
         <div class="post-meta">
@@ -226,8 +232,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-27 00:22:10" itemprop="dateModified" datetime="2023-01-27T00:22:10+08:00">2023-01-27</time>
+                <time title="Modified: 2023-01-28 22:13:07" itemprop="dateModified" datetime="2023-01-28T22:13:07+08:00">2023-01-28</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E9%A1%B9/" itemprop="url" rel="index"><span itemprop="name">杂项</span></a>
+                </span>
+            </span>
 
           
   
@@ -254,7 +269,45 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>由于我在学习控制系统的时候,感觉<code>Visio</code>绘图手感像坨屎,于是就看中了<code>graphviz</code>这款”所思即所得”的绘图软件,</p>
+        <p>由于我在学习控制系统的时候,感觉<code>Visio</code>绘图手感像坨屎(我承认是我手不行),但是像流程图这样的东西有特点,即如果你能在这些空间里面把你想要塞的东西全部塞进去,那么优化这样的工作可以是完全交由计算机自行处理的.</p>
+<p>在这里,我主要将介绍两种方式进行该类绘图,一种是使用<code>LaTex</code>中<code>tikz</code>包进行绘图,还有一种是使用<code>Graphviz</code>进行绘图</p>
+<span id="more"></span>
+
+<h2 id="tikz包的使用与导出"><a href="#tikz包的使用与导出" class="headerlink" title="tikz包的使用与导出"></a><code>tikz</code>包的使用与导出</h2><p><code>tikz</code>包是在<code>LaTex</code>中的一个包,其可以方便(有模板的条件下)实现图的绘制</p>
+<p>不过<code>LaTex</code>主要导出的是<code>pdf</code>文件,因此需要进行转换</p>
+<h3 id="tikz包的使用-以一个例子为例"><a href="#tikz包的使用-以一个例子为例" class="headerlink" title="tikz包的使用(以一个例子为例)"></a><code>tikz</code>包的使用(以一个例子为例)</h3><p>我们首先以一个官方例子来介绍<code>tikz</code>包</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\documentclass</span>&#123;article&#125;  </span><br><span class="line"><span class="keyword">\usepackage</span>&#123;tikz&#125;</span><br><span class="line"><span class="keyword">\usetikzlibrary</span>&#123;shapes,arrows&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\begin</span>&#123;document&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;block&#125; = [draw, fill=blue!20, rectangle, </span><br><span class="line">    minimum height=3em, minimum width=6em]</span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;sum&#125; = [draw, fill=blue!20, circle, node distance=1cm]</span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;input&#125; = [coordinate]</span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;output&#125; = [coordinate]</span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;pinstyle&#125; = [pin edge=&#123;to-,thin,black&#125;]</span><br><span class="line"></span><br><span class="line"><span class="comment">% The block diagram code is probably more verbose than necessary</span></span><br><span class="line"><span class="keyword">\begin</span>&#123;tikzpicture&#125;[auto, node distance=2cm,&gt;=latex&#x27;]</span><br><span class="line">    <span class="comment">% We start by placing the blocks</span></span><br><span class="line">    <span class="keyword">\node</span> [input, name=input] &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [sum, right of=input] (sum) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block, right of=sum] (controller) &#123;Controller&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block, right of=controller, pin=&#123;[pinstyle]above:Disturbances&#125;,</span><br><span class="line">            node distance=3cm] (system) &#123;System&#125;;</span><br><span class="line">    <span class="comment">% We draw an edge between the controller and system block to </span></span><br><span class="line">    <span class="comment">% calculate the coordinate u. We need it to place the measurement block. </span></span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (controller) -- node[name=u] &#123;<span class="built_in">$</span>u<span class="built_in">$</span>&#125; (system);</span><br><span class="line">    <span class="keyword">\node</span> [output, right of=system] (output) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block, below of=u] (measurements) &#123;Measurements&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">% Once the nodes are placed, connecting them is easy. </span></span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (input) -- node &#123;<span class="built_in">$</span>r<span class="built_in">$</span>&#125; (sum);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (sum) -- node &#123;<span class="built_in">$</span>e<span class="built_in">$</span>&#125; (controller);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (system) -- node [name=y] &#123;<span class="built_in">$</span>y<span class="built_in">$</span>&#125;(output);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (y) |- (measurements);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (measurements) -| node[pos=0.99] &#123;<span class="built_in">$</span>-<span class="built_in">$</span>&#125; </span><br><span class="line">        node [near end] &#123;<span class="built_in">$</span>y<span class="built_in">_</span>m<span class="built_in">$</span>&#125; (sum);</span><br><span class="line"><span class="keyword">\end</span>&#123;tikzpicture&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\end</span>&#123;document&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上代码会带来以下的渲染结果:</p>
+<p><img src="/2023/01/26/misc/graphviz/test-1.png" alt="test-1"></p>
+<p>我们来分段介绍内容</p>
+<h4 id="节点node"><a href="#节点node" class="headerlink" title="节点node"></a>节点<code>node</code></h4><p>节点可以看作骨架,应当是最为基础的部分</p>
+<p><code>node</code>有三种定义方式:</p>
+<ol>
+<li>使用<code>\node</code>定义,这里的定义方式应当为<code>\node [style and place] (name) &#123;label&#125;</code></li>
+<li>在<code>draw</code>中定义,这种定义往往是用于在线上写字<code>-- node [name and position] &#123;label&#125;</code></li>
+<li>使用<code>pin</code>定义</li>
+</ol>
+<p>然后关于位置,<code>pos</code>应该是线的位置,越大越靠近终点</p>
+<h4 id="箭头draw"><a href="#箭头draw" class="headerlink" title="箭头draw"></a>箭头<code>draw</code></h4><p><code>\draw [-&gt;] (nodefrom) -- (nodeto)</code></p>
+<p>直接在两个中间添加一个箭头(中间可以添加新节点)</p>
+<p><code>\draw [-&gt;] (nodefrom) -| (nodeto)</code></p>
+<p>这个箭头是折线</p>
+<h4 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h4><p>这里我们就直接套用好了没有必要去修改</p>
+<h4 id="应用举例"><a href="#应用举例" class="headerlink" title="应用举例"></a>应用举例</h4><p>下面我以控制系统中的一幅框图来实践刚才的知识(只保留)主干部分代码</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;tikzpicture&#125;[auto, node distance=2cm,&gt;=latex&#x27;]</span><br><span class="line">    <span class="keyword">\node</span> [input] (input) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [sum, right of=input] (sum1) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block, right of=sum1] (controlp) &#123;<span class="built_in">$</span>k<span class="built_in">_</span>P<span class="built_in">$</span>&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [sum, right of=controlp,node distance=2cm] (sum2) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [input, above of=sum2] (dis) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block ,right of=sum2] (p) &#123;<span class="built_in">$</span><span class="keyword">\mathcal</span>&#123;P&#125;<span class="built_in">$</span>&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [output, right of=p] (output) &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">\node</span> [output, below of=sum2] (ins) &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (input) -- node &#123;<span class="built_in">$</span>r<span class="built_in">$</span>&#125; (sum1);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (sum1) -- node &#123;<span class="built_in">$</span>e<span class="built_in">$</span>&#125; (controlp);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (controlp) -- node &#123;<span class="built_in">$</span>u<span class="built_in">$</span>&#125; node[pos=0.99] &#123;+&#125; (sum2);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (dis) -- node &#123;<span class="built_in">$</span>d<span class="built_in">$</span>&#125; node[pos=0.99] &#123;+&#125; (sum2);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (sum2) -- (p);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (p) -- node[name=y] &#123;<span class="built_in">$</span>y<span class="built_in">$</span>&#125; (output);</span><br><span class="line">    <span class="keyword">\draw</span> [-] (y) |-   (ins);<span class="comment">%中间切断了一下</span></span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (ins) -| node[pos=0.99] &#123;-&#125; (sum1);</span><br><span class="line"><span class="keyword">\end</span>&#123;tikzpicture&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>其渲染结果如下所示:</p>
+<p><img src="/2023/01/26/misc/graphviz/image-20230127220705981.png" alt="image-20230127220705981"></p>
+<p>可以看到渲染效果不错</p>
+<blockquote>
+<p>但是敲<code>tikz</code><strong>太累人</strong>了</p>
+</blockquote>
+<p>这里主要是介绍性使用<code>tikz</code>,更加完备的教程应当参考这个<a target="_blank" rel="noopener" href="https://github.com/Hansimov/pgfmanual-zh">仓库</a></p>
+<h3 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h3><p>目前来说,我觉得还是<strong>截图保存</strong>的方式最便捷</p>
+<p>虽然确实可以用<code>LaTex</code>直接导出,也可以用python对<code>pdf</code>进行转换,但是太麻烦,还是截图方便</p>
 
     </div>
 
@@ -263,6 +316,11 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/LaTex/" rel="tag"># LaTex</a>
+              <a href="/tags/%E7%BB%98%E5%9B%BE/" rel="tag"># 绘图</a>
+          </div>
 
         
 
@@ -342,6 +400,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tikz%E5%8C%85%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%AF%BC%E5%87%BA"><span class="nav-number">1.</span> <span class="nav-text">tikz包的使用与导出</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tikz%E5%8C%85%E7%9A%84%E4%BD%BF%E7%94%A8-%E4%BB%A5%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90%E4%B8%BA%E4%BE%8B"><span class="nav-number">1.1.</span> <span class="nav-text">tikz包的使用(以一个例子为例)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8A%82%E7%82%B9node"><span class="nav-number">1.1.1.</span> <span class="nav-text">节点node</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%AD%E5%A4%B4draw"><span class="nav-number">1.1.2.</span> <span class="nav-text">箭头draw</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B7%E5%BC%8F"><span class="nav-number">1.1.3.</span> <span class="nav-text">样式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E4%B8%BE%E4%BE%8B"><span class="nav-number">1.1.4.</span> <span class="nav-text">应用举例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA"><span class="nav-number">1.2.</span> <span class="nav-text">导出</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -362,13 +421,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -475,7 +534,7 @@
   var disqus_config = function() {
     this.page.url = "https://lsyxiaopang.github.io/2023/01/26/misc/graphviz/";
     this.page.identifier = "2023/01/26/misc/graphviz/";
-    this.page.title = "使用graphviz绘图";
+    this.page.title = "所思即所得,一些画图软件(包)介绍";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
