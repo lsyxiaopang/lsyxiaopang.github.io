@@ -1611,4 +1611,122 @@ C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187
         <tag>conda</tag>
       </tags>
   </entry>
+  <entry>
+    <title>使用graphviz绘图</title>
+    <url>/2023/01/26/misc/graphviz/</url>
+    <content><![CDATA[<p>由于我在学习控制系统的时候,感觉<code>Visio</code>绘图手感像坨屎,于是就看中了<code>graphviz</code>这款”所思即所得”的绘图软件,</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>使用loguru编写日志文件</title>
+    <url>/2023/01/27/misc/pylog/</url>
+    <content><![CDATA[<p>在编写程序,尤其是某些运行时间长,中间存在可能错误的程序,往往需要记录日志以便于调试.  </p>
+<p>但是日志的编写往往存在大量重复劳动,并且对于我目前的状况来讲可能需要在已有的程序中添加日志代码.  </p>
+<p>经过相关资料查阅,我找到了一个内置<code>logging</code>库,其可以较好地实现对于日志的编写.但是查阅了一下相关资料后,发现似乎<code>logging</code>的使用较为复杂,我们往往不需要那么复杂的应用场景,因此我在这里选择另外一个库<code>loguru</code>对日志进行记录</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>如果使用<code>anaconda</code>,可以用以下命令安装:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">conda install -c conda-forge loguru</span><br></pre></td></tr></table></figure>
+
+<h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><p>我们可以直接利用封装好的<code>logger</code>对象,直接对不同级别的日志进行输出,例如使用以下代码可以实现不同级别的日志:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> loguru <span class="keyword">import</span> logger</span><br><span class="line"></span><br><span class="line">logger.debug(<span class="string">&#x27;This is debug information&#x27;</span>)</span><br><span class="line">logger.info(<span class="string">&#x27;This is info information&#x27;</span>)</span><br><span class="line">logger.warning(<span class="string">&#x27;This is warn information&#x27;</span>)</span><br><span class="line">logger.error(<span class="string">&#x27;This is error information&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>可以注意到在运行时,其对于不同级别的结果,有着不同的格式化与颜色</p>
+<p><img src="/2023/01/27/misc/pylog/image-20230127192915053.png" alt="image-20230127192915053"></p>
+<p>接下来,我们可以注意到<code>logger</code>编写日志的一个优势在于其无需设定复杂的如处理器,过滤器等信息</p>
+<h2 id="输出到文件"><a href="#输出到文件" class="headerlink" title="输出到文件"></a>输出到文件</h2><p>我们往往需要将数据输出到文件,<em>尤其是在使用如<code>xspec</code>这样自己会有大量数据输出的程序</em>(默认是在<code>sys.std_err</code>中输出),可以使用<code>add</code>改变输出位置(<code>add</code>的具体用法之后会讲)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">logger.add(<span class="string">&quot;file_&#123;time&#125;.log&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>&#123;time&#125;</code>会自动替换为当前时间,还有其他的格式化字典如下:  </p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Attributes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>elapsed</td>
+<td>The time elapsed since the start of the program</td>
+<td>See <a href="https://docs.python.org/3/library/datetime.html#datetime.timedelta"><code>datetime.timedelta</code></a></td>
+</tr>
+<tr>
+<td>exception</td>
+<td>The formatted exception if any, <code>None</code> otherwise</td>
+<td><code>type</code>, <code>value</code>, <code>traceback</code></td>
+</tr>
+<tr>
+<td>extra</td>
+<td>The dict of attributes bound by the user (see <a href="https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind"><code>bind()</code></a>)</td>
+<td>None</td>
+</tr>
+<tr>
+<td>file</td>
+<td>The file where the logging call was made</td>
+<td><code>name</code> (default), <code>path</code></td>
+</tr>
+<tr>
+<td>function</td>
+<td>The function from which the logging call was made</td>
+<td>None</td>
+</tr>
+<tr>
+<td>level</td>
+<td>The severity used to log the message</td>
+<td><code>name</code> (default), <code>no</code>, <code>icon</code></td>
+</tr>
+<tr>
+<td>line</td>
+<td>The line number in the source code</td>
+<td>None</td>
+</tr>
+<tr>
+<td>message</td>
+<td>The logged message (not yet formatted)</td>
+<td>None</td>
+</tr>
+<tr>
+<td>module</td>
+<td>The module where the logging call was made</td>
+<td>None</td>
+</tr>
+<tr>
+<td>name</td>
+<td>The <code>__name__</code> where the logging call was made</td>
+<td>None</td>
+</tr>
+<tr>
+<td>process</td>
+<td>The process in which the logging call was made</td>
+<td><code>name</code>, <code>id</code> (default)</td>
+</tr>
+<tr>
+<td>thread</td>
+<td>The thread in which the logging call was made</td>
+<td><code>name</code>, <code>id</code> (default)</td>
+</tr>
+<tr>
+<td>time</td>
+<td>The aware local time when the logging call was made</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>输出到文件还有滚动和压缩等功能,在这里不再过多赘述(目前也用不到)</p>
+<blockquote>
+<p>关于字符着色:</p>
+<p>字符着色的问题是通过调节<code>add</code>中的参数<code>colorize</code>来控制的,其添加后有好处有坏处</p>
+<p>好处在于可以使用<code>tail -f</code>等很方便看到数据内容</p>
+<p>坏处在于由于字符串着色的机理是通过添加字符串进行的,会对编辑器查看带来不便</p>
+<p>因此可以尝试同时记录两个log</p>
+</blockquote>
+<h2 id="过滤器与格式化"><a href="#过滤器与格式化" class="headerlink" title="过滤器与格式化"></a>过滤器与格式化</h2><p>下面是关于更加复杂的过滤器写法和格式化写法的问题,这里不涉及(可能以后会),可以先看参考资料</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://github.com/Delgan/loguru">源代码与特性介绍</a></p>
+<p><a href="https://loguru.readthedocs.io/en/stable/api/logger.html">类定义</a></p>
+]]></content>
+      <categories>
+        <category>misc</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
 </search>
