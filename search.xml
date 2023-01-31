@@ -1775,4 +1775,258 @@ C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187
         <tag>python</tag>
       </tags>
   </entry>
+  <entry>
+    <title>使用python发送邮件</title>
+    <url>/2023/01/30/misc/pythonsmtp/</url>
+    <content><![CDATA[<p>由于之前写了一个误差计算脚本,采用了万能的<code>nohup python calc_error.py &gt;logs &amp;</code>实现了后台运行,但是在实际使用过程中,经常会遇到异常或者一些奇奇怪怪的问题,自己每次上线检查也麻烦,遂思考能不能用邮件来解决问题.  </p>
+<p>我参考<a href="https://zhuanlan.zhihu.com/p/24180606">这篇文章</a>,学习一下使用python发送邮件</p>
+<h2 id="所用到的库"><a href="#所用到的库" class="headerlink" title="所用到的库"></a>所用到的库</h2><p>我们分为两部,一方面是写邮件的过程,需要特定的邮件头和附件,这一部分使用的是<code>email</code>模块进行</p>
+<blockquote>
+<p>我在使用<code>pip install email</code>的时候一直出错,但是到<code>pip install emails</code>就可以,目前不确定两者关系,但是都可以使用<code>import email</code>调用</p>
+</blockquote>
+<p>而编写完邮件后,对于邮件的发送则是通过<code>smtp</code>服务进行,这一部分则是用<code>smtplib</code>实现,而其安装可以用<code>pip install aiosmtplib</code>进行</p>
+<h2 id="配置smtp"><a href="#配置smtp" class="headerlink" title="配置smtp"></a>配置<code>smtp</code></h2><p>我计划使用<code>Gmail</code>对这些邮件进行配置,为此,我打开了<code>Gmail</code>中的<code>imap</code>和<code>pop3</code>服务,关于<code>Gmail</code>更多信息如下,<a href="https://support.google.com/mail/answer/7126229">摘自于此</a></p>
+<table>
+<thead>
+<tr>
+<th>内容</th>
+<th>配置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>接收邮件 (IMAP) 服务器</td>
+<td>imap.gmail.com       要求 SSL：是       端口：993</td>
+</tr>
+<tr>
+<td>发送邮件 (SMTP) 服务器</td>
+<td>smtp.gmail.com       要求 SSL：是       要求 TLS：是（如适用）       使用身份验证：是       SSL 端口：465       TLS&#x2F;STARTTLS 端口：587</td>
+</tr>
+<tr>
+<td>完整名称或显示名称</td>
+<td>您的姓名</td>
+</tr>
+<tr>
+<td>帐号名、用户名或电子邮件地址</td>
+<td>您的完整电子邮件地址</td>
+</tr>
+<tr>
+<td>密码</td>
+<td>您的 Gmail 密码</td>
+</tr>
+</tbody></table>
+<h2 id="尝试发送邮件"><a href="#尝试发送邮件" class="headerlink" title="尝试发送邮件"></a>尝试发送邮件</h2><p>下面代码展示发送测试邮件过程</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> smtplib</span><br><span class="line"><span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText</span><br><span class="line"></span><br><span class="line">mail_host=<span class="string">&#x27;&#x27;</span></span><br><span class="line">mail_user=<span class="string">&#x27;&#x27;</span></span><br><span class="line">mail_pass=<span class="string">&#x27;&#x27;</span></span><br><span class="line">sender=<span class="string">&#x27;&#x27;</span></span><br><span class="line">receivers=[<span class="string">&#x27;&#x27;</span>]<span class="comment">#可以群发</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置邮件信息</span></span><br><span class="line">message=MIMEText(<span class="string">&#x27;content&#x27;</span>,<span class="string">&#x27;plain&#x27;</span>,<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">message[<span class="string">&#x27;Subject&#x27;</span>]=<span class="string">&quot;Test email&quot;</span></span><br><span class="line">message[<span class="string">&#x27;From&#x27;</span>]=sender</span><br><span class="line">message[<span class="string">&#x27;To&#x27;</span>]=receivers[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># smtpobj=smtplib.SMTP()</span></span><br><span class="line">    <span class="comment"># smtpobj.connect(mail_host,25)#这是无需ssl验证的情况</span></span><br><span class="line">    smtpobj=smtplib.SMTP_SSL(mail_host)<span class="comment">#这是需要ssl验证的情况</span></span><br><span class="line">    smtpobj.login(mail_user,mail_pass)</span><br><span class="line">    smtpobj.sendmail(sender,receivers,message.as_string())</span><br><span class="line">    smtpobj.quit()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Success&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> smtplib.SMTPException <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;error&#x27;</span>,e)</span><br></pre></td></tr></table></figure>
+
+<p>这个代码确实可以发送邮件,测试完成</p>
+<h2 id="添加附件"><a href="#添加附件" class="headerlink" title="添加附件"></a>添加附件</h2><p>我们可以利用<code>MIMENonMultipart</code>中的<code>MIMEText</code>类来发送我们得到的csv文件</p>
+<p>可以参考<a href="https://www.cnblogs.com/sunjump/p/15593585.html">这篇文章</a></p>
+<h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2><p>自然,我们可以实现更多内容(比如HTML等),但是我目前不需要,就先留在这里,可能未来还会更新</p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>路径规划器设计总结</title>
+    <url>/2023/01/31/3Dmover/routeplanner/</url>
+    <content><![CDATA[<p>经过数日的鏖战,我算是把一个路径规划程序给写完了,然而,这其中隐藏着不少的问题,以至于虽然这个程序<em>理论上</em>能够给出正确答案,但是实际上由于某些原因完全无法使用,下面我将这个记录下来,以供参考</p>
+<span id="more"></span>
+<h2 id="程序目的"><a href="#程序目的" class="headerlink" title="程序目的"></a>程序目的</h2><p>因为我们研究的磁场中存在物体,因此不能简单的整个空间到处跑,而是要根据物体的位置,进行<strong>避障</strong>,避完障之后还要<strong>选择一个尽量好的路径</strong></p>
+<p>虽然说后者是一个典型的<strong>旅行商问题</strong>,显然是不可能在多项式时间以内完成的,但是我们这里不是算法题,并且实际计算的点并不多,因此并不是最为复杂的</p>
+<p>但是前面一个问题就要复杂的多,因为我没有学过计算机图形学,只能自己猜应该怎么做,之后可以查一些别的资料(好像在这一部分可以用<strong>蚁群算法</strong>实现)</p>
+<p>下面我就来介绍一下我的这个程序是如何工作的</p>
+<h2 id="程序整体框架"><a href="#程序整体框架" class="headerlink" title="程序整体框架"></a>程序整体框架</h2><p>下图展示了这个程序的整体框架</p>
+<p><img src="struct.png" alt="struct"></p>
+<h2 id="算法内容"><a href="#算法内容" class="headerlink" title="算法内容"></a>算法内容</h2><p>这些算法可以参考以下内容</p>
+<ol>
+<li><a href="https://lsyxiaopang.github.io/2023/01/16/3Dmover/3Dmoveslice/">输入模型与判断点线与模型关系</a></li>
+<li><a href="https://lsyxiaopang.github.io/2023/01/16/3Dmover/3Dmove2/">利用最小生成树方法挑选路径</a></li>
+</ol>
+<p>我们主要要讲的是中间<em>寻找任意两点间路径</em>这一部分实现</p>
+<h3 id="寻找任意两点间路径"><a href="#寻找任意两点间路径" class="headerlink" title="寻找任意两点间路径"></a>寻找任意两点间路径</h3><p>寻找任意两点间的路径算法如下</p>
+<p><img src="findroute.png" alt="findroute"></p>
+<p>这中间有一个找顶点<strong>做偏移</strong>的步骤,理论上来说是可以贴边不偏移的,但是实际上你那么做的时候由于凹多边形,两个顶点都在边上时你<strong>难以判断这条线是不是在模型里面</strong></p>
+<blockquote>
+<p>也许我们可以在线上随机取点判断是否在模型中,但这未免太麻烦</p>
+</blockquote>
+<p>于是我就用一个小的偏移,在顶点处两线交汇处的角平分线移动一小段距离作为新的顶点</p>
+<blockquote>
+<p>这种方法偏移太大自然不行,但是偏移太小也会导致点判断错误,这与判断点是否在障碍物内算法有关</p>
+</blockquote>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p>我拿了一个非常简单的模型进行了尝试,结果它硬生生跑了好久,最后扔给我这样一个结果</p>
+<p><img src="Figure_1.png" alt="Figure_1"></p>
+<p>红色的是障碍物轮廓,蓝色的是规划的路径</p>
+<p>确实其给了我一个<em>可行答案</em>,但是这个答案<em>并不好</em>,而且获得答案的代价<strong>不可接受</strong></p>
+<p>我认为主要原因来自于避障规划使用贪心算法,会给出并不一定好的结果,但是并不能用上贪心算法的高效</p>
+<p>无疑这个问题还需要查阅更多的资料</p>
+]]></content>
+      <categories>
+        <category>3D位移平台</category>
+      </categories>
+      <tags>
+        <tag>3D位移平台</tag>
+        <tag>计算机图形学</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关注闭环系统的控制系统设计(上)</title>
+    <url>/2023/01/31/control%20system/close-sys1/</url>
+    <content><![CDATA[<p>对于一个被控制对象$\mathcal{P}$,我们需要搭建一个反馈控制系统,如图所示:<br><img src="/2023/01/31/control%20system/close-sys1/image-20230131204212577.png" alt="image-20230131204212577"><br>其中$\mathcal{K}$为控制器,$r$为目标值,$u$为控制输入,$d$为扰动,$y$为输出,$e$为误差,下面来分别介绍稳定性,时域特性以及频域响应特性</p>
+<span id="more"></span>
+
+<h2 id="设计规格"><a href="#设计规格" class="headerlink" title="设计规格"></a>设计规格</h2><h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3><p>对于闭环系统,外部输入有$r$和$d$,输出包含了被控对象的输出$y$和控制器的输出$u$,因此闭环系统要同时考虑从$r,d$到$u,y$总共四个稳定性<br>通过相关的数学计算,若其特征多项式$\phi(s)&#x3D;D_P(s)D_K(s)+N_P(s)N_K(s)$(其中$\mathcal{P}(s)&#x3D;\frac{N_P(s)}{D_P(s)}$)的根是稳定的,系统内部就是稳定的  </p>
+<blockquote>
+<p>这一个过程利用传递函数法不难推导  </p>
+</blockquote>
+<h3 id="时域响应特性"><a href="#时域响应特性" class="headerlink" title="时域响应特性"></a>时域响应特性</h3><p>从发生阶跃到逐渐稳定的过程由许多部分组成,在响应中振荡的部分被称作<strong>瞬态特性</strong>,而当经过足够长时间后振荡收敛的部分则被称为<strong>稳态特性</strong></p>
+<p>而对瞬态特性进行定量评价的指标有:<strong>上升时间(从10%-90%),调整时间(稳定在$\pm$%5),峰值时间,过冲</strong>,对于稳态响应进行定量评价的则为<strong>稳态误差</strong>,其描述目标值和稳定值之间的差  </p>
+<h3 id="频域响应特性"><a href="#频域响应特性" class="headerlink" title="频域响应特性"></a>频域响应特性</h3><p>描述瞬态特性的指标有<strong>通频带$\omega_{bw}$(幅值下降约3dB的频率)和峰值增益$M_p$</strong>,往往在峰值增益处叫作协助峰值</p>
+<h3 id="闭环系统的设计规格"><a href="#闭环系统的设计规格" class="headerlink" title="闭环系统的设计规格"></a>闭环系统的设计规格</h3><p>根据我们之前所讨论的,在控制系统的设计中闭环系统应当满足以下条件:</p>
+<ol>
+<li>稳定性</li>
+<li>快速性(通频带较大)</li>
+<li>阻尼特性(峰值增益较小)</li>
+<li>稳态特性(直流增益为1)</li>
+</ol>
+<h2 id="PID控制"><a href="#PID控制" class="headerlink" title="PID控制"></a>PID控制</h2><p>PID分为三个部分构成:</p>
+<ol>
+<li>P:比例(Partial),现在的信息,实时误差</li>
+<li>I:积分(Integral),过去的信息</li>
+<li>D:微分(Derivative),未来的信息<br>只用P,可以让系统稳定,但是无法移动到目标位置,使用PI,可以让系统达到目标,但是会振荡</li>
+</ol>
+<p>使用公式来表述PID控制,可以写为:<br>$$u(t)&#x3D;k_pe(t)+k_1\int^t_0 e(t_s)\mathbf{d}t_s+k_D\dot{e}(t)$$<br>而对其进行拉普拉斯变换则得到:<br>$$u(s)&#x3D;\frac{k_Ds^2+k_Ps+k_1}{s}e(s)$$</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#准备工作</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> control <span class="keyword">as</span> ct </span><br><span class="line"><span class="keyword">from</span> control.matlab <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">line_generator</span>():</span><br><span class="line">    linestyle=[<span class="string">&quot;-&quot;</span>,<span class="string">&quot;--&quot;</span>,<span class="string">&quot;-.&quot;</span>,<span class="string">&quot;:&quot;</span>]</span><br><span class="line">    lineid=<span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">yield</span> linestyle[lineid] <span class="comment">#* 这个yield用法很有趣,可以学习一下</span></span><br><span class="line">        lineid=(lineid+<span class="number">1</span>)%<span class="built_in">len</span>(linestyle)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">plot_set</span>(<span class="params">fig_ax,*args</span>):</span><br><span class="line">    fig_ax.set_xlabel(args[<span class="number">0</span>])</span><br><span class="line">    fig_ax.set_ylabel(args[<span class="number">1</span>])</span><br><span class="line">    fig_ax.grid(ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)==<span class="number">3</span>:</span><br><span class="line">        fig_ax.legend(loc=args[<span class="number">2</span>])</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bodeplot_set</span>(<span class="params">fig_ax,*args</span>):</span><br><span class="line">    fig_ax[<span class="number">0</span>].grid(which=<span class="string">&#x27;both&#x27;</span>,ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">0</span>].set_ylabel(<span class="string">&#x27;Gain [dB]&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].grid(which=<span class="string">&#x27;both&#x27;</span>,ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].set_xlabel(<span class="string">&#x27;$\omega$ [rad/s]&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].set_ylabel(<span class="string">&#x27;Phase [deg]&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)&gt;<span class="number">0</span>:</span><br><span class="line">        fig_ax[<span class="number">1</span>].legend(loc=args[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)&gt;<span class="number">1</span>:</span><br><span class="line">        fig_ax[<span class="number">0</span>].legend(loc=args[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+
+<h3 id="P控制性能"><a href="#P控制性能" class="headerlink" title="P控制性能"></a>P控制性能</h3><p>如下图所示的P控制系统是通过误差来按照比例计算控制输入的<br><img src="/image-20230131204256286.png" alt="image-20230131204256286"></p>
+<p>下面以机械臂(二姐滞后系统)为例,看看P控制效果</p>
+<p>下面这段代码描述了模型</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">g,l,M,mu,J=<span class="number">9.81</span>,<span class="number">0.2</span>,<span class="number">0.5</span>,<span class="number">1.5e-2</span>,<span class="number">1e-2</span></span><br><span class="line">P=tf([<span class="number">0</span>,<span class="number">1</span>],[J,mu,M*g*l])</span><br><span class="line">ref=<span class="number">30</span><span class="comment">#目标位置</span></span><br></pre></td></tr></table></figure>
+
+<p>我们来试试不同的比例增益阶跃响应会是如何</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">kp=(<span class="number">0.5</span>,<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">ls=line_generator()</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    K=tf([<span class="number">0</span>,kp[i]],[<span class="number">0</span>,<span class="number">1</span>])<span class="comment">#P控制</span></span><br><span class="line">    gyr=feedback(P*K,<span class="number">1</span>)<span class="comment">#形成反馈系统</span></span><br><span class="line">    y,t=step(gyr,np.arange(<span class="number">0</span>,<span class="number">2</span>,<span class="number">0.01</span>))<span class="comment">#这里与参考之间是归一化</span></span><br><span class="line">    pltargs=&#123;<span class="string">&#x27;ls&#x27;</span>:<span class="built_in">next</span>(ls),<span class="string">&#x27;label&#x27;</span>:<span class="string">&#x27;$k_P$=&#x27;</span>+<span class="built_in">str</span>(kp[i])&#125;</span><br><span class="line">    ax.plot(t,y*ref,**pltargs)</span><br><span class="line">ax.axhline(ref,color=<span class="string">&#x27;k&#x27;</span>,linewidth=<span class="number">0.5</span>)</span><br><span class="line">plot_set(ax,<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;y&#x27;</span>,<span class="string">&#x27;best&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/2023/01/31/control%20system/close-sys1/close_sys_8_0.png" alt="png"><br>​    </p>
+<p>可以注意到,只使用P控制无法实现达到目标位置,但是$k$越大,离目标位置越近  </p>
+<blockquote>
+<p>这里有一个理解上的问题,这里的输入实际上是<strong>预期值</strong>,结果P控制后才转化为像力矩一样的东西  </p>
+</blockquote>
+<p>我们接下来看看这个系统的伯德图</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ls=line_generator()</span><br><span class="line">fig,ax=plt.subplots(<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>((<span class="built_in">len</span>(kp))):</span><br><span class="line">    k=tf([<span class="number">0</span>,kp[i]],[<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line">    gyr=feedback(P*k,<span class="number">1</span>)</span><br><span class="line">    gain,phase,w=bode(gyr,logspace(-<span class="number">1</span>,<span class="number">2</span>),plot=<span class="literal">False</span>)</span><br><span class="line">    pltargs=&#123;<span class="string">&#x27;ls&#x27;</span>:<span class="built_in">next</span>(ls),<span class="string">&#x27;label&#x27;</span>:<span class="string">&#x27;$k_P$=&#x27;</span>+<span class="built_in">str</span>(kp[i])&#125;</span><br><span class="line">    ax[<span class="number">0</span>].semilogx(w,<span class="number">20</span>*np.log10(gain),**pltargs)</span><br><span class="line">    ax[<span class="number">1</span>].semilogx(w,phase*<span class="number">180</span>/np.pi,**pltargs)</span><br><span class="line">bodeplot_set(ax,<span class="string">&#x27;best&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/2023/01/31/control%20system/close-sys1/close_sys_10_0.png" alt="png"><br>​    </p>
+<p>可以注意到,随着$k_P$的增加,通频带在增加,但系统也会更加振荡</p>
+<h3 id="PD控制"><a href="#PD控制" class="headerlink" title="PD控制"></a>PD控制</h3><p>刚才我们看到了,随着$k_P$的逐渐增大,振荡也会变大,可以通过添加D控制来控制振荡.<br>PD控制如下图所示,为$\mathcal{K}(s)&#x3D;k_Ds+k_P$<br><img src="/image-20230131204321765.png" alt="image-20230131204321765"></p>
+<p>我们可以用以下代码对PD控制进行模拟</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">kp=<span class="number">2</span></span><br><span class="line">kd=(<span class="number">0</span>,<span class="number">0.1</span>,<span class="number">0.2</span>)</span><br><span class="line">ls=line_generator()</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    k=tf([kd[i],kp],[<span class="number">0</span>,<span class="number">1</span>])<span class="comment">#PD控制</span></span><br><span class="line">    gyr=feedback(P*k,<span class="number">1</span>)</span><br><span class="line">    y,t=step(gyr,np.arange(<span class="number">0</span>,<span class="number">2</span>,<span class="number">0.01</span>))</span><br><span class="line">    pltargs=&#123;<span class="string">&#x27;ls&#x27;</span>:<span class="built_in">next</span>(ls),<span class="string">&#x27;label&#x27;</span>:<span class="string">&#x27;$k_D$=&#x27;</span>+<span class="built_in">str</span>(kd[i])&#125;</span><br><span class="line">    ax.plot(t,y*ref,**pltargs)</span><br><span class="line">ax.axhline(ref,color=<span class="string">&#x27;k&#x27;</span>,linewidth=<span class="number">0.5</span>)</span><br><span class="line">plot_set(ax,<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;y&#x27;</span>,<span class="string">&#x27;best&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/2023/01/31/control%20system/close-sys1/close_sys_13_0.png" alt="png"><br>​    </p>
+<p>我们可以注意到,在有D控制的情况下,振荡得到了有效的抑制,<strong>但是稳态误差不为0</strong><br>我们接下来来研究一下闭环系统的伯德图</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ls=line_generator()</span><br><span class="line">fig,ax=plt.subplots(<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    k=tf([kd[i],kp],[<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line">    gyr=feedback(P*k,<span class="number">1</span>)</span><br><span class="line">    gain,phase,w=bode(gyr,logspace(-<span class="number">1</span>,<span class="number">2</span>),plot=<span class="literal">False</span>)</span><br><span class="line">    pltargs=&#123;<span class="string">&#x27;ls&#x27;</span>:<span class="built_in">next</span>(ls),<span class="string">&#x27;label&#x27;</span>:<span class="string">&#x27;$k_D$=&#x27;</span>+<span class="built_in">str</span>(kd[i])&#125;</span><br><span class="line">    ax[<span class="number">0</span>].semilogx(w,<span class="number">20</span>*np.log10(gain),**pltargs)</span><br><span class="line">    ax[<span class="number">1</span>].semilogx(w,phase*<span class="number">180</span>/np.pi,**pltargs)</span><br><span class="line">bodeplot_set(ax,<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/2023/01/31/control%20system/close-sys1/close_sys_15_0.png" alt="png"><br>​    </p>
+<p>这里$k_D$等于0的相位有点问题,但是我就懒得调了,可以看出,随着$k_D$的增大,通频带会逐渐增大,且过冲会减小,但是稳态条件下并没有改善  </p>
+<blockquote>
+<p>PD控制的可实现性<br>我们需要注意到PD控制的传递函数是非真分的,即控制过程中会用到系统未来的信息,因此我们需要使用<strong>不完全微分</strong><br>$$\frac{s}{1+T_{lp}s}$$<br>这是将低通滤波(一阶滞后系统)叠加到微分后的结果,是真分的函数(即添加一个对输出求导的函数)</p>
+</blockquote>
+<h3 id="PID控制-1"><a href="#PID控制-1" class="headerlink" title="PID控制"></a>PID控制</h3><p>最后,我们为了改善稳态的特性,我们可以添加I控制可以让稳态误差为0,同时,我们也可以注意到,随着$k_I$增大,振荡也会增强</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">kp=<span class="number">2</span></span><br><span class="line">kd=<span class="number">0.1</span></span><br><span class="line">ki=(<span class="number">0</span>,<span class="number">5</span>,<span class="number">10</span>)</span><br><span class="line">ls=line_generator()</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    k=tf([kd,kp,ki[i]],[<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line">    gyr=feedback(P*k,<span class="number">1</span>)</span><br><span class="line">    y,t=step(gyr,np.arange(<span class="number">0</span>,<span class="number">2</span>,<span class="number">0.01</span>))</span><br><span class="line">    pltargs=&#123;<span class="string">&#x27;ls&#x27;</span>:<span class="built_in">next</span>(ls),<span class="string">&#x27;label&#x27;</span>:<span class="string">&#x27;$k_I$=&#x27;</span>+<span class="built_in">str</span>(ki[i])&#125;</span><br><span class="line">    ax.plot(t,y*ref,**pltargs)</span><br><span class="line">ax.axhline(ref,color=<span class="string">&#x27;k&#x27;</span>)</span><br><span class="line">plot_set(ax,<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;y&#x27;</span>,<span class="string">&#x27;best&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/2023/01/31/control%20system/close-sys1/close_sys_18_0.png" alt="png"><br>​    </p>
+<p>接下来,我们来观察一下PID控制的伯德图  </p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ls=line_generator()</span><br><span class="line">fig,ax=plt.subplots(<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    k=tf([kd,kp,ki[i]],[<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line">    gyr=feedback(P*k,<span class="number">1</span>)</span><br><span class="line">    gain,phase,w=bode(gyr,logspace(-<span class="number">1</span>,<span class="number">2</span>),plot=<span class="literal">False</span>)</span><br><span class="line">    pltargs=&#123;<span class="string">&#x27;ls&#x27;</span>:<span class="built_in">next</span>(ls),<span class="string">&#x27;label&#x27;</span>:<span class="string">&#x27;$k_I$=&#x27;</span>+<span class="built_in">str</span>(ki[i])&#125;</span><br><span class="line">    ax[<span class="number">0</span>].semilogx(w,<span class="number">20</span>*np.log10(gain),**pltargs)</span><br><span class="line">    ax[<span class="number">1</span>].semilogx(w,phase*<span class="number">180</span>/np.pi,**pltargs)</span><br><span class="line">bodeplot_set(ax,<span class="string">&#x27;best&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/2023/01/31/control%20system/close-sys1/close_sys_20_0.png" alt="png"><br>​    </p>
+<p>我们可以注意到,随着$k_I$的增大,振荡会增大,但是其他性质近似能够保持不变</p>
+<blockquote>
+<p>我们还可以来研究一下抗干扰性<br>因为可能会从d出现输入(扰动),下面展示了当d为阶跃输入时的系统整体的变化<br>这些扰动在机械系统中往往是一些摩擦等因素</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ls=line_generator()</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    k=tf([kd,kp,ki[i]],[<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line">    gyd=feedback(P,k)<span class="comment">#注意这里反馈环的变化</span></span><br><span class="line">    y,t=step(gyd,np.arange(<span class="number">0</span>,<span class="number">2</span>,<span class="number">0.01</span>))</span><br><span class="line">    pltargs=&#123;<span class="string">&#x27;ls&#x27;</span>:<span class="built_in">next</span>(ls),<span class="string">&#x27;label&#x27;</span>:<span class="string">&#x27;$k_I$=&#x27;</span>+<span class="built_in">str</span>(ki[i])&#125;</span><br><span class="line">    ax.plot(t,y,**pltargs)</span><br><span class="line">plot_set(ax,<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;y&#x27;</span>,<span class="string">&#x27;best&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/2023/01/31/control%20system/close-sys1/close_sys_22_0.png" alt="png"><br>​    </p>
+<p>可以注意到,虽然有振荡,但是I控制最终总是能够拉回</p>
+<blockquote>
+<p>PID数学形式<br>闭环系统:<br>$$\frac{k_Ds^2+k_Ps+k_I}{Js^3+(\mu +k_D)s^2+(mgl+k_P)s+k_I}$$<br>当频率为0(稳态时),闭环系统为1<br>扰动:<br>$$\frac{s}{Js^3+(\mu +k_D)s^2+(mgl+k_P)s+k_I}$$<br>当频率为0(稳态扰动时),扰动影响为0</p>
+</blockquote>
+<h2 id="二自由度控制"><a href="#二自由度控制" class="headerlink" title="二自由度控制"></a>二自由度控制</h2><p>但是在实际的使用过程中,我们往往使用的是PID控制的改良版本,我们下面介绍改良版的PID控制以及其与<strong>二自由度控制</strong>之间的关系.<br>在PID控制中如果目标值以阶跃状变化时控制输入($u(t)$)就会出现微分器中包含的冲激成分(虽然这个值不会像理论计算那样是无穷大,但是也会非常大).因此我们有时会将微分器移动到输出(这样不会直接输入)的<strong>PI-D控制</strong>,可以用下式表示<br>$$u(s)&#x3D;k_Pe(s)+\frac{k_I}{s}e(s)-k_Dsy(s)$$<br>其控制框图如图所示:<br><img src="/image-20230131204356341.png" alt="image-20230131204356341">而对于P控制,输入中也存在有阶跃状的信号,而为了解决这个问题,我们也可以将P也放到输出端,那么可以用下式表述:<br>$$u(s)&#x3D;-k_Py(s)+\frac{k_I}{s}e(s)-k_Dsy(s)$$<br>PI-D控制和P-ID控制就是在反馈控制基础上叠加了顺馈控制的二自由度控制,下面对其加以介绍:<br>对于PI-D控制,我们可以通过计算其输入$u(s)$为:<br>$$u(s)&#x3D;\frac{k_Ds^2+k_Ps+K_I}{s}\left(\frac{k_Ps+k_I}{k_Ds^2+k_Ps+k_I}r(s)-y(s)\right)&#x3D;\mathcal{K}_1(s)(\mathcal{K}_2(s)r(s)-y(s))$$<br>可以看作是两个控制器$\mathcal{K}_1$就是普通的PID控制,而$\mathcal{K}_2$则为一个滤波器,可以将输入信号变得平滑<br>相似的,对于P-ID控制,形式与前相同,只是$\mathcal{K}_2$变成了<br>$$\mathcal{K}_2(s)&#x3D;\frac{k_I}{k_Ds^2+k_Ps+k_I}$$<br>我们可以看看PID控制与PI-D控制以及I-PD控制之间区别</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">kp,ki,kd=<span class="number">2</span>,<span class="number">5</span>,<span class="number">0.1</span></span><br><span class="line">pcontrol=tf([<span class="number">0</span>,kp],[<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line">icontrol=tf([<span class="number">0</span>,ki],[<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line">dcontrol=tf([kd,<span class="number">0</span>],[<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line"><span class="comment">#首先看看PID控制</span></span><br><span class="line">pid=parallel(pcontrol,icontrol,dcontrol)</span><br><span class="line">fb=feedback(pid*P,<span class="number">1</span>)</span><br><span class="line">pidout,t=step(fb,np.arange(<span class="number">0</span>,<span class="number">3</span>,<span class="number">0.01</span>))</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,pidout,<span class="string">&#x27;r-&#x27;</span>,label=<span class="string">&quot;PID&quot;</span>)</span><br><span class="line"><span class="comment">#接下来是PI_D控制</span></span><br><span class="line">pi=parallel(pcontrol,icontrol)</span><br><span class="line">Pd=feedback(P,dcontrol)</span><br><span class="line">gyd=feedback(pi*Pd,<span class="number">1</span>)</span><br><span class="line">pi_dout,t=step(gyd,np.arange(<span class="number">0</span>,<span class="number">3</span>,<span class="number">0.01</span>))</span><br><span class="line">ax.plot(t,pi_dout,<span class="string">&#x27;g-&#x27;</span>,label=<span class="string">&quot;PI-D&quot;</span>)</span><br><span class="line"><span class="comment">#最后是P_ID控制</span></span><br><span class="line">Ppd=feedback(P,parallel(pcontrol,dcontrol))</span><br><span class="line">gyd=feedback(icontrol*Ppd,<span class="number">1</span>)</span><br><span class="line">p_idout,t=step(gyd,np.arange(<span class="number">0</span>,<span class="number">3</span>,<span class="number">0.01</span>))</span><br><span class="line">ax.plot(t,p_idout,<span class="string">&#x27;b-&#x27;</span>,label=<span class="string">&quot;P-ID&quot;</span>)</span><br><span class="line"></span><br><span class="line">plot_set(ax,<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;y&#x27;</span>,<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/2023/01/31/control%20system/close-sys1/close_sys_25_0.png" alt="png"><br>​    </p>
+<p>可以注意到,使用PI-D振荡会略小,而使用P-ID振荡则几乎消失(这样可以避免u输入过大)</p>
+<h2 id="使用临界比例度法进行增益调整"><a href="#使用临界比例度法进行增益调整" class="headerlink" title="使用临界比例度法进行增益调整"></a>使用临界比例度法进行增益调整</h2><p>常见有两种调节PID增益的方法,它们分别是<strong>临界比例度法</strong>和阶跃响应法,这里我们主要是研究使用临界比例度法对PID增益的调整,这种方法好处在于<strong>无需知道被控对象的模型</strong>,但是也有着相应的缺点:<strong>必须重复实验并且将机器运行在极其不稳定状态</strong><br>在使用临界比例度法时,首先搭建一个P控制,然后逐渐增大比例增益$k_P$,此时振荡也会逐渐增大<br>此时我们可以来调查比例增益$k_{P0}$和持续振荡的周期$T_0$,在实际的系统中,由于存在有微小的<strong>延迟时间</strong>,因此会产生持续振荡</p>
+<p>得到了这些信息,我们就可以根据下表来确定比例增益$k_P$,<strong>积分时间常数$T_I$<strong>和</strong>微分时间常数$T_D$</strong>,对于PID控制,有:<br>$$u(t)&#x3D;k_P\left(e(t)+\frac{1}{T_I}\int e(t)dt+T_D\frac{d}{dt}e(t)\right)$$<br>则有$k_I&#x3D;\frac{k_P}{T_I}$,$k_D&#x3D;k_PT_D$  </p>
+<table>
+<thead>
+<tr>
+<th>临界比例度法</th>
+<th>比例增益$k_P$</th>
+<th>积分时间常数$T_I$</th>
+<th>微分时间常数$T_D$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P控制</td>
+<td>0.5 $k_{P0}$</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>PI控制</td>
+<td>0.45 $k_{P0}$</td>
+<td>0.83 $T_0$</td>
+<td></td>
+</tr>
+<tr>
+<td>PID控制</td>
+<td>0.6 $k_{P0}$</td>
+<td>0.5 $T_0$</td>
+<td>0.125 $T_0$</td>
+</tr>
+<tr>
+<td>无过冲控制</td>
+<td>0.2 $k_{P0}$</td>
+<td>0.5 $T_0$</td>
+<td>0.33 $T_0$</td>
+</tr>
+</tbody></table>
+<p>下面我们假设处理的是作为被控对象的二阶滞后系统中存在有微小的延迟时间</p>
+<blockquote>
+<p>延迟系统可以表示为$e^{-hs}$这样的无穷维系统,可以近似为有理函数,下面使用一阶帕德近似,延迟时间设定为0.005  </p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">numd,dend=pade(<span class="number">0.005</span>,<span class="number">1</span>)</span><br><span class="line">Pdelay=P*tf(numd,dend)</span><br></pre></td></tr></table></figure>
+
+<p>我们按照要求将比例增益大概调节到2.9并且施加P控制,那么就会产生下图所示的振荡</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig,ax=plt.subplots()</span><br><span class="line">kp0=<span class="number">2.9</span></span><br><span class="line">K=tf([<span class="number">0</span>,kp0],[<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line">gyr=feedback(Pdelay*K,<span class="number">1</span>)</span><br><span class="line">y,t=step(gyr,np.arange(<span class="number">0</span>,<span class="number">2</span>,<span class="number">0.01</span>))</span><br><span class="line"></span><br><span class="line">ax.plot(t,y)</span><br><span class="line">ax.axhline(<span class="number">1</span>)</span><br><span class="line">plot_set(ax,<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;y&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/2023/01/31/control%20system/close-sys1/close_sys_32_0.png" alt="png"><br>​    </p>
+<p>可以注意到,系统已经产生了显著的振荡,我们可以读出持续振荡的周期约为0.3s,那么我们就可以用这个系统来实现PID控制</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">kp=[<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">ki=[<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">kd=[<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">t0=<span class="number">0.3</span></span><br><span class="line">kp[<span class="number">0</span>]=<span class="number">0.6</span>*kp0</span><br><span class="line">ki[<span class="number">0</span>]=kp[<span class="number">0</span>]/(<span class="number">0.5</span>*t0)</span><br><span class="line">kd[<span class="number">0</span>]=kp[<span class="number">0</span>]*(<span class="number">0.125</span>*t0)</span><br><span class="line">K=tf([kd[<span class="number">0</span>],kp[<span class="number">0</span>],ki[<span class="number">0</span>]],[<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">gyr=feedback(K*Pdelay,<span class="number">1</span>)</span><br><span class="line">y,t=step(gyr,np.arange(<span class="number">0</span>,<span class="number">2</span>,<span class="number">0.01</span>))</span><br><span class="line">ax.plot(t,y)</span><br><span class="line">plot_set(ax,<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;y&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p>​<br><img src="/close_sys_files/close_sys_34_0.png" alt="png"><br>​    </p>
+<p>可以看到,实现了较好的控制,我们还可以避免过冲,可以看以下代码</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">kp=[<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">ki=[<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">kd=[<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">t0=<span class="number">0.3</span></span><br><span class="line">kp[<span class="number">0</span>]=<span class="number">0.2</span>*kp0</span><br><span class="line">ki[<span class="number">0</span>]=kp[<span class="number">0</span>]/(<span class="number">0.5</span>*t0)</span><br><span class="line">kd[<span class="number">0</span>]=kp[<span class="number">0</span>]*(<span class="number">0.33</span>*t0)</span><br><span class="line">K=tf([kd[<span class="number">0</span>],kp[<span class="number">0</span>],ki[<span class="number">0</span>]],[<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">gyr=feedback(K*Pdelay,<span class="number">1</span>)</span><br><span class="line">y,t=step(gyr,np.arange(<span class="number">0</span>,<span class="number">2</span>,<span class="number">0.01</span>))</span><br><span class="line">ax.plot(t,y)</span><br><span class="line">plot_set(ax,<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;y&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/2023/01/31/control%20system/close-sys1/close_sys_36_0.png" alt="png"><br>​    </p>
+]]></content>
+      <categories>
+        <category>Python设计控制系统</category>
+      </categories>
+      <tags>
+        <tag>控制系统</tag>
+      </tags>
+  </entry>
 </search>
