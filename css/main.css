@@ -1235,7 +1235,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #7124fe;
+  background: #0bffde;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2469,4 +2469,21 @@ embed {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+body {
+  background: url("https://api.vvhan.com/api/acgimg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+}
+.content-wrap {
+  opacity: 0.9;
+}
+.popup {
+  opacity: 0.9;
+}
+.main-inner {
+  background: #fff;
+  opacity: 0.9;
 }
