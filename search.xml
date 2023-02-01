@@ -118,6 +118,13 @@
 <p>属性中保留<code>cmd_list</code>进行读取待进行指令,<code>cmd_now</code>为当前执行指令</p>
 <p>以及<code>move_start</code>控制是否开始测量</p>
 <h4 id="1-31更新"><a href="#1-31更新" class="headerlink" title="1.31更新"></a>1.31更新</h4><p>如果单纯的使用一个<code>cmd</code>来同时管理电机,测量和显示,这无疑是非常浪费的,而且这样操作如果未来需要修改命令格式以支持其他功能也是非常不妥当的,因此,我们需要对<code>cmd</code>进行预处理操作.</p>
+<p>我们添加了一个<code>_cmd_parser</code>指令,这个指令可以<strong>独立地</strong>去处理数据,目前可以处理两类:</p>
+<ol>
+<li>一次移动,一次测量</li>
+<li>多次移动一起,一次测量</li>
+</ol>
+<p>为了更好的适配2,我们在电机控制中添加了<code>_send_cmd_sync</code>这个命令,可以更高效处理曲折的路径</p>
+<p>同时,我们在回调函数中添加了<code>cmd_refresh_call</code>,避免用户去访问<code>cmd_now</code>属性造成混乱</p>
 <h2 id="测量驱动修改"><a href="#测量驱动修改" class="headerlink" title="测量驱动修改"></a>测量驱动修改</h2><p>应用了<code>MPS010602</code>,将相关文件打包成一个<code>weel</code>再安装,这个留到另外一篇文章讲</p>
 ]]></content>
       <categories>
@@ -173,6 +180,24 @@
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/2023/01/17/Indexs/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>The index blog</title>
     <url>/2023/01/15/Indexs/My-first-bolg/</url>
     <content><![CDATA[<p>This is the introduction and index of my blog, and it’s for testing the <code>Hexo</code>.</p>
@@ -204,24 +229,6 @@
       <tags>
         <tag>Index</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2023/01/17/Indexs/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
   <entry>
     <title>创建wheels</title>
@@ -260,22 +267,6 @@
       <tags>
         <tag>python</tag>
         <tag>conda</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>对于数字信号处理的手段</title>
-    <url>/2023/01/24/MPS010602/process-logical/</url>
-    <content><![CDATA[<p>之前研究过对于<code>MPS010602</code>中的数字信号,应当如何处理(在其中使用二进制位来表示逻辑),今天恰好看到了<code>numpy.bitwise_xor</code>函数,会非常有用,在此记录一下</p>
-<h2 id="逻辑位操作"><a href="#逻辑位操作" class="headerlink" title="逻辑位操作"></a>逻辑位操作</h2><p>在<code>numpy</code>库中有相应的逻辑操作函数,而最大的特点就在于它们可以实现向量化,这对于我们应用的场景来说非常重要.</p>
-<p>其使用的方法与&amp;类似,主要看代码,以下代码展示如何从一个八进制数取出某一位的数字信号</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_binary</span>(<span class="params">data_array:np.array,bit:<span class="built_in">int</span></span>):</span><br><span class="line">    check=<span class="number">1</span>&lt;&lt;bit</span><br><span class="line">    ca=np.array([check])</span><br><span class="line">    dataout=np.bitwise_and(data_array,ca)</span><br><span class="line">    <span class="keyword">return</span> np.where(dataout==<span class="number">0</span>,<span class="literal">False</span>,<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>MPS010602</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -318,484 +309,6 @@
     <url>/2023/01/23/Pyerror/poetry/</url>
     <content><![CDATA[<h1 id="利用poetry进行包管理"><a href="#利用poetry进行包管理" class="headerlink" title="利用poetry进行包管理"></a>利用poetry进行包管理</h1><p>今天我突发奇想:</p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>为分类问题训练简单的机器学习算法</title>
-    <url>/2023/01/24/machine-learning/machine1/</url>
-    <content><![CDATA[<h2 id="标记与术语"><a href="#标记与术语" class="headerlink" title="标记与术语"></a>标记与术语</h2><ul>
-<li>特征(features):例如数据的种类(一般以列存储)</li>
-<li>样本(samples):一般以行存储,数据列表<br>$x^i_j$指第$i$个训练样本,训练集的第$j$维(第$j$个特征)<blockquote>
-<p>这种标记输入输出均可</p>
-</blockquote>
-</li>
-</ul>
-<blockquote>
-<p>另外,机器学习是一回事,这本书中的python代码非常优美,值得学习</p>
-</blockquote>
-<h1 id="为分类问题训练简单的机器学习算法"><a href="#为分类问题训练简单的机器学习算法" class="headerlink" title="为分类问题训练简单的机器学习算法"></a>为分类问题训练简单的机器学习算法</h1><p>在这一部分,我们构造一个简单的线性分类算法实现我们的分类任务</p>
-<h2 id="早期的机器学习模型"><a href="#早期的机器学习模型" class="headerlink" title="早期的机器学习模型"></a>早期的机器学习模型</h2><p>最早的机器学习模型是通过模拟神经元实现的<br>我们可以定义一个决定函数$\phi(x)$来从输入得到输出<br>通过将权重矢量与输入矢量点乘后通过一个阈值函数得到输出.<br>因此,通过计算$sign(\omega^Tx+\omega_0)$即可得到一个<strong>二分类输出</strong></p>
-<span id="more"></span>
-
-<h3 id="学习的逻辑"><a href="#学习的逻辑" class="headerlink" title="学习的逻辑"></a>学习的逻辑</h3><p>每一次学习,都需要让计算结果更加接近,因此需要更新权重矢量得到$\Delta \omega$<br>而$\Delta \omega&#x3D;\eta(y^i-\hat{y}^i)x$<br>式中的$\eta$被称为<strong>学习率</strong><br>其过程可以被总结为<br><img src="/2023/01/24/machine-learning/machine1/image-20230124170806576.png" alt="png"></p>
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>下面我们尝试构造一个类来解决这个问题</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Perception</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,eta=<span class="number">0.01</span>,n_iter=<span class="number">100</span>,random_state=<span class="number">1</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        self.eta=eta</span><br><span class="line">        self.n_iter=n_iter</span><br><span class="line">        self.random_state=random_state</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fitdata</span>(<span class="params">self,X,y</span>):</span><br><span class="line">        self.errors_=[]<span class="comment">#aa_下划线代表运行后才存在的属性</span></span><br><span class="line">        rs=np.random.RandomState(self.random_state)<span class="comment">#种子生成随机数</span></span><br><span class="line">        self.w_=rs.normal(scale=<span class="number">0.1</span>,size=<span class="number">1</span>+X.shape[<span class="number">1</span>])</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.n_iter):</span><br><span class="line">            error=<span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> x,yreal <span class="keyword">in</span> <span class="built_in">zip</span>(X,y):</span><br><span class="line">                ytest=np.where(np.dot(x,self.w_[:-<span class="number">1</span>])+self.w_[-<span class="number">1</span>]&gt;<span class="number">0</span>,<span class="number">1</span>,-<span class="number">1</span>)</span><br><span class="line">                self.w_[:-<span class="number">1</span>]+=self.eta*(yreal-ytest)*x</span><br><span class="line">                self.w_[-<span class="number">1</span>]+=self.eta*(yreal-ytest)</span><br><span class="line">                error+=np.count_nonzero(yreal-ytest)</span><br><span class="line">            self.errors_.append(error)</span><br><span class="line">            <span class="keyword">if</span>(error==<span class="number">0</span>):</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;The fitting have completed&quot;</span>)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;The max iteration have reached&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">net_input</span>(<span class="params">self,X</span>):</span><br><span class="line">        <span class="keyword">return</span> np.dot(X,self.w_[:-<span class="number">1</span>])+self.w_[-<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">predict</span>(<span class="params">self,X</span>):</span><br><span class="line">        <span class="keyword">return</span> np.where(self.net_input(X)&gt;=<span class="number">0.0</span>,<span class="number">1</span>,-<span class="number">1</span>) </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在这个类中我们定义<code>fit</code>实现拟合,拟合之后会有两个属性,分别为<code>w_</code>和<code>errors_</code>一个记录了线性参数,另外一个记录了误差</p>
-<h2 id="使用鸢尾花数据集训练这个分类模型"><a href="#使用鸢尾花数据集训练这个分类模型" class="headerlink" title="使用鸢尾花数据集训练这个分类模型"></a>使用鸢尾花数据集训练这个分类模型</h2><p>为了测试我们这个的效果,我们将对山鸢尾和变色秋海棠两种不同的花进行分类,虽然特征不一定要是二维的,但是为了展示方便,我们使用两个特征萼片长度和花瓣长度作为特征.</p>
-<p>我们首先使用<code>pandas</code>将数据从数据库中加载出来,并且看看大概</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">df=pd.read_csv(<span class="string">&#x27;https://archive.ics.uci.edu/ml/&#x27;</span></span><br><span class="line">               <span class="string">&#x27;machine-learning-databases/iris/iris.data&#x27;</span>,</span><br><span class="line">               header=<span class="literal">None</span>)</span><br><span class="line">df.tail()               </span><br></pre></td></tr></table></figure>
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-<pre><code>.dataframe tbody tr th &#123;
-    vertical-align: top;
-&#125;
-
-.dataframe thead th &#123;
-    text-align: right;
-&#125;
-</code></pre>
-<p></style></p>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>0</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>145</th>
-      <td>6.7</td>
-      <td>3.0</td>
-      <td>5.2</td>
-      <td>2.3</td>
-      <td>Iris-virginica</td>
-    </tr>
-    <tr>
-      <th>146</th>
-      <td>6.3</td>
-      <td>2.5</td>
-      <td>5.0</td>
-      <td>1.9</td>
-      <td>Iris-virginica</td>
-    </tr>
-    <tr>
-      <th>147</th>
-      <td>6.5</td>
-      <td>3.0</td>
-      <td>5.2</td>
-      <td>2.0</td>
-      <td>Iris-virginica</td>
-    </tr>
-    <tr>
-      <th>148</th>
-      <td>6.2</td>
-      <td>3.4</td>
-      <td>5.4</td>
-      <td>2.3</td>
-      <td>Iris-virginica</td>
-    </tr>
-    <tr>
-      <th>149</th>
-      <td>5.9</td>
-      <td>3.0</td>
-      <td>5.1</td>
-      <td>1.8</td>
-      <td>Iris-virginica</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-<p>接下来,我们将前50个山鸢尾和前50个变色秋海棠的记录提取出来,分别标记为-1和1</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">y=df.iloc[<span class="number">0</span>:<span class="number">100</span>,<span class="number">4</span>].values</span><br><span class="line">y=np.where(y==<span class="string">&#x27;Iris-setosa&#x27;</span>,-<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">X=df.iloc[<span class="number">0</span>:<span class="number">100</span>,[<span class="number">0</span>,<span class="number">2</span>]].values</span><br><span class="line"></span><br><span class="line">plt.scatter(X[y==-<span class="number">1</span>,<span class="number">0</span>],X[y==-<span class="number">1</span>,<span class="number">1</span>],color=<span class="string">&#x27;red&#x27;</span>,marker=<span class="string">&#x27;o&#x27;</span>,label=<span class="string">&#x27;setosa&#x27;</span>)</span><br><span class="line">plt.scatter(X[y==<span class="number">1</span>,<span class="number">0</span>],X[y==<span class="number">1</span>,<span class="number">1</span>],color=<span class="string">&#x27;blue&#x27;</span>,marker=<span class="string">&#x27;x&#x27;</span>,label=<span class="string">&#x27;versicolor&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;sepal length [cm]&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;petal length [cm]&quot;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2023/01/24/machine-learning/machine1/11_0.png" alt="png"></p>
-<p>我们可以从上面那张图中看出来两种花可以被很好的区分开来,接下来我们来训练一下试试</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">model=Perception(<span class="number">0.001</span>)<span class="comment">#这里特地将eta调的很小使得梯度下降过程明显</span></span><br><span class="line">model.fitdata(X,y)</span><br><span class="line">plt.plot(<span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(model.errors_)+<span class="number">1</span>),model.errors_,<span class="string">&#x27;o-&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;Epochs&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;errors&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<pre><code>The fitting have completed
-</code></pre>
-<p><img src="/2023/01/24/machine-learning/machine1/13_1.png" alt="png"></p>
-<p>可以注意到,最后的<code>errors</code>已经为0,为了进一步观察我们拟合的效果,我们将定义一个函数用来描绘决定区间</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> matplotlib.colors <span class="keyword">import</span> ListedColormap</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">plot_decision_regions</span>(<span class="params">X,y,classifier,resolution=<span class="number">0.02</span></span>):</span><br><span class="line">    <span class="comment">#setup marker generator and color map</span></span><br><span class="line">    markers = (<span class="string">&#x27;s&#x27;</span>, <span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;^&#x27;</span>, <span class="string">&#x27;v&#x27;</span>)</span><br><span class="line">    colors = (<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;lightgreen&#x27;</span>, <span class="string">&#x27;gray&#x27;</span>, <span class="string">&#x27;cyan&#x27;</span>)</span><br><span class="line">    cmap = ListedColormap(colors[:<span class="built_in">len</span>(np.unique(y))])<span class="comment"># unique函数可以找到所有独立的元素</span></span><br><span class="line">    <span class="comment">#plot the surface</span></span><br><span class="line">    x1_min,x1_max=X[:,<span class="number">0</span>].<span class="built_in">min</span>()-<span class="number">1</span>,X[:,<span class="number">0</span>].<span class="built_in">max</span>()+<span class="number">1</span></span><br><span class="line">    x2_min,x2_max=X[:,<span class="number">1</span>].<span class="built_in">min</span>()-<span class="number">1</span>,X[:,<span class="number">1</span>].<span class="built_in">max</span>()+<span class="number">1</span><span class="comment">#X1,X2分别是X轴Y轴</span></span><br><span class="line">    xx1,xx2=np.meshgrid(np.arange(x1_min,x1_max,resolution),</span><br><span class="line">                        np.arange(x2_min,x2_max,resolution))</span><br><span class="line">    Z=classifier.predict(np.array([xx1.ravel(),xx2.ravel()]).T)<span class="comment">#这里要将数组展平(这里面的向量操作非常有趣)</span></span><br><span class="line">    Z=Z.reshape(xx1.shape)</span><br><span class="line">    plt.contourf(xx1,xx2,Z,alpha=<span class="number">0.3</span>,cmap=cmap)</span><br><span class="line">    plt.xlim(xx1.<span class="built_in">min</span>(),xx1.<span class="built_in">max</span>())</span><br><span class="line">    plt.ylim(xx2.<span class="built_in">min</span>(),xx2.<span class="built_in">max</span>())</span><br><span class="line">    <span class="comment">#plot class samples</span></span><br><span class="line">    <span class="keyword">for</span> idx,cl <span class="keyword">in</span> <span class="built_in">enumerate</span>(np.unique(y)):<span class="comment">#这里使用enumerate来同时获得标签</span></span><br><span class="line">        plt.scatter(x=X[y==cl,<span class="number">0</span>],</span><br><span class="line">                    y=X[y==cl,<span class="number">1</span>],</span><br><span class="line">                    alpha=<span class="number">0.8</span>,</span><br><span class="line">                    c=colors[idx],</span><br><span class="line">                    marker=markers[idx],</span><br><span class="line">                    label=cl,</span><br><span class="line">                    edgecolors=<span class="string">&#x27;black&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>接下来,我们来展示一下绘图的结果</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plot_decision_regions(X,y,classifier=model)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;sepal length [cm]&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;petal length [cm]&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<pre><code>C:\Users\lison\AppData\Local\Temp\ipykernel_25612\3891387916.py:20: UserWarning: You passed a edgecolor/edgecolors (&#39;black&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
-  plt.scatter(x=X[y==cl,0],
-</code></pre>
-<p><img src="/2023/01/24/machine-learning/machine1/17_1.png" alt="png"></p>
-<blockquote>
-<p>刚刚我们实现的可以被认为是一个单层的神经网络</p>
-</blockquote>
-<h2 id="可适应性线性神经元与学习收敛"><a href="#可适应性线性神经元与学习收敛" class="headerlink" title="可适应性线性神经元与学习收敛"></a>可适应性线性神经元与学习收敛</h2><p>在这一部分,我们将研究另外一种单层神经网络:ADAptive LInear NEuron(<code>Adaline</code>)<br>这种算法非常有趣因为其展现了关于定义和最小化连续损失函数的方法,这便于让我们理解之后我们所用的相关函数<br><code>Adaline</code>算法与感知机最关键的区别在于权重函数是使用一个线性激发函数而非一个单位阶跃函数,在<code>Adaline</code>算法中<br>这样一个线性激发函数就是网络输入的线性函数因此有:<br>$$\phi(w^Tx)&#x3D;w^Tx$$<br>虽然激发函数是用在学习权重的,但我们也可以用其来评估最后结果,<code>ADaline</code>的特殊性可以用下面一张图来展示<br><img src="/2023/01/24/machine-learning/machine1/image-20230124170927708.png" alt="png"></p>
-<h3 id="使用梯度下降法最小化损失函数"><a href="#使用梯度下降法最小化损失函数" class="headerlink" title="使用梯度下降法最小化损失函数"></a>使用梯度下降法最小化损失函数</h3><p>对于<code>Adaline</code>而言,我们可以定义损失函数$J$并且使用方均根法得到权重<br>$$J(\omega)&#x3D;\frac{1}{2}\sum_i(y^{(i)}-\phi(z^{(i)}))^2$$<br>在该式中,$\frac{1}{2}$只是为了方便求梯度,接下来我们就可以使用一个非常有效的方法<strong>梯度下降法</strong>来使损失函数最小,原理为<br>$$\Delta \omega&#x3D;-\eta\nabla J(\omega)$$<br>梯度的计算为<br>$$\frac{\partial J}{\partial \omega_j}&#x3D;-\sum_i(y^{(i)}-\phi(z^{(i)}))x^{(i)}_j$$</p>
-<blockquote>
-<p>需要注意一个计算上的不同,在此处我们的计算是<strong>所有样本一起算的</strong>而不是像之前一样<strong>一个样本更新一次</strong></p>
-</blockquote>
-<h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AdalineGD</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,eta=<span class="number">0.001</span>,n_iter=<span class="number">100</span>,random_state=<span class="number">1</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        self.eta=eta</span><br><span class="line">        self.n_iter=n_iter</span><br><span class="line">        self.random_state=random_state</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fit</span>(<span class="params">self,X,y</span>):</span><br><span class="line">        rgen=np.random.RandomState(self.random_state)</span><br><span class="line">        self.w_=rgen.normal(<span class="number">0.0</span>,<span class="number">0.1</span>,size=<span class="number">1</span>+X.shape[<span class="number">1</span>])</span><br><span class="line">        self.cost_=[]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.n_iter):</span><br><span class="line">            err,errg,errw0=self._calc_cost(X,y)</span><br><span class="line">            self.cost_.append(err)</span><br><span class="line">            self.w_[<span class="number">1</span>:]+=-self.eta*errg</span><br><span class="line">            self.w_[<span class="number">0</span>]+=-self.eta*errw0</span><br><span class="line">            </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_calc_cost</span>(<span class="params">self,X,y</span>):</span><br><span class="line">        yp=(np.dot(X,self.w_[<span class="number">1</span>:].reshape(-<span class="number">1</span>,<span class="number">1</span>))+self.w_[<span class="number">0</span>]).reshape(<span class="number">1</span>,-<span class="number">1</span>)</span><br><span class="line">        <span class="comment">#print(yp)</span></span><br><span class="line">        err=np.<span class="built_in">sum</span>((yp[<span class="number">0</span>]-y)**<span class="number">2</span>)/<span class="number">2</span></span><br><span class="line">        errg=np.dot((yp[<span class="number">0</span>]-y),X)</span><br><span class="line">        errw0=np.<span class="built_in">sum</span>(yp[<span class="number">0</span>]-y)</span><br><span class="line">        <span class="keyword">return</span> err,errg[<span class="number">0</span>],errw0</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">predict</span>(<span class="params">self,X</span>):</span><br><span class="line">        <span class="keyword">return</span> np.where(np.dot(X,self.w_[<span class="number">1</span>:])+self.w_[<span class="number">0</span>]&gt;<span class="number">0</span>,<span class="number">1</span>,-<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
-<p>接下来,我们将之前的数据输入进去试一试看看如何</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">y=df.iloc[<span class="number">0</span>:<span class="number">100</span>,<span class="number">4</span>].values</span><br><span class="line">y=np.where(y==<span class="string">&#x27;Iris-setosa&#x27;</span>,-<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">X=df.iloc[<span class="number">0</span>:<span class="number">100</span>,[<span class="number">0</span>,<span class="number">2</span>]].values</span><br><span class="line">adamodel=AdalineGD()</span><br><span class="line">adamodel.fit(X,y)</span><br><span class="line">plt.plot(<span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(adamodel.cost_)+<span class="number">1</span>),np.log(adamodel.cost_),<span class="string">&#x27;-&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;Epochs&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;log(cost)&#x27;</span>)</span><br><span class="line">plt.show()</span><br><span class="line">adamodel.w_</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2023/01/24/machine-learning/machine1/24_0.png" alt="png"><br>​    </p>
-<pre><code>array([-3.89410517e+55, -2.18332011e+56, -2.18332011e+56])
-</code></pre>
-<p>可以发现,程序直接爆炸,此时可能是$eta$调大了,我们把$eta$调为1E-5试试</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">y=df.iloc[<span class="number">0</span>:<span class="number">100</span>,<span class="number">4</span>].values</span><br><span class="line">y=np.where(y==<span class="string">&#x27;Iris-setosa&#x27;</span>,-<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">X=df.iloc[<span class="number">0</span>:<span class="number">100</span>,[<span class="number">0</span>,<span class="number">2</span>]].values</span><br><span class="line">adamodel=AdalineGD(eta=<span class="number">4E-4</span>,n_iter=<span class="number">10000</span>)</span><br><span class="line">adamodel.fit(X,y)</span><br><span class="line">plt.plot(<span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(adamodel.cost_)+<span class="number">1</span>),adamodel.cost_,<span class="string">&#x27;-&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;Epochs&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;log(cost)&#x27;</span>)</span><br><span class="line">plt.show()</span><br><span class="line">adamodel.w_</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2023/01/24/machine-learning/machine1/26_0.png" alt="png"><br>​    </p>
-<pre><code>array([-3.33272936,  0.39707341,  0.40543187])
-</code></pre>
-<p>可以注意到,逐渐在趋向一个稳定值,这之中存在的问题可以用下图展示<br><img src="/2023/01/24/machine-learning/machine1/image-20230124171511278.png" alt="png"></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plot_decision_regions(X,y,classifier=adamodel)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;sepal length [cm]&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;petal length [cm]&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<pre><code>C:\Users\lison\AppData\Local\Temp\ipykernel_25612\3891387916.py:20: UserWarning: You passed a edgecolor/edgecolors (&#39;black&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
-  plt.scatter(x=X[y==cl,0],
-</code></pre>
-<p><img src="/2023/01/24/machine-learning/machine1/28_1.png" alt="png"></p>
-<p>可以注意到,这种计算方法非常依赖初值,而且最后也没有完全分开来,并不是非常理想,因此需要优化</p>
-<h3 id="使用标准化提升梯度下降法效果"><a href="#使用标准化提升梯度下降法效果" class="headerlink" title="使用标准化提升梯度下降法效果"></a>使用标准化提升梯度下降法效果</h3><p>标准化是一个机器学习过程中的非常重要的手段,在这一部分中,我们使用一种<em>正态分布标准化</em><br>这种方法假定数据呈现出正态分布,处理的手段是将数据减去平均值并且除以数据的标准差,即:<br>$$x_j’&#x3D;\frac{x_j-\mu}{\sigma}$$<br>这么做的好处在于可以让优化器更快的实现达到最低值</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">X_std=np.copy(X)</span><br><span class="line">X_std[:,<span class="number">0</span>]=(X[:,<span class="number">0</span>]-X[:,<span class="number">0</span>].mean())/X[:,<span class="number">0</span>].std()</span><br><span class="line">X_std[:,<span class="number">1</span>]=(X[:,<span class="number">1</span>]-X[:,<span class="number">1</span>].mean())/X[:,<span class="number">1</span>].std()</span><br></pre></td></tr></table></figure>
-
-<p>在标准化之后,我们将数据输入到前面的模型中</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">stdada=AdalineGD(<span class="number">1E-3</span>,<span class="number">150</span>,<span class="number">1</span>)</span><br><span class="line">stdada.fit(X_std,y)</span><br><span class="line">plot_decision_regions(X_std,y,classifier=stdada)</span><br></pre></td></tr></table></figure>
-
-<pre><code>C:\Users\lison\AppData\Local\Temp\ipykernel_25612\3891387916.py:20: UserWarning: You passed a edgecolor/edgecolors (&#39;black&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
-  plt.scatter(x=X[y==cl,0],
-</code></pre>
-<p><img src="/2023/01/24/machine-learning/machine1/33_1.png" alt="png"></p>
-<p>效果变好了一些(但实际上初值问题仍然存在)</p>
-<h2 id="大规模机器学习与随机梯度下降法"><a href="#大规模机器学习与随机梯度下降法" class="headerlink" title="大规模机器学习与随机梯度下降法"></a>大规模机器学习与随机梯度下降法</h2><p>现在我们考虑一个非常巨大的数据集(可能有上百万的数据)<br>我们现在用另外一种方式,对于每一个数据,都对$\Delta \omega$进行一次更新,实际上随机梯度下降法达到稳定的速度快于批量梯度下降法(虽然前者看起来是后者的近似)</p>
-<p>为了更好的进行梯度下降法,我们需要对数据进行一个更好的随机化处理<br>同时,这么做还有一个好处,因为在一些网络程序之中,数据和模型的训练是同步进行的</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>python</tag>
-        <tag>机器学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用scikit-learn进行分类学习</title>
-    <url>/2023/01/26/machine-learning/machine2/</url>
-    <content><![CDATA[<p>在前面一部分,我们构造了几种分类算法,而在这一部分,我们将介绍利用<code>scikit-learn</code>提供的便于使用的接口进行机器学习<br>将分成以下几个部分进行介绍:</p>
-<ol>
-<li>对具有良好稳定性的常用分类算法的介绍,例如<code>logistic</code>回归算法,支持向量机,决策树</li>
-<li>一些使用<code>scikit-learn</code>进行一些常见的应用</li>
-<li>对于线性与非线性决策边界的优势与劣势的讨论</li>
-</ol>
-<h2 id="选取分类算法"><a href="#选取分类算法" class="headerlink" title="选取分类算法"></a>选取分类算法</h2><p>俗话说:天下没有免费的午餐,不同的分类算法具有相应的优势与劣势,在选择的时候需要充分考虑数据的特征以及目的,一般来说,训练一个机器学习模型可以分为以下五步</p>
-<ol>
-<li>选取特征收集训练数据</li>
-<li>选取一个表示矩阵</li>
-<li>选取一个分类与优化算法</li>
-<li>计算这个算法的效果</li>
-<li>改良这个算法</li>
-</ol>
-<span id="more"></span>
-
-<h2 id="使用scikit-learn训练一个算法"><a href="#使用scikit-learn训练一个算法" class="headerlink" title="使用scikit-learn训练一个算法"></a>使用<code>scikit-learn</code>训练一个算法</h2><p>为了快速使用<code>scikit-learn</code>库,我们将延续前面的例子,使用那个花的分类模型进行练习<br>我们这次将从<code>sklearn</code>的<code>datasets</code>库中加载数据集</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">iris=datasets.load_iris()</span><br><span class="line">X=iris.data[:,[<span class="number">2</span>,<span class="number">3</span>]]</span><br><span class="line">y=iris.target</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Class labels:&quot;</span>,np.unique(y))</span><br></pre></td></tr></table></figure>
-
-<pre><code>Class labels: [0 1 2]
-</code></pre>
-<p>在这里,我们可以发现,数据被分成了三类(为了妥善处理内存问题并且加快速度,一般只会拿整数进行标号)</p>
-<p>为了更好的判断一个数据集训练的有多好,我们将数据分割成训练集和测试集(这一部分在未来会进一步讨论)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line">Xtrain,Xtest,ytrain,ytest=train_test_split(X,y,test_size=<span class="number">0.2</span>,random_state=<span class="number">1</span>,stratify=y)</span><br></pre></td></tr></table></figure>
-
-<p><code>stratify</code>的指定表明在分割的训练集与测试集中,<code>y</code>的三种不同值被均等分割</p>
-<p>相似的,为了更好的进行机器学习,我们需要对数据进行标准化处理,在这里,我们使用正态分布进行标准化</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line">sc=StandardScaler()</span><br><span class="line">sc.fit(Xtrain)</span><br><span class="line">X_train_std=sc.transform(Xtrain)</span><br><span class="line">X_test_std=sc.transform(Xtest)</span><br></pre></td></tr></table></figure>
-
-<p>需要注意,我们要对训练集和测试集采用相同的归一化手段,这样可以才能实现统一</p>
-<p>接下来我们就可以进行训练了.我们在这里使用<code>OvR</code>方法对多分类问题进行处理,代码如下</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> Perceptron</span><br><span class="line">ppn=Perceptron(n_iter_no_change=<span class="number">100</span>,eta0=<span class="number">1e-3</span>,random_state=<span class="number">1</span>)</span><br><span class="line">ppn.fit(X_train_std,ytrain)</span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>Perceptron(eta0=0.001, n_iter_no_change=100, random_state=1)
-</code></pre>
-<p>就像前面所说的一样,我们需要正确的选择学习率,如果学习率过高,那么模型会跳过全局最低点,而如果学习率过低,学习速率又会太低.</p>
-<p>我们可以使用<code>predict</code>对训练后的模型进行预测,例如以下代码</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">y_pred=ppn.predict(X_test_std)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Miss classfied samples:&#123;&#125;&quot;</span>.<span class="built_in">format</span>((ytest!=y_pred).<span class="built_in">sum</span>()))</span><br></pre></td></tr></table></figure>
-
-<pre><code>Miss classfied samples:1
-</code></pre>
-<p>当然,<code>scikit-learn</code>库里面也内置了处理学习准确率的函数</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Accuracy: %.2f&#x27;</span>%accuracy_score(ytest,y_pred))</span><br></pre></td></tr></table></figure>
-
-<pre><code>Accuracy: 0.97
-</code></pre>
-<p>接下来,我们仿照上一章的例子,编写决策区间的绘图函数</p>
-<blockquote>
-<p>在其中,我们添加了一些修改来展现出数据是来自于<em>测试集</em>的</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> matplotlib.colors <span class="keyword">import</span> ListedColormap</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">plot_decision_regions</span>(<span class="params">X,y,classifier,resolution=<span class="number">0.02</span>,test=<span class="literal">False</span></span>):</span><br><span class="line">    <span class="comment">#setup marker generator and color map</span></span><br><span class="line">    markers = (<span class="string">&#x27;s&#x27;</span>, <span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;^&#x27;</span>, <span class="string">&#x27;v&#x27;</span>)</span><br><span class="line">    colors = (<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;lightgreen&#x27;</span>, <span class="string">&#x27;gray&#x27;</span>, <span class="string">&#x27;cyan&#x27;</span>)</span><br><span class="line">    cmap = ListedColormap(colors[:<span class="built_in">len</span>(np.unique(y))])<span class="comment"># unique函数可以找到所有独立的元素</span></span><br><span class="line">    <span class="comment">#plot the surface</span></span><br><span class="line">    x1_min,x1_max=X[:,<span class="number">0</span>].<span class="built_in">min</span>()-<span class="number">1</span>,X[:,<span class="number">0</span>].<span class="built_in">max</span>()+<span class="number">1</span></span><br><span class="line">    x2_min,x2_max=X[:,<span class="number">1</span>].<span class="built_in">min</span>()-<span class="number">1</span>,X[:,<span class="number">1</span>].<span class="built_in">max</span>()+<span class="number">1</span><span class="comment">#X1,X2分别是X轴Y轴</span></span><br><span class="line">    xx1,xx2=np.meshgrid(np.arange(x1_min,x1_max,resolution),</span><br><span class="line">                        np.arange(x2_min,x2_max,resolution))</span><br><span class="line">    Z=classifier.predict(np.array([xx1.ravel(),xx2.ravel()]).T)<span class="comment">#这里要将数组展平(这里面的向量操作非常有趣)</span></span><br><span class="line">    Z=Z.reshape(xx1.shape)</span><br><span class="line">    plt.contourf(xx1,xx2,Z,alpha=<span class="number">0.3</span>,cmap=cmap)</span><br><span class="line">    plt.xlim(xx1.<span class="built_in">min</span>(),xx1.<span class="built_in">max</span>())</span><br><span class="line">    plt.ylim(xx2.<span class="built_in">min</span>(),xx2.<span class="built_in">max</span>())</span><br><span class="line">    <span class="comment">#plot class samples</span></span><br><span class="line">    <span class="keyword">for</span> idx,cl <span class="keyword">in</span> <span class="built_in">enumerate</span>(np.unique(y)):<span class="comment">#这里使用enumerate来同时获得标签</span></span><br><span class="line">        plt.scatter(x=X[y==cl,<span class="number">0</span>],</span><br><span class="line">                    y=X[y==cl,<span class="number">1</span>],</span><br><span class="line">                    alpha=<span class="number">0.8</span>,</span><br><span class="line">                    c=colors[idx],</span><br><span class="line">                    marker=markers[idx],</span><br><span class="line">                    label=cl,</span><br><span class="line">                    edgecolors=<span class="string">&#x27;black&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> test:</span><br><span class="line">        <span class="comment">#将测试集标记出来</span></span><br><span class="line">        plt.scatter(x=X[:,<span class="number">0</span>],</span><br><span class="line">                    y=X[:,<span class="number">1</span>],</span><br><span class="line">                    alpha=<span class="number">1</span>,</span><br><span class="line">                    s=<span class="number">100</span>,</span><br><span class="line">                    marker=<span class="string">&#x27;o&#x27;</span>,</span><br><span class="line">                    edgecolors=<span class="string">&#x27;black&#x27;</span>,</span><br><span class="line">                    c=<span class="string">&#x27;None&#x27;</span>)<span class="comment">#这里颜色的设定需要专门注意</span></span><br></pre></td></tr></table></figure>
-
-<p>我们可以将刚才训练的模型的效果展示出来</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plot_decision_regions(X_train_std,ytrain,ppn)</span><br><span class="line">plot_decision_regions(X_test_std,ytest,ppn,test=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="/2023/01/26/machine-learning/machine2/scikit-learn_17_1.png" alt="png"></p>
-<h2 id="使用logistic回归构建类模型"><a href="#使用logistic回归构建类模型" class="headerlink" title="使用logistic回归构建类模型"></a>使用logistic回归构建类模型</h2><p>虽然我们之前构建的分类算法在机器学习分类中非常好用,但是这中间有个非常严重的问题,那就是当几个类不能被线性分割时,将永远不会收敛</p>
-<p>为了节约我们的时间,我们将介绍另外一种强而有力的线性分类模型:logistic回归模型</p>
-<blockquote>
-<p>需要注意,这里虽然用了”回归”这个名字,但是算法是用来分类的</p>
-</blockquote>
-<h3 id="logistic回归的介绍和条件概率"><a href="#logistic回归的介绍和条件概率" class="headerlink" title="logistic回归的介绍和条件概率"></a>logistic回归的介绍和条件概率</h3><p>为了理解logistic回归,我们首先介绍<em>比值比</em>,比值比可以被写作$\frac{p}{1-p}$(其中$p$是我们所想预测的概率),接下来我们就可以定义比值比的对数<br>$$logit(p)&#x3D;\log\frac{p}{1-p}$$<br>需要注意到,我们可以将发生预测事件分类为$y&#x3D;1$,认为某一特征与$logit(p(y&#x3D;1|x))$之间呈现线性关系</p>
-<p>而我们的工作是预测某一个样本属于某一类的可能性,即从比值比的对数求$p$,那么我们可以使用一个s型生长曲线<br>$$\phi(z)&#x3D;\frac{1}{1+e^{-z}}$$<br>其中$z$是输入,为$z&#x3D;w^Tx$</p>
-<p>为了更加直观的看出这个的效果,我们首先绘制一幅s型生长曲线的图像</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">sigmoid</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1.0</span>/(<span class="number">1</span>+<span class="number">1.0</span>*np.exp(-x))</span><br><span class="line">x=np.linspace(-<span class="number">7</span>,<span class="number">7</span>,<span class="number">1000</span>)</span><br><span class="line">phix=sigmoid(x)</span><br><span class="line">plt.plot(x,phix)</span><br><span class="line">plt.axvline(<span class="number">0.0</span>,c=<span class="string">&#x27;k&#x27;</span>)</span><br><span class="line">plt.ylim(-<span class="number">0.1</span>,<span class="number">1.1</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;$\phi (z)$&#x27;</span>)</span><br><span class="line"><span class="comment">#y axis ticks and gridline</span></span><br><span class="line">plt.yticks([<span class="number">0.0</span>,<span class="number">0.5</span>,<span class="number">1.0</span>])</span><br><span class="line">ax=plt.gca()</span><br><span class="line">ax.yaxis.grid(<span class="literal">True</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-<p>​<br><img src="/2023/01/26/machine-learning/machine2/scikit-learn_20_0.png" alt="png"><br>​    </p>
-<p>我们可以仿照上一章的例子,就是将<code>ADaline</code>中的线性函数变成了生长曲线,而对于生长曲线的输出则是以0.5为阈值大于0.5为1,小于0.5为0</p>
-<h3 id="学习logistic误差函数"><a href="#学习logistic误差函数" class="headerlink" title="学习logistic误差函数"></a>学习<code>logistic</code>误差函数</h3><p>接下来我们讨论如何拟合模型中的参数,我们之前定义过平方和误差函数<br>$$J(\omega)&#x3D;\sum_i\frac{1}{2}(\phi(z^{(i)}-y^{(i)})^2$$<br>我们的目的就是让这个函数值最小,首先我们需要定义在已知$x$下,$y$的后验概率分布<br>$$L(\omega)&#x3D;P(y|x;\omega)&#x3D;\Pi_{i&#x3D;1}^nP(y^{(i)}|x^{(i)};\omega)&#x3D;\Pi_{i&#x3D;1}^n(\phi(z^{(i)}))^{y^{(i)}}(1-\phi(z^{(i)}))^{1-y^{(i)}}$$<br>对于实际应用之中,往往取对数可以让问题更加方便,因此最后误差函数在定义时就可以被写作:<br>若$y&#x3D;1$则为$-\log(\phi(z))$,若$y&#x3D;0$则为$-\log(1-\phi(z))$<br>这么做的好处在于,我们对于错误的估计,误差函数会逐渐加大,从下面这张图可以看出来</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">cost_0</span>(<span class="params">z</span>):</span><br><span class="line">    <span class="keyword">return</span> -np.log(sigmoid(z))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cost_1</span>(<span class="params">z</span>):</span><br><span class="line">    <span class="keyword">return</span> -np.log(<span class="number">1</span>-sigmoid(z))</span><br><span class="line">z=np.arange(-<span class="number">10</span>,<span class="number">10</span>,<span class="number">0.1</span>)</span><br><span class="line">phiz=sigmoid(z)</span><br><span class="line">c0=cost_0(z)</span><br><span class="line">c1=cost_1(z)</span><br><span class="line">plt.plot(phiz,c1,<span class="string">&quot;-&quot;</span>,label=<span class="string">&#x27;J(w) if y=1&#x27;</span>)</span><br><span class="line">plt.plot(phiz,c0,<span class="string">&quot;--&quot;</span>,label=<span class="string">&#x27;J(w) if y=0&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;$\phi(z)$&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;J(w)&quot;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.xlim([<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-<p>​<br><img src="/2023/01/26/machine-learning/machine2/scikit-learn_22_0.png" alt="png"><br>​    </p>
-<h3 id="将Adaline内置logistic回归"><a href="#将Adaline内置logistic回归" class="headerlink" title="将Adaline内置logistic回归"></a>将<code>Adaline</code>内置logistic回归</h3><p>我们在之前的<code>Adaline</code>算法中,可以做出以下修改:</p>
-<p><img src="/2023/01/26/machine-learning/machine2/image-20230126003038092.png" alt="png"></p>
-<ol>
-<li>将线性激发函数修改为生长激发函数</li>
-<li>修改分类阈值从-1到1修改为0到1</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#TODO 这些内容还需要修改,未来改一下</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LogisticRegressionGD</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,eta=<span class="number">0.001</span>,n_iter=<span class="number">100</span>,random_state=<span class="number">1</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        self.eta=eta</span><br><span class="line">        self.n_iter=n_iter</span><br><span class="line">        self.random_state=random_state</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fit</span>(<span class="params">self,X,y</span>):</span><br><span class="line">        rgen=np.random.RandomState(self.random_state)</span><br><span class="line">        self.w_=rgen.normal(<span class="number">0.0</span>,<span class="number">0.1</span>,size=<span class="number">1</span>+X.shape[<span class="number">1</span>])</span><br><span class="line">        self.cost_=[]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.n_iter):</span><br><span class="line">            err,errg,errw0=self._calc_cost(X,y)</span><br><span class="line">            self.cost_.append(err)</span><br><span class="line">            self.w_[<span class="number">1</span>:]+=-self.eta*errg</span><br><span class="line">            self.w_[<span class="number">0</span>]+=-self.eta*errw0</span><br><span class="line">            </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_calc_cost</span>(<span class="params">self,X,y</span>):</span><br><span class="line">        yp=(np.dot(X,self.w_[<span class="number">1</span>:].reshape(-<span class="number">1</span>,<span class="number">1</span>))+self.w_[<span class="number">0</span>]).reshape(<span class="number">1</span>,-<span class="number">1</span>)</span><br><span class="line">        <span class="comment">#print(yp)</span></span><br><span class="line">        err=np.<span class="built_in">sum</span>((yp[<span class="number">0</span>]-y)**<span class="number">2</span>)/<span class="number">2</span></span><br><span class="line">        errg=np.dot((yp[<span class="number">0</span>]-y),X)</span><br><span class="line">        errw0=np.<span class="built_in">sum</span>(yp[<span class="number">0</span>]-y)</span><br><span class="line">        <span class="keyword">return</span> err,errg[<span class="number">0</span>],errw0</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">predict</span>(<span class="params">self,X</span>):</span><br><span class="line">        <span class="keyword">return</span> np.where(np.dot(X,self.w_[<span class="number">1</span>:])+self.w_[<span class="number">0</span>]&gt;<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用scikit-learn训练一个回归模型"><a href="#使用scikit-learn训练一个回归模型" class="headerlink" title="使用scikit-learn训练一个回归模型"></a>使用<code>scikit-learn</code>训练一个回归模型</h3><p>我们刚才的讨论是基于数学计算上的区别,现在我们来介绍一下如何使用<code>scikit-learn</code>来训练一个回归模型</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line">lr=LogisticRegression(C=<span class="number">100.0</span>,random_state=<span class="number">1</span>)<span class="comment">#?这个C是</span></span><br><span class="line">lr.fit(X_train_std,ytrain)</span><br><span class="line">plot_decision_regions(X_train_std,ytrain,classifier=lr)</span><br><span class="line">plot_decision_regions(X_test_std,ytest,classifier=lr,test=<span class="literal">True</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;petal length&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;petal width&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;upper left&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-
-
-<p><img src="/2023/01/26/machine-learning/machine2/scikit-learn_26_1.png" alt="png"></p>
-<p>我们在看这个问题的时候,会很好奇这个训练参数<code>C</code>是什么东西,我们将在下一小节介绍这个问题</p>
-<blockquote>
-<p>这个问题主要涉及到关于过拟合和欠拟合</p>
-</blockquote>
-<p>我们还可以计算出每一个元素属于某一类的概率,需要使用<code>predict_proba</code>方法</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">lr.predict_proba(X_test_std[:<span class="number">3</span>,:])*<span class="number">100</span><span class="comment">#这里乘100为了方便用百分数</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>array([[5.83527138e-11, 4.26528227e-03, 9.99957347e+01],
-       [9.99623181e+01, 3.76819349e-02, 3.51225598e-17],
-       [2.32430493e+00, 9.76756905e+01, 4.61949531e-06]])
-</code></pre>
-<p>相应的,我们可以用这个来进行预测</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">lr.predict_proba(X_test_std[:<span class="number">3</span>,:]).argmax(axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>array([2, 0, 1], dtype=int64)
-</code></pre>
-<blockquote>
-<p><strong>一个需要注意的问题</strong><br>在使用<code>predict</code>时,如果预测是一个单一样本,那么就需要进行<code>reshape</code></p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">lr.predict(X_test_std[<span class="number">0</span>,:].reshape(<span class="number">1</span>,-<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>array([2])
-</code></pre>
-<h3 id="通过正则化处理过拟合"><a href="#通过正则化处理过拟合" class="headerlink" title="通过正则化处理过拟合"></a>通过正则化处理过拟合</h3><p>过拟合在机器学习中是一个常见的问题,<strong>过拟合</strong>主要来自于过于复杂的模型,模型非常容易受到一噪音的影响,而<strong>欠拟合</strong>则是相反的情况,主要来自于过于简单的模型约束过多<br> <img src="/2023/01/26/machine-learning/machine2/image-20230126003240978.png" alt="image-20230126003240978"><br>虽然我们现在讨论的是线性模型,但是很快我们就会遇到一些更加复杂的决策区间<br>这个时候我们就需要使用正则化来调节模型的自由度,这种手段可以有效的处理特征之间的相关性,消除数据误差和防止过拟合有重要作用</p>
-<p>正则化的原理是通过添加约束来消除极端变量的值,最为常用的是<code>L2正则化</code>,可以被写成下式<br>$$\frac{\lambda}{2}||\omega||^2&#x3D;\frac{\lambda}{2}\sum_{j&#x3D;1}^m\omega_j^2$$<br>那么我们之前所使用的损失函数就可以被加上这一项$\frac{\lambda}{2}||\omega||^2$</p>
-<blockquote>
-<p>这个有点像拉格朗日乘子法,添加了一个约束,但是这个$\lambda$是一个预先设定好的量<br>而如果$\lambda$越大,正则化强度越高,之前的参数$C$就是和这个密切相关,是它的倒数<br>我们用绘制两个参数随着$C$变化的变化展示<code>L2正则化</code>强度对机器学习结果的影响</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">weights,params=[],[]</span><br><span class="line">lrl=[]</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> np.arange(-<span class="number">5</span>,<span class="number">5</span>,<span class="number">0.5</span>):</span><br><span class="line">    lr=LogisticRegression(C=<span class="number">10.</span>**c,random_state=<span class="number">1</span>)</span><br><span class="line">    lr.fit(X_train_std,ytrain)</span><br><span class="line">    weights.append(lr.coef_[<span class="number">1</span>])</span><br><span class="line">    params.append(<span class="number">10.</span>**c)</span><br><span class="line">weights=np.array(weights)</span><br><span class="line">plt.plot(params,weights[:,<span class="number">0</span>],label=<span class="string">&#x27;petal length&#x27;</span>)</span><br><span class="line">plt.plot(params,weights[:,<span class="number">1</span>],label=<span class="string">&#x27;petal width&#x27;</span>,linestyle=<span class="string">&quot;--&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;cofficient&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;C&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.xscale(<span class="string">&#x27;log&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-<p>​<br><img src="/2023/01/26/machine-learning/machine2/scikit-learn_34_0.png" alt="png"><br>​    </p>
-<p>可以注意到,$C$越小,相应的正则化强度越高,导致参数越大</p>
-<h2 id="使用支持向量机处理最大边界问题"><a href="#使用支持向量机处理最大边界问题" class="headerlink" title="使用支持向量机处理最大边界问题"></a>使用支持向量机处理最大边界问题</h2><p>另外一个强力而广泛应用的算法是<strong>支持向量机算法</strong><code>Support Vector Machine(SVM)</code>,这可以被看做是感知机的升级版.<br>在感知机算法中,我们的目标是让误分类误差尽量小,但是在支持向量机算法中,我们的目标是让边界最大</p>
-<p>边界被定义为决策边界和离决策边界最近的点的距离,又被称作<strong>支持向量</strong><code>support vectors</code>,下图可以展现出来<br><img src="/2023/01/26/machine-learning/machine2/image-20230126003135775.png" alt="png"></p>
-<h3 id="最大边界"><a href="#最大边界" class="headerlink" title="最大边界"></a>最大边界</h3><p>大的边界在于这种手段可以得到尽量小的整体误差,但是小的边界更加容易发生过拟合.为了更好地理解最大边界,我们来考量一下<em>正负决策边界</em>,这些边界与决策边界平行,可以用下式来表述<br>$$\omega_0+\omega^Tx_{pos}&#x3D;1$$<br>(到标号为1的点的分割面)<br>$$\omega_0+\omega^Tx_{neg}&#x3D;-1$$<br>(到标号为-1的点的分割面)<br>假如我们两式相减,我们可以得到<br>$$\omega^T(x_{pos}-x_{neg})&#x3D;2$$<br>我们可以借助$\omega$的长度对这个式子进行归一化<br>$$\frac{\omega^T(x_{pos}-x_{neg})}{||\omega||}&#x3D;\frac{2}{||\omega||}$$<br>左侧的式子可以被看做正负决策边界的距离,这就是我们希望最大化的东西</p>
-<p>现在,问题就转变为让$\frac{2}{||\omega||}$最大(前提是可以使用两个面的分开,满足对于所有的i有 $y^{(i)}(\omega_0+\omega^Tx^{(i)})\ge 1$ 这样的约束(线性约束))<br>在实际问题中,往往使用<em>二次规划</em>来解决这个问题,但这实在是有点复杂,我们不再涉及</p>
-<h3 id="通过添加松弛变量应对无法线性完全分类问题"><a href="#通过添加松弛变量应对无法线性完全分类问题" class="headerlink" title="通过添加松弛变量应对无法线性完全分类问题"></a>通过添加松弛变量应对无法线性完全分类问题</h3><p>我们来简单介绍松弛变量$\xi$,这种被称作<strong>软边界分类问题</strong>.引入松弛变量的目的是线性约束需要被松弛来解决无法线性完全分类问题来实现对存在误分类的优化</p>
-<p>正值松弛变量就是简单的减在线性约束上<br>$$y^{(i)}(\omega_0+\omega^Tx^{(i)})\ge 1-\xi^{(i)}$$<br>因此新的最优化问题可以被看做让以下式子最小<br>$$\frac{1}{2}||\omega||^2+C(\sum_i \xi^{(i)})$$<br>通过修改$C$,我们可以控制错误分类的<strong>惩罚</strong>,下面这张图展示了不同的$C$的效果<br><img src="attachment:image.png" alt="image.png"><br>这一观念与正则化有关,就像我们所讨论的$C$一样,减少$C$的值会增加约束并减少自由度<br>现在,我们来训练一个支持向量机的模型来给花分类</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line">svm=SVC(kernel=<span class="string">&#x27;linear&#x27;</span>,C=<span class="number">1.0</span>,random_state=<span class="number">1</span>)</span><br><span class="line">svm.fit(X_train_std,ytrain)</span><br><span class="line">plot_decision_regions(X_train_std,ytrain,classifier=svm)</span><br><span class="line">plot_decision_regions(X_test_std,ytest,classifier=svm,test=<span class="literal">True</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;petal length [standardized]&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;petal width [standardized]&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-
-
-<p><img src="/2023/01/26/machine-learning/machine2/scikit-learn_39_1.png" alt="png"></p>
-<h3 id="在scikit-learn中作为代替的实现"><a href="#在scikit-learn中作为代替的实现" class="headerlink" title="在scikit-learn中作为代替的实现"></a>在<code>scikit-learn</code>中作为代替的实现</h3><p>在一些特殊的情况下(比如数据集奇大无比),可以去参考<code>SGDClassifier</code>实现</p>
-<h2 id="使用一个SVM核来解决非线性问题"><a href="#使用一个SVM核来解决非线性问题" class="headerlink" title="使用一个SVM核来解决非线性问题"></a>使用一个SVM核来解决非线性问题</h2><p>支持向量机方法如此流行还有一个原因在于支持向量机可以非常轻易的被内核化(<code>kernelized</code>),在我们深入讨论SVM核的数学机理之前,我们首先来看一个例子</p>
-<h3 id="对无法线性区分的数据的核方法"><a href="#对无法线性区分的数据的核方法" class="headerlink" title="对无法线性区分的数据的核方法"></a>对无法线性区分的数据的核方法</h3><p>在接下来的数据集中,我们将创建一个简单的X状数据使用<code>logical_xor</code>函数</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">np.random.seed(<span class="number">1</span>)</span><br><span class="line">X_xor=np.random.randn(<span class="number">200</span>,<span class="number">2</span>)</span><br><span class="line">y_xor=np.logical_xor(X_xor[:,<span class="number">0</span>]&gt;<span class="number">0</span>,X_xor[:,<span class="number">1</span>]&gt;<span class="number">0</span>)</span><br><span class="line">y_xor=np.where(y_xor,<span class="number">1</span>,-<span class="number">1</span>)</span><br><span class="line">plt.scatter(X_xor[y_xor==<span class="number">1</span>,<span class="number">0</span>],X_xor[y_xor==<span class="number">1</span>,<span class="number">1</span>],c=<span class="string">&#x27;b&#x27;</span>,marker=<span class="string">&#x27;x&#x27;</span>,label=<span class="string">&#x27;l&#x27;</span>)</span><br><span class="line">plt.scatter(X_xor[y_xor==-<span class="number">1</span>,<span class="number">0</span>],X_xor[y_xor==-<span class="number">1</span>,<span class="number">1</span>],c=<span class="string">&#x27;r&#x27;</span>,marker=<span class="string">&#x27;s&#x27;</span>,label=<span class="string">&#x27;l&#x27;</span>)</span><br><span class="line">plt.xlim([-<span class="number">1</span>,<span class="number">1</span>])</span><br><span class="line">plt.ylim([-<span class="number">1</span>,<span class="number">1</span>])</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-<p>​<br><img src="/2023/01/26/machine-learning/machine2/scikit-learn_43_0.png" alt="png"><br>​    </p>
-<p>可以看出来,这两种数据有着显著的区别,但是又明显不能线性区分开来,这个时候就要使用<code>核</code>来解决问题</p>
-<p>对于核方法最为简单的解释就是将数据通过指定的<strong>非线性</strong>组合,扩展到高维,然后在高维就可以实现区分,即<br>$$\phi(x_1,x_2)&#x3D;(z_1,z_2,z_3)&#x3D;(x_1,x_2,x_1^2+x_2^2)$$<br>而这样做的效果用下面一张图可以很好的体现出来<br>原<img src="/2023/01/26/machine-learning/machine2/image-20230126003317498.png" alt="png">本区分不开的两簇点通过扩展到三维很轻易地区分开来</p>
-<h3 id="使用核方法在高维空间中找到决策边界"><a href="#使用核方法在高维空间中找到决策边界" class="headerlink" title="使用核方法在高维空间中找到决策边界"></a>使用核方法在高维空间中找到决策边界</h3><p>为了处理上述问题,我们首先需要利用一个投影函数$\phi$将训练数据投影到高维空间,然后再训练一个支持向量机模型,最后再将原本的投影函数取反来进行预测.</p>
-<p>然而,这种方法说起来简单,但是实际运作起来(尤其是面对高维数据)非常困难,因此我们需要使用到<strong>核技巧</strong>(<code>kernel trick</code>),核技巧的数学原理再次不再过多涉及  </p>
-<blockquote>
-<p>核函数可以被看做给向量空间定义了一个全新的点乘<br>粗略地说,核这个词可以被理解为<strong>一对样本之间的关联函数</strong>,例如说最为常用的高斯核函数<code>Gaussian kernel</code>就是如下定义:<br>$$\mathcal{K}(x^{(i)},x^{(j)})&#x3D;exp\left(-\frac{||x^{(i)}-x^{(j)}||^2}{2\sigma^2}\right)$$<br>(其中的$\sigma$是一个拟合自由度)其得到样本中两个样本差距的模长,并且取$e$的负指数来实现定义两个样本之间的相近程度</p>
-</blockquote>
-<p>现在我们来看刚才的问题,我们来试试高斯核能不呢解决这个问题</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">svm=SVC(kernel=<span class="string">&#x27;rbf&#x27;</span>,random_state=<span class="number">1</span>,gamma=<span class="number">0.1</span>,C=<span class="number">10</span>)</span><br><span class="line">svm.fit(X_xor,y_xor)</span><br><span class="line">plot_decision_regions(X_xor,y_xor,classifier=svm)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-
-
-<p><img src="/2023/01/26/machine-learning/machine2/scikit-learn_46_1.png" alt="png"></p>
-<p>而我们使用的$\gamma$参数,可以被理解为<strong>切断参数</strong>,$\gamma$越大,我们会得到一个越紧凑的决策边界,我们可以拿之前那个花分类的问题来进行讨论</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">svm=SVC(kernel=<span class="string">&#x27;rbf&#x27;</span>,random_state=<span class="number">1</span>,gamma=<span class="number">0.2</span>,C=<span class="number">1.0</span>)</span><br><span class="line">svm.fit(X_train_std,ytrain)</span><br><span class="line">plot_decision_regions(X_train_std,ytrain,svm)</span><br><span class="line">plot_decision_regions(X_test_std,ytest,svm,test=<span class="literal">True</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-
-
-<p><img src="/2023/01/26/machine-learning/machine2/scikit-learn_48_1.png" alt="png"></p>
-<p>因为我们的$\gamma$值比较小,所以看起来还不错,接下来,我们把$\gamma$放大,看看会怎么样</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">svm=SVC(kernel=<span class="string">&#x27;rbf&#x27;</span>,random_state=<span class="number">1</span>,gamma=<span class="number">100</span>,C=<span class="number">1.0</span>)</span><br><span class="line">svm.fit(X_train_std,ytrain)</span><br><span class="line">plot_decision_regions(X_train_std,ytrain,svm)</span><br><span class="line">plot_decision_regions(X_test_std,ytest,svm,test=<span class="literal">True</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-
-
-<p><img src="/2023/01/26/machine-learning/machine2/scikit-learn_50_1.png" alt="png"></p>
-<p>虽然这种拟合在训练集上很有用,但是无法用在测试集上</p>
-<blockquote>
-<p>这样的东西,能不能做聚类</p>
-</blockquote>
-<h2 id="决策树学习"><a href="#决策树学习" class="headerlink" title="决策树学习"></a>决策树学习</h2><p>如果我们非常在乎可解释性的话,<strong>决策树</strong>(<code>Decision tree</code>)分类器是非常吸引人的模型,正如名字所预示的那样,我们可以考虑将数据通过做出一些决策而进行分解,以下面一个决定某一天是否要做某件事的决策树为例:<br><img src="/2023/01/26/machine-learning/machine2/image-20230126003438905.png" alt="png"><br>相似的,对于连续变化的数据,我们可以定义一个阈值来进行决策</p>
-<p>在实际应用中,我们从树根开始,对于可以导致<strong>最大学习增加</strong>(<code>largest IG</code>)进行分类(这在之后会详细介绍),然后对每一个分支重复这个过程,直到树变得整洁</p>
-<blockquote>
-<p>然而这样做在实际情况下往往会导致过拟合,因此我们需要通过设定最大深度对树进行修剪</p>
-</blockquote>
-<h3 id="最大化信息增加"><a href="#最大化信息增加" class="headerlink" title="最大化信息增加"></a>最大化信息增加</h3><p>为了准确地分隔节点,我们需要定义一个最优化函数来处理决策树学习算法.在这里,我们决策树的目的是尽可能增加<strong>信息</strong>,信息量定义如下:<br>$$IG(D_p,f)&#x3D;I(D_p)-\sum_{j&#x3D;1}^m\frac{N_j}{N_p}I(D_j)$$<br>式中$f$是实行分割的特征,$D_p$和$D_j$是父节点对应数据集和第$j$个子节点数据集,而$I$就是我们的<strong>不纯</strong>度,我们可以看出,所谓信息的增加就是父节点和子节点不纯度和之差,子节点不纯度越小,信息量增加越大</p>
-<blockquote>
-<p>不过在实际使用过程中,为了简明起见,编译器往往会使用二分法进行分类</p>
-</blockquote>
-<p>现在我们来介绍经常被使用的三种不纯度的度量($t$为节点)</p>
-<ol>
-<li>基尼不纯度$I_G&#x3D;1-\sum p(i|t)^2$</li>
-<li>信息熵$I_H&#x3D;-\sum p(i|t)\log_2p(i|t)$</li>
-<li>分类误差$I_E&#x3D;1-\max{p(i|t)}$<br>1,2往往能够获得相似的结果,而3往往被用在修建上而非生长上</li>
-</ol>
-<p>下面这张图可以展现出三种度量方式的特性(对于二分类样本)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">gini</span>(<span class="params">p</span>):</span><br><span class="line">    <span class="keyword">return</span> p*(<span class="number">1</span>-p)+(<span class="number">1</span>-p)*(<span class="number">1</span>-(<span class="number">1</span>-p))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">entropy</span>(<span class="params">p</span>):</span><br><span class="line">    <span class="keyword">return</span> -p*np.log2(p)-(<span class="number">1</span>-p)*np.log2(<span class="number">1</span>-p)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">error</span>(<span class="params">p</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>-np.<span class="built_in">max</span>([p,<span class="number">1</span>-p],axis=<span class="number">0</span>)</span><br><span class="line">x=np.arange(<span class="number">0.001</span>,<span class="number">1</span>,<span class="number">0.01</span>)</span><br><span class="line">ent=entropy(x)</span><br><span class="line">sc_ent=ent*<span class="number">0.5</span></span><br><span class="line">err=error(x)</span><br><span class="line">fig=plt.figure()</span><br><span class="line">ax=plt.subplot(<span class="number">111</span>)</span><br><span class="line"><span class="keyword">for</span> i, lab, ls, c, <span class="keyword">in</span> <span class="built_in">zip</span>([ent, sc_ent, gini(x), err], </span><br><span class="line">    [<span class="string">&#x27;Entropy&#x27;</span>, <span class="string">&#x27;Entropy (scaled)&#x27;</span>, </span><br><span class="line">    <span class="string">&#x27;Gini Impurity&#x27;</span>, </span><br><span class="line">    <span class="string">&#x27;Misclassification Error&#x27;</span>],</span><br><span class="line">    [<span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;--&#x27;</span>, <span class="string">&#x27;-.&#x27;</span>],</span><br><span class="line">    [<span class="string">&#x27;black&#x27;</span>, <span class="string">&#x27;lightgray&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;cyan&#x27;</span>]):</span><br><span class="line">    line = ax.plot(x, i, label=lab, </span><br><span class="line">    linestyle=ls, lw=<span class="number">2</span>, color=c)</span><br><span class="line">ax.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">ax.axhline(y=<span class="number">0.5</span>,linestyle=<span class="string">&#x27;--&#x27;</span>)</span><br><span class="line">ax.axhline(y=<span class="number">1</span>,linestyle=<span class="string">&#x27;--&#x27;</span>)</span><br><span class="line">plt.xlim([<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line">plt.xlabel(<span class="string">&#x27;p(i-1)&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;Impurity Index&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-<p>​<br><img src="/2023/01/26/machine-learning/machine2/scikit-learn_54_0.png" alt="png"><br>​    </p>
-<h3 id="构建一颗决策树"><a href="#构建一颗决策树" class="headerlink" title="构建一颗决策树"></a>构建一颗决策树</h3><p>我们可以借助<code>scikit-learn</code>来构建一棵决策树,我们在此训练一个最大深度为3的决策树,使用信息熵作为度量.</p>
-<blockquote>
-<p>需要注意到,虽然在可视化的时候进行数据预处理是好的,但是对于决策树而言,不需要进行数据缩放</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier</span><br><span class="line">tree=DecisionTreeClassifier(criterion=<span class="string">&#x27;entropy&#x27;</span>,max_depth=<span class="number">4</span>,random_state=<span class="number">1</span>)</span><br><span class="line">tree.fit(Xtrain,ytrain)</span><br><span class="line">plot_decision_regions(Xtrain,ytrain,tree)</span><br><span class="line">plot_decision_regions(Xtest,ytest,tree,test=<span class="literal">True</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;petal length [cm]&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;petal width [cm]&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<pre><code>C:\Users\h\AppData\Local\Temp\ipykernel_43220\485392308.py:21: UserWarning: You passed a edgecolor/edgecolors (&#39;black&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
-  plt.scatter(x=X[y==cl,0],
-C:\Users\h\AppData\Local\Temp\ipykernel_43220\485392308.py:21: UserWarning: You passed a edgecolor/edgecolors (&#39;black&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
-  plt.scatter(x=X[y==cl,0],
-</code></pre>
-<p><img src="/2023/01/26/machine-learning/machine2/scikit-learn_56_1.png" alt="png"></p>
-<p>使用<code>scikit-learn</code>有一个很好的功能在于你可以将训练好的树保存为<code>.dot</code>文件,然后我们可以使用<code>pydotplus</code>库进行查看</p>
-<blockquote>
-<p>需要注意,我们需要安装<code>GraphViz</code>这样的程序</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#! 添加GraphViz环境变量</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.environ[<span class="string">&quot;PATH&quot;</span>]+=os.pathsep+<span class="string">&#x27;C:/Program Files/Graphviz/bin&#x27;</span></span><br><span class="line"><span class="keyword">from</span> pydotplus <span class="keyword">import</span> graph_from_dot_data</span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> export_graphviz</span><br><span class="line">dot_data=export_graphviz(tree,</span><br><span class="line">                         filled=<span class="literal">True</span>,</span><br><span class="line">                         rounded=<span class="literal">True</span>,</span><br><span class="line">                         class_names=[<span class="string">&#x27;Setosa&#x27;</span>,<span class="string">&#x27;Versicolor&#x27;</span>,<span class="string">&#x27;Virginica&#x27;</span>],</span><br><span class="line">                         feature_names=[<span class="string">&#x27;petal length&#x27;</span>,<span class="string">&#x27;petal width&#x27;</span>],</span><br><span class="line">                         out_file=<span class="literal">None</span>)</span><br><span class="line">graph=graph_from_dot_data(dot_data)</span><br><span class="line">graph.write_png(<span class="string">&#x27;tree.png&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>True
-</code></pre>
-<p>我们可以得到一个如下所示的结果<br><img src="/2023/01/26/machine-learning/machine2/tree.png" alt="png"></p>
-<p>我们可以看到这中间的各种决策过程,这个决策树在区分花种类中可以做得很好</p>
-<p>遗憾的是,<code>scikit-learn</code>库中并没有内置进行修剪的函数,我们需要修改之前的源代码</p>
-<h3 id="使用随机森林法合并不同的决策树"><a href="#使用随机森林法合并不同的决策树" class="headerlink" title="使用随机森林法合并不同的决策树"></a>使用随机森林法合并不同的决策树</h3><p><strong>决策森林</strong>(<code>Random forests</code>)在机器学习中变得非常流行,随机森林可以被看作是一组决策树的集合,随机森林可以被总结为以下四步:</p>
-<ol>
-<li>从数据集中随机抽取$n$个样本(放回抽样)</li>
-<li>从这$n$个样本中生长出一棵决策树,而在每一个样本中,有:<ul>
-<li>随机选取$d$个特征</li>
-<li>选取使用最能分割特征的节点进行分割</li>
-</ul>
-</li>
-<li>重复这个过程$k$次</li>
-<li>使用<em>绝对多数投票</em>合并这些树</li>
-</ol>
-<p>我们尤其需要注意在步骤2中是<strong>对部分特征进行生长</strong><br>虽然随机森林的结果不像决策树一样易于解读,但是相应的,其可以过滤掉很大一部分噪声,鲁棒性很高,我们只需要关心我们需要训练多少个树,而往往树越多,结果越为理想.</p>
-<blockquote>
-<p>当然,像$n$和$d$这样的的值也可以优化,但是在这里不加以过多赘述</p>
-</blockquote>
-<p>我们可以使用库来构建随机森林</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line">forest=RandomForestClassifier(criterion=<span class="string">&#x27;entropy&#x27;</span>,</span><br><span class="line">                              n_estimators=<span class="number">250</span>,</span><br><span class="line">                              random_state=<span class="number">1</span>,</span><br><span class="line">                              n_jobs=<span class="number">2</span>)</span><br><span class="line">forest.fit(Xtrain,ytrain)</span><br><span class="line">plot_decision_regions(Xtrain,ytrain,forest)</span><br><span class="line">plot_decision_regions(Xtest,ytest,forest,test=<span class="literal">True</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;petal length [cm]&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;petal width [cm]&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()                 </span><br></pre></td></tr></table></figure>
-
-
-
-
-<p><img src="/2023/01/26/machine-learning/machine2/scikit-learn_62_1.png" alt="png"></p>
-<p>虽然我们长的树很少,数据集也很小,但是我们修改了<code>n_jobs</code>来实现多线程运算</p>
-<h2 id="第K近邻居–一种懒惰的学习算法"><a href="#第K近邻居–一种懒惰的学习算法" class="headerlink" title="第K近邻居–一种懒惰的学习算法"></a>第K近邻居–一种懒惰的学习算法</h2><p>我们最后要介绍的算法是KNN算法,这种算法非常有趣因为其采用了一种不同的方式进行学习</p>
-<p>所谓<em>懒惰</em>不是因为其结构简单,而是因为其不从训练数据中学习区分函数,而是通过记住训练集的方式</p>
-<blockquote>
-<p>KNN属于一个典型的非参数模型<br>KNN算法自身是相当直截了当的,可以用以下几步来总结</p>
-</blockquote>
-<ol>
-<li>选择数量$k$和距离矩阵</li>
-<li>找到我们想要分类的$k$个邻居</li>
-<li>使用绝对多数投票决定类标签<br>下图展示了一个新的数据点是如何拿KNN算法分类的<br><img src="attachment:image.png" alt="image.png"><br>这种方法的好处在于一旦我们添加新的数据,那么模型可以立即适应,然而,当训练数据非常大时,这一算法会变得<strong>非常慢</strong>  <blockquote>
-<p>似乎不准确的抽样可能会对KNN带来权重<br>下面我们用KNN算法实践一下</p>
-</blockquote>
-</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</span><br><span class="line">knn=KNeighborsClassifier(p=<span class="number">2</span>,metric=<span class="string">&#x27;minkowski&#x27;</span>)</span><br><span class="line">knn.fit(X_train_std,ytrain)</span><br><span class="line">plot_decision_regions(X_train_std,ytrain,knn)</span><br><span class="line">plot_decision_regions(X_test_std,ytest,knn,test=<span class="literal">True</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-
-
-<p><img src="/2023/01/26/machine-learning/machine2/scikit-learn_65_1.png" alt="png"></p>
-<p>在KNN中,选取合适的$k$尤为重要,同时也要选取一个合理的距离矩阵,例如我们刚才选用的<code>minkowski</code>矩阵,其形式如下:<br>$$d(x^{(i)},x^{(j)})&#x3D;\sqrt[p]{\sum_k |x^{(i)}_k-x^{(j)}_k|}$$<br>当$p&#x3D;2$,为欧几里得距离,当$p&#x3D;1$,为曼哈顿距离<br>可以参考<a href="http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.DistanceMetric.html">这个网页</a>  </p>
-<blockquote>
-<p>需要注意:当数据维度非常高时,KNN往往会给出过拟合的结果 :</p>
-</blockquote>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这一章所涉及的机器学习算法的特点列举如下:</p>
-<ol>
-<li>Logistic回归相当于<code>Adaline</code>的一种改进,最为基本</li>
-<li>支持向量机可以支持许多类型的核来处理非线性问题,但是其具有非常多的参数需要调节</li>
-<li>决策树的结果易于解读,但是鲁棒性不如随机森林</li>
-<li>KNN算法不依赖参数模型,但是当数据维度大时综合效果会显著下降</li>
-</ol>
-<h2 id="有待讨论的问题"><a href="#有待讨论的问题" class="headerlink" title="有待讨论的问题"></a>有待讨论的问题</h2><ol>
-<li>关于logistic回归函数的意义</li>
-<li>核的意义</li>
-<li>修改logistic回归代码</li>
-</ol>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>python</tag>
-        <tag>机器学习</tag>
-      </tags>
   </entry>
   <entry>
     <title>关注闭环系统的控制系统设计(上)</title>
@@ -1255,6 +768,658 @@ C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187
       </tags>
   </entry>
   <entry>
+    <title>使用scikit-learn进行分类学习</title>
+    <url>/2023/01/26/machine-learning/machine2/</url>
+    <content><![CDATA[<p>在前面一部分,我们构造了几种分类算法,而在这一部分,我们将介绍利用<code>scikit-learn</code>提供的便于使用的接口进行机器学习<br>将分成以下几个部分进行介绍:</p>
+<ol>
+<li>对具有良好稳定性的常用分类算法的介绍,例如<code>logistic</code>回归算法,支持向量机,决策树</li>
+<li>一些使用<code>scikit-learn</code>进行一些常见的应用</li>
+<li>对于线性与非线性决策边界的优势与劣势的讨论</li>
+</ol>
+<h2 id="选取分类算法"><a href="#选取分类算法" class="headerlink" title="选取分类算法"></a>选取分类算法</h2><p>俗话说:天下没有免费的午餐,不同的分类算法具有相应的优势与劣势,在选择的时候需要充分考虑数据的特征以及目的,一般来说,训练一个机器学习模型可以分为以下五步</p>
+<ol>
+<li>选取特征收集训练数据</li>
+<li>选取一个表示矩阵</li>
+<li>选取一个分类与优化算法</li>
+<li>计算这个算法的效果</li>
+<li>改良这个算法</li>
+</ol>
+<span id="more"></span>
+
+<h2 id="使用scikit-learn训练一个算法"><a href="#使用scikit-learn训练一个算法" class="headerlink" title="使用scikit-learn训练一个算法"></a>使用<code>scikit-learn</code>训练一个算法</h2><p>为了快速使用<code>scikit-learn</code>库,我们将延续前面的例子,使用那个花的分类模型进行练习<br>我们这次将从<code>sklearn</code>的<code>datasets</code>库中加载数据集</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">iris=datasets.load_iris()</span><br><span class="line">X=iris.data[:,[<span class="number">2</span>,<span class="number">3</span>]]</span><br><span class="line">y=iris.target</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Class labels:&quot;</span>,np.unique(y))</span><br></pre></td></tr></table></figure>
+
+<pre><code>Class labels: [0 1 2]
+</code></pre>
+<p>在这里,我们可以发现,数据被分成了三类(为了妥善处理内存问题并且加快速度,一般只会拿整数进行标号)</p>
+<p>为了更好的判断一个数据集训练的有多好,我们将数据分割成训练集和测试集(这一部分在未来会进一步讨论)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line">Xtrain,Xtest,ytrain,ytest=train_test_split(X,y,test_size=<span class="number">0.2</span>,random_state=<span class="number">1</span>,stratify=y)</span><br></pre></td></tr></table></figure>
+
+<p><code>stratify</code>的指定表明在分割的训练集与测试集中,<code>y</code>的三种不同值被均等分割</p>
+<p>相似的,为了更好的进行机器学习,我们需要对数据进行标准化处理,在这里,我们使用正态分布进行标准化</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line">sc=StandardScaler()</span><br><span class="line">sc.fit(Xtrain)</span><br><span class="line">X_train_std=sc.transform(Xtrain)</span><br><span class="line">X_test_std=sc.transform(Xtest)</span><br></pre></td></tr></table></figure>
+
+<p>需要注意,我们要对训练集和测试集采用相同的归一化手段,这样可以才能实现统一</p>
+<p>接下来我们就可以进行训练了.我们在这里使用<code>OvR</code>方法对多分类问题进行处理,代码如下</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> Perceptron</span><br><span class="line">ppn=Perceptron(n_iter_no_change=<span class="number">100</span>,eta0=<span class="number">1e-3</span>,random_state=<span class="number">1</span>)</span><br><span class="line">ppn.fit(X_train_std,ytrain)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>Perceptron(eta0=0.001, n_iter_no_change=100, random_state=1)
+</code></pre>
+<p>就像前面所说的一样,我们需要正确的选择学习率,如果学习率过高,那么模型会跳过全局最低点,而如果学习率过低,学习速率又会太低.</p>
+<p>我们可以使用<code>predict</code>对训练后的模型进行预测,例如以下代码</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">y_pred=ppn.predict(X_test_std)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Miss classfied samples:&#123;&#125;&quot;</span>.<span class="built_in">format</span>((ytest!=y_pred).<span class="built_in">sum</span>()))</span><br></pre></td></tr></table></figure>
+
+<pre><code>Miss classfied samples:1
+</code></pre>
+<p>当然,<code>scikit-learn</code>库里面也内置了处理学习准确率的函数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Accuracy: %.2f&#x27;</span>%accuracy_score(ytest,y_pred))</span><br></pre></td></tr></table></figure>
+
+<pre><code>Accuracy: 0.97
+</code></pre>
+<p>接下来,我们仿照上一章的例子,编写决策区间的绘图函数</p>
+<blockquote>
+<p>在其中,我们添加了一些修改来展现出数据是来自于<em>测试集</em>的</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> matplotlib.colors <span class="keyword">import</span> ListedColormap</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">plot_decision_regions</span>(<span class="params">X,y,classifier,resolution=<span class="number">0.02</span>,test=<span class="literal">False</span></span>):</span><br><span class="line">    <span class="comment">#setup marker generator and color map</span></span><br><span class="line">    markers = (<span class="string">&#x27;s&#x27;</span>, <span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;^&#x27;</span>, <span class="string">&#x27;v&#x27;</span>)</span><br><span class="line">    colors = (<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;lightgreen&#x27;</span>, <span class="string">&#x27;gray&#x27;</span>, <span class="string">&#x27;cyan&#x27;</span>)</span><br><span class="line">    cmap = ListedColormap(colors[:<span class="built_in">len</span>(np.unique(y))])<span class="comment"># unique函数可以找到所有独立的元素</span></span><br><span class="line">    <span class="comment">#plot the surface</span></span><br><span class="line">    x1_min,x1_max=X[:,<span class="number">0</span>].<span class="built_in">min</span>()-<span class="number">1</span>,X[:,<span class="number">0</span>].<span class="built_in">max</span>()+<span class="number">1</span></span><br><span class="line">    x2_min,x2_max=X[:,<span class="number">1</span>].<span class="built_in">min</span>()-<span class="number">1</span>,X[:,<span class="number">1</span>].<span class="built_in">max</span>()+<span class="number">1</span><span class="comment">#X1,X2分别是X轴Y轴</span></span><br><span class="line">    xx1,xx2=np.meshgrid(np.arange(x1_min,x1_max,resolution),</span><br><span class="line">                        np.arange(x2_min,x2_max,resolution))</span><br><span class="line">    Z=classifier.predict(np.array([xx1.ravel(),xx2.ravel()]).T)<span class="comment">#这里要将数组展平(这里面的向量操作非常有趣)</span></span><br><span class="line">    Z=Z.reshape(xx1.shape)</span><br><span class="line">    plt.contourf(xx1,xx2,Z,alpha=<span class="number">0.3</span>,cmap=cmap)</span><br><span class="line">    plt.xlim(xx1.<span class="built_in">min</span>(),xx1.<span class="built_in">max</span>())</span><br><span class="line">    plt.ylim(xx2.<span class="built_in">min</span>(),xx2.<span class="built_in">max</span>())</span><br><span class="line">    <span class="comment">#plot class samples</span></span><br><span class="line">    <span class="keyword">for</span> idx,cl <span class="keyword">in</span> <span class="built_in">enumerate</span>(np.unique(y)):<span class="comment">#这里使用enumerate来同时获得标签</span></span><br><span class="line">        plt.scatter(x=X[y==cl,<span class="number">0</span>],</span><br><span class="line">                    y=X[y==cl,<span class="number">1</span>],</span><br><span class="line">                    alpha=<span class="number">0.8</span>,</span><br><span class="line">                    c=colors[idx],</span><br><span class="line">                    marker=markers[idx],</span><br><span class="line">                    label=cl,</span><br><span class="line">                    edgecolors=<span class="string">&#x27;black&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> test:</span><br><span class="line">        <span class="comment">#将测试集标记出来</span></span><br><span class="line">        plt.scatter(x=X[:,<span class="number">0</span>],</span><br><span class="line">                    y=X[:,<span class="number">1</span>],</span><br><span class="line">                    alpha=<span class="number">1</span>,</span><br><span class="line">                    s=<span class="number">100</span>,</span><br><span class="line">                    marker=<span class="string">&#x27;o&#x27;</span>,</span><br><span class="line">                    edgecolors=<span class="string">&#x27;black&#x27;</span>,</span><br><span class="line">                    c=<span class="string">&#x27;None&#x27;</span>)<span class="comment">#这里颜色的设定需要专门注意</span></span><br></pre></td></tr></table></figure>
+
+<p>我们可以将刚才训练的模型的效果展示出来</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plot_decision_regions(X_train_std,ytrain,ppn)</span><br><span class="line">plot_decision_regions(X_test_std,ytest,ppn,test=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/2023/01/26/machine-learning/machine2/scikit-learn_17_1.png" alt="png"></p>
+<h2 id="使用logistic回归构建类模型"><a href="#使用logistic回归构建类模型" class="headerlink" title="使用logistic回归构建类模型"></a>使用logistic回归构建类模型</h2><p>虽然我们之前构建的分类算法在机器学习分类中非常好用,但是这中间有个非常严重的问题,那就是当几个类不能被线性分割时,将永远不会收敛</p>
+<p>为了节约我们的时间,我们将介绍另外一种强而有力的线性分类模型:logistic回归模型</p>
+<blockquote>
+<p>需要注意,这里虽然用了”回归”这个名字,但是算法是用来分类的</p>
+</blockquote>
+<h3 id="logistic回归的介绍和条件概率"><a href="#logistic回归的介绍和条件概率" class="headerlink" title="logistic回归的介绍和条件概率"></a>logistic回归的介绍和条件概率</h3><p>为了理解logistic回归,我们首先介绍<em>比值比</em>,比值比可以被写作$\frac{p}{1-p}$(其中$p$是我们所想预测的概率),接下来我们就可以定义比值比的对数<br>$$logit(p)&#x3D;\log\frac{p}{1-p}$$<br>需要注意到,我们可以将发生预测事件分类为$y&#x3D;1$,认为某一特征与$logit(p(y&#x3D;1|x))$之间呈现线性关系</p>
+<p>而我们的工作是预测某一个样本属于某一类的可能性,即从比值比的对数求$p$,那么我们可以使用一个s型生长曲线<br>$$\phi(z)&#x3D;\frac{1}{1+e^{-z}}$$<br>其中$z$是输入,为$z&#x3D;w^Tx$</p>
+<p>为了更加直观的看出这个的效果,我们首先绘制一幅s型生长曲线的图像</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">sigmoid</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1.0</span>/(<span class="number">1</span>+<span class="number">1.0</span>*np.exp(-x))</span><br><span class="line">x=np.linspace(-<span class="number">7</span>,<span class="number">7</span>,<span class="number">1000</span>)</span><br><span class="line">phix=sigmoid(x)</span><br><span class="line">plt.plot(x,phix)</span><br><span class="line">plt.axvline(<span class="number">0.0</span>,c=<span class="string">&#x27;k&#x27;</span>)</span><br><span class="line">plt.ylim(-<span class="number">0.1</span>,<span class="number">1.1</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;$\phi (z)$&#x27;</span>)</span><br><span class="line"><span class="comment">#y axis ticks and gridline</span></span><br><span class="line">plt.yticks([<span class="number">0.0</span>,<span class="number">0.5</span>,<span class="number">1.0</span>])</span><br><span class="line">ax=plt.gca()</span><br><span class="line">ax.yaxis.grid(<span class="literal">True</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+<p>​<br><img src="/2023/01/26/machine-learning/machine2/scikit-learn_20_0.png" alt="png"><br>​    </p>
+<p>我们可以仿照上一章的例子,就是将<code>ADaline</code>中的线性函数变成了生长曲线,而对于生长曲线的输出则是以0.5为阈值大于0.5为1,小于0.5为0</p>
+<h3 id="学习logistic误差函数"><a href="#学习logistic误差函数" class="headerlink" title="学习logistic误差函数"></a>学习<code>logistic</code>误差函数</h3><p>接下来我们讨论如何拟合模型中的参数,我们之前定义过平方和误差函数<br>$$J(\omega)&#x3D;\sum_i\frac{1}{2}(\phi(z^{(i)}-y^{(i)})^2$$<br>我们的目的就是让这个函数值最小,首先我们需要定义在已知$x$下,$y$的后验概率分布<br>$$L(\omega)&#x3D;P(y|x;\omega)&#x3D;\Pi_{i&#x3D;1}^nP(y^{(i)}|x^{(i)};\omega)&#x3D;\Pi_{i&#x3D;1}^n(\phi(z^{(i)}))^{y^{(i)}}(1-\phi(z^{(i)}))^{1-y^{(i)}}$$<br>对于实际应用之中,往往取对数可以让问题更加方便,因此最后误差函数在定义时就可以被写作:<br>若$y&#x3D;1$则为$-\log(\phi(z))$,若$y&#x3D;0$则为$-\log(1-\phi(z))$<br>这么做的好处在于,我们对于错误的估计,误差函数会逐渐加大,从下面这张图可以看出来</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">cost_0</span>(<span class="params">z</span>):</span><br><span class="line">    <span class="keyword">return</span> -np.log(sigmoid(z))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cost_1</span>(<span class="params">z</span>):</span><br><span class="line">    <span class="keyword">return</span> -np.log(<span class="number">1</span>-sigmoid(z))</span><br><span class="line">z=np.arange(-<span class="number">10</span>,<span class="number">10</span>,<span class="number">0.1</span>)</span><br><span class="line">phiz=sigmoid(z)</span><br><span class="line">c0=cost_0(z)</span><br><span class="line">c1=cost_1(z)</span><br><span class="line">plt.plot(phiz,c1,<span class="string">&quot;-&quot;</span>,label=<span class="string">&#x27;J(w) if y=1&#x27;</span>)</span><br><span class="line">plt.plot(phiz,c0,<span class="string">&quot;--&quot;</span>,label=<span class="string">&#x27;J(w) if y=0&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;$\phi(z)$&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;J(w)&quot;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.xlim([<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+<p>​<br><img src="/2023/01/26/machine-learning/machine2/scikit-learn_22_0.png" alt="png"><br>​    </p>
+<h3 id="将Adaline内置logistic回归"><a href="#将Adaline内置logistic回归" class="headerlink" title="将Adaline内置logistic回归"></a>将<code>Adaline</code>内置logistic回归</h3><p>我们在之前的<code>Adaline</code>算法中,可以做出以下修改:</p>
+<p><img src="/2023/01/26/machine-learning/machine2/image-20230126003038092.png" alt="png"></p>
+<ol>
+<li>将线性激发函数修改为生长激发函数</li>
+<li>修改分类阈值从-1到1修改为0到1</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#TODO 这些内容还需要修改,未来改一下</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LogisticRegressionGD</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,eta=<span class="number">0.001</span>,n_iter=<span class="number">100</span>,random_state=<span class="number">1</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        self.eta=eta</span><br><span class="line">        self.n_iter=n_iter</span><br><span class="line">        self.random_state=random_state</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fit</span>(<span class="params">self,X,y</span>):</span><br><span class="line">        rgen=np.random.RandomState(self.random_state)</span><br><span class="line">        self.w_=rgen.normal(<span class="number">0.0</span>,<span class="number">0.1</span>,size=<span class="number">1</span>+X.shape[<span class="number">1</span>])</span><br><span class="line">        self.cost_=[]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.n_iter):</span><br><span class="line">            err,errg,errw0=self._calc_cost(X,y)</span><br><span class="line">            self.cost_.append(err)</span><br><span class="line">            self.w_[<span class="number">1</span>:]+=-self.eta*errg</span><br><span class="line">            self.w_[<span class="number">0</span>]+=-self.eta*errw0</span><br><span class="line">            </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_calc_cost</span>(<span class="params">self,X,y</span>):</span><br><span class="line">        yp=(np.dot(X,self.w_[<span class="number">1</span>:].reshape(-<span class="number">1</span>,<span class="number">1</span>))+self.w_[<span class="number">0</span>]).reshape(<span class="number">1</span>,-<span class="number">1</span>)</span><br><span class="line">        <span class="comment">#print(yp)</span></span><br><span class="line">        err=np.<span class="built_in">sum</span>((yp[<span class="number">0</span>]-y)**<span class="number">2</span>)/<span class="number">2</span></span><br><span class="line">        errg=np.dot((yp[<span class="number">0</span>]-y),X)</span><br><span class="line">        errw0=np.<span class="built_in">sum</span>(yp[<span class="number">0</span>]-y)</span><br><span class="line">        <span class="keyword">return</span> err,errg[<span class="number">0</span>],errw0</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">predict</span>(<span class="params">self,X</span>):</span><br><span class="line">        <span class="keyword">return</span> np.where(np.dot(X,self.w_[<span class="number">1</span>:])+self.w_[<span class="number">0</span>]&gt;<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用scikit-learn训练一个回归模型"><a href="#使用scikit-learn训练一个回归模型" class="headerlink" title="使用scikit-learn训练一个回归模型"></a>使用<code>scikit-learn</code>训练一个回归模型</h3><p>我们刚才的讨论是基于数学计算上的区别,现在我们来介绍一下如何使用<code>scikit-learn</code>来训练一个回归模型</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line">lr=LogisticRegression(C=<span class="number">100.0</span>,random_state=<span class="number">1</span>)<span class="comment">#?这个C是</span></span><br><span class="line">lr.fit(X_train_std,ytrain)</span><br><span class="line">plot_decision_regions(X_train_std,ytrain,classifier=lr)</span><br><span class="line">plot_decision_regions(X_test_std,ytest,classifier=lr,test=<span class="literal">True</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;petal length&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;petal width&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;upper left&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p><img src="/2023/01/26/machine-learning/machine2/scikit-learn_26_1.png" alt="png"></p>
+<p>我们在看这个问题的时候,会很好奇这个训练参数<code>C</code>是什么东西,我们将在下一小节介绍这个问题</p>
+<blockquote>
+<p>这个问题主要涉及到关于过拟合和欠拟合</p>
+</blockquote>
+<p>我们还可以计算出每一个元素属于某一类的概率,需要使用<code>predict_proba</code>方法</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">lr.predict_proba(X_test_std[:<span class="number">3</span>,:])*<span class="number">100</span><span class="comment">#这里乘100为了方便用百分数</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>array([[5.83527138e-11, 4.26528227e-03, 9.99957347e+01],
+       [9.99623181e+01, 3.76819349e-02, 3.51225598e-17],
+       [2.32430493e+00, 9.76756905e+01, 4.61949531e-06]])
+</code></pre>
+<p>相应的,我们可以用这个来进行预测</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">lr.predict_proba(X_test_std[:<span class="number">3</span>,:]).argmax(axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>array([2, 0, 1], dtype=int64)
+</code></pre>
+<blockquote>
+<p><strong>一个需要注意的问题</strong><br>在使用<code>predict</code>时,如果预测是一个单一样本,那么就需要进行<code>reshape</code></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">lr.predict(X_test_std[<span class="number">0</span>,:].reshape(<span class="number">1</span>,-<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>array([2])
+</code></pre>
+<h3 id="通过正则化处理过拟合"><a href="#通过正则化处理过拟合" class="headerlink" title="通过正则化处理过拟合"></a>通过正则化处理过拟合</h3><p>过拟合在机器学习中是一个常见的问题,<strong>过拟合</strong>主要来自于过于复杂的模型,模型非常容易受到一噪音的影响,而<strong>欠拟合</strong>则是相反的情况,主要来自于过于简单的模型约束过多<br> <img src="/2023/01/26/machine-learning/machine2/image-20230126003240978.png" alt="image-20230126003240978"><br>虽然我们现在讨论的是线性模型,但是很快我们就会遇到一些更加复杂的决策区间<br>这个时候我们就需要使用正则化来调节模型的自由度,这种手段可以有效的处理特征之间的相关性,消除数据误差和防止过拟合有重要作用</p>
+<p>正则化的原理是通过添加约束来消除极端变量的值,最为常用的是<code>L2正则化</code>,可以被写成下式<br>$$\frac{\lambda}{2}||\omega||^2&#x3D;\frac{\lambda}{2}\sum_{j&#x3D;1}^m\omega_j^2$$<br>那么我们之前所使用的损失函数就可以被加上这一项$\frac{\lambda}{2}||\omega||^2$</p>
+<blockquote>
+<p>这个有点像拉格朗日乘子法,添加了一个约束,但是这个$\lambda$是一个预先设定好的量<br>而如果$\lambda$越大,正则化强度越高,之前的参数$C$就是和这个密切相关,是它的倒数<br>我们用绘制两个参数随着$C$变化的变化展示<code>L2正则化</code>强度对机器学习结果的影响</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">weights,params=[],[]</span><br><span class="line">lrl=[]</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> np.arange(-<span class="number">5</span>,<span class="number">5</span>,<span class="number">0.5</span>):</span><br><span class="line">    lr=LogisticRegression(C=<span class="number">10.</span>**c,random_state=<span class="number">1</span>)</span><br><span class="line">    lr.fit(X_train_std,ytrain)</span><br><span class="line">    weights.append(lr.coef_[<span class="number">1</span>])</span><br><span class="line">    params.append(<span class="number">10.</span>**c)</span><br><span class="line">weights=np.array(weights)</span><br><span class="line">plt.plot(params,weights[:,<span class="number">0</span>],label=<span class="string">&#x27;petal length&#x27;</span>)</span><br><span class="line">plt.plot(params,weights[:,<span class="number">1</span>],label=<span class="string">&#x27;petal width&#x27;</span>,linestyle=<span class="string">&quot;--&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;cofficient&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;C&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.xscale(<span class="string">&#x27;log&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+<p>​<br><img src="/2023/01/26/machine-learning/machine2/scikit-learn_34_0.png" alt="png"><br>​    </p>
+<p>可以注意到,$C$越小,相应的正则化强度越高,导致参数越大</p>
+<h2 id="使用支持向量机处理最大边界问题"><a href="#使用支持向量机处理最大边界问题" class="headerlink" title="使用支持向量机处理最大边界问题"></a>使用支持向量机处理最大边界问题</h2><p>另外一个强力而广泛应用的算法是<strong>支持向量机算法</strong><code>Support Vector Machine(SVM)</code>,这可以被看做是感知机的升级版.<br>在感知机算法中,我们的目标是让误分类误差尽量小,但是在支持向量机算法中,我们的目标是让边界最大</p>
+<p>边界被定义为决策边界和离决策边界最近的点的距离,又被称作<strong>支持向量</strong><code>support vectors</code>,下图可以展现出来<br><img src="/2023/01/26/machine-learning/machine2/image-20230126003135775.png" alt="png"></p>
+<h3 id="最大边界"><a href="#最大边界" class="headerlink" title="最大边界"></a>最大边界</h3><p>大的边界在于这种手段可以得到尽量小的整体误差,但是小的边界更加容易发生过拟合.为了更好地理解最大边界,我们来考量一下<em>正负决策边界</em>,这些边界与决策边界平行,可以用下式来表述<br>$$\omega_0+\omega^Tx_{pos}&#x3D;1$$<br>(到标号为1的点的分割面)<br>$$\omega_0+\omega^Tx_{neg}&#x3D;-1$$<br>(到标号为-1的点的分割面)<br>假如我们两式相减,我们可以得到<br>$$\omega^T(x_{pos}-x_{neg})&#x3D;2$$<br>我们可以借助$\omega$的长度对这个式子进行归一化<br>$$\frac{\omega^T(x_{pos}-x_{neg})}{||\omega||}&#x3D;\frac{2}{||\omega||}$$<br>左侧的式子可以被看做正负决策边界的距离,这就是我们希望最大化的东西</p>
+<p>现在,问题就转变为让$\frac{2}{||\omega||}$最大(前提是可以使用两个面的分开,满足对于所有的i有 $y^{(i)}(\omega_0+\omega^Tx^{(i)})\ge 1$ 这样的约束(线性约束))<br>在实际问题中,往往使用<em>二次规划</em>来解决这个问题,但这实在是有点复杂,我们不再涉及</p>
+<h3 id="通过添加松弛变量应对无法线性完全分类问题"><a href="#通过添加松弛变量应对无法线性完全分类问题" class="headerlink" title="通过添加松弛变量应对无法线性完全分类问题"></a>通过添加松弛变量应对无法线性完全分类问题</h3><p>我们来简单介绍松弛变量$\xi$,这种被称作<strong>软边界分类问题</strong>.引入松弛变量的目的是线性约束需要被松弛来解决无法线性完全分类问题来实现对存在误分类的优化</p>
+<p>正值松弛变量就是简单的减在线性约束上<br>$$y^{(i)}(\omega_0+\omega^Tx^{(i)})\ge 1-\xi^{(i)}$$<br>因此新的最优化问题可以被看做让以下式子最小<br>$$\frac{1}{2}||\omega||^2+C(\sum_i \xi^{(i)})$$<br>通过修改$C$,我们可以控制错误分类的<strong>惩罚</strong>,下面这张图展示了不同的$C$的效果<br><img src="attachment:image.png" alt="image.png"><br>这一观念与正则化有关,就像我们所讨论的$C$一样,减少$C$的值会增加约束并减少自由度<br>现在,我们来训练一个支持向量机的模型来给花分类</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line">svm=SVC(kernel=<span class="string">&#x27;linear&#x27;</span>,C=<span class="number">1.0</span>,random_state=<span class="number">1</span>)</span><br><span class="line">svm.fit(X_train_std,ytrain)</span><br><span class="line">plot_decision_regions(X_train_std,ytrain,classifier=svm)</span><br><span class="line">plot_decision_regions(X_test_std,ytest,classifier=svm,test=<span class="literal">True</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;petal length [standardized]&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;petal width [standardized]&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p><img src="/2023/01/26/machine-learning/machine2/scikit-learn_39_1.png" alt="png"></p>
+<h3 id="在scikit-learn中作为代替的实现"><a href="#在scikit-learn中作为代替的实现" class="headerlink" title="在scikit-learn中作为代替的实现"></a>在<code>scikit-learn</code>中作为代替的实现</h3><p>在一些特殊的情况下(比如数据集奇大无比),可以去参考<code>SGDClassifier</code>实现</p>
+<h2 id="使用一个SVM核来解决非线性问题"><a href="#使用一个SVM核来解决非线性问题" class="headerlink" title="使用一个SVM核来解决非线性问题"></a>使用一个SVM核来解决非线性问题</h2><p>支持向量机方法如此流行还有一个原因在于支持向量机可以非常轻易的被内核化(<code>kernelized</code>),在我们深入讨论SVM核的数学机理之前,我们首先来看一个例子</p>
+<h3 id="对无法线性区分的数据的核方法"><a href="#对无法线性区分的数据的核方法" class="headerlink" title="对无法线性区分的数据的核方法"></a>对无法线性区分的数据的核方法</h3><p>在接下来的数据集中,我们将创建一个简单的X状数据使用<code>logical_xor</code>函数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">np.random.seed(<span class="number">1</span>)</span><br><span class="line">X_xor=np.random.randn(<span class="number">200</span>,<span class="number">2</span>)</span><br><span class="line">y_xor=np.logical_xor(X_xor[:,<span class="number">0</span>]&gt;<span class="number">0</span>,X_xor[:,<span class="number">1</span>]&gt;<span class="number">0</span>)</span><br><span class="line">y_xor=np.where(y_xor,<span class="number">1</span>,-<span class="number">1</span>)</span><br><span class="line">plt.scatter(X_xor[y_xor==<span class="number">1</span>,<span class="number">0</span>],X_xor[y_xor==<span class="number">1</span>,<span class="number">1</span>],c=<span class="string">&#x27;b&#x27;</span>,marker=<span class="string">&#x27;x&#x27;</span>,label=<span class="string">&#x27;l&#x27;</span>)</span><br><span class="line">plt.scatter(X_xor[y_xor==-<span class="number">1</span>,<span class="number">0</span>],X_xor[y_xor==-<span class="number">1</span>,<span class="number">1</span>],c=<span class="string">&#x27;r&#x27;</span>,marker=<span class="string">&#x27;s&#x27;</span>,label=<span class="string">&#x27;l&#x27;</span>)</span><br><span class="line">plt.xlim([-<span class="number">1</span>,<span class="number">1</span>])</span><br><span class="line">plt.ylim([-<span class="number">1</span>,<span class="number">1</span>])</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+<p>​<br><img src="/2023/01/26/machine-learning/machine2/scikit-learn_43_0.png" alt="png"><br>​    </p>
+<p>可以看出来,这两种数据有着显著的区别,但是又明显不能线性区分开来,这个时候就要使用<code>核</code>来解决问题</p>
+<p>对于核方法最为简单的解释就是将数据通过指定的<strong>非线性</strong>组合,扩展到高维,然后在高维就可以实现区分,即<br>$$\phi(x_1,x_2)&#x3D;(z_1,z_2,z_3)&#x3D;(x_1,x_2,x_1^2+x_2^2)$$<br>而这样做的效果用下面一张图可以很好的体现出来<br>原<img src="/2023/01/26/machine-learning/machine2/image-20230126003317498.png" alt="png">本区分不开的两簇点通过扩展到三维很轻易地区分开来</p>
+<h3 id="使用核方法在高维空间中找到决策边界"><a href="#使用核方法在高维空间中找到决策边界" class="headerlink" title="使用核方法在高维空间中找到决策边界"></a>使用核方法在高维空间中找到决策边界</h3><p>为了处理上述问题,我们首先需要利用一个投影函数$\phi$将训练数据投影到高维空间,然后再训练一个支持向量机模型,最后再将原本的投影函数取反来进行预测.</p>
+<p>然而,这种方法说起来简单,但是实际运作起来(尤其是面对高维数据)非常困难,因此我们需要使用到<strong>核技巧</strong>(<code>kernel trick</code>),核技巧的数学原理再次不再过多涉及  </p>
+<blockquote>
+<p>核函数可以被看做给向量空间定义了一个全新的点乘<br>粗略地说,核这个词可以被理解为<strong>一对样本之间的关联函数</strong>,例如说最为常用的高斯核函数<code>Gaussian kernel</code>就是如下定义:<br>$$\mathcal{K}(x^{(i)},x^{(j)})&#x3D;exp\left(-\frac{||x^{(i)}-x^{(j)}||^2}{2\sigma^2}\right)$$<br>(其中的$\sigma$是一个拟合自由度)其得到样本中两个样本差距的模长,并且取$e$的负指数来实现定义两个样本之间的相近程度</p>
+</blockquote>
+<p>现在我们来看刚才的问题,我们来试试高斯核能不呢解决这个问题</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">svm=SVC(kernel=<span class="string">&#x27;rbf&#x27;</span>,random_state=<span class="number">1</span>,gamma=<span class="number">0.1</span>,C=<span class="number">10</span>)</span><br><span class="line">svm.fit(X_xor,y_xor)</span><br><span class="line">plot_decision_regions(X_xor,y_xor,classifier=svm)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p><img src="/2023/01/26/machine-learning/machine2/scikit-learn_46_1.png" alt="png"></p>
+<p>而我们使用的$\gamma$参数,可以被理解为<strong>切断参数</strong>,$\gamma$越大,我们会得到一个越紧凑的决策边界,我们可以拿之前那个花分类的问题来进行讨论</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">svm=SVC(kernel=<span class="string">&#x27;rbf&#x27;</span>,random_state=<span class="number">1</span>,gamma=<span class="number">0.2</span>,C=<span class="number">1.0</span>)</span><br><span class="line">svm.fit(X_train_std,ytrain)</span><br><span class="line">plot_decision_regions(X_train_std,ytrain,svm)</span><br><span class="line">plot_decision_regions(X_test_std,ytest,svm,test=<span class="literal">True</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p><img src="/2023/01/26/machine-learning/machine2/scikit-learn_48_1.png" alt="png"></p>
+<p>因为我们的$\gamma$值比较小,所以看起来还不错,接下来,我们把$\gamma$放大,看看会怎么样</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">svm=SVC(kernel=<span class="string">&#x27;rbf&#x27;</span>,random_state=<span class="number">1</span>,gamma=<span class="number">100</span>,C=<span class="number">1.0</span>)</span><br><span class="line">svm.fit(X_train_std,ytrain)</span><br><span class="line">plot_decision_regions(X_train_std,ytrain,svm)</span><br><span class="line">plot_decision_regions(X_test_std,ytest,svm,test=<span class="literal">True</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p><img src="/2023/01/26/machine-learning/machine2/scikit-learn_50_1.png" alt="png"></p>
+<p>虽然这种拟合在训练集上很有用,但是无法用在测试集上</p>
+<blockquote>
+<p>这样的东西,能不能做聚类</p>
+</blockquote>
+<h2 id="决策树学习"><a href="#决策树学习" class="headerlink" title="决策树学习"></a>决策树学习</h2><p>如果我们非常在乎可解释性的话,<strong>决策树</strong>(<code>Decision tree</code>)分类器是非常吸引人的模型,正如名字所预示的那样,我们可以考虑将数据通过做出一些决策而进行分解,以下面一个决定某一天是否要做某件事的决策树为例:<br><img src="/2023/01/26/machine-learning/machine2/image-20230126003438905.png" alt="png"><br>相似的,对于连续变化的数据,我们可以定义一个阈值来进行决策</p>
+<p>在实际应用中,我们从树根开始,对于可以导致<strong>最大学习增加</strong>(<code>largest IG</code>)进行分类(这在之后会详细介绍),然后对每一个分支重复这个过程,直到树变得整洁</p>
+<blockquote>
+<p>然而这样做在实际情况下往往会导致过拟合,因此我们需要通过设定最大深度对树进行修剪</p>
+</blockquote>
+<h3 id="最大化信息增加"><a href="#最大化信息增加" class="headerlink" title="最大化信息增加"></a>最大化信息增加</h3><p>为了准确地分隔节点,我们需要定义一个最优化函数来处理决策树学习算法.在这里,我们决策树的目的是尽可能增加<strong>信息</strong>,信息量定义如下:<br>$$IG(D_p,f)&#x3D;I(D_p)-\sum_{j&#x3D;1}^m\frac{N_j}{N_p}I(D_j)$$<br>式中$f$是实行分割的特征,$D_p$和$D_j$是父节点对应数据集和第$j$个子节点数据集,而$I$就是我们的<strong>不纯</strong>度,我们可以看出,所谓信息的增加就是父节点和子节点不纯度和之差,子节点不纯度越小,信息量增加越大</p>
+<blockquote>
+<p>不过在实际使用过程中,为了简明起见,编译器往往会使用二分法进行分类</p>
+</blockquote>
+<p>现在我们来介绍经常被使用的三种不纯度的度量($t$为节点)</p>
+<ol>
+<li>基尼不纯度$I_G&#x3D;1-\sum p(i|t)^2$</li>
+<li>信息熵$I_H&#x3D;-\sum p(i|t)\log_2p(i|t)$</li>
+<li>分类误差$I_E&#x3D;1-\max{p(i|t)}$<br>1,2往往能够获得相似的结果,而3往往被用在修建上而非生长上</li>
+</ol>
+<p>下面这张图可以展现出三种度量方式的特性(对于二分类样本)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">gini</span>(<span class="params">p</span>):</span><br><span class="line">    <span class="keyword">return</span> p*(<span class="number">1</span>-p)+(<span class="number">1</span>-p)*(<span class="number">1</span>-(<span class="number">1</span>-p))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">entropy</span>(<span class="params">p</span>):</span><br><span class="line">    <span class="keyword">return</span> -p*np.log2(p)-(<span class="number">1</span>-p)*np.log2(<span class="number">1</span>-p)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">error</span>(<span class="params">p</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>-np.<span class="built_in">max</span>([p,<span class="number">1</span>-p],axis=<span class="number">0</span>)</span><br><span class="line">x=np.arange(<span class="number">0.001</span>,<span class="number">1</span>,<span class="number">0.01</span>)</span><br><span class="line">ent=entropy(x)</span><br><span class="line">sc_ent=ent*<span class="number">0.5</span></span><br><span class="line">err=error(x)</span><br><span class="line">fig=plt.figure()</span><br><span class="line">ax=plt.subplot(<span class="number">111</span>)</span><br><span class="line"><span class="keyword">for</span> i, lab, ls, c, <span class="keyword">in</span> <span class="built_in">zip</span>([ent, sc_ent, gini(x), err], </span><br><span class="line">    [<span class="string">&#x27;Entropy&#x27;</span>, <span class="string">&#x27;Entropy (scaled)&#x27;</span>, </span><br><span class="line">    <span class="string">&#x27;Gini Impurity&#x27;</span>, </span><br><span class="line">    <span class="string">&#x27;Misclassification Error&#x27;</span>],</span><br><span class="line">    [<span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;--&#x27;</span>, <span class="string">&#x27;-.&#x27;</span>],</span><br><span class="line">    [<span class="string">&#x27;black&#x27;</span>, <span class="string">&#x27;lightgray&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;cyan&#x27;</span>]):</span><br><span class="line">    line = ax.plot(x, i, label=lab, </span><br><span class="line">    linestyle=ls, lw=<span class="number">2</span>, color=c)</span><br><span class="line">ax.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">ax.axhline(y=<span class="number">0.5</span>,linestyle=<span class="string">&#x27;--&#x27;</span>)</span><br><span class="line">ax.axhline(y=<span class="number">1</span>,linestyle=<span class="string">&#x27;--&#x27;</span>)</span><br><span class="line">plt.xlim([<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line">plt.xlabel(<span class="string">&#x27;p(i-1)&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;Impurity Index&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+<p>​<br><img src="/2023/01/26/machine-learning/machine2/scikit-learn_54_0.png" alt="png"><br>​    </p>
+<h3 id="构建一颗决策树"><a href="#构建一颗决策树" class="headerlink" title="构建一颗决策树"></a>构建一颗决策树</h3><p>我们可以借助<code>scikit-learn</code>来构建一棵决策树,我们在此训练一个最大深度为3的决策树,使用信息熵作为度量.</p>
+<blockquote>
+<p>需要注意到,虽然在可视化的时候进行数据预处理是好的,但是对于决策树而言,不需要进行数据缩放</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier</span><br><span class="line">tree=DecisionTreeClassifier(criterion=<span class="string">&#x27;entropy&#x27;</span>,max_depth=<span class="number">4</span>,random_state=<span class="number">1</span>)</span><br><span class="line">tree.fit(Xtrain,ytrain)</span><br><span class="line">plot_decision_regions(Xtrain,ytrain,tree)</span><br><span class="line">plot_decision_regions(Xtest,ytest,tree,test=<span class="literal">True</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;petal length [cm]&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;petal width [cm]&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<pre><code>C:\Users\h\AppData\Local\Temp\ipykernel_43220\485392308.py:21: UserWarning: You passed a edgecolor/edgecolors (&#39;black&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
+  plt.scatter(x=X[y==cl,0],
+C:\Users\h\AppData\Local\Temp\ipykernel_43220\485392308.py:21: UserWarning: You passed a edgecolor/edgecolors (&#39;black&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
+  plt.scatter(x=X[y==cl,0],
+</code></pre>
+<p><img src="/2023/01/26/machine-learning/machine2/scikit-learn_56_1.png" alt="png"></p>
+<p>使用<code>scikit-learn</code>有一个很好的功能在于你可以将训练好的树保存为<code>.dot</code>文件,然后我们可以使用<code>pydotplus</code>库进行查看</p>
+<blockquote>
+<p>需要注意,我们需要安装<code>GraphViz</code>这样的程序</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#! 添加GraphViz环境变量</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.environ[<span class="string">&quot;PATH&quot;</span>]+=os.pathsep+<span class="string">&#x27;C:/Program Files/Graphviz/bin&#x27;</span></span><br><span class="line"><span class="keyword">from</span> pydotplus <span class="keyword">import</span> graph_from_dot_data</span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> export_graphviz</span><br><span class="line">dot_data=export_graphviz(tree,</span><br><span class="line">                         filled=<span class="literal">True</span>,</span><br><span class="line">                         rounded=<span class="literal">True</span>,</span><br><span class="line">                         class_names=[<span class="string">&#x27;Setosa&#x27;</span>,<span class="string">&#x27;Versicolor&#x27;</span>,<span class="string">&#x27;Virginica&#x27;</span>],</span><br><span class="line">                         feature_names=[<span class="string">&#x27;petal length&#x27;</span>,<span class="string">&#x27;petal width&#x27;</span>],</span><br><span class="line">                         out_file=<span class="literal">None</span>)</span><br><span class="line">graph=graph_from_dot_data(dot_data)</span><br><span class="line">graph.write_png(<span class="string">&#x27;tree.png&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>True
+</code></pre>
+<p>我们可以得到一个如下所示的结果<br><img src="/2023/01/26/machine-learning/machine2/tree.png" alt="png"></p>
+<p>我们可以看到这中间的各种决策过程,这个决策树在区分花种类中可以做得很好</p>
+<p>遗憾的是,<code>scikit-learn</code>库中并没有内置进行修剪的函数,我们需要修改之前的源代码</p>
+<h3 id="使用随机森林法合并不同的决策树"><a href="#使用随机森林法合并不同的决策树" class="headerlink" title="使用随机森林法合并不同的决策树"></a>使用随机森林法合并不同的决策树</h3><p><strong>决策森林</strong>(<code>Random forests</code>)在机器学习中变得非常流行,随机森林可以被看作是一组决策树的集合,随机森林可以被总结为以下四步:</p>
+<ol>
+<li>从数据集中随机抽取$n$个样本(放回抽样)</li>
+<li>从这$n$个样本中生长出一棵决策树,而在每一个样本中,有:<ul>
+<li>随机选取$d$个特征</li>
+<li>选取使用最能分割特征的节点进行分割</li>
+</ul>
+</li>
+<li>重复这个过程$k$次</li>
+<li>使用<em>绝对多数投票</em>合并这些树</li>
+</ol>
+<p>我们尤其需要注意在步骤2中是<strong>对部分特征进行生长</strong><br>虽然随机森林的结果不像决策树一样易于解读,但是相应的,其可以过滤掉很大一部分噪声,鲁棒性很高,我们只需要关心我们需要训练多少个树,而往往树越多,结果越为理想.</p>
+<blockquote>
+<p>当然,像$n$和$d$这样的的值也可以优化,但是在这里不加以过多赘述</p>
+</blockquote>
+<p>我们可以使用库来构建随机森林</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line">forest=RandomForestClassifier(criterion=<span class="string">&#x27;entropy&#x27;</span>,</span><br><span class="line">                              n_estimators=<span class="number">250</span>,</span><br><span class="line">                              random_state=<span class="number">1</span>,</span><br><span class="line">                              n_jobs=<span class="number">2</span>)</span><br><span class="line">forest.fit(Xtrain,ytrain)</span><br><span class="line">plot_decision_regions(Xtrain,ytrain,forest)</span><br><span class="line">plot_decision_regions(Xtest,ytest,forest,test=<span class="literal">True</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;petal length [cm]&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;petal width [cm]&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()                 </span><br></pre></td></tr></table></figure>
+
+
+
+
+<p><img src="/2023/01/26/machine-learning/machine2/scikit-learn_62_1.png" alt="png"></p>
+<p>虽然我们长的树很少,数据集也很小,但是我们修改了<code>n_jobs</code>来实现多线程运算</p>
+<h2 id="第K近邻居–一种懒惰的学习算法"><a href="#第K近邻居–一种懒惰的学习算法" class="headerlink" title="第K近邻居–一种懒惰的学习算法"></a>第K近邻居–一种懒惰的学习算法</h2><p>我们最后要介绍的算法是KNN算法,这种算法非常有趣因为其采用了一种不同的方式进行学习</p>
+<p>所谓<em>懒惰</em>不是因为其结构简单,而是因为其不从训练数据中学习区分函数,而是通过记住训练集的方式</p>
+<blockquote>
+<p>KNN属于一个典型的非参数模型<br>KNN算法自身是相当直截了当的,可以用以下几步来总结</p>
+</blockquote>
+<ol>
+<li>选择数量$k$和距离矩阵</li>
+<li>找到我们想要分类的$k$个邻居</li>
+<li>使用绝对多数投票决定类标签<br>下图展示了一个新的数据点是如何拿KNN算法分类的<br><img src="attachment:image.png" alt="image.png"><br>这种方法的好处在于一旦我们添加新的数据,那么模型可以立即适应,然而,当训练数据非常大时,这一算法会变得<strong>非常慢</strong>  <blockquote>
+<p>似乎不准确的抽样可能会对KNN带来权重<br>下面我们用KNN算法实践一下</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</span><br><span class="line">knn=KNeighborsClassifier(p=<span class="number">2</span>,metric=<span class="string">&#x27;minkowski&#x27;</span>)</span><br><span class="line">knn.fit(X_train_std,ytrain)</span><br><span class="line">plot_decision_regions(X_train_std,ytrain,knn)</span><br><span class="line">plot_decision_regions(X_test_std,ytest,knn,test=<span class="literal">True</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p><img src="/2023/01/26/machine-learning/machine2/scikit-learn_65_1.png" alt="png"></p>
+<p>在KNN中,选取合适的$k$尤为重要,同时也要选取一个合理的距离矩阵,例如我们刚才选用的<code>minkowski</code>矩阵,其形式如下:<br>$$d(x^{(i)},x^{(j)})&#x3D;\sqrt[p]{\sum_k |x^{(i)}_k-x^{(j)}_k|}$$<br>当$p&#x3D;2$,为欧几里得距离,当$p&#x3D;1$,为曼哈顿距离<br>可以参考<a href="http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.DistanceMetric.html">这个网页</a>  </p>
+<blockquote>
+<p>需要注意:当数据维度非常高时,KNN往往会给出过拟合的结果 :</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这一章所涉及的机器学习算法的特点列举如下:</p>
+<ol>
+<li>Logistic回归相当于<code>Adaline</code>的一种改进,最为基本</li>
+<li>支持向量机可以支持许多类型的核来处理非线性问题,但是其具有非常多的参数需要调节</li>
+<li>决策树的结果易于解读,但是鲁棒性不如随机森林</li>
+<li>KNN算法不依赖参数模型,但是当数据维度大时综合效果会显著下降</li>
+</ol>
+<h2 id="有待讨论的问题"><a href="#有待讨论的问题" class="headerlink" title="有待讨论的问题"></a>有待讨论的问题</h2><ol>
+<li>关于logistic回归函数的意义</li>
+<li>核的意义</li>
+<li>修改logistic回归代码</li>
+</ol>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>python</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VSCode特别功能总结</title>
+    <url>/2023/01/17/misc/VSCode/</url>
+    <content><![CDATA[<p>VSCode作为一个常用的编辑器(有时可以作为集成开发环境),其拥有许多重要的”特殊功能”,在这里进行笔记,以便未来查阅</p>
+<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><h2 id="正则表达式搜索替换"><a href="#正则表达式搜索替换" class="headerlink" title="正则表达式搜索替换"></a>正则表达式搜索替换</h2><h3 id="正则表达式速查表"><a href="#正则表达式速查表" class="headerlink" title="正则表达式速查表"></a>正则表达式速查表</h3><table>
+<thead>
+<tr>
+<th>转义字符</th>
+<th>匹配内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\t</td>
+<td>tab</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>回车符号\r</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>换行符号\n</td>
+</tr>
+<tr>
+<td>\</td>
+<td>特殊符号转义，如”<em>“ ，转义后匹配的是字符”</em>“， “(” 匹配的是括号”(“</td>
+</tr>
+<tr>
+<td>[字符序列]</td>
+<td>匹配[ ]中的任意字符，如[ae]，字符a和字符e均匹配</td>
+</tr>
+<tr>
+<td>[^字符序列]</td>
+<td>匹配不在[ ]中的任意字符，如[^ae]除了a和e，其他字符都匹配</td>
+</tr>
+<tr>
+<td>[字符1-字符2]</td>
+<td>匹配在[ ]之间的任意字符，如[a-x]，就是匹配a和x之间的所有字符（包括a和x）</td>
+</tr>
+<tr>
+<td><strong>.</strong></td>
+<td>匹配任意单个字符(除了\n)</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配所有单词字符（如”a”，“3”，“E”，但不匹配”?”，”.”等）</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>和\w相反，匹配所有非单词字符</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配空格</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>和\s相反，匹配非空格</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配数字字符，如”1”，“4”，”9”等</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>和\d相反，匹配除了数字字符外的其他字符</td>
+</tr>
+<tr>
+<td>*</td>
+<td>将前面的元素匹配0到多次，如”\d*.\d”，可以匹配”19.9”，”.0”,“129.9”</td>
+</tr>
+<tr>
+<td>+</td>
+<td>将前面的元素匹配1到多次，如”be+”，可以匹配”be”， “beeeeee”</td>
+</tr>
+<tr>
+<td>？</td>
+<td>将前面的元素匹配0次或者一次，如”rai?n” 可以且只可以匹配 “ran” 或者 “rain”</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>n是个数字，将前面的元素匹配n次，如”be{3}“可以且只可以匹配 ”beee”</td>
+</tr>
+<tr>
+<td>{n, m}</td>
+<td>将前面的元素匹配至少n次，最多m次，如”be{1,3}” 可以且只可以匹配”be”,“bee”, “beee”</td>
+</tr>
+<tr>
+<td>|</td>
+<td>相当于”或”,表示匹配由</td>
+</tr>
+</tbody></table>
+<p>而正则表达式中的”子模式”<code>()</code>,在替换时可以使用<code>$1</code>来相应的替换.</p>
+<p>例如对于<code>anaconda</code>导出的<code>environment.yml</code>文件,其一部分格式如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- packagename=0.0.0=aaaaa</span><br></pre></td></tr></table></figure>
+
+<p>由于在跨操作系统迁移时要将后面那个详细版本给去掉因此可以使用替换功能</p>
+<p>查找<code>(.=.)=.</code></p>
+<p>替换为<code>$1</code></p>
+<h2 id="VSC分屏显示"><a href="#VSC分屏显示" class="headerlink" title="VSC分屏显示"></a>VSC分屏显示</h2><p>由于在写代码时希望可以做到两个显示屏共同显示project的代码,因此需要用分屏显示</p>
+<p>首先<code>ctrl+shift+P</code>,然后输入<code>Workspace: Duplicate As Workspace in New Window</code></p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>VSCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于EasyConnect可能存在的问题以及解决方案</title>
+    <url>/2023/01/16/misc/abouteasyconnect/</url>
+    <content><![CDATA[<h2 id="事情起因"><a href="#事情起因" class="headerlink" title="事情起因"></a>事情起因</h2><p>今天我刷到了一个<a href="https://www.bilibili.com/video/BV163411Z7BD">视频</a>了解到<code>EasyConnect</code>似乎有滥用权限,泄露用户数据的可能,因此希望找到一种方法,在正常访问内网资源的同时实现对<code>EasyConnect</code>的控制.</p>
+<h2 id="解决手段"><a href="#解决手段" class="headerlink" title="解决手段"></a>解决手段</h2><p>我采用的是视频中提供的方案,是<code>docker-easyconnect</code>,[此为源代码地址][<a href="https://github.com/Hagb/docker-easyconnect]">https://github.com/Hagb/docker-easyconnect]</a></p>
+<p>在操作的时候,需要使用<code>Docker</code>环境进行隔离,刚好也对<code>Docker</code>环境进行学习</p>
+<blockquote>
+<p>需要注意的,在使用<code>socks5</code>代理的时候,把端口从1080改为其他类型的端口</p>
+</blockquote>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>算是实现了部分的功能,在<code>Docker</code>上顺利登陆了,并且使用<code>Firefox</code>上的<code>SwichyOmega</code>实现对于流量的分流(基于<code>socks5</code>原理)(不过目前只代理了&#96;<em>.fudan.edu.cn</em>网页),这么做可以保障我在使用内网资源的时候同时可以访问外网资料</p>
+<p>不过,这样的连接存在较为严重的稳定性问题,问题比较像<a href="https://github.com/Hagb/docker-easyconnect/issues/177">一个issue</a>,如何解决目前不明.</p>
+<p>同时,非常遗憾的,使用这种手段无法解决我使用<code>ssh</code>的问题,而网上的资料似乎主要针对<code>Linux</code>系统,因此还是无法摆脱<code>EasyConnect</code>的困扰.</p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>通讯安全</tag>
+        <tag>Docker</tag>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>所思即所得,一些画图软件(包)介绍</title>
+    <url>/2023/01/26/misc/graphviz/</url>
+    <content><![CDATA[<p>由于我在学习控制系统的时候,感觉<code>Visio</code>绘图手感像坨屎(我承认是我手不行),但是像流程图这样的东西有特点,即如果你能在这些空间里面把你想要塞的东西全部塞进去,那么优化这样的工作可以是完全交由计算机自行处理的.</p>
+<p>在这里,我主要将介绍两种方式进行该类绘图,一种是使用<code>LaTex</code>中<code>tikz</code>包进行绘图,还有一种是使用<code>Graphviz</code>进行绘图</p>
+<span id="more"></span>
+
+<h2 id="tikz包的使用与导出"><a href="#tikz包的使用与导出" class="headerlink" title="tikz包的使用与导出"></a><code>tikz</code>包的使用与导出</h2><p><code>tikz</code>包是在<code>LaTex</code>中的一个包,其可以方便(有模板的条件下)实现图的绘制</p>
+<p>不过<code>LaTex</code>主要导出的是<code>pdf</code>文件,因此需要进行转换</p>
+<h3 id="tikz包的使用-以一个例子为例"><a href="#tikz包的使用-以一个例子为例" class="headerlink" title="tikz包的使用(以一个例子为例)"></a><code>tikz</code>包的使用(以一个例子为例)</h3><p>我们首先以一个官方例子来介绍<code>tikz</code>包</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\documentclass</span>&#123;article&#125;  </span><br><span class="line"><span class="keyword">\usepackage</span>&#123;tikz&#125;</span><br><span class="line"><span class="keyword">\usetikzlibrary</span>&#123;shapes,arrows&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\begin</span>&#123;document&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;block&#125; = [draw, fill=blue!20, rectangle, </span><br><span class="line">    minimum height=3em, minimum width=6em]</span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;sum&#125; = [draw, fill=blue!20, circle, node distance=1cm]</span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;input&#125; = [coordinate]</span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;output&#125; = [coordinate]</span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;pinstyle&#125; = [pin edge=&#123;to-,thin,black&#125;]</span><br><span class="line"></span><br><span class="line"><span class="comment">% The block diagram code is probably more verbose than necessary</span></span><br><span class="line"><span class="keyword">\begin</span>&#123;tikzpicture&#125;[auto, node distance=2cm,&gt;=latex&#x27;]</span><br><span class="line">    <span class="comment">% We start by placing the blocks</span></span><br><span class="line">    <span class="keyword">\node</span> [input, name=input] &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [sum, right of=input] (sum) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block, right of=sum] (controller) &#123;Controller&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block, right of=controller, pin=&#123;[pinstyle]above:Disturbances&#125;,</span><br><span class="line">            node distance=3cm] (system) &#123;System&#125;;</span><br><span class="line">    <span class="comment">% We draw an edge between the controller and system block to </span></span><br><span class="line">    <span class="comment">% calculate the coordinate u. We need it to place the measurement block. </span></span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (controller) -- node[name=u] &#123;<span class="built_in">$</span>u<span class="built_in">$</span>&#125; (system);</span><br><span class="line">    <span class="keyword">\node</span> [output, right of=system] (output) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block, below of=u] (measurements) &#123;Measurements&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">% Once the nodes are placed, connecting them is easy. </span></span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (input) -- node &#123;<span class="built_in">$</span>r<span class="built_in">$</span>&#125; (sum);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (sum) -- node &#123;<span class="built_in">$</span>e<span class="built_in">$</span>&#125; (controller);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (system) -- node [name=y] &#123;<span class="built_in">$</span>y<span class="built_in">$</span>&#125;(output);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (y) |- (measurements);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (measurements) -| node[pos=0.99] &#123;<span class="built_in">$</span>-<span class="built_in">$</span>&#125; </span><br><span class="line">        node [near end] &#123;<span class="built_in">$</span>y<span class="built_in">_</span>m<span class="built_in">$</span>&#125; (sum);</span><br><span class="line"><span class="keyword">\end</span>&#123;tikzpicture&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\end</span>&#123;document&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上代码会带来以下的渲染结果:</p>
+<p><img src="/2023/01/26/misc/graphviz/test-1.png" alt="test-1"></p>
+<p>我们来分段介绍内容</p>
+<h4 id="节点node"><a href="#节点node" class="headerlink" title="节点node"></a>节点<code>node</code></h4><p>节点可以看作骨架,应当是最为基础的部分</p>
+<p><code>node</code>有三种定义方式:</p>
+<ol>
+<li>使用<code>\node</code>定义,这里的定义方式应当为<code>\node [style and place] (name) &#123;label&#125;</code></li>
+<li>在<code>draw</code>中定义,这种定义往往是用于在线上写字<code>-- node [name and position] &#123;label&#125;</code></li>
+<li>使用<code>pin</code>定义</li>
+</ol>
+<p>然后关于位置,<code>pos</code>应该是线的位置,越大越靠近终点</p>
+<h4 id="箭头draw"><a href="#箭头draw" class="headerlink" title="箭头draw"></a>箭头<code>draw</code></h4><p><code>\draw [-&gt;] (nodefrom) -- (nodeto)</code></p>
+<p>直接在两个中间添加一个箭头(中间可以添加新节点)</p>
+<p><code>\draw [-&gt;] (nodefrom) -| (nodeto)</code></p>
+<p>这个箭头是折线</p>
+<h4 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h4><p>这里我们就直接套用好了没有必要去修改</p>
+<h4 id="应用举例"><a href="#应用举例" class="headerlink" title="应用举例"></a>应用举例</h4><p>下面我以控制系统中的一幅框图来实践刚才的知识(只保留)主干部分代码</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;tikzpicture&#125;[auto, node distance=2cm,&gt;=latex&#x27;]</span><br><span class="line">    <span class="keyword">\node</span> [input] (input) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [sum, right of=input] (sum1) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block, right of=sum1] (controlp) &#123;<span class="built_in">$</span>k<span class="built_in">_</span>P<span class="built_in">$</span>&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [sum, right of=controlp,node distance=2cm] (sum2) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [input, above of=sum2] (dis) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block ,right of=sum2] (p) &#123;<span class="built_in">$</span><span class="keyword">\mathcal</span>&#123;P&#125;<span class="built_in">$</span>&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [output, right of=p] (output) &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">\node</span> [output, below of=sum2] (ins) &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (input) -- node &#123;<span class="built_in">$</span>r<span class="built_in">$</span>&#125; (sum1);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (sum1) -- node &#123;<span class="built_in">$</span>e<span class="built_in">$</span>&#125; (controlp);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (controlp) -- node &#123;<span class="built_in">$</span>u<span class="built_in">$</span>&#125; node[pos=0.99] &#123;+&#125; (sum2);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (dis) -- node &#123;<span class="built_in">$</span>d<span class="built_in">$</span>&#125; node[pos=0.99] &#123;+&#125; (sum2);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (sum2) -- (p);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (p) -- node[name=y] &#123;<span class="built_in">$</span>y<span class="built_in">$</span>&#125; (output);</span><br><span class="line">    <span class="keyword">\draw</span> [-] (y) |-   (ins);<span class="comment">%中间切断了一下</span></span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (ins) -| node[pos=0.99] &#123;-&#125; (sum1);</span><br><span class="line"><span class="keyword">\end</span>&#123;tikzpicture&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>其渲染结果如下所示:</p>
+<p><img src="/2023/01/26/misc/graphviz/image-20230127220705981.png" alt="image-20230127220705981"></p>
+<p>可以看到渲染效果不错</p>
+<blockquote>
+<p>但是敲<code>tikz</code><strong>太累人</strong>了</p>
+</blockquote>
+<p>这里主要是介绍性使用<code>tikz</code>,更加完备的教程应当参考这个<a href="https://github.com/Hansimov/pgfmanual-zh">仓库</a></p>
+<h3 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h3><p>目前来说,我觉得还是<strong>截图保存</strong>的方式最便捷</p>
+<p>虽然确实可以用<code>LaTex</code>直接导出,也可以用python对<code>pdf</code>进行转换,但是太麻烦,还是截图方便</p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>LaTex</tag>
+        <tag>绘图</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用python发送邮件</title>
+    <url>/2023/01/30/misc/pythonsmtp/</url>
+    <content><![CDATA[<p>由于之前写了一个误差计算脚本,采用了万能的<code>nohup python calc_error.py &gt;logs &amp;</code>实现了后台运行,但是在实际使用过程中,经常会遇到异常或者一些奇奇怪怪的问题,自己每次上线检查也麻烦,遂思考能不能用邮件来解决问题.  </p>
+<p>我参考<a href="https://zhuanlan.zhihu.com/p/24180606">这篇文章</a>,学习一下使用python发送邮件</p>
+<h2 id="所用到的库"><a href="#所用到的库" class="headerlink" title="所用到的库"></a>所用到的库</h2><p>我们分为两部,一方面是写邮件的过程,需要特定的邮件头和附件,这一部分使用的是<code>email</code>模块进行</p>
+<blockquote>
+<p>我在使用<code>pip install email</code>的时候一直出错,但是到<code>pip install emails</code>就可以,目前不确定两者关系,但是都可以使用<code>import email</code>调用</p>
+</blockquote>
+<p>而编写完邮件后,对于邮件的发送则是通过<code>smtp</code>服务进行,这一部分则是用<code>smtplib</code>实现,而其安装可以用<code>pip install aiosmtplib</code>进行</p>
+<h2 id="配置smtp"><a href="#配置smtp" class="headerlink" title="配置smtp"></a>配置<code>smtp</code></h2><p>我计划使用<code>Gmail</code>对这些邮件进行配置,为此,我打开了<code>Gmail</code>中的<code>imap</code>和<code>pop3</code>服务,关于<code>Gmail</code>更多信息如下,<a href="https://support.google.com/mail/answer/7126229">摘自于此</a></p>
+<table>
+<thead>
+<tr>
+<th>内容</th>
+<th>配置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>接收邮件 (IMAP) 服务器</td>
+<td>imap.gmail.com       要求 SSL：是       端口：993</td>
+</tr>
+<tr>
+<td>发送邮件 (SMTP) 服务器</td>
+<td>smtp.gmail.com       要求 SSL：是       要求 TLS：是（如适用）       使用身份验证：是       SSL 端口：465       TLS&#x2F;STARTTLS 端口：587</td>
+</tr>
+<tr>
+<td>完整名称或显示名称</td>
+<td>您的姓名</td>
+</tr>
+<tr>
+<td>帐号名、用户名或电子邮件地址</td>
+<td>您的完整电子邮件地址</td>
+</tr>
+<tr>
+<td>密码</td>
+<td>您的 Gmail 密码</td>
+</tr>
+</tbody></table>
+<h2 id="尝试发送邮件"><a href="#尝试发送邮件" class="headerlink" title="尝试发送邮件"></a>尝试发送邮件</h2><p>下面代码展示发送测试邮件过程</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> smtplib</span><br><span class="line"><span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText</span><br><span class="line"></span><br><span class="line">mail_host=<span class="string">&#x27;&#x27;</span></span><br><span class="line">mail_user=<span class="string">&#x27;&#x27;</span></span><br><span class="line">mail_pass=<span class="string">&#x27;&#x27;</span></span><br><span class="line">sender=<span class="string">&#x27;&#x27;</span></span><br><span class="line">receivers=[<span class="string">&#x27;&#x27;</span>]<span class="comment">#可以群发</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置邮件信息</span></span><br><span class="line">message=MIMEText(<span class="string">&#x27;content&#x27;</span>,<span class="string">&#x27;plain&#x27;</span>,<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">message[<span class="string">&#x27;Subject&#x27;</span>]=<span class="string">&quot;Test email&quot;</span></span><br><span class="line">message[<span class="string">&#x27;From&#x27;</span>]=sender</span><br><span class="line">message[<span class="string">&#x27;To&#x27;</span>]=receivers[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># smtpobj=smtplib.SMTP()</span></span><br><span class="line">    <span class="comment"># smtpobj.connect(mail_host,25)#这是无需ssl验证的情况</span></span><br><span class="line">    smtpobj=smtplib.SMTP_SSL(mail_host)<span class="comment">#这是需要ssl验证的情况</span></span><br><span class="line">    smtpobj.login(mail_user,mail_pass)</span><br><span class="line">    smtpobj.sendmail(sender,receivers,message.as_string())</span><br><span class="line">    smtpobj.quit()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Success&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> smtplib.SMTPException <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;error&#x27;</span>,e)</span><br></pre></td></tr></table></figure>
+
+<p>这个代码确实可以发送邮件,测试完成</p>
+<h2 id="添加附件"><a href="#添加附件" class="headerlink" title="添加附件"></a>添加附件</h2><p>我们可以利用<code>MIMENonMultipart</code>中的<code>MIMEText</code>类来发送我们得到的csv文件</p>
+<p>可以参考<a href="https://www.cnblogs.com/sunjump/p/15593585.html">这篇文章</a></p>
+<h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2><p>自然,我们可以实现更多内容(比如HTML等),但是我目前不需要,就先留在这里,可能未来还会更新</p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用loguru编写日志文件</title>
+    <url>/2023/01/27/misc/pylog/</url>
+    <content><![CDATA[<p>在编写程序,尤其是某些运行时间长,中间存在可能错误的程序,往往需要记录日志以便于调试.  </p>
+<p>但是日志的编写往往存在大量重复劳动,并且对于我目前的状况来讲可能需要在已有的程序中添加日志代码.  </p>
+<p>经过相关资料查阅,我找到了一个内置<code>logging</code>库,其可以较好地实现对于日志的编写.但是查阅了一下相关资料后,发现似乎<code>logging</code>的使用较为复杂,我们往往不需要那么复杂的应用场景,因此我在这里选择另外一个库<code>loguru</code>对日志进行记录</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>如果使用<code>anaconda</code>,可以用以下命令安装:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">conda install -c conda-forge loguru</span><br></pre></td></tr></table></figure>
+
+<h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><p>我们可以直接利用封装好的<code>logger</code>对象,直接对不同级别的日志进行输出,例如使用以下代码可以实现不同级别的日志:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> loguru <span class="keyword">import</span> logger</span><br><span class="line"></span><br><span class="line">logger.debug(<span class="string">&#x27;This is debug information&#x27;</span>)</span><br><span class="line">logger.info(<span class="string">&#x27;This is info information&#x27;</span>)</span><br><span class="line">logger.warning(<span class="string">&#x27;This is warn information&#x27;</span>)</span><br><span class="line">logger.error(<span class="string">&#x27;This is error information&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>可以注意到在运行时,其对于不同级别的结果,有着不同的格式化与颜色</p>
+<p><img src="/2023/01/27/misc/pylog/image-20230127192915053.png" alt="image-20230127192915053"></p>
+<p>接下来,我们可以注意到<code>logger</code>编写日志的一个优势在于其无需设定复杂的如处理器,过滤器等信息</p>
+<h2 id="输出到文件"><a href="#输出到文件" class="headerlink" title="输出到文件"></a>输出到文件</h2><p>我们往往需要将数据输出到文件,<em>尤其是在使用如<code>xspec</code>这样自己会有大量数据输出的程序</em>(默认是在<code>sys.std_err</code>中输出),可以使用<code>add</code>改变输出位置(<code>add</code>的具体用法之后会讲)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">logger.add(<span class="string">&quot;file_&#123;time&#125;.log&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>&#123;time&#125;</code>会自动替换为当前时间,还有其他的格式化字典如下:  </p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Attributes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>elapsed</td>
+<td>The time elapsed since the start of the program</td>
+<td>See <a href="https://docs.python.org/3/library/datetime.html#datetime.timedelta"><code>datetime.timedelta</code></a></td>
+</tr>
+<tr>
+<td>exception</td>
+<td>The formatted exception if any, <code>None</code> otherwise</td>
+<td><code>type</code>, <code>value</code>, <code>traceback</code></td>
+</tr>
+<tr>
+<td>extra</td>
+<td>The dict of attributes bound by the user (see <a href="https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind"><code>bind()</code></a>)</td>
+<td>None</td>
+</tr>
+<tr>
+<td>file</td>
+<td>The file where the logging call was made</td>
+<td><code>name</code> (default), <code>path</code></td>
+</tr>
+<tr>
+<td>function</td>
+<td>The function from which the logging call was made</td>
+<td>None</td>
+</tr>
+<tr>
+<td>level</td>
+<td>The severity used to log the message</td>
+<td><code>name</code> (default), <code>no</code>, <code>icon</code></td>
+</tr>
+<tr>
+<td>line</td>
+<td>The line number in the source code</td>
+<td>None</td>
+</tr>
+<tr>
+<td>message</td>
+<td>The logged message (not yet formatted)</td>
+<td>None</td>
+</tr>
+<tr>
+<td>module</td>
+<td>The module where the logging call was made</td>
+<td>None</td>
+</tr>
+<tr>
+<td>name</td>
+<td>The <code>__name__</code> where the logging call was made</td>
+<td>None</td>
+</tr>
+<tr>
+<td>process</td>
+<td>The process in which the logging call was made</td>
+<td><code>name</code>, <code>id</code> (default)</td>
+</tr>
+<tr>
+<td>thread</td>
+<td>The thread in which the logging call was made</td>
+<td><code>name</code>, <code>id</code> (default)</td>
+</tr>
+<tr>
+<td>time</td>
+<td>The aware local time when the logging call was made</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>输出到文件还有滚动和压缩等功能,在这里不再过多赘述(目前也用不到)</p>
+<blockquote>
+<p>关于字符着色:</p>
+<p>字符着色的问题是通过调节<code>add</code>中的参数<code>colorize</code>来控制的,其添加后有好处有坏处</p>
+<p>好处在于可以使用<code>tail -f</code>等很方便看到数据内容</p>
+<p>坏处在于由于字符串着色的机理是通过添加字符串进行的,会对编辑器查看带来不便</p>
+<p>因此可以尝试同时记录两个log</p>
+</blockquote>
+<h2 id="过滤器与格式化"><a href="#过滤器与格式化" class="headerlink" title="过滤器与格式化"></a>过滤器与格式化</h2><p>下面是关于更加复杂的过滤器写法和格式化写法的问题,这里不涉及(可能以后会),可以先看参考资料</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://github.com/Delgan/loguru">源代码与特性介绍</a></p>
+<p><a href="https://loguru.readthedocs.io/en/stable/api/logger.html">类定义</a></p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>The results and the problems in fitting the spectrum of the maxi1820+70</title>
     <url>/2023/01/15/maxi1820/maxi1/</url>
     <content><![CDATA[<h2 id="Fitting-points"><a href="#Fitting-points" class="headerlink" title="Fitting points"></a>Fitting points</h2><p>We chose three typical points from the HID graph.</p>
@@ -1607,349 +1772,191 @@ C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187
       </tags>
   </entry>
   <entry>
-    <title>VSCode特别功能总结</title>
-    <url>/2023/01/17/misc/VSCode/</url>
-    <content><![CDATA[<p>VSCode作为一个常用的编辑器(有时可以作为集成开发环境),其拥有许多重要的”特殊功能”,在这里进行笔记,以便未来查阅</p>
-<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><h2 id="正则表达式搜索替换"><a href="#正则表达式搜索替换" class="headerlink" title="正则表达式搜索替换"></a>正则表达式搜索替换</h2><h3 id="正则表达式速查表"><a href="#正则表达式速查表" class="headerlink" title="正则表达式速查表"></a>正则表达式速查表</h3><table>
-<thead>
-<tr>
-<th>转义字符</th>
-<th>匹配内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>\t</td>
-<td>tab</td>
-</tr>
-<tr>
-<td>\r</td>
-<td>回车符号\r</td>
-</tr>
-<tr>
-<td>\n</td>
-<td>换行符号\n</td>
-</tr>
-<tr>
-<td>\</td>
-<td>特殊符号转义，如”<em>“ ，转义后匹配的是字符”</em>“， “(” 匹配的是括号”(“</td>
-</tr>
-<tr>
-<td>[字符序列]</td>
-<td>匹配[ ]中的任意字符，如[ae]，字符a和字符e均匹配</td>
-</tr>
-<tr>
-<td>[^字符序列]</td>
-<td>匹配不在[ ]中的任意字符，如[^ae]除了a和e，其他字符都匹配</td>
-</tr>
-<tr>
-<td>[字符1-字符2]</td>
-<td>匹配在[ ]之间的任意字符，如[a-x]，就是匹配a和x之间的所有字符（包括a和x）</td>
-</tr>
-<tr>
-<td><strong>.</strong></td>
-<td>匹配任意单个字符(除了\n)</td>
-</tr>
-<tr>
-<td>\w</td>
-<td>匹配所有单词字符（如”a”，“3”，“E”，但不匹配”?”，”.”等）</td>
-</tr>
-<tr>
-<td>\W</td>
-<td>和\w相反，匹配所有非单词字符</td>
-</tr>
-<tr>
-<td>\s</td>
-<td>匹配空格</td>
-</tr>
-<tr>
-<td>\S</td>
-<td>和\s相反，匹配非空格</td>
-</tr>
-<tr>
-<td>\d</td>
-<td>匹配数字字符，如”1”，“4”，”9”等</td>
-</tr>
-<tr>
-<td>\D</td>
-<td>和\d相反，匹配除了数字字符外的其他字符</td>
-</tr>
-<tr>
-<td>*</td>
-<td>将前面的元素匹配0到多次，如”\d*.\d”，可以匹配”19.9”，”.0”,“129.9”</td>
-</tr>
-<tr>
-<td>+</td>
-<td>将前面的元素匹配1到多次，如”be+”，可以匹配”be”， “beeeeee”</td>
-</tr>
-<tr>
-<td>？</td>
-<td>将前面的元素匹配0次或者一次，如”rai?n” 可以且只可以匹配 “ran” 或者 “rain”</td>
-</tr>
-<tr>
-<td>{n}</td>
-<td>n是个数字，将前面的元素匹配n次，如”be{3}“可以且只可以匹配 ”beee”</td>
-</tr>
-<tr>
-<td>{n, m}</td>
-<td>将前面的元素匹配至少n次，最多m次，如”be{1,3}” 可以且只可以匹配”be”,“bee”, “beee”</td>
-</tr>
-<tr>
-<td>|</td>
-<td>相当于”或”,表示匹配由</td>
-</tr>
-</tbody></table>
-<p>而正则表达式中的”子模式”<code>()</code>,在替换时可以使用<code>$1</code>来相应的替换.</p>
-<p>例如对于<code>anaconda</code>导出的<code>environment.yml</code>文件,其一部分格式如下:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- packagename=0.0.0=aaaaa</span><br></pre></td></tr></table></figure>
-
-<p>由于在跨操作系统迁移时要将后面那个详细版本给去掉因此可以使用替换功能</p>
-<p>查找<code>(.=.)=.</code></p>
-<p>替换为<code>$1</code></p>
-<h2 id="VSC分屏显示"><a href="#VSC分屏显示" class="headerlink" title="VSC分屏显示"></a>VSC分屏显示</h2><p>由于在写代码时希望可以做到两个显示屏共同显示project的代码,因此需要用分屏显示</p>
-<p>首先<code>ctrl+shift+P</code>,然后输入<code>Workspace: Duplicate As Workspace in New Window</code></p>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>VSCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于EasyConnect可能存在的问题以及解决方案</title>
-    <url>/2023/01/16/misc/abouteasyconnect/</url>
-    <content><![CDATA[<h2 id="事情起因"><a href="#事情起因" class="headerlink" title="事情起因"></a>事情起因</h2><p>今天我刷到了一个<a href="https://www.bilibili.com/video/BV163411Z7BD">视频</a>了解到<code>EasyConnect</code>似乎有滥用权限,泄露用户数据的可能,因此希望找到一种方法,在正常访问内网资源的同时实现对<code>EasyConnect</code>的控制.</p>
-<h2 id="解决手段"><a href="#解决手段" class="headerlink" title="解决手段"></a>解决手段</h2><p>我采用的是视频中提供的方案,是<code>docker-easyconnect</code>,[此为源代码地址][<a href="https://github.com/Hagb/docker-easyconnect]">https://github.com/Hagb/docker-easyconnect]</a></p>
-<p>在操作的时候,需要使用<code>Docker</code>环境进行隔离,刚好也对<code>Docker</code>环境进行学习</p>
-<blockquote>
-<p>需要注意的,在使用<code>socks5</code>代理的时候,把端口从1080改为其他类型的端口</p>
+    <title>为分类问题训练简单的机器学习算法</title>
+    <url>/2023/01/24/machine-learning/machine1/</url>
+    <content><![CDATA[<h2 id="标记与术语"><a href="#标记与术语" class="headerlink" title="标记与术语"></a>标记与术语</h2><ul>
+<li>特征(features):例如数据的种类(一般以列存储)</li>
+<li>样本(samples):一般以行存储,数据列表<br>$x^i_j$指第$i$个训练样本,训练集的第$j$维(第$j$个特征)<blockquote>
+<p>这种标记输入输出均可</p>
 </blockquote>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>算是实现了部分的功能,在<code>Docker</code>上顺利登陆了,并且使用<code>Firefox</code>上的<code>SwichyOmega</code>实现对于流量的分流(基于<code>socks5</code>原理)(不过目前只代理了&#96;<em>.fudan.edu.cn</em>网页),这么做可以保障我在使用内网资源的时候同时可以访问外网资料</p>
-<p>不过,这样的连接存在较为严重的稳定性问题,问题比较像<a href="https://github.com/Hagb/docker-easyconnect/issues/177">一个issue</a>,如何解决目前不明.</p>
-<p>同时,非常遗憾的,使用这种手段无法解决我使用<code>ssh</code>的问题,而网上的资料似乎主要针对<code>Linux</code>系统,因此还是无法摆脱<code>EasyConnect</code>的困扰.</p>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>通讯安全</tag>
-        <tag>Docker</tag>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>所思即所得,一些画图软件(包)介绍</title>
-    <url>/2023/01/26/misc/graphviz/</url>
-    <content><![CDATA[<p>由于我在学习控制系统的时候,感觉<code>Visio</code>绘图手感像坨屎(我承认是我手不行),但是像流程图这样的东西有特点,即如果你能在这些空间里面把你想要塞的东西全部塞进去,那么优化这样的工作可以是完全交由计算机自行处理的.</p>
-<p>在这里,我主要将介绍两种方式进行该类绘图,一种是使用<code>LaTex</code>中<code>tikz</code>包进行绘图,还有一种是使用<code>Graphviz</code>进行绘图</p>
+</li>
+</ul>
+<blockquote>
+<p>另外,机器学习是一回事,这本书中的python代码非常优美,值得学习</p>
+</blockquote>
+<h1 id="为分类问题训练简单的机器学习算法"><a href="#为分类问题训练简单的机器学习算法" class="headerlink" title="为分类问题训练简单的机器学习算法"></a>为分类问题训练简单的机器学习算法</h1><p>在这一部分,我们构造一个简单的线性分类算法实现我们的分类任务</p>
+<h2 id="早期的机器学习模型"><a href="#早期的机器学习模型" class="headerlink" title="早期的机器学习模型"></a>早期的机器学习模型</h2><p>最早的机器学习模型是通过模拟神经元实现的<br>我们可以定义一个决定函数$\phi(x)$来从输入得到输出<br>通过将权重矢量与输入矢量点乘后通过一个阈值函数得到输出.<br>因此,通过计算$sign(\omega^Tx+\omega_0)$即可得到一个<strong>二分类输出</strong></p>
 <span id="more"></span>
 
-<h2 id="tikz包的使用与导出"><a href="#tikz包的使用与导出" class="headerlink" title="tikz包的使用与导出"></a><code>tikz</code>包的使用与导出</h2><p><code>tikz</code>包是在<code>LaTex</code>中的一个包,其可以方便(有模板的条件下)实现图的绘制</p>
-<p>不过<code>LaTex</code>主要导出的是<code>pdf</code>文件,因此需要进行转换</p>
-<h3 id="tikz包的使用-以一个例子为例"><a href="#tikz包的使用-以一个例子为例" class="headerlink" title="tikz包的使用(以一个例子为例)"></a><code>tikz</code>包的使用(以一个例子为例)</h3><p>我们首先以一个官方例子来介绍<code>tikz</code>包</p>
-<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\documentclass</span>&#123;article&#125;  </span><br><span class="line"><span class="keyword">\usepackage</span>&#123;tikz&#125;</span><br><span class="line"><span class="keyword">\usetikzlibrary</span>&#123;shapes,arrows&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\begin</span>&#123;document&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;block&#125; = [draw, fill=blue!20, rectangle, </span><br><span class="line">    minimum height=3em, minimum width=6em]</span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;sum&#125; = [draw, fill=blue!20, circle, node distance=1cm]</span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;input&#125; = [coordinate]</span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;output&#125; = [coordinate]</span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;pinstyle&#125; = [pin edge=&#123;to-,thin,black&#125;]</span><br><span class="line"></span><br><span class="line"><span class="comment">% The block diagram code is probably more verbose than necessary</span></span><br><span class="line"><span class="keyword">\begin</span>&#123;tikzpicture&#125;[auto, node distance=2cm,&gt;=latex&#x27;]</span><br><span class="line">    <span class="comment">% We start by placing the blocks</span></span><br><span class="line">    <span class="keyword">\node</span> [input, name=input] &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [sum, right of=input] (sum) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block, right of=sum] (controller) &#123;Controller&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block, right of=controller, pin=&#123;[pinstyle]above:Disturbances&#125;,</span><br><span class="line">            node distance=3cm] (system) &#123;System&#125;;</span><br><span class="line">    <span class="comment">% We draw an edge between the controller and system block to </span></span><br><span class="line">    <span class="comment">% calculate the coordinate u. We need it to place the measurement block. </span></span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (controller) -- node[name=u] &#123;<span class="built_in">$</span>u<span class="built_in">$</span>&#125; (system);</span><br><span class="line">    <span class="keyword">\node</span> [output, right of=system] (output) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block, below of=u] (measurements) &#123;Measurements&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">% Once the nodes are placed, connecting them is easy. </span></span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (input) -- node &#123;<span class="built_in">$</span>r<span class="built_in">$</span>&#125; (sum);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (sum) -- node &#123;<span class="built_in">$</span>e<span class="built_in">$</span>&#125; (controller);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (system) -- node [name=y] &#123;<span class="built_in">$</span>y<span class="built_in">$</span>&#125;(output);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (y) |- (measurements);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (measurements) -| node[pos=0.99] &#123;<span class="built_in">$</span>-<span class="built_in">$</span>&#125; </span><br><span class="line">        node [near end] &#123;<span class="built_in">$</span>y<span class="built_in">_</span>m<span class="built_in">$</span>&#125; (sum);</span><br><span class="line"><span class="keyword">\end</span>&#123;tikzpicture&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\end</span>&#123;document&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="学习的逻辑"><a href="#学习的逻辑" class="headerlink" title="学习的逻辑"></a>学习的逻辑</h3><p>每一次学习,都需要让计算结果更加接近,因此需要更新权重矢量得到$\Delta \omega$<br>而$\Delta \omega&#x3D;\eta(y^i-\hat{y}^i)x$<br>式中的$\eta$被称为<strong>学习率</strong><br>其过程可以被总结为<br><img src="/2023/01/24/machine-learning/machine1/image-20230124170806576.png" alt="png"></p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>下面我们尝试构造一个类来解决这个问题</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Perception</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,eta=<span class="number">0.01</span>,n_iter=<span class="number">100</span>,random_state=<span class="number">1</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        self.eta=eta</span><br><span class="line">        self.n_iter=n_iter</span><br><span class="line">        self.random_state=random_state</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fitdata</span>(<span class="params">self,X,y</span>):</span><br><span class="line">        self.errors_=[]<span class="comment">#aa_下划线代表运行后才存在的属性</span></span><br><span class="line">        rs=np.random.RandomState(self.random_state)<span class="comment">#种子生成随机数</span></span><br><span class="line">        self.w_=rs.normal(scale=<span class="number">0.1</span>,size=<span class="number">1</span>+X.shape[<span class="number">1</span>])</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.n_iter):</span><br><span class="line">            error=<span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> x,yreal <span class="keyword">in</span> <span class="built_in">zip</span>(X,y):</span><br><span class="line">                ytest=np.where(np.dot(x,self.w_[:-<span class="number">1</span>])+self.w_[-<span class="number">1</span>]&gt;<span class="number">0</span>,<span class="number">1</span>,-<span class="number">1</span>)</span><br><span class="line">                self.w_[:-<span class="number">1</span>]+=self.eta*(yreal-ytest)*x</span><br><span class="line">                self.w_[-<span class="number">1</span>]+=self.eta*(yreal-ytest)</span><br><span class="line">                error+=np.count_nonzero(yreal-ytest)</span><br><span class="line">            self.errors_.append(error)</span><br><span class="line">            <span class="keyword">if</span>(error==<span class="number">0</span>):</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;The fitting have completed&quot;</span>)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;The max iteration have reached&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">net_input</span>(<span class="params">self,X</span>):</span><br><span class="line">        <span class="keyword">return</span> np.dot(X,self.w_[:-<span class="number">1</span>])+self.w_[-<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">predict</span>(<span class="params">self,X</span>):</span><br><span class="line">        <span class="keyword">return</span> np.where(self.net_input(X)&gt;=<span class="number">0.0</span>,<span class="number">1</span>,-<span class="number">1</span>) </span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>以上代码会带来以下的渲染结果:</p>
-<p><img src="/2023/01/26/misc/graphviz/test-1.png" alt="test-1"></p>
-<p>我们来分段介绍内容</p>
-<h4 id="节点node"><a href="#节点node" class="headerlink" title="节点node"></a>节点<code>node</code></h4><p>节点可以看作骨架,应当是最为基础的部分</p>
-<p><code>node</code>有三种定义方式:</p>
-<ol>
-<li>使用<code>\node</code>定义,这里的定义方式应当为<code>\node [style and place] (name) &#123;label&#125;</code></li>
-<li>在<code>draw</code>中定义,这种定义往往是用于在线上写字<code>-- node [name and position] &#123;label&#125;</code></li>
-<li>使用<code>pin</code>定义</li>
-</ol>
-<p>然后关于位置,<code>pos</code>应该是线的位置,越大越靠近终点</p>
-<h4 id="箭头draw"><a href="#箭头draw" class="headerlink" title="箭头draw"></a>箭头<code>draw</code></h4><p><code>\draw [-&gt;] (nodefrom) -- (nodeto)</code></p>
-<p>直接在两个中间添加一个箭头(中间可以添加新节点)</p>
-<p><code>\draw [-&gt;] (nodefrom) -| (nodeto)</code></p>
-<p>这个箭头是折线</p>
-<h4 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h4><p>这里我们就直接套用好了没有必要去修改</p>
-<h4 id="应用举例"><a href="#应用举例" class="headerlink" title="应用举例"></a>应用举例</h4><p>下面我以控制系统中的一幅框图来实践刚才的知识(只保留)主干部分代码</p>
-<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;tikzpicture&#125;[auto, node distance=2cm,&gt;=latex&#x27;]</span><br><span class="line">    <span class="keyword">\node</span> [input] (input) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [sum, right of=input] (sum1) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block, right of=sum1] (controlp) &#123;<span class="built_in">$</span>k<span class="built_in">_</span>P<span class="built_in">$</span>&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [sum, right of=controlp,node distance=2cm] (sum2) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [input, above of=sum2] (dis) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block ,right of=sum2] (p) &#123;<span class="built_in">$</span><span class="keyword">\mathcal</span>&#123;P&#125;<span class="built_in">$</span>&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [output, right of=p] (output) &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">\node</span> [output, below of=sum2] (ins) &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (input) -- node &#123;<span class="built_in">$</span>r<span class="built_in">$</span>&#125; (sum1);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (sum1) -- node &#123;<span class="built_in">$</span>e<span class="built_in">$</span>&#125; (controlp);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (controlp) -- node &#123;<span class="built_in">$</span>u<span class="built_in">$</span>&#125; node[pos=0.99] &#123;+&#125; (sum2);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (dis) -- node &#123;<span class="built_in">$</span>d<span class="built_in">$</span>&#125; node[pos=0.99] &#123;+&#125; (sum2);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (sum2) -- (p);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (p) -- node[name=y] &#123;<span class="built_in">$</span>y<span class="built_in">$</span>&#125; (output);</span><br><span class="line">    <span class="keyword">\draw</span> [-] (y) |-   (ins);<span class="comment">%中间切断了一下</span></span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (ins) -| node[pos=0.99] &#123;-&#125; (sum1);</span><br><span class="line"><span class="keyword">\end</span>&#123;tikzpicture&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个类中我们定义<code>fit</code>实现拟合,拟合之后会有两个属性,分别为<code>w_</code>和<code>errors_</code>一个记录了线性参数,另外一个记录了误差</p>
+<h2 id="使用鸢尾花数据集训练这个分类模型"><a href="#使用鸢尾花数据集训练这个分类模型" class="headerlink" title="使用鸢尾花数据集训练这个分类模型"></a>使用鸢尾花数据集训练这个分类模型</h2><p>为了测试我们这个的效果,我们将对山鸢尾和变色秋海棠两种不同的花进行分类,虽然特征不一定要是二维的,但是为了展示方便,我们使用两个特征萼片长度和花瓣长度作为特征.</p>
+<p>我们首先使用<code>pandas</code>将数据从数据库中加载出来,并且看看大概</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">df=pd.read_csv(<span class="string">&#x27;https://archive.ics.uci.edu/ml/&#x27;</span></span><br><span class="line">               <span class="string">&#x27;machine-learning-databases/iris/iris.data&#x27;</span>,</span><br><span class="line">               header=<span class="literal">None</span>)</span><br><span class="line">df.tail()               </span><br></pre></td></tr></table></figure>
 
 
 
-<p>其渲染结果如下所示:</p>
-<p><img src="/2023/01/26/misc/graphviz/image-20230127220705981.png" alt="image-20230127220705981"></p>
-<p>可以看到渲染效果不错</p>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>145</th>
+      <td>6.7</td>
+      <td>3.0</td>
+      <td>5.2</td>
+      <td>2.3</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>6.3</td>
+      <td>2.5</td>
+      <td>5.0</td>
+      <td>1.9</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>6.5</td>
+      <td>3.0</td>
+      <td>5.2</td>
+      <td>2.0</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>6.2</td>
+      <td>3.4</td>
+      <td>5.4</td>
+      <td>2.3</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>5.9</td>
+      <td>3.0</td>
+      <td>5.1</td>
+      <td>1.8</td>
+      <td>Iris-virginica</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>接下来,我们将前50个山鸢尾和前50个变色秋海棠的记录提取出来,分别标记为-1和1</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">y=df.iloc[<span class="number">0</span>:<span class="number">100</span>,<span class="number">4</span>].values</span><br><span class="line">y=np.where(y==<span class="string">&#x27;Iris-setosa&#x27;</span>,-<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">X=df.iloc[<span class="number">0</span>:<span class="number">100</span>,[<span class="number">0</span>,<span class="number">2</span>]].values</span><br><span class="line"></span><br><span class="line">plt.scatter(X[y==-<span class="number">1</span>,<span class="number">0</span>],X[y==-<span class="number">1</span>,<span class="number">1</span>],color=<span class="string">&#x27;red&#x27;</span>,marker=<span class="string">&#x27;o&#x27;</span>,label=<span class="string">&#x27;setosa&#x27;</span>)</span><br><span class="line">plt.scatter(X[y==<span class="number">1</span>,<span class="number">0</span>],X[y==<span class="number">1</span>,<span class="number">1</span>],color=<span class="string">&#x27;blue&#x27;</span>,marker=<span class="string">&#x27;x&#x27;</span>,label=<span class="string">&#x27;versicolor&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;sepal length [cm]&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;petal length [cm]&quot;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/01/24/machine-learning/machine1/11_0.png" alt="png"></p>
+<p>我们可以从上面那张图中看出来两种花可以被很好的区分开来,接下来我们来训练一下试试</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">model=Perception(<span class="number">0.001</span>)<span class="comment">#这里特地将eta调的很小使得梯度下降过程明显</span></span><br><span class="line">model.fitdata(X,y)</span><br><span class="line">plt.plot(<span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(model.errors_)+<span class="number">1</span>),model.errors_,<span class="string">&#x27;o-&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;Epochs&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;errors&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<pre><code>The fitting have completed
+</code></pre>
+<p><img src="/2023/01/24/machine-learning/machine1/13_1.png" alt="png"></p>
+<p>可以注意到,最后的<code>errors</code>已经为0,为了进一步观察我们拟合的效果,我们将定义一个函数用来描绘决定区间</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> matplotlib.colors <span class="keyword">import</span> ListedColormap</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">plot_decision_regions</span>(<span class="params">X,y,classifier,resolution=<span class="number">0.02</span></span>):</span><br><span class="line">    <span class="comment">#setup marker generator and color map</span></span><br><span class="line">    markers = (<span class="string">&#x27;s&#x27;</span>, <span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;^&#x27;</span>, <span class="string">&#x27;v&#x27;</span>)</span><br><span class="line">    colors = (<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;lightgreen&#x27;</span>, <span class="string">&#x27;gray&#x27;</span>, <span class="string">&#x27;cyan&#x27;</span>)</span><br><span class="line">    cmap = ListedColormap(colors[:<span class="built_in">len</span>(np.unique(y))])<span class="comment"># unique函数可以找到所有独立的元素</span></span><br><span class="line">    <span class="comment">#plot the surface</span></span><br><span class="line">    x1_min,x1_max=X[:,<span class="number">0</span>].<span class="built_in">min</span>()-<span class="number">1</span>,X[:,<span class="number">0</span>].<span class="built_in">max</span>()+<span class="number">1</span></span><br><span class="line">    x2_min,x2_max=X[:,<span class="number">1</span>].<span class="built_in">min</span>()-<span class="number">1</span>,X[:,<span class="number">1</span>].<span class="built_in">max</span>()+<span class="number">1</span><span class="comment">#X1,X2分别是X轴Y轴</span></span><br><span class="line">    xx1,xx2=np.meshgrid(np.arange(x1_min,x1_max,resolution),</span><br><span class="line">                        np.arange(x2_min,x2_max,resolution))</span><br><span class="line">    Z=classifier.predict(np.array([xx1.ravel(),xx2.ravel()]).T)<span class="comment">#这里要将数组展平(这里面的向量操作非常有趣)</span></span><br><span class="line">    Z=Z.reshape(xx1.shape)</span><br><span class="line">    plt.contourf(xx1,xx2,Z,alpha=<span class="number">0.3</span>,cmap=cmap)</span><br><span class="line">    plt.xlim(xx1.<span class="built_in">min</span>(),xx1.<span class="built_in">max</span>())</span><br><span class="line">    plt.ylim(xx2.<span class="built_in">min</span>(),xx2.<span class="built_in">max</span>())</span><br><span class="line">    <span class="comment">#plot class samples</span></span><br><span class="line">    <span class="keyword">for</span> idx,cl <span class="keyword">in</span> <span class="built_in">enumerate</span>(np.unique(y)):<span class="comment">#这里使用enumerate来同时获得标签</span></span><br><span class="line">        plt.scatter(x=X[y==cl,<span class="number">0</span>],</span><br><span class="line">                    y=X[y==cl,<span class="number">1</span>],</span><br><span class="line">                    alpha=<span class="number">0.8</span>,</span><br><span class="line">                    c=colors[idx],</span><br><span class="line">                    marker=markers[idx],</span><br><span class="line">                    label=cl,</span><br><span class="line">                    edgecolors=<span class="string">&#x27;black&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>接下来,我们来展示一下绘图的结果</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plot_decision_regions(X,y,classifier=model)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;sepal length [cm]&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;petal length [cm]&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<pre><code>C:\Users\lison\AppData\Local\Temp\ipykernel_25612\3891387916.py:20: UserWarning: You passed a edgecolor/edgecolors (&#39;black&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
+  plt.scatter(x=X[y==cl,0],
+</code></pre>
+<p><img src="/2023/01/24/machine-learning/machine1/17_1.png" alt="png"></p>
 <blockquote>
-<p>但是敲<code>tikz</code><strong>太累人</strong>了</p>
+<p>刚刚我们实现的可以被认为是一个单层的神经网络</p>
 </blockquote>
-<p>这里主要是介绍性使用<code>tikz</code>,更加完备的教程应当参考这个<a href="https://github.com/Hansimov/pgfmanual-zh">仓库</a></p>
-<h3 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h3><p>目前来说,我觉得还是<strong>截图保存</strong>的方式最便捷</p>
-<p>虽然确实可以用<code>LaTex</code>直接导出,也可以用python对<code>pdf</code>进行转换,但是太麻烦,还是截图方便</p>
+<h2 id="可适应性线性神经元与学习收敛"><a href="#可适应性线性神经元与学习收敛" class="headerlink" title="可适应性线性神经元与学习收敛"></a>可适应性线性神经元与学习收敛</h2><p>在这一部分,我们将研究另外一种单层神经网络:ADAptive LInear NEuron(<code>Adaline</code>)<br>这种算法非常有趣因为其展现了关于定义和最小化连续损失函数的方法,这便于让我们理解之后我们所用的相关函数<br><code>Adaline</code>算法与感知机最关键的区别在于权重函数是使用一个线性激发函数而非一个单位阶跃函数,在<code>Adaline</code>算法中<br>这样一个线性激发函数就是网络输入的线性函数因此有:<br>$$\phi(w^Tx)&#x3D;w^Tx$$<br>虽然激发函数是用在学习权重的,但我们也可以用其来评估最后结果,<code>ADaline</code>的特殊性可以用下面一张图来展示<br><img src="/2023/01/24/machine-learning/machine1/image-20230124170927708.png" alt="png"></p>
+<h3 id="使用梯度下降法最小化损失函数"><a href="#使用梯度下降法最小化损失函数" class="headerlink" title="使用梯度下降法最小化损失函数"></a>使用梯度下降法最小化损失函数</h3><p>对于<code>Adaline</code>而言,我们可以定义损失函数$J$并且使用方均根法得到权重<br>$$J(\omega)&#x3D;\frac{1}{2}\sum_i(y^{(i)}-\phi(z^{(i)}))^2$$<br>在该式中,$\frac{1}{2}$只是为了方便求梯度,接下来我们就可以使用一个非常有效的方法<strong>梯度下降法</strong>来使损失函数最小,原理为<br>$$\Delta \omega&#x3D;-\eta\nabla J(\omega)$$<br>梯度的计算为<br>$$\frac{\partial J}{\partial \omega_j}&#x3D;-\sum_i(y^{(i)}-\phi(z^{(i)}))x^{(i)}_j$$</p>
+<blockquote>
+<p>需要注意一个计算上的不同,在此处我们的计算是<strong>所有样本一起算的</strong>而不是像之前一样<strong>一个样本更新一次</strong></p>
+</blockquote>
+<h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AdalineGD</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,eta=<span class="number">0.001</span>,n_iter=<span class="number">100</span>,random_state=<span class="number">1</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        self.eta=eta</span><br><span class="line">        self.n_iter=n_iter</span><br><span class="line">        self.random_state=random_state</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fit</span>(<span class="params">self,X,y</span>):</span><br><span class="line">        rgen=np.random.RandomState(self.random_state)</span><br><span class="line">        self.w_=rgen.normal(<span class="number">0.0</span>,<span class="number">0.1</span>,size=<span class="number">1</span>+X.shape[<span class="number">1</span>])</span><br><span class="line">        self.cost_=[]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.n_iter):</span><br><span class="line">            err,errg,errw0=self._calc_cost(X,y)</span><br><span class="line">            self.cost_.append(err)</span><br><span class="line">            self.w_[<span class="number">1</span>:]+=-self.eta*errg</span><br><span class="line">            self.w_[<span class="number">0</span>]+=-self.eta*errw0</span><br><span class="line">            </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_calc_cost</span>(<span class="params">self,X,y</span>):</span><br><span class="line">        yp=(np.dot(X,self.w_[<span class="number">1</span>:].reshape(-<span class="number">1</span>,<span class="number">1</span>))+self.w_[<span class="number">0</span>]).reshape(<span class="number">1</span>,-<span class="number">1</span>)</span><br><span class="line">        <span class="comment">#print(yp)</span></span><br><span class="line">        err=np.<span class="built_in">sum</span>((yp[<span class="number">0</span>]-y)**<span class="number">2</span>)/<span class="number">2</span></span><br><span class="line">        errg=np.dot((yp[<span class="number">0</span>]-y),X)</span><br><span class="line">        errw0=np.<span class="built_in">sum</span>(yp[<span class="number">0</span>]-y)</span><br><span class="line">        <span class="keyword">return</span> err,errg[<span class="number">0</span>],errw0</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">predict</span>(<span class="params">self,X</span>):</span><br><span class="line">        <span class="keyword">return</span> np.where(np.dot(X,self.w_[<span class="number">1</span>:])+self.w_[<span class="number">0</span>]&gt;<span class="number">0</span>,<span class="number">1</span>,-<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>接下来,我们将之前的数据输入进去试一试看看如何</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">y=df.iloc[<span class="number">0</span>:<span class="number">100</span>,<span class="number">4</span>].values</span><br><span class="line">y=np.where(y==<span class="string">&#x27;Iris-setosa&#x27;</span>,-<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">X=df.iloc[<span class="number">0</span>:<span class="number">100</span>,[<span class="number">0</span>,<span class="number">2</span>]].values</span><br><span class="line">adamodel=AdalineGD()</span><br><span class="line">adamodel.fit(X,y)</span><br><span class="line">plt.plot(<span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(adamodel.cost_)+<span class="number">1</span>),np.log(adamodel.cost_),<span class="string">&#x27;-&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;Epochs&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;log(cost)&#x27;</span>)</span><br><span class="line">plt.show()</span><br><span class="line">adamodel.w_</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/01/24/machine-learning/machine1/24_0.png" alt="png"><br>​    </p>
+<pre><code>array([-3.89410517e+55, -2.18332011e+56, -2.18332011e+56])
+</code></pre>
+<p>可以发现,程序直接爆炸,此时可能是$eta$调大了,我们把$eta$调为1E-5试试</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">y=df.iloc[<span class="number">0</span>:<span class="number">100</span>,<span class="number">4</span>].values</span><br><span class="line">y=np.where(y==<span class="string">&#x27;Iris-setosa&#x27;</span>,-<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">X=df.iloc[<span class="number">0</span>:<span class="number">100</span>,[<span class="number">0</span>,<span class="number">2</span>]].values</span><br><span class="line">adamodel=AdalineGD(eta=<span class="number">4E-4</span>,n_iter=<span class="number">10000</span>)</span><br><span class="line">adamodel.fit(X,y)</span><br><span class="line">plt.plot(<span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(adamodel.cost_)+<span class="number">1</span>),adamodel.cost_,<span class="string">&#x27;-&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;Epochs&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;log(cost)&#x27;</span>)</span><br><span class="line">plt.show()</span><br><span class="line">adamodel.w_</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/01/24/machine-learning/machine1/26_0.png" alt="png"><br>​    </p>
+<pre><code>array([-3.33272936,  0.39707341,  0.40543187])
+</code></pre>
+<p>可以注意到,逐渐在趋向一个稳定值,这之中存在的问题可以用下图展示<br><img src="/2023/01/24/machine-learning/machine1/image-20230124171511278.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plot_decision_regions(X,y,classifier=adamodel)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;sepal length [cm]&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;petal length [cm]&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<pre><code>C:\Users\lison\AppData\Local\Temp\ipykernel_25612\3891387916.py:20: UserWarning: You passed a edgecolor/edgecolors (&#39;black&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
+  plt.scatter(x=X[y==cl,0],
+</code></pre>
+<p><img src="/2023/01/24/machine-learning/machine1/28_1.png" alt="png"></p>
+<p>可以注意到,这种计算方法非常依赖初值,而且最后也没有完全分开来,并不是非常理想,因此需要优化</p>
+<h3 id="使用标准化提升梯度下降法效果"><a href="#使用标准化提升梯度下降法效果" class="headerlink" title="使用标准化提升梯度下降法效果"></a>使用标准化提升梯度下降法效果</h3><p>标准化是一个机器学习过程中的非常重要的手段,在这一部分中,我们使用一种<em>正态分布标准化</em><br>这种方法假定数据呈现出正态分布,处理的手段是将数据减去平均值并且除以数据的标准差,即:<br>$$x_j’&#x3D;\frac{x_j-\mu}{\sigma}$$<br>这么做的好处在于可以让优化器更快的实现达到最低值</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">X_std=np.copy(X)</span><br><span class="line">X_std[:,<span class="number">0</span>]=(X[:,<span class="number">0</span>]-X[:,<span class="number">0</span>].mean())/X[:,<span class="number">0</span>].std()</span><br><span class="line">X_std[:,<span class="number">1</span>]=(X[:,<span class="number">1</span>]-X[:,<span class="number">1</span>].mean())/X[:,<span class="number">1</span>].std()</span><br></pre></td></tr></table></figure>
+
+<p>在标准化之后,我们将数据输入到前面的模型中</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">stdada=AdalineGD(<span class="number">1E-3</span>,<span class="number">150</span>,<span class="number">1</span>)</span><br><span class="line">stdada.fit(X_std,y)</span><br><span class="line">plot_decision_regions(X_std,y,classifier=stdada)</span><br></pre></td></tr></table></figure>
+
+<pre><code>C:\Users\lison\AppData\Local\Temp\ipykernel_25612\3891387916.py:20: UserWarning: You passed a edgecolor/edgecolors (&#39;black&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
+  plt.scatter(x=X[y==cl,0],
+</code></pre>
+<p><img src="/2023/01/24/machine-learning/machine1/33_1.png" alt="png"></p>
+<p>效果变好了一些(但实际上初值问题仍然存在)</p>
+<h2 id="大规模机器学习与随机梯度下降法"><a href="#大规模机器学习与随机梯度下降法" class="headerlink" title="大规模机器学习与随机梯度下降法"></a>大规模机器学习与随机梯度下降法</h2><p>现在我们考虑一个非常巨大的数据集(可能有上百万的数据)<br>我们现在用另外一种方式,对于每一个数据,都对$\Delta \omega$进行一次更新,实际上随机梯度下降法达到稳定的速度快于批量梯度下降法(虽然前者看起来是后者的近似)</p>
+<p>为了更好的进行梯度下降法,我们需要对数据进行一个更好的随机化处理<br>同时,这么做还有一个好处,因为在一些网络程序之中,数据和模型的训练是同步进行的</p>
 ]]></content>
       <categories>
-        <category>杂项</category>
+        <category>机器学习</category>
       </categories>
       <tags>
+        <tag>算法</tag>
         <tag>python</tag>
-        <tag>LaTex</tag>
-        <tag>绘图</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
-    <title>使用loguru编写日志文件</title>
-    <url>/2023/01/27/misc/pylog/</url>
-    <content><![CDATA[<p>在编写程序,尤其是某些运行时间长,中间存在可能错误的程序,往往需要记录日志以便于调试.  </p>
-<p>但是日志的编写往往存在大量重复劳动,并且对于我目前的状况来讲可能需要在已有的程序中添加日志代码.  </p>
-<p>经过相关资料查阅,我找到了一个内置<code>logging</code>库,其可以较好地实现对于日志的编写.但是查阅了一下相关资料后,发现似乎<code>logging</code>的使用较为复杂,我们往往不需要那么复杂的应用场景,因此我在这里选择另外一个库<code>loguru</code>对日志进行记录</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>如果使用<code>anaconda</code>,可以用以下命令安装:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">conda install -c conda-forge loguru</span><br></pre></td></tr></table></figure>
+    <title>对于数字信号处理的手段</title>
+    <url>/2023/01/24/MPS010602/process-logical/</url>
+    <content><![CDATA[<p>之前研究过对于<code>MPS010602</code>中的数字信号,应当如何处理(在其中使用二进制位来表示逻辑),今天恰好看到了<code>numpy.bitwise_xor</code>函数,会非常有用,在此记录一下</p>
+<h2 id="逻辑位操作"><a href="#逻辑位操作" class="headerlink" title="逻辑位操作"></a>逻辑位操作</h2><p>在<code>numpy</code>库中有相应的逻辑操作函数,而最大的特点就在于它们可以实现向量化,这对于我们应用的场景来说非常重要.</p>
+<p>其使用的方法与&amp;类似,主要看代码,以下代码展示如何从一个八进制数取出某一位的数字信号</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_binary</span>(<span class="params">data_array:np.array,bit:<span class="built_in">int</span></span>):</span><br><span class="line">    check=<span class="number">1</span>&lt;&lt;bit</span><br><span class="line">    ca=np.array([check])</span><br><span class="line">    dataout=np.bitwise_and(data_array,ca)</span><br><span class="line">    <span class="keyword">return</span> np.where(dataout==<span class="number">0</span>,<span class="literal">False</span>,<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
 
-<h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><p>我们可以直接利用封装好的<code>logger</code>对象,直接对不同级别的日志进行输出,例如使用以下代码可以实现不同级别的日志:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> loguru <span class="keyword">import</span> logger</span><br><span class="line"></span><br><span class="line">logger.debug(<span class="string">&#x27;This is debug information&#x27;</span>)</span><br><span class="line">logger.info(<span class="string">&#x27;This is info information&#x27;</span>)</span><br><span class="line">logger.warning(<span class="string">&#x27;This is warn information&#x27;</span>)</span><br><span class="line">logger.error(<span class="string">&#x27;This is error information&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>可以注意到在运行时,其对于不同级别的结果,有着不同的格式化与颜色</p>
-<p><img src="/2023/01/27/misc/pylog/image-20230127192915053.png" alt="image-20230127192915053"></p>
-<p>接下来,我们可以注意到<code>logger</code>编写日志的一个优势在于其无需设定复杂的如处理器,过滤器等信息</p>
-<h2 id="输出到文件"><a href="#输出到文件" class="headerlink" title="输出到文件"></a>输出到文件</h2><p>我们往往需要将数据输出到文件,<em>尤其是在使用如<code>xspec</code>这样自己会有大量数据输出的程序</em>(默认是在<code>sys.std_err</code>中输出),可以使用<code>add</code>改变输出位置(<code>add</code>的具体用法之后会讲)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">logger.add(<span class="string">&quot;file_&#123;time&#125;.log&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>其中<code>&#123;time&#125;</code>会自动替换为当前时间,还有其他的格式化字典如下:  </p>
-<table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Description</th>
-<th>Attributes</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>elapsed</td>
-<td>The time elapsed since the start of the program</td>
-<td>See <a href="https://docs.python.org/3/library/datetime.html#datetime.timedelta"><code>datetime.timedelta</code></a></td>
-</tr>
-<tr>
-<td>exception</td>
-<td>The formatted exception if any, <code>None</code> otherwise</td>
-<td><code>type</code>, <code>value</code>, <code>traceback</code></td>
-</tr>
-<tr>
-<td>extra</td>
-<td>The dict of attributes bound by the user (see <a href="https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind"><code>bind()</code></a>)</td>
-<td>None</td>
-</tr>
-<tr>
-<td>file</td>
-<td>The file where the logging call was made</td>
-<td><code>name</code> (default), <code>path</code></td>
-</tr>
-<tr>
-<td>function</td>
-<td>The function from which the logging call was made</td>
-<td>None</td>
-</tr>
-<tr>
-<td>level</td>
-<td>The severity used to log the message</td>
-<td><code>name</code> (default), <code>no</code>, <code>icon</code></td>
-</tr>
-<tr>
-<td>line</td>
-<td>The line number in the source code</td>
-<td>None</td>
-</tr>
-<tr>
-<td>message</td>
-<td>The logged message (not yet formatted)</td>
-<td>None</td>
-</tr>
-<tr>
-<td>module</td>
-<td>The module where the logging call was made</td>
-<td>None</td>
-</tr>
-<tr>
-<td>name</td>
-<td>The <code>__name__</code> where the logging call was made</td>
-<td>None</td>
-</tr>
-<tr>
-<td>process</td>
-<td>The process in which the logging call was made</td>
-<td><code>name</code>, <code>id</code> (default)</td>
-</tr>
-<tr>
-<td>thread</td>
-<td>The thread in which the logging call was made</td>
-<td><code>name</code>, <code>id</code> (default)</td>
-</tr>
-<tr>
-<td>time</td>
-<td>The aware local time when the logging call was made</td>
-<td></td>
-</tr>
-</tbody></table>
-<p>输出到文件还有滚动和压缩等功能,在这里不再过多赘述(目前也用不到)</p>
-<blockquote>
-<p>关于字符着色:</p>
-<p>字符着色的问题是通过调节<code>add</code>中的参数<code>colorize</code>来控制的,其添加后有好处有坏处</p>
-<p>好处在于可以使用<code>tail -f</code>等很方便看到数据内容</p>
-<p>坏处在于由于字符串着色的机理是通过添加字符串进行的,会对编辑器查看带来不便</p>
-<p>因此可以尝试同时记录两个log</p>
-</blockquote>
-<h2 id="过滤器与格式化"><a href="#过滤器与格式化" class="headerlink" title="过滤器与格式化"></a>过滤器与格式化</h2><p>下面是关于更加复杂的过滤器写法和格式化写法的问题,这里不涉及(可能以后会),可以先看参考资料</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://github.com/Delgan/loguru">源代码与特性介绍</a></p>
-<p><a href="https://loguru.readthedocs.io/en/stable/api/logger.html">类定义</a></p>
 ]]></content>
       <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用python发送邮件</title>
-    <url>/2023/01/30/misc/pythonsmtp/</url>
-    <content><![CDATA[<p>由于之前写了一个误差计算脚本,采用了万能的<code>nohup python calc_error.py &gt;logs &amp;</code>实现了后台运行,但是在实际使用过程中,经常会遇到异常或者一些奇奇怪怪的问题,自己每次上线检查也麻烦,遂思考能不能用邮件来解决问题.  </p>
-<p>我参考<a href="https://zhuanlan.zhihu.com/p/24180606">这篇文章</a>,学习一下使用python发送邮件</p>
-<h2 id="所用到的库"><a href="#所用到的库" class="headerlink" title="所用到的库"></a>所用到的库</h2><p>我们分为两部,一方面是写邮件的过程,需要特定的邮件头和附件,这一部分使用的是<code>email</code>模块进行</p>
-<blockquote>
-<p>我在使用<code>pip install email</code>的时候一直出错,但是到<code>pip install emails</code>就可以,目前不确定两者关系,但是都可以使用<code>import email</code>调用</p>
-</blockquote>
-<p>而编写完邮件后,对于邮件的发送则是通过<code>smtp</code>服务进行,这一部分则是用<code>smtplib</code>实现,而其安装可以用<code>pip install aiosmtplib</code>进行</p>
-<h2 id="配置smtp"><a href="#配置smtp" class="headerlink" title="配置smtp"></a>配置<code>smtp</code></h2><p>我计划使用<code>Gmail</code>对这些邮件进行配置,为此,我打开了<code>Gmail</code>中的<code>imap</code>和<code>pop3</code>服务,关于<code>Gmail</code>更多信息如下,<a href="https://support.google.com/mail/answer/7126229">摘自于此</a></p>
-<table>
-<thead>
-<tr>
-<th>内容</th>
-<th>配置</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>接收邮件 (IMAP) 服务器</td>
-<td>imap.gmail.com       要求 SSL：是       端口：993</td>
-</tr>
-<tr>
-<td>发送邮件 (SMTP) 服务器</td>
-<td>smtp.gmail.com       要求 SSL：是       要求 TLS：是（如适用）       使用身份验证：是       SSL 端口：465       TLS&#x2F;STARTTLS 端口：587</td>
-</tr>
-<tr>
-<td>完整名称或显示名称</td>
-<td>您的姓名</td>
-</tr>
-<tr>
-<td>帐号名、用户名或电子邮件地址</td>
-<td>您的完整电子邮件地址</td>
-</tr>
-<tr>
-<td>密码</td>
-<td>您的 Gmail 密码</td>
-</tr>
-</tbody></table>
-<h2 id="尝试发送邮件"><a href="#尝试发送邮件" class="headerlink" title="尝试发送邮件"></a>尝试发送邮件</h2><p>下面代码展示发送测试邮件过程</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> smtplib</span><br><span class="line"><span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText</span><br><span class="line"></span><br><span class="line">mail_host=<span class="string">&#x27;&#x27;</span></span><br><span class="line">mail_user=<span class="string">&#x27;&#x27;</span></span><br><span class="line">mail_pass=<span class="string">&#x27;&#x27;</span></span><br><span class="line">sender=<span class="string">&#x27;&#x27;</span></span><br><span class="line">receivers=[<span class="string">&#x27;&#x27;</span>]<span class="comment">#可以群发</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置邮件信息</span></span><br><span class="line">message=MIMEText(<span class="string">&#x27;content&#x27;</span>,<span class="string">&#x27;plain&#x27;</span>,<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">message[<span class="string">&#x27;Subject&#x27;</span>]=<span class="string">&quot;Test email&quot;</span></span><br><span class="line">message[<span class="string">&#x27;From&#x27;</span>]=sender</span><br><span class="line">message[<span class="string">&#x27;To&#x27;</span>]=receivers[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># smtpobj=smtplib.SMTP()</span></span><br><span class="line">    <span class="comment"># smtpobj.connect(mail_host,25)#这是无需ssl验证的情况</span></span><br><span class="line">    smtpobj=smtplib.SMTP_SSL(mail_host)<span class="comment">#这是需要ssl验证的情况</span></span><br><span class="line">    smtpobj.login(mail_user,mail_pass)</span><br><span class="line">    smtpobj.sendmail(sender,receivers,message.as_string())</span><br><span class="line">    smtpobj.quit()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Success&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> smtplib.SMTPException <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;error&#x27;</span>,e)</span><br></pre></td></tr></table></figure>
-
-<p>这个代码确实可以发送邮件,测试完成</p>
-<h2 id="添加附件"><a href="#添加附件" class="headerlink" title="添加附件"></a>添加附件</h2><p>我们可以利用<code>MIMENonMultipart</code>中的<code>MIMEText</code>类来发送我们得到的csv文件</p>
-<p>可以参考<a href="https://www.cnblogs.com/sunjump/p/15593585.html">这篇文章</a></p>
-<h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2><p>自然,我们可以实现更多内容(比如HTML等),但是我目前不需要,就先留在这里,可能未来还会更新</p>
-]]></content>
-      <categories>
-        <category>杂项</category>
+        <category>MPS010602</category>
       </categories>
       <tags>
         <tag>python</tag>

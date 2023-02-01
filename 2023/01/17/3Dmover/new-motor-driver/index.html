@@ -28,7 +28,7 @@
 <meta property="og:description" content="之前在制作控制程序的时候,有一些不够优雅的地方,今天决定对这些问题进行修正 事件驱动之前的工作是通过不断地询问实现的,我们要实现与串口交互的部分不断询问,而上层则是通过事件去驱动,这样可以极大程度简便工作流程,并且为未来处理碰撞等问题提供解决方案. 对于电机电机输入一个MoveControlCallbacksBase,其中规定了三种可能的情况:状态更新,碰撞和坐标更新  这些函数只有在值改变的时候">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-01-17T14:14:16.000Z">
-<meta property="article:modified_time" content="2023-01-31T16:34:32.644Z">
+<meta property="article:modified_time" content="2023-02-01T12:12:35.143Z">
 <meta property="article:author" content="Songyuli">
 <meta property="article:tag" content="3D位移平台">
 <meta property="article:tag" content="程序规划">
@@ -51,6 +51,15 @@
   
 
 
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a7a854a00bb6d149dfb94eb16e7c9fdf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -228,7 +237,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-01 00:34:32" itemprop="dateModified" datetime="2023-02-01T00:34:32+08:00">2023-02-01</time>
+                <time title="Modified: 2023-02-01 20:12:35" itemprop="dateModified" datetime="2023-02-01T20:12:35+08:00">2023-02-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -289,6 +298,13 @@
 <p>属性中保留<code>cmd_list</code>进行读取待进行指令,<code>cmd_now</code>为当前执行指令</p>
 <p>以及<code>move_start</code>控制是否开始测量</p>
 <h4 id="1-31更新"><a href="#1-31更新" class="headerlink" title="1.31更新"></a>1.31更新</h4><p>如果单纯的使用一个<code>cmd</code>来同时管理电机,测量和显示,这无疑是非常浪费的,而且这样操作如果未来需要修改命令格式以支持其他功能也是非常不妥当的,因此,我们需要对<code>cmd</code>进行预处理操作.</p>
+<p>我们添加了一个<code>_cmd_parser</code>指令,这个指令可以<strong>独立地</strong>去处理数据,目前可以处理两类:</p>
+<ol>
+<li>一次移动,一次测量</li>
+<li>多次移动一起,一次测量</li>
+</ol>
+<p>为了更好的适配2,我们在电机控制中添加了<code>_send_cmd_sync</code>这个命令,可以更高效处理曲折的路径</p>
+<p>同时,我们在回调函数中添加了<code>cmd_refresh_call</code>,避免用户去访问<code>cmd_now</code>属性造成混乱</p>
 <h2 id="测量驱动修改"><a href="#测量驱动修改" class="headerlink" title="测量驱动修改"></a>测量驱动修改</h2><p>应用了<code>MPS010602</code>,将相关文件打包成一个<code>weel</code>再安装,这个留到另外一篇文章讲</p>
 
     </div>
