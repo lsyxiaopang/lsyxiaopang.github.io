@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="使用模型匹配法进行增益调整所谓模型匹配法就是通过指定合适的标准模型$\mathcal{M}(s)$尽量的去模拟目标值到控制量的传递函数$\mathcal{G}_{yr}(s)$标准模型往往采用二项式系数标准型和巴特沃斯标准型例如,二阶系统的标准模型为:$$\mathcal{M}(s)&#x3D;\frac{\omega_n^2}{s^2+2\zeta\omega_ns+\omega_n^2}$$当">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关注闭环系统的控制系统设计(下)">
+<meta property="og:url" content="https://lsyxiaopang.github.io/2023/02/05/control%20system/closecontrol2/index.html">
+<meta property="og:site_name" content="Songyuli&#39;s blog">
+<meta property="og:description" content="使用模型匹配法进行增益调整所谓模型匹配法就是通过指定合适的标准模型$\mathcal{M}(s)$尽量的去模拟目标值到控制量的传递函数$\mathcal{G}_{yr}(s)$标准模型往往采用二项式系数标准型和巴特沃斯标准型例如,二阶系统的标准模型为:$$\mathcal{M}(s)&#x3D;\frac{\omega_n^2}{s^2+2\zeta\omega_ns+\omega_n^2}$$当">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/02/05/control%20system/closecontrol2/close_control2_2_0.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/02/05/control%20system/closecontrol2/close_control2_14_0.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/02/05/control%20system/closecontrol2/close_control2_17_1.png">
+<meta property="article:published_time" content="2023-02-05T11:53:15.000Z">
+<meta property="article:modified_time" content="2023-02-05T12:04:31.101Z">
+<meta property="article:author" content="Songyuli">
+<meta property="article:tag" content="控制系统">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lsyxiaopang.github.io/2023/02/05/control%20system/closecontrol2/close_control2_2_0.png">
+
+<link rel="canonical" href="https://lsyxiaopang.github.io/2023/02/05/control%20system/closecontrol2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>关注闭环系统的控制系统设计(下) | Songyuli's blog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a7a854a00bb6d149dfb94eb16e7c9fdf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Songyuli's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/lsyxiaopang" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/05/control%20system/closecontrol2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Songyuli">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songyuli's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          关注闭环系统的控制系统设计(下)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-02-05 19:53:15 / Modified: 20:04:31" itemprop="dateCreated datePublished" datetime="2023-02-05T19:53:15+08:00">2023-02-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python%E8%AE%BE%E8%AE%A1%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">Python设计控制系统</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/02/05/control%20system/closecontrol2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/02/05/control system/closecontrol2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="使用模型匹配法进行增益调整"><a href="#使用模型匹配法进行增益调整" class="headerlink" title="使用模型匹配法进行增益调整"></a>使用模型匹配法进行增益调整</h2><p>所谓<strong>模型匹配法</strong>就是通过指定合适的<strong>标准模型</strong>$\mathcal{M}(s)$尽量的去模拟目标值到控制量的传递函数$\mathcal{G}_{yr}(s)$<br>标准模型往往采用<strong>二项式系数标准型</strong>和<strong>巴特沃斯标准型</strong><br>例如,二阶系统的标准模型为:<br>$$\mathcal{M}(s)&#x3D;\frac{\omega_n^2}{s^2+2\zeta\omega_ns+\omega_n^2}$$<br>当我们将阻尼系数$\zeta$设为$\zeta&#x3D;1$时,就是二项式系数标准型,设为$\zeta&#x3D;\frac{1}{\sqrt{2}}$为巴特沃斯标准型<br>而无阻尼自然振荡频率$\omega_n$为决定快速性的参数,值越大控制系统启动上升越快  </p>
+<p>而对于三阶系统,其标准模型为<br>$$\mathcal{M}(s)&#x3D;\frac{\omega_n^3}{s^3+\alpha_2\omega_ns^2+\alpha_1\omega_n^2s+\omega_n^3}$$<br>当$(\alpha_1,\alpha_2)&#x3D;(3,3)$时这个模型为二项式系数标准型,当$(\alpha_1,\alpha_2)&#x3D;(2,2)$时这个模型为巴特沃斯标准型<br>此外,还有<strong>ITAE最小标准型</strong>,其可以使误差绝对值的时间加权积分最小,即<br>$$\int_0^t\tau|e(\tau)|\mathrm{d}\tau$$<br>值最小,可以将$(\alpha_1,\alpha_2)&#x3D;(2.15,1.75)$</p>
+<span id="more"></span>
+
+<p>下面展示了各种标准模型效果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#准备工作</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> control <span class="keyword">as</span> ct </span><br><span class="line"><span class="keyword">from</span> control.matlab <span class="keyword">import</span> *</span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = [<span class="string">&#x27;Simhei&#x27;</span>]  <span class="comment">#显示中文</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = <span class="literal">False</span>    <span class="comment">#显示负号</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">line_generator</span>():</span><br><span class="line">    linestyle=[<span class="string">&quot;-&quot;</span>,<span class="string">&quot;--&quot;</span>,<span class="string">&quot;-.&quot;</span>,<span class="string">&quot;:&quot;</span>]</span><br><span class="line">    lineid=<span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">yield</span> linestyle[lineid] <span class="comment">#* 这个yield用法很有趣,可以学习一下</span></span><br><span class="line">        lineid=(lineid+<span class="number">1</span>)%<span class="built_in">len</span>(linestyle)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">plot_set</span>(<span class="params">fig_ax,*args</span>):</span><br><span class="line">    fig_ax.set_xlabel(args[<span class="number">0</span>])</span><br><span class="line">    fig_ax.set_ylabel(args[<span class="number">1</span>])</span><br><span class="line">    fig_ax.grid(ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)==<span class="number">3</span>:</span><br><span class="line">        fig_ax.legend(loc=args[<span class="number">2</span>])</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bodeplot_set</span>(<span class="params">fig_ax,*args</span>):</span><br><span class="line">    fig_ax[<span class="number">0</span>].grid(which=<span class="string">&#x27;both&#x27;</span>,ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">0</span>].set_ylabel(<span class="string">&#x27;Gain [dB]&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].grid(which=<span class="string">&#x27;both&#x27;</span>,ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].set_xlabel(<span class="string">&#x27;$\omega$ [rad/s]&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].set_ylabel(<span class="string">&#x27;Phase [deg]&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)&gt;<span class="number">0</span>:</span><br><span class="line">        fig_ax[<span class="number">1</span>].legend(loc=args[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)&gt;<span class="number">1</span>:</span><br><span class="line">        fig_ax[<span class="number">0</span>].legend(loc=args[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">fig,axs=plt.subplots(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">ls=line_generator()</span><br><span class="line">omega=<span class="number">10</span></span><br><span class="line">zetas=[<span class="number">1</span>,<span class="number">1</span>/np.sqrt(<span class="number">2</span>)]</span><br><span class="line">labels=[<span class="string">&quot;二项式系数标准型&quot;</span>,<span class="string">&quot;巴特沃斯标准型&quot;</span>]</span><br><span class="line"><span class="keyword">for</span> zeta,label <span class="keyword">in</span> <span class="built_in">zip</span>(zetas,labels):</span><br><span class="line">    p=tf([<span class="number">0</span>,omega**<span class="number">2</span>],[<span class="number">1</span>,<span class="number">2</span>*zeta*omega,omega**<span class="number">2</span>])</span><br><span class="line">    y,t=step(p,np.arange(<span class="number">0</span>,<span class="number">2</span>,<span class="number">0.01</span>))</span><br><span class="line">    axs[<span class="number">0</span>].plot(t,y,<span class="built_in">next</span>(ls),label=label)</span><br><span class="line">plot_set(axs[<span class="number">0</span>],<span class="string">&quot;t&quot;</span>,<span class="string">&quot;y&quot;</span>,<span class="string">&quot;best&quot;</span>)</span><br><span class="line"></span><br><span class="line">alphas=[(<span class="number">3</span>,<span class="number">3</span>),(<span class="number">2</span>,<span class="number">2</span>),(<span class="number">2.15</span>,<span class="number">1.75</span>)]</span><br><span class="line">labels=[<span class="string">&quot;二项式系数标准型&quot;</span>,<span class="string">&quot;巴特沃斯标准型&quot;</span>,<span class="string">&quot;ITAE最小标准型&quot;</span>]</span><br><span class="line"><span class="keyword">for</span> alpha,label <span class="keyword">in</span> <span class="built_in">zip</span>(alphas,labels):</span><br><span class="line">    p=tf([<span class="number">0</span>,omega**<span class="number">3</span>],[<span class="number">1</span>,alpha[<span class="number">0</span>]*omega,alpha[<span class="number">1</span>]*omega**<span class="number">2</span>,omega**<span class="number">3</span>])</span><br><span class="line">    y,t=step(p,np.arange(<span class="number">0</span>,<span class="number">2</span>,<span class="number">0.01</span>))</span><br><span class="line">    axs[<span class="number">1</span>].plot(t,y,<span class="built_in">next</span>(ls),label=label)</span><br><span class="line">plot_set(axs[<span class="number">1</span>],<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;y&#x27;</span>,<span class="string">&#x27;best&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p>​    <img src="/2023/02/05/control%20system/closecontrol2/close_control2_2_0.png" alt="png"><br>​    </p>
+<p>而模型匹配法是通过求取从$r$至$y$的传递函数,并且计算$\frac{1}{\mathcal{G}_{yr}(s)}$和$\frac{1}{\mathcal{M}(s)}$的麦克劳林展开式(即在$s&#x3D;0$时的泰勒展开)按照顺序使其一致  </p>
+<blockquote>
+<p>简单而言就是在前面几阶近似下保持相同(可以假设$s$比较大)<br>例如机械臂模型,我们就可以有以下形式<br>$$\mathcal{G}_{yr}(s)&#x3D;\frac{k_Ps+k_I}{Js^3+(\mu+k_D)s^2+(Mgl+k_P)s+k_I}$$<br>,我们可以利用<code>Sympy</code>库对于其进行展开</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sympy <span class="keyword">as</span> sp</span><br><span class="line">s=sp.Symbol(<span class="string">&#x27;s&#x27;</span>)</span><br><span class="line">kp,kd,ki=sp.symbols(<span class="string">&#x27;k_p k_d k_i&#x27;</span>)</span><br><span class="line">mgl,mu,j=sp.symbols(<span class="string">&#x27;mgl mu j&#x27;</span>)</span><br><span class="line"><span class="comment"># sp.init_printing()</span></span><br><span class="line">g=(kp*s+ki)/(j*s**<span class="number">3</span>+(mu+kd)*s**<span class="number">2</span>+(mgl+kp)*s+ki)</span><br><span class="line">sp.series(<span class="number">1</span>/g,s,<span class="number">0</span>,<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>$\displaystyle \frac{mgl s}{k_{i}} + 1 + s^{2} \left(\frac{k_{d}}{k_{i}} + \frac{\mu}{k_{i}} - \frac{k_{p} mgl}{k_{i}^{2}}\right) + s^{3} \left(\frac{j}{k_{i}} - \frac{k_{d} k_{p}}{k_{i}^{2}} - \frac{k_{p} \mu}{k_{i}^{2}} + \frac{k_{p}^{2} mgl}{k_{i}^{3}}\right) + O\left(s^{4}\right)$</p>
+<p>我们可以得到以上结果,与此同时,我们也可以展开$\frac{1}{\mathcal{M}(s)}$的方式得到另外一部分的结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s=sp.Symbol(<span class="string">&#x27;s&#x27;</span>)</span><br><span class="line">omega,zeta=sp.symbols(<span class="string">&#x27;omega zeta&#x27;</span>)</span><br><span class="line">m=omega**<span class="number">2</span>/(s**<span class="number">2</span>+<span class="number">2</span>*zeta*omega*s+omega**<span class="number">2</span>)</span><br><span class="line">sp.series(<span class="number">1</span>/g,m,<span class="number">0</span>,<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>$\displaystyle \frac{j s^{3} + k_{i} + s^{2} \left(k_{d} + \mu\right) + s \left(k_{p} + mgl\right)}{k_{i} + k_{p} s}$</p>
+<p>联立两式,我们就可以得到$k_P,k_I,k_D$,在我们这种二阶滞后系统的情况下,可以实现$\frac{1}{\mathcal{G}_{yr}(s)}$和$\frac{1}{\mathcal{M}(s)}$完全一致  </p>
+<blockquote>
+<p>这是因为两者阶数恰好相同所以可以完全一致,但是在实际情况下只能大致相同</p>
+</blockquote>
+<h2 id="状态反馈控制"><a href="#状态反馈控制" class="headerlink" title="状态反馈控制"></a>状态反馈控制</h2><p>我们前面研究的是关于传递函数的模型,现在我们来研究<strong>状态空间模型$\dot{x}&#x3D;Ax+Bu$所描述的系统</strong><br>状态空间模型除了输入和输出,还存在有<strong>状态</strong>,我们可以假定可以通过传感器等观测到这些信息,具体而言,我们考虑如下的状态反馈控制:<br>$$u&#x3D;Fx$$<br>通过利用状态$x$的信息,来确定控制输入$u$,此处$F$称为<strong>状态反馈增益</strong><br>我们可以将状态反馈控制看作为一种PD控制,例如对于我们之前讨论的手推车系统,我们可以将手推车的位置$z$和速度$\dot{z}$当作状态,那么上式就可以被写作:<br>$$u&#x3D;Fx&#x3D;f_1z+f_2\dot{z}$$<br>其中$f_1$为比例增益,$f_2$为微分增益<br>而在状态反馈控制中最具代表性的设计方法有两种,分别为<strong>极点控制法</strong>和<strong>最优调节器</strong> </p>
+<h3 id="极点配置法"><a href="#极点配置法" class="headerlink" title="极点配置法"></a>极点配置法</h3><p>将状态反馈控制$u&#x3D;Fx$施加于系统$\dot{x}&#x3D;Ax+Bu$上之后,闭环系统可以写作如下形式:<br>$$\dot{x}&#x3D;(A+BF)x$$<br>倘使和矩阵的所有极点的实部均为负数,那么系统是稳定的  </p>
+<blockquote>
+<p>这里提醒一下,和矩阵的所有特征值实部均为负数(因为是在e指数上)  </p>
+</blockquote>
+<p>做法是这样的:</p>
+<ol>
+<li>找到我们所需的特征值</li>
+<li>寻找$F$,使$A+BF$能够满足我们的需要利用<code>acker</code>函数自带的阿克曼极点配置算法</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">A=<span class="string">&#x27;0 1;-4 5&#x27;</span></span><br><span class="line">B=<span class="string">&#x27;0; 1&#x27;</span></span><br><span class="line">C=<span class="string">&#x27;1 0;0 1&#x27;</span></span><br><span class="line">D=<span class="string">&#x27;0;0&#x27;</span></span><br><span class="line">P=ss(A,B,C,D)</span><br><span class="line"></span><br><span class="line">pole=[-<span class="number">1</span>,-<span class="number">1</span>] <span class="comment">#*指定极点</span></span><br><span class="line">F=-acker(P.A,P.B,pole)</span><br></pre></td></tr></table></figure>
+
+<p>这里有负号的原因是在于<code>acker</code>返回的是使$A-BF$的特征值作为指定极点的$F$<br>我们可以验证一下特征值是否正确</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.linalg.eigvals(P.A+P.B*F)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>array([-1.+6.68896751e-09j, -1.-6.68896751e-09j])
+</code></pre>
+<p>几乎就是1(前面的应该是<code>float</code>的误差),那么我们来看一下闭环控制系统的行为</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">acl=P.A+P.B*F</span><br><span class="line">pfb=ss(acl,P.B,P.C,P.D)</span><br><span class="line">td=np.arange(<span class="number">0</span>,<span class="number">5</span>,<span class="number">0.01</span>)</span><br><span class="line">x0=[-<span class="number">0.3</span>,<span class="number">0.4</span>]</span><br><span class="line">x,t=initial(pfb,td,x0)</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,x[:,<span class="number">0</span>],label=<span class="string">&quot;$x_1$&quot;</span>)</span><br><span class="line">ax.plot(t,x[:,<span class="number">1</span>],ls=<span class="string">&quot;-.&quot;</span>,label=<span class="string">&quot;$x_2$&quot;</span>)</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;x&quot;</span>,<span class="string">&quot;best&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/2023/02/05/control%20system/closecontrol2/close_control2_14_0.png" alt="png"></p>
+<blockquote>
+<p>对于特征值的选定</p>
+</blockquote>
+<h3 id="最优调节器"><a href="#最优调节器" class="headerlink" title="最优调节器"></a>最优调节器</h3><p>我们既然已经知道了极点配置法如何工作,那么我们需要评估其结果,主要有两点特征:  </p>
+<ol>
+<li>特征值实部负值越大响应越快,但是反馈增益$F$也会变大导致输入非常大</li>
+<li>状态变量可能会出现涨幅较大的变量<br>为了解决这个问题,我们可以设定某个评价指标,同时求取状态反馈增益令评价指标最小化    <blockquote>
+<p>对于$Q&#x3D;Q^T&gt;0,R&#x3D;R^T&gt;0$,有以下的评价函数<br>$$J&#x3D;\int^\infin_0(x^T(t)Qx(t)+u^T(t)Ru(t))dt$$<br>使得这个函数最小化的控制器形式为$u&#x3D;F_{opt}x$,其中$F_{opt}$的值为<br>$$F&#x3D;-R^{-1}B^TP$$<br>其中$P&#x3D;P^T&gt;0$,是满足下述方程的唯一正定二次型<br>$$A^TP+PA+PBR^{-1}B^TP+Q&#x3D;0$$<br>那么$J$的最小值为$x(0)^TPx(0)$<br>(仔细看评价函数,两个二次型)</p>
+</blockquote>
+</li>
+</ol>
+<p>像这样通过评价函数最优化得到的状态反馈控制为<strong>最优调节器</strong><br>另外,我们通常设定$Q$为对角阵(标准型),其中$Q$的对角元往往用来表示哪个先收敛<br>相应的,在$u$恒定的条件下,$R$作为标量越大,就可以得到不会让输入过大的$F$<br>而在python中,我们可以使用<code>lqr</code>来设计最优调节器</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Q=[[<span class="number">100</span>,<span class="number">0</span>],[<span class="number">0</span>,<span class="number">1</span>]] <span class="comment">#*使用这个Q表示我们要让状态第一个变量速度大</span></span><br><span class="line">R=<span class="number">100</span></span><br><span class="line"></span><br><span class="line">F,X,E=lqr(P.A,P.B,Q,R)<span class="comment">#*F为得到的反馈增益(要加一个负号),X为里卡提方程的解,E则为这个闭环系统的极点</span></span><br><span class="line">F=-F</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;反馈增益&quot;</span>.center(<span class="number">50</span>,<span class="string">&#x27;-&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(F)<span class="comment">#使用-(1/R)*B.T*X也能有相似的效果</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;闭环极点&quot;</span>.center(<span class="number">50</span>,<span class="string">&#x27;-&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(E)</span><br><span class="line">acl=P.A+P.B*F</span><br><span class="line">pfb=ss(acl,P.B,P.C,P.D)</span><br><span class="line">td=np.arange(<span class="number">0</span>,<span class="number">5</span>,<span class="number">0.01</span>)</span><br><span class="line">x0=[-<span class="number">0.3</span>,<span class="number">0.4</span>]</span><br><span class="line">x,t=initial(pfb,td,x0)</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,x[:,<span class="number">0</span>],label=<span class="string">&quot;$x_1$&quot;</span>)</span><br><span class="line">ax.plot(t,x[:,<span class="number">1</span>],ls=<span class="string">&quot;-.&quot;</span>,label=<span class="string">&quot;$x_2$&quot;</span>)</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;x&quot;</span>,<span class="string">&quot;best&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>-----------------------反馈增益-----------------------
+[[ -0.12310563 -10.02555582]]
+-----------------------闭环极点-----------------------
+[-1.03259306 -3.99296276]
+</code></pre>
+<p><img src="/2023/02/05/control%20system/closecontrol2/close_control2_17_1.png" alt="png"></p>
+<blockquote>
+<p>使用<code>care</code>也可以得到相似的结果,在此不再介绍 </p>
+</blockquote>
+<blockquote>
+<p>还有,我想当怀疑这个状态空间就是所谓的相空间,太像了(但是维度又不止二维)</p>
+</blockquote>
+<blockquote>
+<p>同时,前面使用配置极点法时,要求任意状态$x$开始,要能够达到相空间的任何地方,可以使用<code>ctrb</code>求可控性矩阵</p>
+</blockquote>
+<h2 id="闭环系统规格"><a href="#闭环系统规格" class="headerlink" title="闭环系统规格"></a>闭环系统规格</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>随动系统</th>
+<th>恒值调节系统</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>阻尼系数</td>
+<td>0.6~0.8</td>
+<td>0.2~0.5</td>
+</tr>
+<tr>
+<td>超调量</td>
+<td>0~0.25</td>
+<td>0~0.25</td>
+</tr>
+<tr>
+<td>峰值增益</td>
+<td>1.1~1.5</td>
+<td>1.1~1.5</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/" rel="tag"># 控制系统</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/02/05/misc/cpython/" rel="prev" title="使用C++为python编写扩展">
+      <i class="fa fa-chevron-left"></i> 使用C++为python编写扩展
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9E%8B%E5%8C%B9%E9%85%8D%E6%B3%95%E8%BF%9B%E8%A1%8C%E5%A2%9E%E7%9B%8A%E8%B0%83%E6%95%B4"><span class="nav-number">1.</span> <span class="nav-text">使用模型匹配法进行增益调整</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E5%8F%8D%E9%A6%88%E6%8E%A7%E5%88%B6"><span class="nav-number">2.</span> <span class="nav-text">状态反馈控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%81%E7%82%B9%E9%85%8D%E7%BD%AE%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">极点配置法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E4%BC%98%E8%B0%83%E8%8A%82%E5%99%A8"><span class="nav-number">2.2.</span> <span class="nav-text">最优调节器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AD%E7%8E%AF%E7%B3%BB%E7%BB%9F%E8%A7%84%E6%A0%BC"><span class="nav-number">3.</span> <span class="nav-text">闭环系统规格</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Songyuli</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Songyuli</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://UNICODE_STRING.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://lsyxiaopang.github.io/2023/02/05/control%20system/closecontrol2/";
+    this.page.identifier = "2023/02/05/control system/closecontrol2/";
+    this.page.title = "关注闭环系统的控制系统设计(下)";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://UNICODE_STRING.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

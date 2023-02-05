@@ -180,24 +180,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2023/01/17/Indexs/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>The index blog</title>
     <url>/2023/01/15/Indexs/My-first-bolg/</url>
     <content><![CDATA[<p>This is the introduction and index of my blog, and it’s for testing the <code>Hexo</code>.</p>
@@ -229,6 +211,24 @@
       <tags>
         <tag>Index</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2023/01/17/Indexs/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
   </entry>
   <entry>
     <title>创建wheels</title>
@@ -267,6 +267,22 @@
       <tags>
         <tag>python</tag>
         <tag>conda</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对于数字信号处理的手段</title>
+    <url>/2023/01/24/MPS010602/process-logical/</url>
+    <content><![CDATA[<p>之前研究过对于<code>MPS010602</code>中的数字信号,应当如何处理(在其中使用二进制位来表示逻辑),今天恰好看到了<code>numpy.bitwise_xor</code>函数,会非常有用,在此记录一下</p>
+<h2 id="逻辑位操作"><a href="#逻辑位操作" class="headerlink" title="逻辑位操作"></a>逻辑位操作</h2><p>在<code>numpy</code>库中有相应的逻辑操作函数,而最大的特点就在于它们可以实现向量化,这对于我们应用的场景来说非常重要.</p>
+<p>其使用的方法与&amp;类似,主要看代码,以下代码展示如何从一个八进制数取出某一位的数字信号</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_binary</span>(<span class="params">data_array:np.array,bit:<span class="built_in">int</span></span>):</span><br><span class="line">    check=<span class="number">1</span>&lt;&lt;bit</span><br><span class="line">    ca=np.array([check])</span><br><span class="line">    dataout=np.bitwise_and(data_array,ca)</span><br><span class="line">    <span class="keyword">return</span> np.where(dataout==<span class="number">0</span>,<span class="literal">False</span>,<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>MPS010602</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -309,6 +325,128 @@
     <url>/2023/01/23/Pyerror/poetry/</url>
     <content><![CDATA[<h1 id="利用poetry进行包管理"><a href="#利用poetry进行包管理" class="headerlink" title="利用poetry进行包管理"></a>利用poetry进行包管理</h1><p>今天我突发奇想:</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>关注闭环系统的控制系统设计(下)</title>
+    <url>/2023/02/05/control%20system/closecontrol2/</url>
+    <content><![CDATA[<h2 id="使用模型匹配法进行增益调整"><a href="#使用模型匹配法进行增益调整" class="headerlink" title="使用模型匹配法进行增益调整"></a>使用模型匹配法进行增益调整</h2><p>所谓<strong>模型匹配法</strong>就是通过指定合适的<strong>标准模型</strong>$\mathcal{M}(s)$尽量的去模拟目标值到控制量的传递函数$\mathcal{G}_{yr}(s)$<br>标准模型往往采用<strong>二项式系数标准型</strong>和<strong>巴特沃斯标准型</strong><br>例如,二阶系统的标准模型为:<br>$$\mathcal{M}(s)&#x3D;\frac{\omega_n^2}{s^2+2\zeta\omega_ns+\omega_n^2}$$<br>当我们将阻尼系数$\zeta$设为$\zeta&#x3D;1$时,就是二项式系数标准型,设为$\zeta&#x3D;\frac{1}{\sqrt{2}}$为巴特沃斯标准型<br>而无阻尼自然振荡频率$\omega_n$为决定快速性的参数,值越大控制系统启动上升越快  </p>
+<p>而对于三阶系统,其标准模型为<br>$$\mathcal{M}(s)&#x3D;\frac{\omega_n^3}{s^3+\alpha_2\omega_ns^2+\alpha_1\omega_n^2s+\omega_n^3}$$<br>当$(\alpha_1,\alpha_2)&#x3D;(3,3)$时这个模型为二项式系数标准型,当$(\alpha_1,\alpha_2)&#x3D;(2,2)$时这个模型为巴特沃斯标准型<br>此外,还有<strong>ITAE最小标准型</strong>,其可以使误差绝对值的时间加权积分最小,即<br>$$\int_0^t\tau|e(\tau)|\mathrm{d}\tau$$<br>值最小,可以将$(\alpha_1,\alpha_2)&#x3D;(2.15,1.75)$</p>
+<span id="more"></span>
+
+<p>下面展示了各种标准模型效果</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#准备工作</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> control <span class="keyword">as</span> ct </span><br><span class="line"><span class="keyword">from</span> control.matlab <span class="keyword">import</span> *</span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = [<span class="string">&#x27;Simhei&#x27;</span>]  <span class="comment">#显示中文</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = <span class="literal">False</span>    <span class="comment">#显示负号</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">line_generator</span>():</span><br><span class="line">    linestyle=[<span class="string">&quot;-&quot;</span>,<span class="string">&quot;--&quot;</span>,<span class="string">&quot;-.&quot;</span>,<span class="string">&quot;:&quot;</span>]</span><br><span class="line">    lineid=<span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">yield</span> linestyle[lineid] <span class="comment">#* 这个yield用法很有趣,可以学习一下</span></span><br><span class="line">        lineid=(lineid+<span class="number">1</span>)%<span class="built_in">len</span>(linestyle)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">plot_set</span>(<span class="params">fig_ax,*args</span>):</span><br><span class="line">    fig_ax.set_xlabel(args[<span class="number">0</span>])</span><br><span class="line">    fig_ax.set_ylabel(args[<span class="number">1</span>])</span><br><span class="line">    fig_ax.grid(ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)==<span class="number">3</span>:</span><br><span class="line">        fig_ax.legend(loc=args[<span class="number">2</span>])</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bodeplot_set</span>(<span class="params">fig_ax,*args</span>):</span><br><span class="line">    fig_ax[<span class="number">0</span>].grid(which=<span class="string">&#x27;both&#x27;</span>,ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">0</span>].set_ylabel(<span class="string">&#x27;Gain [dB]&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].grid(which=<span class="string">&#x27;both&#x27;</span>,ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].set_xlabel(<span class="string">&#x27;$\omega$ [rad/s]&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].set_ylabel(<span class="string">&#x27;Phase [deg]&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)&gt;<span class="number">0</span>:</span><br><span class="line">        fig_ax[<span class="number">1</span>].legend(loc=args[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)&gt;<span class="number">1</span>:</span><br><span class="line">        fig_ax[<span class="number">0</span>].legend(loc=args[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig,axs=plt.subplots(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">ls=line_generator()</span><br><span class="line">omega=<span class="number">10</span></span><br><span class="line">zetas=[<span class="number">1</span>,<span class="number">1</span>/np.sqrt(<span class="number">2</span>)]</span><br><span class="line">labels=[<span class="string">&quot;二项式系数标准型&quot;</span>,<span class="string">&quot;巴特沃斯标准型&quot;</span>]</span><br><span class="line"><span class="keyword">for</span> zeta,label <span class="keyword">in</span> <span class="built_in">zip</span>(zetas,labels):</span><br><span class="line">    p=tf([<span class="number">0</span>,omega**<span class="number">2</span>],[<span class="number">1</span>,<span class="number">2</span>*zeta*omega,omega**<span class="number">2</span>])</span><br><span class="line">    y,t=step(p,np.arange(<span class="number">0</span>,<span class="number">2</span>,<span class="number">0.01</span>))</span><br><span class="line">    axs[<span class="number">0</span>].plot(t,y,<span class="built_in">next</span>(ls),label=label)</span><br><span class="line">plot_set(axs[<span class="number">0</span>],<span class="string">&quot;t&quot;</span>,<span class="string">&quot;y&quot;</span>,<span class="string">&quot;best&quot;</span>)</span><br><span class="line"></span><br><span class="line">alphas=[(<span class="number">3</span>,<span class="number">3</span>),(<span class="number">2</span>,<span class="number">2</span>),(<span class="number">2.15</span>,<span class="number">1.75</span>)]</span><br><span class="line">labels=[<span class="string">&quot;二项式系数标准型&quot;</span>,<span class="string">&quot;巴特沃斯标准型&quot;</span>,<span class="string">&quot;ITAE最小标准型&quot;</span>]</span><br><span class="line"><span class="keyword">for</span> alpha,label <span class="keyword">in</span> <span class="built_in">zip</span>(alphas,labels):</span><br><span class="line">    p=tf([<span class="number">0</span>,omega**<span class="number">3</span>],[<span class="number">1</span>,alpha[<span class="number">0</span>]*omega,alpha[<span class="number">1</span>]*omega**<span class="number">2</span>,omega**<span class="number">3</span>])</span><br><span class="line">    y,t=step(p,np.arange(<span class="number">0</span>,<span class="number">2</span>,<span class="number">0.01</span>))</span><br><span class="line">    axs[<span class="number">1</span>].plot(t,y,<span class="built_in">next</span>(ls),label=label)</span><br><span class="line">plot_set(axs[<span class="number">1</span>],<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;y&#x27;</span>,<span class="string">&#x27;best&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p>​    <img src="/2023/02/05/control%20system/closecontrol2/close_control2_2_0.png" alt="png"><br>​    </p>
+<p>而模型匹配法是通过求取从$r$至$y$的传递函数,并且计算$\frac{1}{\mathcal{G}_{yr}(s)}$和$\frac{1}{\mathcal{M}(s)}$的麦克劳林展开式(即在$s&#x3D;0$时的泰勒展开)按照顺序使其一致  </p>
+<blockquote>
+<p>简单而言就是在前面几阶近似下保持相同(可以假设$s$比较大)<br>例如机械臂模型,我们就可以有以下形式<br>$$\mathcal{G}_{yr}(s)&#x3D;\frac{k_Ps+k_I}{Js^3+(\mu+k_D)s^2+(Mgl+k_P)s+k_I}$$<br>,我们可以利用<code>Sympy</code>库对于其进行展开</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sympy <span class="keyword">as</span> sp</span><br><span class="line">s=sp.Symbol(<span class="string">&#x27;s&#x27;</span>)</span><br><span class="line">kp,kd,ki=sp.symbols(<span class="string">&#x27;k_p k_d k_i&#x27;</span>)</span><br><span class="line">mgl,mu,j=sp.symbols(<span class="string">&#x27;mgl mu j&#x27;</span>)</span><br><span class="line"><span class="comment"># sp.init_printing()</span></span><br><span class="line">g=(kp*s+ki)/(j*s**<span class="number">3</span>+(mu+kd)*s**<span class="number">2</span>+(mgl+kp)*s+ki)</span><br><span class="line">sp.series(<span class="number">1</span>/g,s,<span class="number">0</span>,<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>$\displaystyle \frac{mgl s}{k_{i}} + 1 + s^{2} \left(\frac{k_{d}}{k_{i}} + \frac{\mu}{k_{i}} - \frac{k_{p} mgl}{k_{i}^{2}}\right) + s^{3} \left(\frac{j}{k_{i}} - \frac{k_{d} k_{p}}{k_{i}^{2}} - \frac{k_{p} \mu}{k_{i}^{2}} + \frac{k_{p}^{2} mgl}{k_{i}^{3}}\right) + O\left(s^{4}\right)$</p>
+<p>我们可以得到以上结果,与此同时,我们也可以展开$\frac{1}{\mathcal{M}(s)}$的方式得到另外一部分的结果</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=sp.Symbol(<span class="string">&#x27;s&#x27;</span>)</span><br><span class="line">omega,zeta=sp.symbols(<span class="string">&#x27;omega zeta&#x27;</span>)</span><br><span class="line">m=omega**<span class="number">2</span>/(s**<span class="number">2</span>+<span class="number">2</span>*zeta*omega*s+omega**<span class="number">2</span>)</span><br><span class="line">sp.series(<span class="number">1</span>/g,m,<span class="number">0</span>,<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>$\displaystyle \frac{j s^{3} + k_{i} + s^{2} \left(k_{d} + \mu\right) + s \left(k_{p} + mgl\right)}{k_{i} + k_{p} s}$</p>
+<p>联立两式,我们就可以得到$k_P,k_I,k_D$,在我们这种二阶滞后系统的情况下,可以实现$\frac{1}{\mathcal{G}_{yr}(s)}$和$\frac{1}{\mathcal{M}(s)}$完全一致  </p>
+<blockquote>
+<p>这是因为两者阶数恰好相同所以可以完全一致,但是在实际情况下只能大致相同</p>
+</blockquote>
+<h2 id="状态反馈控制"><a href="#状态反馈控制" class="headerlink" title="状态反馈控制"></a>状态反馈控制</h2><p>我们前面研究的是关于传递函数的模型,现在我们来研究<strong>状态空间模型$\dot{x}&#x3D;Ax+Bu$所描述的系统</strong><br>状态空间模型除了输入和输出,还存在有<strong>状态</strong>,我们可以假定可以通过传感器等观测到这些信息,具体而言,我们考虑如下的状态反馈控制:<br>$$u&#x3D;Fx$$<br>通过利用状态$x$的信息,来确定控制输入$u$,此处$F$称为<strong>状态反馈增益</strong><br>我们可以将状态反馈控制看作为一种PD控制,例如对于我们之前讨论的手推车系统,我们可以将手推车的位置$z$和速度$\dot{z}$当作状态,那么上式就可以被写作:<br>$$u&#x3D;Fx&#x3D;f_1z+f_2\dot{z}$$<br>其中$f_1$为比例增益,$f_2$为微分增益<br>而在状态反馈控制中最具代表性的设计方法有两种,分别为<strong>极点控制法</strong>和<strong>最优调节器</strong> </p>
+<h3 id="极点配置法"><a href="#极点配置法" class="headerlink" title="极点配置法"></a>极点配置法</h3><p>将状态反馈控制$u&#x3D;Fx$施加于系统$\dot{x}&#x3D;Ax+Bu$上之后,闭环系统可以写作如下形式:<br>$$\dot{x}&#x3D;(A+BF)x$$<br>倘使和矩阵的所有极点的实部均为负数,那么系统是稳定的  </p>
+<blockquote>
+<p>这里提醒一下,和矩阵的所有特征值实部均为负数(因为是在e指数上)  </p>
+</blockquote>
+<p>做法是这样的:</p>
+<ol>
+<li>找到我们所需的特征值</li>
+<li>寻找$F$,使$A+BF$能够满足我们的需要利用<code>acker</code>函数自带的阿克曼极点配置算法</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">A=<span class="string">&#x27;0 1;-4 5&#x27;</span></span><br><span class="line">B=<span class="string">&#x27;0; 1&#x27;</span></span><br><span class="line">C=<span class="string">&#x27;1 0;0 1&#x27;</span></span><br><span class="line">D=<span class="string">&#x27;0;0&#x27;</span></span><br><span class="line">P=ss(A,B,C,D)</span><br><span class="line"></span><br><span class="line">pole=[-<span class="number">1</span>,-<span class="number">1</span>] <span class="comment">#*指定极点</span></span><br><span class="line">F=-acker(P.A,P.B,pole)</span><br></pre></td></tr></table></figure>
+
+<p>这里有负号的原因是在于<code>acker</code>返回的是使$A-BF$的特征值作为指定极点的$F$<br>我们可以验证一下特征值是否正确</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">np.linalg.eigvals(P.A+P.B*F)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>array([-1.+6.68896751e-09j, -1.-6.68896751e-09j])
+</code></pre>
+<p>几乎就是1(前面的应该是<code>float</code>的误差),那么我们来看一下闭环控制系统的行为</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">acl=P.A+P.B*F</span><br><span class="line">pfb=ss(acl,P.B,P.C,P.D)</span><br><span class="line">td=np.arange(<span class="number">0</span>,<span class="number">5</span>,<span class="number">0.01</span>)</span><br><span class="line">x0=[-<span class="number">0.3</span>,<span class="number">0.4</span>]</span><br><span class="line">x,t=initial(pfb,td,x0)</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,x[:,<span class="number">0</span>],label=<span class="string">&quot;$x_1$&quot;</span>)</span><br><span class="line">ax.plot(t,x[:,<span class="number">1</span>],ls=<span class="string">&quot;-.&quot;</span>,label=<span class="string">&quot;$x_2$&quot;</span>)</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;x&quot;</span>,<span class="string">&quot;best&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/2023/02/05/control%20system/closecontrol2/close_control2_14_0.png" alt="png"></p>
+<blockquote>
+<p>对于特征值的选定</p>
+</blockquote>
+<h3 id="最优调节器"><a href="#最优调节器" class="headerlink" title="最优调节器"></a>最优调节器</h3><p>我们既然已经知道了极点配置法如何工作,那么我们需要评估其结果,主要有两点特征:  </p>
+<ol>
+<li>特征值实部负值越大响应越快,但是反馈增益$F$也会变大导致输入非常大</li>
+<li>状态变量可能会出现涨幅较大的变量<br>为了解决这个问题,我们可以设定某个评价指标,同时求取状态反馈增益令评价指标最小化    <blockquote>
+<p>对于$Q&#x3D;Q^T&gt;0,R&#x3D;R^T&gt;0$,有以下的评价函数<br>$$J&#x3D;\int^\infin_0(x^T(t)Qx(t)+u^T(t)Ru(t))dt$$<br>使得这个函数最小化的控制器形式为$u&#x3D;F_{opt}x$,其中$F_{opt}$的值为<br>$$F&#x3D;-R^{-1}B^TP$$<br>其中$P&#x3D;P^T&gt;0$,是满足下述方程的唯一正定二次型<br>$$A^TP+PA+PBR^{-1}B^TP+Q&#x3D;0$$<br>那么$J$的最小值为$x(0)^TPx(0)$<br>(仔细看评价函数,两个二次型)</p>
+</blockquote>
+</li>
+</ol>
+<p>像这样通过评价函数最优化得到的状态反馈控制为<strong>最优调节器</strong><br>另外,我们通常设定$Q$为对角阵(标准型),其中$Q$的对角元往往用来表示哪个先收敛<br>相应的,在$u$恒定的条件下,$R$作为标量越大,就可以得到不会让输入过大的$F$<br>而在python中,我们可以使用<code>lqr</code>来设计最优调节器</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Q=[[<span class="number">100</span>,<span class="number">0</span>],[<span class="number">0</span>,<span class="number">1</span>]] <span class="comment">#*使用这个Q表示我们要让状态第一个变量速度大</span></span><br><span class="line">R=<span class="number">100</span></span><br><span class="line"></span><br><span class="line">F,X,E=lqr(P.A,P.B,Q,R)<span class="comment">#*F为得到的反馈增益(要加一个负号),X为里卡提方程的解,E则为这个闭环系统的极点</span></span><br><span class="line">F=-F</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;反馈增益&quot;</span>.center(<span class="number">50</span>,<span class="string">&#x27;-&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(F)<span class="comment">#使用-(1/R)*B.T*X也能有相似的效果</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;闭环极点&quot;</span>.center(<span class="number">50</span>,<span class="string">&#x27;-&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(E)</span><br><span class="line">acl=P.A+P.B*F</span><br><span class="line">pfb=ss(acl,P.B,P.C,P.D)</span><br><span class="line">td=np.arange(<span class="number">0</span>,<span class="number">5</span>,<span class="number">0.01</span>)</span><br><span class="line">x0=[-<span class="number">0.3</span>,<span class="number">0.4</span>]</span><br><span class="line">x,t=initial(pfb,td,x0)</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,x[:,<span class="number">0</span>],label=<span class="string">&quot;$x_1$&quot;</span>)</span><br><span class="line">ax.plot(t,x[:,<span class="number">1</span>],ls=<span class="string">&quot;-.&quot;</span>,label=<span class="string">&quot;$x_2$&quot;</span>)</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;x&quot;</span>,<span class="string">&quot;best&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>-----------------------反馈增益-----------------------
+[[ -0.12310563 -10.02555582]]
+-----------------------闭环极点-----------------------
+[-1.03259306 -3.99296276]
+</code></pre>
+<p><img src="/2023/02/05/control%20system/closecontrol2/close_control2_17_1.png" alt="png"></p>
+<blockquote>
+<p>使用<code>care</code>也可以得到相似的结果,在此不再介绍 </p>
+</blockquote>
+<blockquote>
+<p>还有,我想当怀疑这个状态空间就是所谓的相空间,太像了(但是维度又不止二维)</p>
+</blockquote>
+<blockquote>
+<p>同时,前面使用配置极点法时,要求任意状态$x$开始,要能够达到相空间的任何地方,可以使用<code>ctrb</code>求可控性矩阵</p>
+</blockquote>
+<h2 id="闭环系统规格"><a href="#闭环系统规格" class="headerlink" title="闭环系统规格"></a>闭环系统规格</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>随动系统</th>
+<th>恒值调节系统</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>阻尼系数</td>
+<td>0.6~0.8</td>
+<td>0.2~0.5</td>
+</tr>
+<tr>
+<td>超调量</td>
+<td>0~0.25</td>
+<td>0~0.25</td>
+</tr>
+<tr>
+<td>峰值增益</td>
+<td>1.1~1.5</td>
+<td>1.1~1.5</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>Python设计控制系统</category>
+      </categories>
+      <tags>
+        <tag>控制系统</tag>
+      </tags>
   </entry>
   <entry>
     <title>关注闭环系统的控制系统设计(上)</title>
@@ -768,6 +906,181 @@ C:\Users\h\AppData\Roaming\Python\Python39\site-packages\control\freqplot.py:187
       </tags>
   </entry>
   <entry>
+    <title>为分类问题训练简单的机器学习算法</title>
+    <url>/2023/01/24/machine-learning/machine1/</url>
+    <content><![CDATA[<h2 id="标记与术语"><a href="#标记与术语" class="headerlink" title="标记与术语"></a>标记与术语</h2><ul>
+<li>特征(features):例如数据的种类(一般以列存储)</li>
+<li>样本(samples):一般以行存储,数据列表<br>$x^i_j$指第$i$个训练样本,训练集的第$j$维(第$j$个特征)<blockquote>
+<p>这种标记输入输出均可</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>另外,机器学习是一回事,这本书中的python代码非常优美,值得学习</p>
+</blockquote>
+<h1 id="为分类问题训练简单的机器学习算法"><a href="#为分类问题训练简单的机器学习算法" class="headerlink" title="为分类问题训练简单的机器学习算法"></a>为分类问题训练简单的机器学习算法</h1><p>在这一部分,我们构造一个简单的线性分类算法实现我们的分类任务</p>
+<h2 id="早期的机器学习模型"><a href="#早期的机器学习模型" class="headerlink" title="早期的机器学习模型"></a>早期的机器学习模型</h2><p>最早的机器学习模型是通过模拟神经元实现的<br>我们可以定义一个决定函数$\phi(x)$来从输入得到输出<br>通过将权重矢量与输入矢量点乘后通过一个阈值函数得到输出.<br>因此,通过计算$sign(\omega^Tx+\omega_0)$即可得到一个<strong>二分类输出</strong></p>
+<span id="more"></span>
+
+<h3 id="学习的逻辑"><a href="#学习的逻辑" class="headerlink" title="学习的逻辑"></a>学习的逻辑</h3><p>每一次学习,都需要让计算结果更加接近,因此需要更新权重矢量得到$\Delta \omega$<br>而$\Delta \omega&#x3D;\eta(y^i-\hat{y}^i)x$<br>式中的$\eta$被称为<strong>学习率</strong><br>其过程可以被总结为<br><img src="/2023/01/24/machine-learning/machine1/image-20230124170806576.png" alt="png"></p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>下面我们尝试构造一个类来解决这个问题</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Perception</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,eta=<span class="number">0.01</span>,n_iter=<span class="number">100</span>,random_state=<span class="number">1</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        self.eta=eta</span><br><span class="line">        self.n_iter=n_iter</span><br><span class="line">        self.random_state=random_state</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fitdata</span>(<span class="params">self,X,y</span>):</span><br><span class="line">        self.errors_=[]<span class="comment">#aa_下划线代表运行后才存在的属性</span></span><br><span class="line">        rs=np.random.RandomState(self.random_state)<span class="comment">#种子生成随机数</span></span><br><span class="line">        self.w_=rs.normal(scale=<span class="number">0.1</span>,size=<span class="number">1</span>+X.shape[<span class="number">1</span>])</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.n_iter):</span><br><span class="line">            error=<span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> x,yreal <span class="keyword">in</span> <span class="built_in">zip</span>(X,y):</span><br><span class="line">                ytest=np.where(np.dot(x,self.w_[:-<span class="number">1</span>])+self.w_[-<span class="number">1</span>]&gt;<span class="number">0</span>,<span class="number">1</span>,-<span class="number">1</span>)</span><br><span class="line">                self.w_[:-<span class="number">1</span>]+=self.eta*(yreal-ytest)*x</span><br><span class="line">                self.w_[-<span class="number">1</span>]+=self.eta*(yreal-ytest)</span><br><span class="line">                error+=np.count_nonzero(yreal-ytest)</span><br><span class="line">            self.errors_.append(error)</span><br><span class="line">            <span class="keyword">if</span>(error==<span class="number">0</span>):</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;The fitting have completed&quot;</span>)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;The max iteration have reached&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">net_input</span>(<span class="params">self,X</span>):</span><br><span class="line">        <span class="keyword">return</span> np.dot(X,self.w_[:-<span class="number">1</span>])+self.w_[-<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">predict</span>(<span class="params">self,X</span>):</span><br><span class="line">        <span class="keyword">return</span> np.where(self.net_input(X)&gt;=<span class="number">0.0</span>,<span class="number">1</span>,-<span class="number">1</span>) </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在这个类中我们定义<code>fit</code>实现拟合,拟合之后会有两个属性,分别为<code>w_</code>和<code>errors_</code>一个记录了线性参数,另外一个记录了误差</p>
+<h2 id="使用鸢尾花数据集训练这个分类模型"><a href="#使用鸢尾花数据集训练这个分类模型" class="headerlink" title="使用鸢尾花数据集训练这个分类模型"></a>使用鸢尾花数据集训练这个分类模型</h2><p>为了测试我们这个的效果,我们将对山鸢尾和变色秋海棠两种不同的花进行分类,虽然特征不一定要是二维的,但是为了展示方便,我们使用两个特征萼片长度和花瓣长度作为特征.</p>
+<p>我们首先使用<code>pandas</code>将数据从数据库中加载出来,并且看看大概</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">df=pd.read_csv(<span class="string">&#x27;https://archive.ics.uci.edu/ml/&#x27;</span></span><br><span class="line">               <span class="string">&#x27;machine-learning-databases/iris/iris.data&#x27;</span>,</span><br><span class="line">               header=<span class="literal">None</span>)</span><br><span class="line">df.tail()               </span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>145</th>
+      <td>6.7</td>
+      <td>3.0</td>
+      <td>5.2</td>
+      <td>2.3</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>6.3</td>
+      <td>2.5</td>
+      <td>5.0</td>
+      <td>1.9</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>6.5</td>
+      <td>3.0</td>
+      <td>5.2</td>
+      <td>2.0</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>6.2</td>
+      <td>3.4</td>
+      <td>5.4</td>
+      <td>2.3</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>5.9</td>
+      <td>3.0</td>
+      <td>5.1</td>
+      <td>1.8</td>
+      <td>Iris-virginica</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>接下来,我们将前50个山鸢尾和前50个变色秋海棠的记录提取出来,分别标记为-1和1</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">y=df.iloc[<span class="number">0</span>:<span class="number">100</span>,<span class="number">4</span>].values</span><br><span class="line">y=np.where(y==<span class="string">&#x27;Iris-setosa&#x27;</span>,-<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">X=df.iloc[<span class="number">0</span>:<span class="number">100</span>,[<span class="number">0</span>,<span class="number">2</span>]].values</span><br><span class="line"></span><br><span class="line">plt.scatter(X[y==-<span class="number">1</span>,<span class="number">0</span>],X[y==-<span class="number">1</span>,<span class="number">1</span>],color=<span class="string">&#x27;red&#x27;</span>,marker=<span class="string">&#x27;o&#x27;</span>,label=<span class="string">&#x27;setosa&#x27;</span>)</span><br><span class="line">plt.scatter(X[y==<span class="number">1</span>,<span class="number">0</span>],X[y==<span class="number">1</span>,<span class="number">1</span>],color=<span class="string">&#x27;blue&#x27;</span>,marker=<span class="string">&#x27;x&#x27;</span>,label=<span class="string">&#x27;versicolor&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;sepal length [cm]&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;petal length [cm]&quot;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/01/24/machine-learning/machine1/11_0.png" alt="png"></p>
+<p>我们可以从上面那张图中看出来两种花可以被很好的区分开来,接下来我们来训练一下试试</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">model=Perception(<span class="number">0.001</span>)<span class="comment">#这里特地将eta调的很小使得梯度下降过程明显</span></span><br><span class="line">model.fitdata(X,y)</span><br><span class="line">plt.plot(<span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(model.errors_)+<span class="number">1</span>),model.errors_,<span class="string">&#x27;o-&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;Epochs&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;errors&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<pre><code>The fitting have completed
+</code></pre>
+<p><img src="/2023/01/24/machine-learning/machine1/13_1.png" alt="png"></p>
+<p>可以注意到,最后的<code>errors</code>已经为0,为了进一步观察我们拟合的效果,我们将定义一个函数用来描绘决定区间</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> matplotlib.colors <span class="keyword">import</span> ListedColormap</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">plot_decision_regions</span>(<span class="params">X,y,classifier,resolution=<span class="number">0.02</span></span>):</span><br><span class="line">    <span class="comment">#setup marker generator and color map</span></span><br><span class="line">    markers = (<span class="string">&#x27;s&#x27;</span>, <span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;^&#x27;</span>, <span class="string">&#x27;v&#x27;</span>)</span><br><span class="line">    colors = (<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;lightgreen&#x27;</span>, <span class="string">&#x27;gray&#x27;</span>, <span class="string">&#x27;cyan&#x27;</span>)</span><br><span class="line">    cmap = ListedColormap(colors[:<span class="built_in">len</span>(np.unique(y))])<span class="comment"># unique函数可以找到所有独立的元素</span></span><br><span class="line">    <span class="comment">#plot the surface</span></span><br><span class="line">    x1_min,x1_max=X[:,<span class="number">0</span>].<span class="built_in">min</span>()-<span class="number">1</span>,X[:,<span class="number">0</span>].<span class="built_in">max</span>()+<span class="number">1</span></span><br><span class="line">    x2_min,x2_max=X[:,<span class="number">1</span>].<span class="built_in">min</span>()-<span class="number">1</span>,X[:,<span class="number">1</span>].<span class="built_in">max</span>()+<span class="number">1</span><span class="comment">#X1,X2分别是X轴Y轴</span></span><br><span class="line">    xx1,xx2=np.meshgrid(np.arange(x1_min,x1_max,resolution),</span><br><span class="line">                        np.arange(x2_min,x2_max,resolution))</span><br><span class="line">    Z=classifier.predict(np.array([xx1.ravel(),xx2.ravel()]).T)<span class="comment">#这里要将数组展平(这里面的向量操作非常有趣)</span></span><br><span class="line">    Z=Z.reshape(xx1.shape)</span><br><span class="line">    plt.contourf(xx1,xx2,Z,alpha=<span class="number">0.3</span>,cmap=cmap)</span><br><span class="line">    plt.xlim(xx1.<span class="built_in">min</span>(),xx1.<span class="built_in">max</span>())</span><br><span class="line">    plt.ylim(xx2.<span class="built_in">min</span>(),xx2.<span class="built_in">max</span>())</span><br><span class="line">    <span class="comment">#plot class samples</span></span><br><span class="line">    <span class="keyword">for</span> idx,cl <span class="keyword">in</span> <span class="built_in">enumerate</span>(np.unique(y)):<span class="comment">#这里使用enumerate来同时获得标签</span></span><br><span class="line">        plt.scatter(x=X[y==cl,<span class="number">0</span>],</span><br><span class="line">                    y=X[y==cl,<span class="number">1</span>],</span><br><span class="line">                    alpha=<span class="number">0.8</span>,</span><br><span class="line">                    c=colors[idx],</span><br><span class="line">                    marker=markers[idx],</span><br><span class="line">                    label=cl,</span><br><span class="line">                    edgecolors=<span class="string">&#x27;black&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>接下来,我们来展示一下绘图的结果</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plot_decision_regions(X,y,classifier=model)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;sepal length [cm]&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;petal length [cm]&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<pre><code>C:\Users\lison\AppData\Local\Temp\ipykernel_25612\3891387916.py:20: UserWarning: You passed a edgecolor/edgecolors (&#39;black&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
+  plt.scatter(x=X[y==cl,0],
+</code></pre>
+<p><img src="/2023/01/24/machine-learning/machine1/17_1.png" alt="png"></p>
+<blockquote>
+<p>刚刚我们实现的可以被认为是一个单层的神经网络</p>
+</blockquote>
+<h2 id="可适应性线性神经元与学习收敛"><a href="#可适应性线性神经元与学习收敛" class="headerlink" title="可适应性线性神经元与学习收敛"></a>可适应性线性神经元与学习收敛</h2><p>在这一部分,我们将研究另外一种单层神经网络:ADAptive LInear NEuron(<code>Adaline</code>)<br>这种算法非常有趣因为其展现了关于定义和最小化连续损失函数的方法,这便于让我们理解之后我们所用的相关函数<br><code>Adaline</code>算法与感知机最关键的区别在于权重函数是使用一个线性激发函数而非一个单位阶跃函数,在<code>Adaline</code>算法中<br>这样一个线性激发函数就是网络输入的线性函数因此有:<br>$$\phi(w^Tx)&#x3D;w^Tx$$<br>虽然激发函数是用在学习权重的,但我们也可以用其来评估最后结果,<code>ADaline</code>的特殊性可以用下面一张图来展示<br><img src="/2023/01/24/machine-learning/machine1/image-20230124170927708.png" alt="png"></p>
+<h3 id="使用梯度下降法最小化损失函数"><a href="#使用梯度下降法最小化损失函数" class="headerlink" title="使用梯度下降法最小化损失函数"></a>使用梯度下降法最小化损失函数</h3><p>对于<code>Adaline</code>而言,我们可以定义损失函数$J$并且使用方均根法得到权重<br>$$J(\omega)&#x3D;\frac{1}{2}\sum_i(y^{(i)}-\phi(z^{(i)}))^2$$<br>在该式中,$\frac{1}{2}$只是为了方便求梯度,接下来我们就可以使用一个非常有效的方法<strong>梯度下降法</strong>来使损失函数最小,原理为<br>$$\Delta \omega&#x3D;-\eta\nabla J(\omega)$$<br>梯度的计算为<br>$$\frac{\partial J}{\partial \omega_j}&#x3D;-\sum_i(y^{(i)}-\phi(z^{(i)}))x^{(i)}_j$$</p>
+<blockquote>
+<p>需要注意一个计算上的不同,在此处我们的计算是<strong>所有样本一起算的</strong>而不是像之前一样<strong>一个样本更新一次</strong></p>
+</blockquote>
+<h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AdalineGD</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,eta=<span class="number">0.001</span>,n_iter=<span class="number">100</span>,random_state=<span class="number">1</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        self.eta=eta</span><br><span class="line">        self.n_iter=n_iter</span><br><span class="line">        self.random_state=random_state</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fit</span>(<span class="params">self,X,y</span>):</span><br><span class="line">        rgen=np.random.RandomState(self.random_state)</span><br><span class="line">        self.w_=rgen.normal(<span class="number">0.0</span>,<span class="number">0.1</span>,size=<span class="number">1</span>+X.shape[<span class="number">1</span>])</span><br><span class="line">        self.cost_=[]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.n_iter):</span><br><span class="line">            err,errg,errw0=self._calc_cost(X,y)</span><br><span class="line">            self.cost_.append(err)</span><br><span class="line">            self.w_[<span class="number">1</span>:]+=-self.eta*errg</span><br><span class="line">            self.w_[<span class="number">0</span>]+=-self.eta*errw0</span><br><span class="line">            </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_calc_cost</span>(<span class="params">self,X,y</span>):</span><br><span class="line">        yp=(np.dot(X,self.w_[<span class="number">1</span>:].reshape(-<span class="number">1</span>,<span class="number">1</span>))+self.w_[<span class="number">0</span>]).reshape(<span class="number">1</span>,-<span class="number">1</span>)</span><br><span class="line">        <span class="comment">#print(yp)</span></span><br><span class="line">        err=np.<span class="built_in">sum</span>((yp[<span class="number">0</span>]-y)**<span class="number">2</span>)/<span class="number">2</span></span><br><span class="line">        errg=np.dot((yp[<span class="number">0</span>]-y),X)</span><br><span class="line">        errw0=np.<span class="built_in">sum</span>(yp[<span class="number">0</span>]-y)</span><br><span class="line">        <span class="keyword">return</span> err,errg[<span class="number">0</span>],errw0</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">predict</span>(<span class="params">self,X</span>):</span><br><span class="line">        <span class="keyword">return</span> np.where(np.dot(X,self.w_[<span class="number">1</span>:])+self.w_[<span class="number">0</span>]&gt;<span class="number">0</span>,<span class="number">1</span>,-<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>接下来,我们将之前的数据输入进去试一试看看如何</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">y=df.iloc[<span class="number">0</span>:<span class="number">100</span>,<span class="number">4</span>].values</span><br><span class="line">y=np.where(y==<span class="string">&#x27;Iris-setosa&#x27;</span>,-<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">X=df.iloc[<span class="number">0</span>:<span class="number">100</span>,[<span class="number">0</span>,<span class="number">2</span>]].values</span><br><span class="line">adamodel=AdalineGD()</span><br><span class="line">adamodel.fit(X,y)</span><br><span class="line">plt.plot(<span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(adamodel.cost_)+<span class="number">1</span>),np.log(adamodel.cost_),<span class="string">&#x27;-&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;Epochs&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;log(cost)&#x27;</span>)</span><br><span class="line">plt.show()</span><br><span class="line">adamodel.w_</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/01/24/machine-learning/machine1/24_0.png" alt="png"><br>​    </p>
+<pre><code>array([-3.89410517e+55, -2.18332011e+56, -2.18332011e+56])
+</code></pre>
+<p>可以发现,程序直接爆炸,此时可能是$eta$调大了,我们把$eta$调为1E-5试试</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">y=df.iloc[<span class="number">0</span>:<span class="number">100</span>,<span class="number">4</span>].values</span><br><span class="line">y=np.where(y==<span class="string">&#x27;Iris-setosa&#x27;</span>,-<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">X=df.iloc[<span class="number">0</span>:<span class="number">100</span>,[<span class="number">0</span>,<span class="number">2</span>]].values</span><br><span class="line">adamodel=AdalineGD(eta=<span class="number">4E-4</span>,n_iter=<span class="number">10000</span>)</span><br><span class="line">adamodel.fit(X,y)</span><br><span class="line">plt.plot(<span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(adamodel.cost_)+<span class="number">1</span>),adamodel.cost_,<span class="string">&#x27;-&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;Epochs&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;log(cost)&#x27;</span>)</span><br><span class="line">plt.show()</span><br><span class="line">adamodel.w_</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/01/24/machine-learning/machine1/26_0.png" alt="png"><br>​    </p>
+<pre><code>array([-3.33272936,  0.39707341,  0.40543187])
+</code></pre>
+<p>可以注意到,逐渐在趋向一个稳定值,这之中存在的问题可以用下图展示<br><img src="/2023/01/24/machine-learning/machine1/image-20230124171511278.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plot_decision_regions(X,y,classifier=adamodel)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;sepal length [cm]&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;petal length [cm]&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<pre><code>C:\Users\lison\AppData\Local\Temp\ipykernel_25612\3891387916.py:20: UserWarning: You passed a edgecolor/edgecolors (&#39;black&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
+  plt.scatter(x=X[y==cl,0],
+</code></pre>
+<p><img src="/2023/01/24/machine-learning/machine1/28_1.png" alt="png"></p>
+<p>可以注意到,这种计算方法非常依赖初值,而且最后也没有完全分开来,并不是非常理想,因此需要优化</p>
+<h3 id="使用标准化提升梯度下降法效果"><a href="#使用标准化提升梯度下降法效果" class="headerlink" title="使用标准化提升梯度下降法效果"></a>使用标准化提升梯度下降法效果</h3><p>标准化是一个机器学习过程中的非常重要的手段,在这一部分中,我们使用一种<em>正态分布标准化</em><br>这种方法假定数据呈现出正态分布,处理的手段是将数据减去平均值并且除以数据的标准差,即:<br>$$x_j’&#x3D;\frac{x_j-\mu}{\sigma}$$<br>这么做的好处在于可以让优化器更快的实现达到最低值</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">X_std=np.copy(X)</span><br><span class="line">X_std[:,<span class="number">0</span>]=(X[:,<span class="number">0</span>]-X[:,<span class="number">0</span>].mean())/X[:,<span class="number">0</span>].std()</span><br><span class="line">X_std[:,<span class="number">1</span>]=(X[:,<span class="number">1</span>]-X[:,<span class="number">1</span>].mean())/X[:,<span class="number">1</span>].std()</span><br></pre></td></tr></table></figure>
+
+<p>在标准化之后,我们将数据输入到前面的模型中</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">stdada=AdalineGD(<span class="number">1E-3</span>,<span class="number">150</span>,<span class="number">1</span>)</span><br><span class="line">stdada.fit(X_std,y)</span><br><span class="line">plot_decision_regions(X_std,y,classifier=stdada)</span><br></pre></td></tr></table></figure>
+
+<pre><code>C:\Users\lison\AppData\Local\Temp\ipykernel_25612\3891387916.py:20: UserWarning: You passed a edgecolor/edgecolors (&#39;black&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
+  plt.scatter(x=X[y==cl,0],
+</code></pre>
+<p><img src="/2023/01/24/machine-learning/machine1/33_1.png" alt="png"></p>
+<p>效果变好了一些(但实际上初值问题仍然存在)</p>
+<h2 id="大规模机器学习与随机梯度下降法"><a href="#大规模机器学习与随机梯度下降法" class="headerlink" title="大规模机器学习与随机梯度下降法"></a>大规模机器学习与随机梯度下降法</h2><p>现在我们考虑一个非常巨大的数据集(可能有上百万的数据)<br>我们现在用另外一种方式,对于每一个数据,都对$\Delta \omega$进行一次更新,实际上随机梯度下降法达到稳定的速度快于批量梯度下降法(虽然前者看起来是后者的近似)</p>
+<p>为了更好的进行梯度下降法,我们需要对数据进行一个更好的随机化处理<br>同时,这么做还有一个好处,因为在一些网络程序之中,数据和模型的训练是同步进行的</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>python</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用scikit-learn进行分类学习</title>
     <url>/2023/01/26/machine-learning/machine2/</url>
     <content><![CDATA[<p>在前面一部分,我们构造了几种分类算法,而在这一部分,我们将介绍利用<code>scikit-learn</code>提供的便于使用的接口进行机器学习<br>将分成以下几个部分进行介绍:</p>
@@ -1202,6 +1515,61 @@ C:\Users\h\AppData\Local\Temp\ipykernel_43220\485392308.py:21: UserWarning: You 
       </tags>
   </entry>
   <entry>
+    <title>使用C++为python编写扩展</title>
+    <url>/2023/02/05/misc/cpython/</url>
+    <content><![CDATA[<blockquote>
+<p>编译一时爽,环境火葬场</p>
+</blockquote>
+<p>因为使用A*算法对于路径的寻找需要更高的效率,很明显,python自身完全不能满足我们的需求,因此使用C++编写python扩展变得非常重要.</p>
+<p>不幸的是,我昨天花了整整一天都没有解决这个问题,但是今天却进行的异常顺利,下面我来讲一下在使用C++编写python中的几个坑</p>
+<span id="more"></span>
+
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>我们使用的是<code>pybind</code>的库,具体<code>pybind</code>应当如何使用在这里我就不过多介绍了,下面先贴出来我用做测试的代码:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;pybind11/pybind11.h&quot;</span></span></span><br><span class="line"><span class="keyword">namespace</span> py = pybind11;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">testadd</span><span class="params">(<span class="type">int</span> i,<span class="type">int</span> j)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> i+j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">PYBIND11_MODULE</span>(pytest2,m)</span><br><span class="line">&#123;</span><br><span class="line">    m.<span class="built_in">def</span>(<span class="string">&quot;testadd&quot;</span>,&amp;testadd,<span class="string">&quot;A function to add&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>需要注意将安装好的<code>pybind11</code>中的<code>include</code>文件夹的<code>pybind11</code>文件夹拷贝到工程文件夹中.</p>
+<h2 id="使用g-直接编译"><a href="#使用g-直接编译" class="headerlink" title="使用g++直接编译"></a>使用g++直接编译</h2><p>接下来就到了万恶的编译环节,首先,我看见文档里面直接给<code>g++</code>编译的命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">g++ -O3 -march=native -Wall -shared -std=c++11 -fPIC `python3 -m pybind11 --includes` test.cpp -o test `python3-config --extension-suffix`</span><br></pre></td></tr></table></figure>
+
+<p>这个命令看起来很简单,但是存在一个问题,里面依赖<code>python-config</code>命令的输出,但是众所周知,这个命令只有在Linux下才能使用.</p>
+<blockquote>
+<p>我再一次感觉到了windows开发的险恶</p>
+</blockquote>
+<h2 id="使用CMake编译"><a href="#使用CMake编译" class="headerlink" title="使用CMake编译"></a>使用CMake编译</h2><p>接下来,我看到网上说<code>cmake</code>可以进行编译,这样看起来挺好,然而暗藏杀机.</p>
+<p>因为<code>cmake</code>也需要类似于<code>python-config</code>的环境,然后虽然我安装<code>mingw</code>确实来了一个<code>python-config</code>但是这会导致我编译工具链使用的是MS的产品,但是采用的解释器却是GCC编译的.</p>
+<blockquote>
+<p>中间省略了因为使用<code>anaconda</code>而不得不一步步教<code>cmake</code>如何找到我的<code>pybind</code>的过程</p>
+</blockquote>
+<p>然后这就带来一个完全爆炸<code>.pyd</code>文件,这个<code>pyd</code>在<code>mingw</code>里面的python不认,然后到了<code>conda</code>里面的python直接提示我dll丢失.</p>
+<blockquote>
+<p>你以为我没查Google,直接提示你:<em>“你安装的库可能有误,建议卸载重装”</em></p>
+<p>我自己写的库怎么卸载重装</p>
+</blockquote>
+<p>但是如果我换做<code>mingw</code>编译,则更加刺激,直接python给我闪退了</p>
+<blockquote>
+<p>我拿<code>windbg</code>查了一下,是内存冲突,但是别的我也不知道了</p>
+</blockquote>
+<h2 id="使用setup-py编译"><a href="#使用setup-py编译" class="headerlink" title="使用setup.py编译"></a>使用<code>setup.py</code>编译</h2><p>这种方法看起来简单,但是结果和那<code>CMake</code>一样</p>
+<p>简而言之,我电脑的状态就是这样:</p>
+<ol>
+<li>使用windows操作系统</li>
+<li>卸载了<code>VisualStudio</code></li>
+<li>装了<code>mingw</code></li>
+<li>使用<code>anaconda</code>管理python环境</li>
+</ol>
+<p>直接buff叠满,能做出来才有鬼.</p>
+<h2 id="使用cppimport"><a href="#使用cppimport" class="headerlink" title="使用cppimport"></a>使用<code>cppimport</code></h2><p>这是我目前看到的最好的方法来处理这个问题,<a href="https://github.com/tbenthompson/cppimport">源网页</a></p>
+<p>使用这个的好处在于反正我编译出来成功了</p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>c++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>所思即所得,一些画图软件(包)介绍</title>
     <url>/2023/01/26/misc/graphviz/</url>
     <content><![CDATA[<p>由于我在学习控制系统的时候,感觉<code>Visio</code>绘图手感像坨屎(我承认是我手不行),但是像流程图这样的东西有特点,即如果你能在这些空间里面把你想要塞的东西全部塞进去,那么优化这样的工作可以是完全交由计算机自行处理的.</p>
@@ -1251,60 +1619,6 @@ C:\Users\h\AppData\Local\Temp\ipykernel_43220\485392308.py:21: UserWarning: You 
         <tag>python</tag>
         <tag>LaTex</tag>
         <tag>绘图</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用python发送邮件</title>
-    <url>/2023/01/30/misc/pythonsmtp/</url>
-    <content><![CDATA[<p>由于之前写了一个误差计算脚本,采用了万能的<code>nohup python calc_error.py &gt;logs &amp;</code>实现了后台运行,但是在实际使用过程中,经常会遇到异常或者一些奇奇怪怪的问题,自己每次上线检查也麻烦,遂思考能不能用邮件来解决问题.  </p>
-<p>我参考<a href="https://zhuanlan.zhihu.com/p/24180606">这篇文章</a>,学习一下使用python发送邮件</p>
-<h2 id="所用到的库"><a href="#所用到的库" class="headerlink" title="所用到的库"></a>所用到的库</h2><p>我们分为两部,一方面是写邮件的过程,需要特定的邮件头和附件,这一部分使用的是<code>email</code>模块进行</p>
-<blockquote>
-<p>我在使用<code>pip install email</code>的时候一直出错,但是到<code>pip install emails</code>就可以,目前不确定两者关系,但是都可以使用<code>import email</code>调用</p>
-</blockquote>
-<p>而编写完邮件后,对于邮件的发送则是通过<code>smtp</code>服务进行,这一部分则是用<code>smtplib</code>实现,而其安装可以用<code>pip install aiosmtplib</code>进行</p>
-<h2 id="配置smtp"><a href="#配置smtp" class="headerlink" title="配置smtp"></a>配置<code>smtp</code></h2><p>我计划使用<code>Gmail</code>对这些邮件进行配置,为此,我打开了<code>Gmail</code>中的<code>imap</code>和<code>pop3</code>服务,关于<code>Gmail</code>更多信息如下,<a href="https://support.google.com/mail/answer/7126229">摘自于此</a></p>
-<table>
-<thead>
-<tr>
-<th>内容</th>
-<th>配置</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>接收邮件 (IMAP) 服务器</td>
-<td>imap.gmail.com       要求 SSL：是       端口：993</td>
-</tr>
-<tr>
-<td>发送邮件 (SMTP) 服务器</td>
-<td>smtp.gmail.com       要求 SSL：是       要求 TLS：是（如适用）       使用身份验证：是       SSL 端口：465       TLS&#x2F;STARTTLS 端口：587</td>
-</tr>
-<tr>
-<td>完整名称或显示名称</td>
-<td>您的姓名</td>
-</tr>
-<tr>
-<td>帐号名、用户名或电子邮件地址</td>
-<td>您的完整电子邮件地址</td>
-</tr>
-<tr>
-<td>密码</td>
-<td>您的 Gmail 密码</td>
-</tr>
-</tbody></table>
-<h2 id="尝试发送邮件"><a href="#尝试发送邮件" class="headerlink" title="尝试发送邮件"></a>尝试发送邮件</h2><p>下面代码展示发送测试邮件过程</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> smtplib</span><br><span class="line"><span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText</span><br><span class="line"></span><br><span class="line">mail_host=<span class="string">&#x27;&#x27;</span></span><br><span class="line">mail_user=<span class="string">&#x27;&#x27;</span></span><br><span class="line">mail_pass=<span class="string">&#x27;&#x27;</span></span><br><span class="line">sender=<span class="string">&#x27;&#x27;</span></span><br><span class="line">receivers=[<span class="string">&#x27;&#x27;</span>]<span class="comment">#可以群发</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置邮件信息</span></span><br><span class="line">message=MIMEText(<span class="string">&#x27;content&#x27;</span>,<span class="string">&#x27;plain&#x27;</span>,<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">message[<span class="string">&#x27;Subject&#x27;</span>]=<span class="string">&quot;Test email&quot;</span></span><br><span class="line">message[<span class="string">&#x27;From&#x27;</span>]=sender</span><br><span class="line">message[<span class="string">&#x27;To&#x27;</span>]=receivers[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># smtpobj=smtplib.SMTP()</span></span><br><span class="line">    <span class="comment"># smtpobj.connect(mail_host,25)#这是无需ssl验证的情况</span></span><br><span class="line">    smtpobj=smtplib.SMTP_SSL(mail_host)<span class="comment">#这是需要ssl验证的情况</span></span><br><span class="line">    smtpobj.login(mail_user,mail_pass)</span><br><span class="line">    smtpobj.sendmail(sender,receivers,message.as_string())</span><br><span class="line">    smtpobj.quit()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Success&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> smtplib.SMTPException <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;error&#x27;</span>,e)</span><br></pre></td></tr></table></figure>
-
-<p>这个代码确实可以发送邮件,测试完成</p>
-<h2 id="添加附件"><a href="#添加附件" class="headerlink" title="添加附件"></a>添加附件</h2><p>我们可以利用<code>MIMENonMultipart</code>中的<code>MIMEText</code>类来发送我们得到的csv文件</p>
-<p>可以参考<a href="https://www.cnblogs.com/sunjump/p/15593585.html">这篇文章</a></p>
-<h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2><p>自然,我们可以实现更多内容(比如HTML等),但是我目前不需要,就先留在这里,可能未来还会更新</p>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -1411,6 +1725,60 @@ C:\Users\h\AppData\Local\Temp\ipykernel_43220\485392308.py:21: UserWarning: You 
 <h2 id="过滤器与格式化"><a href="#过滤器与格式化" class="headerlink" title="过滤器与格式化"></a>过滤器与格式化</h2><p>下面是关于更加复杂的过滤器写法和格式化写法的问题,这里不涉及(可能以后会),可以先看参考资料</p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://github.com/Delgan/loguru">源代码与特性介绍</a></p>
 <p><a href="https://loguru.readthedocs.io/en/stable/api/logger.html">类定义</a></p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用python发送邮件</title>
+    <url>/2023/01/30/misc/pythonsmtp/</url>
+    <content><![CDATA[<p>由于之前写了一个误差计算脚本,采用了万能的<code>nohup python calc_error.py &gt;logs &amp;</code>实现了后台运行,但是在实际使用过程中,经常会遇到异常或者一些奇奇怪怪的问题,自己每次上线检查也麻烦,遂思考能不能用邮件来解决问题.  </p>
+<p>我参考<a href="https://zhuanlan.zhihu.com/p/24180606">这篇文章</a>,学习一下使用python发送邮件</p>
+<h2 id="所用到的库"><a href="#所用到的库" class="headerlink" title="所用到的库"></a>所用到的库</h2><p>我们分为两部,一方面是写邮件的过程,需要特定的邮件头和附件,这一部分使用的是<code>email</code>模块进行</p>
+<blockquote>
+<p>我在使用<code>pip install email</code>的时候一直出错,但是到<code>pip install emails</code>就可以,目前不确定两者关系,但是都可以使用<code>import email</code>调用</p>
+</blockquote>
+<p>而编写完邮件后,对于邮件的发送则是通过<code>smtp</code>服务进行,这一部分则是用<code>smtplib</code>实现,而其安装可以用<code>pip install aiosmtplib</code>进行</p>
+<h2 id="配置smtp"><a href="#配置smtp" class="headerlink" title="配置smtp"></a>配置<code>smtp</code></h2><p>我计划使用<code>Gmail</code>对这些邮件进行配置,为此,我打开了<code>Gmail</code>中的<code>imap</code>和<code>pop3</code>服务,关于<code>Gmail</code>更多信息如下,<a href="https://support.google.com/mail/answer/7126229">摘自于此</a></p>
+<table>
+<thead>
+<tr>
+<th>内容</th>
+<th>配置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>接收邮件 (IMAP) 服务器</td>
+<td>imap.gmail.com       要求 SSL：是       端口：993</td>
+</tr>
+<tr>
+<td>发送邮件 (SMTP) 服务器</td>
+<td>smtp.gmail.com       要求 SSL：是       要求 TLS：是（如适用）       使用身份验证：是       SSL 端口：465       TLS&#x2F;STARTTLS 端口：587</td>
+</tr>
+<tr>
+<td>完整名称或显示名称</td>
+<td>您的姓名</td>
+</tr>
+<tr>
+<td>帐号名、用户名或电子邮件地址</td>
+<td>您的完整电子邮件地址</td>
+</tr>
+<tr>
+<td>密码</td>
+<td>您的 Gmail 密码</td>
+</tr>
+</tbody></table>
+<h2 id="尝试发送邮件"><a href="#尝试发送邮件" class="headerlink" title="尝试发送邮件"></a>尝试发送邮件</h2><p>下面代码展示发送测试邮件过程</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> smtplib</span><br><span class="line"><span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText</span><br><span class="line"></span><br><span class="line">mail_host=<span class="string">&#x27;&#x27;</span></span><br><span class="line">mail_user=<span class="string">&#x27;&#x27;</span></span><br><span class="line">mail_pass=<span class="string">&#x27;&#x27;</span></span><br><span class="line">sender=<span class="string">&#x27;&#x27;</span></span><br><span class="line">receivers=[<span class="string">&#x27;&#x27;</span>]<span class="comment">#可以群发</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置邮件信息</span></span><br><span class="line">message=MIMEText(<span class="string">&#x27;content&#x27;</span>,<span class="string">&#x27;plain&#x27;</span>,<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">message[<span class="string">&#x27;Subject&#x27;</span>]=<span class="string">&quot;Test email&quot;</span></span><br><span class="line">message[<span class="string">&#x27;From&#x27;</span>]=sender</span><br><span class="line">message[<span class="string">&#x27;To&#x27;</span>]=receivers[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># smtpobj=smtplib.SMTP()</span></span><br><span class="line">    <span class="comment"># smtpobj.connect(mail_host,25)#这是无需ssl验证的情况</span></span><br><span class="line">    smtpobj=smtplib.SMTP_SSL(mail_host)<span class="comment">#这是需要ssl验证的情况</span></span><br><span class="line">    smtpobj.login(mail_user,mail_pass)</span><br><span class="line">    smtpobj.sendmail(sender,receivers,message.as_string())</span><br><span class="line">    smtpobj.quit()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Success&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> smtplib.SMTPException <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;error&#x27;</span>,e)</span><br></pre></td></tr></table></figure>
+
+<p>这个代码确实可以发送邮件,测试完成</p>
+<h2 id="添加附件"><a href="#添加附件" class="headerlink" title="添加附件"></a>添加附件</h2><p>我们可以利用<code>MIMENonMultipart</code>中的<code>MIMEText</code>类来发送我们得到的csv文件</p>
+<p>可以参考<a href="https://www.cnblogs.com/sunjump/p/15593585.html">这篇文章</a></p>
+<h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2><p>自然,我们可以实现更多内容(比如HTML等),但是我目前不需要,就先留在这里,可能未来还会更新</p>
 ]]></content>
       <categories>
         <category>杂项</category>
@@ -1769,197 +2137,6 @@ C:\Users\h\AppData\Local\Temp\ipykernel_43220\485392308.py:21: UserWarning: You 
       <tags>
         <tag>maxi1820</tag>
         <tag>X-ray spectrum fitting</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>为分类问题训练简单的机器学习算法</title>
-    <url>/2023/01/24/machine-learning/machine1/</url>
-    <content><![CDATA[<h2 id="标记与术语"><a href="#标记与术语" class="headerlink" title="标记与术语"></a>标记与术语</h2><ul>
-<li>特征(features):例如数据的种类(一般以列存储)</li>
-<li>样本(samples):一般以行存储,数据列表<br>$x^i_j$指第$i$个训练样本,训练集的第$j$维(第$j$个特征)<blockquote>
-<p>这种标记输入输出均可</p>
-</blockquote>
-</li>
-</ul>
-<blockquote>
-<p>另外,机器学习是一回事,这本书中的python代码非常优美,值得学习</p>
-</blockquote>
-<h1 id="为分类问题训练简单的机器学习算法"><a href="#为分类问题训练简单的机器学习算法" class="headerlink" title="为分类问题训练简单的机器学习算法"></a>为分类问题训练简单的机器学习算法</h1><p>在这一部分,我们构造一个简单的线性分类算法实现我们的分类任务</p>
-<h2 id="早期的机器学习模型"><a href="#早期的机器学习模型" class="headerlink" title="早期的机器学习模型"></a>早期的机器学习模型</h2><p>最早的机器学习模型是通过模拟神经元实现的<br>我们可以定义一个决定函数$\phi(x)$来从输入得到输出<br>通过将权重矢量与输入矢量点乘后通过一个阈值函数得到输出.<br>因此,通过计算$sign(\omega^Tx+\omega_0)$即可得到一个<strong>二分类输出</strong></p>
-<span id="more"></span>
-
-<h3 id="学习的逻辑"><a href="#学习的逻辑" class="headerlink" title="学习的逻辑"></a>学习的逻辑</h3><p>每一次学习,都需要让计算结果更加接近,因此需要更新权重矢量得到$\Delta \omega$<br>而$\Delta \omega&#x3D;\eta(y^i-\hat{y}^i)x$<br>式中的$\eta$被称为<strong>学习率</strong><br>其过程可以被总结为<br><img src="/2023/01/24/machine-learning/machine1/image-20230124170806576.png" alt="png"></p>
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>下面我们尝试构造一个类来解决这个问题</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Perception</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,eta=<span class="number">0.01</span>,n_iter=<span class="number">100</span>,random_state=<span class="number">1</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        self.eta=eta</span><br><span class="line">        self.n_iter=n_iter</span><br><span class="line">        self.random_state=random_state</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fitdata</span>(<span class="params">self,X,y</span>):</span><br><span class="line">        self.errors_=[]<span class="comment">#aa_下划线代表运行后才存在的属性</span></span><br><span class="line">        rs=np.random.RandomState(self.random_state)<span class="comment">#种子生成随机数</span></span><br><span class="line">        self.w_=rs.normal(scale=<span class="number">0.1</span>,size=<span class="number">1</span>+X.shape[<span class="number">1</span>])</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.n_iter):</span><br><span class="line">            error=<span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> x,yreal <span class="keyword">in</span> <span class="built_in">zip</span>(X,y):</span><br><span class="line">                ytest=np.where(np.dot(x,self.w_[:-<span class="number">1</span>])+self.w_[-<span class="number">1</span>]&gt;<span class="number">0</span>,<span class="number">1</span>,-<span class="number">1</span>)</span><br><span class="line">                self.w_[:-<span class="number">1</span>]+=self.eta*(yreal-ytest)*x</span><br><span class="line">                self.w_[-<span class="number">1</span>]+=self.eta*(yreal-ytest)</span><br><span class="line">                error+=np.count_nonzero(yreal-ytest)</span><br><span class="line">            self.errors_.append(error)</span><br><span class="line">            <span class="keyword">if</span>(error==<span class="number">0</span>):</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;The fitting have completed&quot;</span>)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;The max iteration have reached&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">net_input</span>(<span class="params">self,X</span>):</span><br><span class="line">        <span class="keyword">return</span> np.dot(X,self.w_[:-<span class="number">1</span>])+self.w_[-<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">predict</span>(<span class="params">self,X</span>):</span><br><span class="line">        <span class="keyword">return</span> np.where(self.net_input(X)&gt;=<span class="number">0.0</span>,<span class="number">1</span>,-<span class="number">1</span>) </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在这个类中我们定义<code>fit</code>实现拟合,拟合之后会有两个属性,分别为<code>w_</code>和<code>errors_</code>一个记录了线性参数,另外一个记录了误差</p>
-<h2 id="使用鸢尾花数据集训练这个分类模型"><a href="#使用鸢尾花数据集训练这个分类模型" class="headerlink" title="使用鸢尾花数据集训练这个分类模型"></a>使用鸢尾花数据集训练这个分类模型</h2><p>为了测试我们这个的效果,我们将对山鸢尾和变色秋海棠两种不同的花进行分类,虽然特征不一定要是二维的,但是为了展示方便,我们使用两个特征萼片长度和花瓣长度作为特征.</p>
-<p>我们首先使用<code>pandas</code>将数据从数据库中加载出来,并且看看大概</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">df=pd.read_csv(<span class="string">&#x27;https://archive.ics.uci.edu/ml/&#x27;</span></span><br><span class="line">               <span class="string">&#x27;machine-learning-databases/iris/iris.data&#x27;</span>,</span><br><span class="line">               header=<span class="literal">None</span>)</span><br><span class="line">df.tail()               </span><br></pre></td></tr></table></figure>
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-<pre><code>.dataframe tbody tr th &#123;
-    vertical-align: top;
-&#125;
-
-.dataframe thead th &#123;
-    text-align: right;
-&#125;
-</code></pre>
-<p></style></p>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>0</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>145</th>
-      <td>6.7</td>
-      <td>3.0</td>
-      <td>5.2</td>
-      <td>2.3</td>
-      <td>Iris-virginica</td>
-    </tr>
-    <tr>
-      <th>146</th>
-      <td>6.3</td>
-      <td>2.5</td>
-      <td>5.0</td>
-      <td>1.9</td>
-      <td>Iris-virginica</td>
-    </tr>
-    <tr>
-      <th>147</th>
-      <td>6.5</td>
-      <td>3.0</td>
-      <td>5.2</td>
-      <td>2.0</td>
-      <td>Iris-virginica</td>
-    </tr>
-    <tr>
-      <th>148</th>
-      <td>6.2</td>
-      <td>3.4</td>
-      <td>5.4</td>
-      <td>2.3</td>
-      <td>Iris-virginica</td>
-    </tr>
-    <tr>
-      <th>149</th>
-      <td>5.9</td>
-      <td>3.0</td>
-      <td>5.1</td>
-      <td>1.8</td>
-      <td>Iris-virginica</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-<p>接下来,我们将前50个山鸢尾和前50个变色秋海棠的记录提取出来,分别标记为-1和1</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">y=df.iloc[<span class="number">0</span>:<span class="number">100</span>,<span class="number">4</span>].values</span><br><span class="line">y=np.where(y==<span class="string">&#x27;Iris-setosa&#x27;</span>,-<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">X=df.iloc[<span class="number">0</span>:<span class="number">100</span>,[<span class="number">0</span>,<span class="number">2</span>]].values</span><br><span class="line"></span><br><span class="line">plt.scatter(X[y==-<span class="number">1</span>,<span class="number">0</span>],X[y==-<span class="number">1</span>,<span class="number">1</span>],color=<span class="string">&#x27;red&#x27;</span>,marker=<span class="string">&#x27;o&#x27;</span>,label=<span class="string">&#x27;setosa&#x27;</span>)</span><br><span class="line">plt.scatter(X[y==<span class="number">1</span>,<span class="number">0</span>],X[y==<span class="number">1</span>,<span class="number">1</span>],color=<span class="string">&#x27;blue&#x27;</span>,marker=<span class="string">&#x27;x&#x27;</span>,label=<span class="string">&#x27;versicolor&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;sepal length [cm]&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;petal length [cm]&quot;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2023/01/24/machine-learning/machine1/11_0.png" alt="png"></p>
-<p>我们可以从上面那张图中看出来两种花可以被很好的区分开来,接下来我们来训练一下试试</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">model=Perception(<span class="number">0.001</span>)<span class="comment">#这里特地将eta调的很小使得梯度下降过程明显</span></span><br><span class="line">model.fitdata(X,y)</span><br><span class="line">plt.plot(<span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(model.errors_)+<span class="number">1</span>),model.errors_,<span class="string">&#x27;o-&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;Epochs&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;errors&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<pre><code>The fitting have completed
-</code></pre>
-<p><img src="/2023/01/24/machine-learning/machine1/13_1.png" alt="png"></p>
-<p>可以注意到,最后的<code>errors</code>已经为0,为了进一步观察我们拟合的效果,我们将定义一个函数用来描绘决定区间</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> matplotlib.colors <span class="keyword">import</span> ListedColormap</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">plot_decision_regions</span>(<span class="params">X,y,classifier,resolution=<span class="number">0.02</span></span>):</span><br><span class="line">    <span class="comment">#setup marker generator and color map</span></span><br><span class="line">    markers = (<span class="string">&#x27;s&#x27;</span>, <span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;^&#x27;</span>, <span class="string">&#x27;v&#x27;</span>)</span><br><span class="line">    colors = (<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;lightgreen&#x27;</span>, <span class="string">&#x27;gray&#x27;</span>, <span class="string">&#x27;cyan&#x27;</span>)</span><br><span class="line">    cmap = ListedColormap(colors[:<span class="built_in">len</span>(np.unique(y))])<span class="comment"># unique函数可以找到所有独立的元素</span></span><br><span class="line">    <span class="comment">#plot the surface</span></span><br><span class="line">    x1_min,x1_max=X[:,<span class="number">0</span>].<span class="built_in">min</span>()-<span class="number">1</span>,X[:,<span class="number">0</span>].<span class="built_in">max</span>()+<span class="number">1</span></span><br><span class="line">    x2_min,x2_max=X[:,<span class="number">1</span>].<span class="built_in">min</span>()-<span class="number">1</span>,X[:,<span class="number">1</span>].<span class="built_in">max</span>()+<span class="number">1</span><span class="comment">#X1,X2分别是X轴Y轴</span></span><br><span class="line">    xx1,xx2=np.meshgrid(np.arange(x1_min,x1_max,resolution),</span><br><span class="line">                        np.arange(x2_min,x2_max,resolution))</span><br><span class="line">    Z=classifier.predict(np.array([xx1.ravel(),xx2.ravel()]).T)<span class="comment">#这里要将数组展平(这里面的向量操作非常有趣)</span></span><br><span class="line">    Z=Z.reshape(xx1.shape)</span><br><span class="line">    plt.contourf(xx1,xx2,Z,alpha=<span class="number">0.3</span>,cmap=cmap)</span><br><span class="line">    plt.xlim(xx1.<span class="built_in">min</span>(),xx1.<span class="built_in">max</span>())</span><br><span class="line">    plt.ylim(xx2.<span class="built_in">min</span>(),xx2.<span class="built_in">max</span>())</span><br><span class="line">    <span class="comment">#plot class samples</span></span><br><span class="line">    <span class="keyword">for</span> idx,cl <span class="keyword">in</span> <span class="built_in">enumerate</span>(np.unique(y)):<span class="comment">#这里使用enumerate来同时获得标签</span></span><br><span class="line">        plt.scatter(x=X[y==cl,<span class="number">0</span>],</span><br><span class="line">                    y=X[y==cl,<span class="number">1</span>],</span><br><span class="line">                    alpha=<span class="number">0.8</span>,</span><br><span class="line">                    c=colors[idx],</span><br><span class="line">                    marker=markers[idx],</span><br><span class="line">                    label=cl,</span><br><span class="line">                    edgecolors=<span class="string">&#x27;black&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>接下来,我们来展示一下绘图的结果</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plot_decision_regions(X,y,classifier=model)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;sepal length [cm]&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;petal length [cm]&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<pre><code>C:\Users\lison\AppData\Local\Temp\ipykernel_25612\3891387916.py:20: UserWarning: You passed a edgecolor/edgecolors (&#39;black&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
-  plt.scatter(x=X[y==cl,0],
-</code></pre>
-<p><img src="/2023/01/24/machine-learning/machine1/17_1.png" alt="png"></p>
-<blockquote>
-<p>刚刚我们实现的可以被认为是一个单层的神经网络</p>
-</blockquote>
-<h2 id="可适应性线性神经元与学习收敛"><a href="#可适应性线性神经元与学习收敛" class="headerlink" title="可适应性线性神经元与学习收敛"></a>可适应性线性神经元与学习收敛</h2><p>在这一部分,我们将研究另外一种单层神经网络:ADAptive LInear NEuron(<code>Adaline</code>)<br>这种算法非常有趣因为其展现了关于定义和最小化连续损失函数的方法,这便于让我们理解之后我们所用的相关函数<br><code>Adaline</code>算法与感知机最关键的区别在于权重函数是使用一个线性激发函数而非一个单位阶跃函数,在<code>Adaline</code>算法中<br>这样一个线性激发函数就是网络输入的线性函数因此有:<br>$$\phi(w^Tx)&#x3D;w^Tx$$<br>虽然激发函数是用在学习权重的,但我们也可以用其来评估最后结果,<code>ADaline</code>的特殊性可以用下面一张图来展示<br><img src="/2023/01/24/machine-learning/machine1/image-20230124170927708.png" alt="png"></p>
-<h3 id="使用梯度下降法最小化损失函数"><a href="#使用梯度下降法最小化损失函数" class="headerlink" title="使用梯度下降法最小化损失函数"></a>使用梯度下降法最小化损失函数</h3><p>对于<code>Adaline</code>而言,我们可以定义损失函数$J$并且使用方均根法得到权重<br>$$J(\omega)&#x3D;\frac{1}{2}\sum_i(y^{(i)}-\phi(z^{(i)}))^2$$<br>在该式中,$\frac{1}{2}$只是为了方便求梯度,接下来我们就可以使用一个非常有效的方法<strong>梯度下降法</strong>来使损失函数最小,原理为<br>$$\Delta \omega&#x3D;-\eta\nabla J(\omega)$$<br>梯度的计算为<br>$$\frac{\partial J}{\partial \omega_j}&#x3D;-\sum_i(y^{(i)}-\phi(z^{(i)}))x^{(i)}_j$$</p>
-<blockquote>
-<p>需要注意一个计算上的不同,在此处我们的计算是<strong>所有样本一起算的</strong>而不是像之前一样<strong>一个样本更新一次</strong></p>
-</blockquote>
-<h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AdalineGD</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,eta=<span class="number">0.001</span>,n_iter=<span class="number">100</span>,random_state=<span class="number">1</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        self.eta=eta</span><br><span class="line">        self.n_iter=n_iter</span><br><span class="line">        self.random_state=random_state</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fit</span>(<span class="params">self,X,y</span>):</span><br><span class="line">        rgen=np.random.RandomState(self.random_state)</span><br><span class="line">        self.w_=rgen.normal(<span class="number">0.0</span>,<span class="number">0.1</span>,size=<span class="number">1</span>+X.shape[<span class="number">1</span>])</span><br><span class="line">        self.cost_=[]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.n_iter):</span><br><span class="line">            err,errg,errw0=self._calc_cost(X,y)</span><br><span class="line">            self.cost_.append(err)</span><br><span class="line">            self.w_[<span class="number">1</span>:]+=-self.eta*errg</span><br><span class="line">            self.w_[<span class="number">0</span>]+=-self.eta*errw0</span><br><span class="line">            </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_calc_cost</span>(<span class="params">self,X,y</span>):</span><br><span class="line">        yp=(np.dot(X,self.w_[<span class="number">1</span>:].reshape(-<span class="number">1</span>,<span class="number">1</span>))+self.w_[<span class="number">0</span>]).reshape(<span class="number">1</span>,-<span class="number">1</span>)</span><br><span class="line">        <span class="comment">#print(yp)</span></span><br><span class="line">        err=np.<span class="built_in">sum</span>((yp[<span class="number">0</span>]-y)**<span class="number">2</span>)/<span class="number">2</span></span><br><span class="line">        errg=np.dot((yp[<span class="number">0</span>]-y),X)</span><br><span class="line">        errw0=np.<span class="built_in">sum</span>(yp[<span class="number">0</span>]-y)</span><br><span class="line">        <span class="keyword">return</span> err,errg[<span class="number">0</span>],errw0</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">predict</span>(<span class="params">self,X</span>):</span><br><span class="line">        <span class="keyword">return</span> np.where(np.dot(X,self.w_[<span class="number">1</span>:])+self.w_[<span class="number">0</span>]&gt;<span class="number">0</span>,<span class="number">1</span>,-<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
-<p>接下来,我们将之前的数据输入进去试一试看看如何</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">y=df.iloc[<span class="number">0</span>:<span class="number">100</span>,<span class="number">4</span>].values</span><br><span class="line">y=np.where(y==<span class="string">&#x27;Iris-setosa&#x27;</span>,-<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">X=df.iloc[<span class="number">0</span>:<span class="number">100</span>,[<span class="number">0</span>,<span class="number">2</span>]].values</span><br><span class="line">adamodel=AdalineGD()</span><br><span class="line">adamodel.fit(X,y)</span><br><span class="line">plt.plot(<span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(adamodel.cost_)+<span class="number">1</span>),np.log(adamodel.cost_),<span class="string">&#x27;-&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;Epochs&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;log(cost)&#x27;</span>)</span><br><span class="line">plt.show()</span><br><span class="line">adamodel.w_</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2023/01/24/machine-learning/machine1/24_0.png" alt="png"><br>​    </p>
-<pre><code>array([-3.89410517e+55, -2.18332011e+56, -2.18332011e+56])
-</code></pre>
-<p>可以发现,程序直接爆炸,此时可能是$eta$调大了,我们把$eta$调为1E-5试试</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">y=df.iloc[<span class="number">0</span>:<span class="number">100</span>,<span class="number">4</span>].values</span><br><span class="line">y=np.where(y==<span class="string">&#x27;Iris-setosa&#x27;</span>,-<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">X=df.iloc[<span class="number">0</span>:<span class="number">100</span>,[<span class="number">0</span>,<span class="number">2</span>]].values</span><br><span class="line">adamodel=AdalineGD(eta=<span class="number">4E-4</span>,n_iter=<span class="number">10000</span>)</span><br><span class="line">adamodel.fit(X,y)</span><br><span class="line">plt.plot(<span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(adamodel.cost_)+<span class="number">1</span>),adamodel.cost_,<span class="string">&#x27;-&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;Epochs&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;log(cost)&#x27;</span>)</span><br><span class="line">plt.show()</span><br><span class="line">adamodel.w_</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2023/01/24/machine-learning/machine1/26_0.png" alt="png"><br>​    </p>
-<pre><code>array([-3.33272936,  0.39707341,  0.40543187])
-</code></pre>
-<p>可以注意到,逐渐在趋向一个稳定值,这之中存在的问题可以用下图展示<br><img src="/2023/01/24/machine-learning/machine1/image-20230124171511278.png" alt="png"></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plot_decision_regions(X,y,classifier=adamodel)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;sepal length [cm]&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;petal length [cm]&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<pre><code>C:\Users\lison\AppData\Local\Temp\ipykernel_25612\3891387916.py:20: UserWarning: You passed a edgecolor/edgecolors (&#39;black&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
-  plt.scatter(x=X[y==cl,0],
-</code></pre>
-<p><img src="/2023/01/24/machine-learning/machine1/28_1.png" alt="png"></p>
-<p>可以注意到,这种计算方法非常依赖初值,而且最后也没有完全分开来,并不是非常理想,因此需要优化</p>
-<h3 id="使用标准化提升梯度下降法效果"><a href="#使用标准化提升梯度下降法效果" class="headerlink" title="使用标准化提升梯度下降法效果"></a>使用标准化提升梯度下降法效果</h3><p>标准化是一个机器学习过程中的非常重要的手段,在这一部分中,我们使用一种<em>正态分布标准化</em><br>这种方法假定数据呈现出正态分布,处理的手段是将数据减去平均值并且除以数据的标准差,即:<br>$$x_j’&#x3D;\frac{x_j-\mu}{\sigma}$$<br>这么做的好处在于可以让优化器更快的实现达到最低值</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">X_std=np.copy(X)</span><br><span class="line">X_std[:,<span class="number">0</span>]=(X[:,<span class="number">0</span>]-X[:,<span class="number">0</span>].mean())/X[:,<span class="number">0</span>].std()</span><br><span class="line">X_std[:,<span class="number">1</span>]=(X[:,<span class="number">1</span>]-X[:,<span class="number">1</span>].mean())/X[:,<span class="number">1</span>].std()</span><br></pre></td></tr></table></figure>
-
-<p>在标准化之后,我们将数据输入到前面的模型中</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">stdada=AdalineGD(<span class="number">1E-3</span>,<span class="number">150</span>,<span class="number">1</span>)</span><br><span class="line">stdada.fit(X_std,y)</span><br><span class="line">plot_decision_regions(X_std,y,classifier=stdada)</span><br></pre></td></tr></table></figure>
-
-<pre><code>C:\Users\lison\AppData\Local\Temp\ipykernel_25612\3891387916.py:20: UserWarning: You passed a edgecolor/edgecolors (&#39;black&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
-  plt.scatter(x=X[y==cl,0],
-</code></pre>
-<p><img src="/2023/01/24/machine-learning/machine1/33_1.png" alt="png"></p>
-<p>效果变好了一些(但实际上初值问题仍然存在)</p>
-<h2 id="大规模机器学习与随机梯度下降法"><a href="#大规模机器学习与随机梯度下降法" class="headerlink" title="大规模机器学习与随机梯度下降法"></a>大规模机器学习与随机梯度下降法</h2><p>现在我们考虑一个非常巨大的数据集(可能有上百万的数据)<br>我们现在用另外一种方式,对于每一个数据,都对$\Delta \omega$进行一次更新,实际上随机梯度下降法达到稳定的速度快于批量梯度下降法(虽然前者看起来是后者的近似)</p>
-<p>为了更好的进行梯度下降法,我们需要对数据进行一个更好的随机化处理<br>同时,这么做还有一个好处,因为在一些网络程序之中,数据和模型的训练是同步进行的</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>python</tag>
-        <tag>机器学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>对于数字信号处理的手段</title>
-    <url>/2023/01/24/MPS010602/process-logical/</url>
-    <content><![CDATA[<p>之前研究过对于<code>MPS010602</code>中的数字信号,应当如何处理(在其中使用二进制位来表示逻辑),今天恰好看到了<code>numpy.bitwise_xor</code>函数,会非常有用,在此记录一下</p>
-<h2 id="逻辑位操作"><a href="#逻辑位操作" class="headerlink" title="逻辑位操作"></a>逻辑位操作</h2><p>在<code>numpy</code>库中有相应的逻辑操作函数,而最大的特点就在于它们可以实现向量化,这对于我们应用的场景来说非常重要.</p>
-<p>其使用的方法与&amp;类似,主要看代码,以下代码展示如何从一个八进制数取出某一位的数字信号</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_binary</span>(<span class="params">data_array:np.array,bit:<span class="built_in">int</span></span>):</span><br><span class="line">    check=<span class="number">1</span>&lt;&lt;bit</span><br><span class="line">    ca=np.array([check])</span><br><span class="line">    dataout=np.bitwise_and(data_array,ca)</span><br><span class="line">    <span class="keyword">return</span> np.where(dataout==<span class="number">0</span>,<span class="literal">False</span>,<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>MPS010602</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>

@@ -20,22 +20,21 @@
     var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="在编写程序,尤其是某些运行时间长,中间存在可能错误的程序,往往需要记录日志以便于调试.   但是日志的编写往往存在大量重复劳动,并且对于我目前的状况来讲可能需要在已有的程序中添加日志代码.   经过相关资料查阅,我找到了一个内置logging库,其可以较好地实现对于日志的编写.但是查阅了一下相关资料后,发现似乎logging的使用较为复杂,我们往往不需要那么复杂的应用场景,因此我在这里选择另外一个">
+  <meta name="description" content="编译一时爽,环境火葬场  因为使用A*算法对于路径的寻找需要更高的效率,很明显,python自身完全不能满足我们的需求,因此使用C++编写python扩展变得非常重要. 不幸的是,我昨天花了整整一天都没有解决这个问题,但是今天却进行的异常顺利,下面我来讲一下在使用C++编写python中的几个坑">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用loguru编写日志文件">
-<meta property="og:url" content="https://lsyxiaopang.github.io/2023/01/27/misc/pylog/index.html">
+<meta property="og:title" content="使用C++为python编写扩展">
+<meta property="og:url" content="https://lsyxiaopang.github.io/2023/02/05/misc/cpython/index.html">
 <meta property="og:site_name" content="Songyuli&#39;s blog">
-<meta property="og:description" content="在编写程序,尤其是某些运行时间长,中间存在可能错误的程序,往往需要记录日志以便于调试.   但是日志的编写往往存在大量重复劳动,并且对于我目前的状况来讲可能需要在已有的程序中添加日志代码.   经过相关资料查阅,我找到了一个内置logging库,其可以较好地实现对于日志的编写.但是查阅了一下相关资料后,发现似乎logging的使用较为复杂,我们往往不需要那么复杂的应用场景,因此我在这里选择另外一个">
+<meta property="og:description" content="编译一时爽,环境火葬场  因为使用A*算法对于路径的寻找需要更高的效率,很明显,python自身完全不能满足我们的需求,因此使用C++编写python扩展变得非常重要. 不幸的是,我昨天花了整整一天都没有解决这个问题,但是今天却进行的异常顺利,下面我来讲一下在使用C++编写python中的几个坑">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://lsyxiaopang.github.io/2023/01/27/misc/pylog/image-20230127192915053.png">
-<meta property="article:published_time" content="2023-01-27T11:02:22.000Z">
-<meta property="article:modified_time" content="2023-01-28T14:13:15.853Z">
+<meta property="article:published_time" content="2023-02-05T02:42:25.000Z">
+<meta property="article:modified_time" content="2023-02-05T12:02:29.187Z">
 <meta property="article:author" content="Songyuli">
 <meta property="article:tag" content="python">
+<meta property="article:tag" content="c++">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://lsyxiaopang.github.io/2023/01/27/misc/pylog/image-20230127192915053.png">
 
-<link rel="canonical" href="https://lsyxiaopang.github.io/2023/01/27/misc/pylog/">
+<link rel="canonical" href="https://lsyxiaopang.github.io/2023/02/05/misc/cpython/">
 
 
 <script id="page-configurations">
@@ -48,7 +47,7 @@
   };
 </script>
 
-  <title>使用loguru编写日志文件 | Songyuli's blog</title>
+  <title>使用C++为python编写扩展 | Songyuli's blog</title>
   
 
 
@@ -208,7 +207,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/27/misc/pylog/">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/05/misc/cpython/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -221,7 +220,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          使用loguru编写日志文件
+          使用C++为python编写扩展
         </h1>
 
         <div class="post-meta">
@@ -230,16 +229,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2023-01-27 19:02:22" itemprop="dateCreated datePublished" datetime="2023-01-27T19:02:22+08:00">2023-01-27</time>
+              <time title="Created: 2023-02-05 10:42:25 / Modified: 20:02:29" itemprop="dateCreated datePublished" datetime="2023-02-05T10:42:25+08:00">2023-02-05</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-28 22:13:15" itemprop="dateModified" datetime="2023-01-28T22:13:15+08:00">2023-01-28</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -259,8 +252,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2023/01/27/misc/pylog/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/27/misc/pylog/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2023/02/05/misc/cpython/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/02/05/misc/cpython/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -275,107 +268,49 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>在编写程序,尤其是某些运行时间长,中间存在可能错误的程序,往往需要记录日志以便于调试.  </p>
-<p>但是日志的编写往往存在大量重复劳动,并且对于我目前的状况来讲可能需要在已有的程序中添加日志代码.  </p>
-<p>经过相关资料查阅,我找到了一个内置<code>logging</code>库,其可以较好地实现对于日志的编写.但是查阅了一下相关资料后,发现似乎<code>logging</code>的使用较为复杂,我们往往不需要那么复杂的应用场景,因此我在这里选择另外一个库<code>loguru</code>对日志进行记录</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>如果使用<code>anaconda</code>,可以用以下命令安装:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install -c conda-forge loguru</span><br></pre></td></tr></table></figure>
-
-<h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><p>我们可以直接利用封装好的<code>logger</code>对象,直接对不同级别的日志进行输出,例如使用以下代码可以实现不同级别的日志:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> loguru <span class="keyword">import</span> logger</span><br><span class="line"></span><br><span class="line">logger.debug(<span class="string">&#x27;This is debug information&#x27;</span>)</span><br><span class="line">logger.info(<span class="string">&#x27;This is info information&#x27;</span>)</span><br><span class="line">logger.warning(<span class="string">&#x27;This is warn information&#x27;</span>)</span><br><span class="line">logger.error(<span class="string">&#x27;This is error information&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>可以注意到在运行时,其对于不同级别的结果,有着不同的格式化与颜色</p>
-<p><img src="/2023/01/27/misc/pylog/image-20230127192915053.png" alt="image-20230127192915053"></p>
-<p>接下来,我们可以注意到<code>logger</code>编写日志的一个优势在于其无需设定复杂的如处理器,过滤器等信息</p>
-<h2 id="输出到文件"><a href="#输出到文件" class="headerlink" title="输出到文件"></a>输出到文件</h2><p>我们往往需要将数据输出到文件,<em>尤其是在使用如<code>xspec</code>这样自己会有大量数据输出的程序</em>(默认是在<code>sys.std_err</code>中输出),可以使用<code>add</code>改变输出位置(<code>add</code>的具体用法之后会讲)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logger.add(<span class="string">&quot;file_&#123;time&#125;.log&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>其中<code>&#123;time&#125;</code>会自动替换为当前时间,还有其他的格式化字典如下:  </p>
-<table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Description</th>
-<th>Attributes</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>elapsed</td>
-<td>The time elapsed since the start of the program</td>
-<td>See <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta"><code>datetime.timedelta</code></a></td>
-</tr>
-<tr>
-<td>exception</td>
-<td>The formatted exception if any, <code>None</code> otherwise</td>
-<td><code>type</code>, <code>value</code>, <code>traceback</code></td>
-</tr>
-<tr>
-<td>extra</td>
-<td>The dict of attributes bound by the user (see <a target="_blank" rel="noopener" href="https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind"><code>bind()</code></a>)</td>
-<td>None</td>
-</tr>
-<tr>
-<td>file</td>
-<td>The file where the logging call was made</td>
-<td><code>name</code> (default), <code>path</code></td>
-</tr>
-<tr>
-<td>function</td>
-<td>The function from which the logging call was made</td>
-<td>None</td>
-</tr>
-<tr>
-<td>level</td>
-<td>The severity used to log the message</td>
-<td><code>name</code> (default), <code>no</code>, <code>icon</code></td>
-</tr>
-<tr>
-<td>line</td>
-<td>The line number in the source code</td>
-<td>None</td>
-</tr>
-<tr>
-<td>message</td>
-<td>The logged message (not yet formatted)</td>
-<td>None</td>
-</tr>
-<tr>
-<td>module</td>
-<td>The module where the logging call was made</td>
-<td>None</td>
-</tr>
-<tr>
-<td>name</td>
-<td>The <code>__name__</code> where the logging call was made</td>
-<td>None</td>
-</tr>
-<tr>
-<td>process</td>
-<td>The process in which the logging call was made</td>
-<td><code>name</code>, <code>id</code> (default)</td>
-</tr>
-<tr>
-<td>thread</td>
-<td>The thread in which the logging call was made</td>
-<td><code>name</code>, <code>id</code> (default)</td>
-</tr>
-<tr>
-<td>time</td>
-<td>The aware local time when the logging call was made</td>
-<td></td>
-</tr>
-</tbody></table>
-<p>输出到文件还有滚动和压缩等功能,在这里不再过多赘述(目前也用不到)</p>
-<blockquote>
-<p>关于字符着色:</p>
-<p>字符着色的问题是通过调节<code>add</code>中的参数<code>colorize</code>来控制的,其添加后有好处有坏处</p>
-<p>好处在于可以使用<code>tail -f</code>等很方便看到数据内容</p>
-<p>坏处在于由于字符串着色的机理是通过添加字符串进行的,会对编辑器查看带来不便</p>
-<p>因此可以尝试同时记录两个log</p>
+        <blockquote>
+<p>编译一时爽,环境火葬场</p>
 </blockquote>
-<h2 id="过滤器与格式化"><a href="#过滤器与格式化" class="headerlink" title="过滤器与格式化"></a>过滤器与格式化</h2><p>下面是关于更加复杂的过滤器写法和格式化写法的问题,这里不涉及(可能以后会),可以先看参考资料</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://github.com/Delgan/loguru">源代码与特性介绍</a></p>
-<p><a target="_blank" rel="noopener" href="https://loguru.readthedocs.io/en/stable/api/logger.html">类定义</a></p>
+<p>因为使用A*算法对于路径的寻找需要更高的效率,很明显,python自身完全不能满足我们的需求,因此使用C++编写python扩展变得非常重要.</p>
+<p>不幸的是,我昨天花了整整一天都没有解决这个问题,但是今天却进行的异常顺利,下面我来讲一下在使用C++编写python中的几个坑</p>
+<span id="more"></span>
+
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>我们使用的是<code>pybind</code>的库,具体<code>pybind</code>应当如何使用在这里我就不过多介绍了,下面先贴出来我用做测试的代码:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;pybind11/pybind11.h&quot;</span></span></span><br><span class="line"><span class="keyword">namespace</span> py = pybind11;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">testadd</span><span class="params">(<span class="type">int</span> i,<span class="type">int</span> j)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> i+j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">PYBIND11_MODULE</span>(pytest2,m)</span><br><span class="line">&#123;</span><br><span class="line">    m.<span class="built_in">def</span>(<span class="string">&quot;testadd&quot;</span>,&amp;testadd,<span class="string">&quot;A function to add&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>需要注意将安装好的<code>pybind11</code>中的<code>include</code>文件夹的<code>pybind11</code>文件夹拷贝到工程文件夹中.</p>
+<h2 id="使用g-直接编译"><a href="#使用g-直接编译" class="headerlink" title="使用g++直接编译"></a>使用g++直接编译</h2><p>接下来就到了万恶的编译环节,首先,我看见文档里面直接给<code>g++</code>编译的命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -O3 -march=native -Wall -shared -std=c++11 -fPIC `python3 -m pybind11 --includes` test.cpp -o test `python3-config --extension-suffix`</span><br></pre></td></tr></table></figure>
+
+<p>这个命令看起来很简单,但是存在一个问题,里面依赖<code>python-config</code>命令的输出,但是众所周知,这个命令只有在Linux下才能使用.</p>
+<blockquote>
+<p>我再一次感觉到了windows开发的险恶</p>
+</blockquote>
+<h2 id="使用CMake编译"><a href="#使用CMake编译" class="headerlink" title="使用CMake编译"></a>使用CMake编译</h2><p>接下来,我看到网上说<code>cmake</code>可以进行编译,这样看起来挺好,然而暗藏杀机.</p>
+<p>因为<code>cmake</code>也需要类似于<code>python-config</code>的环境,然后虽然我安装<code>mingw</code>确实来了一个<code>python-config</code>但是这会导致我编译工具链使用的是MS的产品,但是采用的解释器却是GCC编译的.</p>
+<blockquote>
+<p>中间省略了因为使用<code>anaconda</code>而不得不一步步教<code>cmake</code>如何找到我的<code>pybind</code>的过程</p>
+</blockquote>
+<p>然后这就带来一个完全爆炸<code>.pyd</code>文件,这个<code>pyd</code>在<code>mingw</code>里面的python不认,然后到了<code>conda</code>里面的python直接提示我dll丢失.</p>
+<blockquote>
+<p>你以为我没查Google,直接提示你:<em>“你安装的库可能有误,建议卸载重装”</em></p>
+<p>我自己写的库怎么卸载重装</p>
+</blockquote>
+<p>但是如果我换做<code>mingw</code>编译,则更加刺激,直接python给我闪退了</p>
+<blockquote>
+<p>我拿<code>windbg</code>查了一下,是内存冲突,但是别的我也不知道了</p>
+</blockquote>
+<h2 id="使用setup-py编译"><a href="#使用setup-py编译" class="headerlink" title="使用setup.py编译"></a>使用<code>setup.py</code>编译</h2><p>这种方法看起来简单,但是结果和那<code>CMake</code>一样</p>
+<p>简而言之,我电脑的状态就是这样:</p>
+<ol>
+<li>使用windows操作系统</li>
+<li>卸载了<code>VisualStudio</code></li>
+<li>装了<code>mingw</code></li>
+<li>使用<code>anaconda</code>管理python环境</li>
+</ol>
+<p>直接buff叠满,能做出来才有鬼.</p>
+<h2 id="使用cppimport"><a href="#使用cppimport" class="headerlink" title="使用cppimport"></a>使用<code>cppimport</code></h2><p>这是我目前看到的最好的方法来处理这个问题,<a target="_blank" rel="noopener" href="https://github.com/tbenthompson/cppimport">源网页</a></p>
+<p>使用这个的好处在于反正我编译出来成功了</p>
 
     </div>
 
@@ -386,6 +321,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/c/" rel="tag"># c++</a>
           </div>
 
         
@@ -394,12 +330,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/01/26/misc/graphviz/" rel="prev" title="所思即所得,一些画图软件(包)介绍">
-      <i class="fa fa-chevron-left"></i> 所思即所得,一些画图软件(包)介绍
+    <a href="/2023/01/31/control%20system/close-sys1/" rel="prev" title="关注闭环系统的控制系统设计(上)">
+      <i class="fa fa-chevron-left"></i> 关注闭环系统的控制系统设计(上)
     </a></div>
       <div class="post-nav-item">
-    <a href="/2023/01/30/misc/pythonsmtp/" rel="next" title="使用python发送邮件">
-      使用python发送邮件 <i class="fa fa-chevron-right"></i>
+    <a href="/2023/02/05/control%20system/closecontrol2/" rel="next" title="关注闭环系统的控制系统设计(下)">
+      关注闭环系统的控制系统设计(下) <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -466,7 +402,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">简单使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E5%88%B0%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">输出到文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8%E4%B8%8E%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">过滤器与格式化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8g-%E7%9B%B4%E6%8E%A5%E7%BC%96%E8%AF%91"><span class="nav-number">2.</span> <span class="nav-text">使用g++直接编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8CMake%E7%BC%96%E8%AF%91"><span class="nav-number">3.</span> <span class="nav-text">使用CMake编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8setup-py%E7%BC%96%E8%AF%91"><span class="nav-number">4.</span> <span class="nav-text">使用setup.py编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8cppimport"><span class="nav-number">5.</span> <span class="nav-text">使用cppimport</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -598,9 +534,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://lsyxiaopang.github.io/2023/01/27/misc/pylog/";
-    this.page.identifier = "2023/01/27/misc/pylog/";
-    this.page.title = "使用loguru编写日志文件";
+    this.page.url = "https://lsyxiaopang.github.io/2023/02/05/misc/cpython/";
+    this.page.identifier = "2023/02/05/misc/cpython/";
+    this.page.title = "使用C++为python编写扩展";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

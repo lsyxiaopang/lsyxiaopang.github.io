@@ -1240,7 +1240,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #f467ff;
+  background: #42bbff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1602,7 +1602,7 @@ pre .javascript .function {
 }
 .post-body .exturl .fa {
   font-size: 0.875em;
-  margin-left: 4px;
+  margin-left: 50px;
 }
 .post-body .image-caption,
 .post-body .figure .caption {
@@ -1621,7 +1621,14 @@ pre .javascript .function {
   margin-top: 40px;
   text-align: center;
 }
-.use-motion .post-block,
+.use-motion .post-block {
+  opacity: 0;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  padding: 25px;
+  -webkit-box-shadow: 0 0 5px #cacbcb;
+  -moz-box-shadow: 0 0 5px #cacbcc;
+}
 .use-motion .pagination,
 .use-motion .comments {
   opacity: 0;
@@ -2354,7 +2361,7 @@ hr {
   }
 }
 .pagination {
-  margin: 120px 0 0;
+  margin: 120px 20px 0;
   text-align: left;
 }
 @media (max-width: 767px) {
