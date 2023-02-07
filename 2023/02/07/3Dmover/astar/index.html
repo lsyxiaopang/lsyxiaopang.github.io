@@ -20,21 +20,22 @@
     var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="完成路径规划的RoutePlanner类,实现从点集(datapoints)到路径命令(routecmd)的转换 使用算法使用的算法参考自参考资料,我们的问题是一个旅行商问题,因此没有一个多项式时间内可以实现的最优算法 但是我们需要注意到,我们所面临的图是一个完全图,并且近似满足三角不等式.因此可以使用最小生成树的方法得到近似解,其结果不会大于最优解的两倍 实现由于未来需要保留避障措施,但是避障之">
+  <meta name="description" content="在上一篇文章中我曾经提到有一种较好的替代算法,A*算法来处理存在障碍物的情况下对路径的寻找 不过这种算法存在一个限制条件,就是其必须在网格内执行,而不是矢量(这看起来很正常,因为矢量的算法可以说几乎找不到) 同时由于这种算法的性质,其运算过程是难以矢量化的,所以直接拿python去跑会变得非常让人难以接受,因此我们必须拿C++来实现这个功能 具体而言,我们可以将这个问题转化为:网格化-&gt;A*">
 <meta property="og:type" content="article">
-<meta property="og:title" content="3D位移平台路径开发器记录1">
-<meta property="og:url" content="https://lsyxiaopang.github.io/2023/01/16/3Dmover/3Dmove2/index.html">
+<meta property="og:title" content="路径规划器设计 升级版">
+<meta property="og:url" content="https://lsyxiaopang.github.io/2023/02/07/3Dmover/astar/index.html">
 <meta property="og:site_name" content="Songyuli&#39;s blog">
-<meta property="og:description" content="完成路径规划的RoutePlanner类,实现从点集(datapoints)到路径命令(routecmd)的转换 使用算法使用的算法参考自参考资料,我们的问题是一个旅行商问题,因此没有一个多项式时间内可以实现的最优算法 但是我们需要注意到,我们所面临的图是一个完全图,并且近似满足三角不等式.因此可以使用最小生成树的方法得到近似解,其结果不会大于最优解的两倍 实现由于未来需要保留避障措施,但是避障之">
+<meta property="og:description" content="在上一篇文章中我曾经提到有一种较好的替代算法,A*算法来处理存在障碍物的情况下对路径的寻找 不过这种算法存在一个限制条件,就是其必须在网格内执行,而不是矢量(这看起来很正常,因为矢量的算法可以说几乎找不到) 同时由于这种算法的性质,其运算过程是难以矢量化的,所以直接拿python去跑会变得非常让人难以接受,因此我们必须拿C++来实现这个功能 具体而言,我们可以将这个问题转化为:网格化-&gt;A*">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-01-15T16:13:13.000Z">
-<meta property="article:modified_time" content="2023-01-15T16:15:33.222Z">
+<meta property="article:published_time" content="2023-02-07T04:36:14.000Z">
+<meta property="article:modified_time" content="2023-02-07T08:04:15.383Z">
 <meta property="article:author" content="Songyuli">
 <meta property="article:tag" content="3D位移平台">
-<meta property="article:tag" content="算法">
+<meta property="article:tag" content="程序规划">
+<meta property="article:tag" content="c++">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://lsyxiaopang.github.io/2023/01/16/3Dmover/3Dmove2/">
+<link rel="canonical" href="https://lsyxiaopang.github.io/2023/02/07/3Dmover/astar/">
 
 
 <script id="page-configurations">
@@ -47,7 +48,7 @@
   };
 </script>
 
-  <title>3D位移平台路径开发器记录1 | Songyuli's blog</title>
+  <title>路径规划器设计 升级版 | Songyuli's blog</title>
   
 
 
@@ -207,7 +208,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/16/3Dmover/3Dmove2/">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/07/3Dmover/astar/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -220,7 +221,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          3D位移平台路径开发器记录1
+          路径规划器设计 升级版
         </h1>
 
         <div class="post-meta">
@@ -231,7 +232,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2023-01-16 00:13:13 / Modified: 00:15:33" itemprop="dateCreated datePublished" datetime="2023-01-16T00:13:13+08:00">2023-01-16</time>
+              <time title="Created: 2023-02-07 12:36:14 / Modified: 16:04:15" itemprop="dateCreated datePublished" datetime="2023-02-07T12:36:14+08:00">2023-02-07</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -252,8 +253,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2023/01/16/3Dmover/3Dmove2/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/16/3Dmover/3Dmove2/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2023/02/07/3Dmover/astar/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/02/07/3Dmover/astar/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -268,14 +269,58 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>完成路径规划的<code>RoutePlanner</code>类,实现从点集(<code>datapoints</code>)到路径命令(<code>routecmd</code>)的转换</p>
-<h3 id="使用算法"><a href="#使用算法" class="headerlink" title="使用算法"></a>使用算法</h3><p>使用的算法参考自<a target="_blank" rel="noopener" href="https://zem12345678.github.io/2019/03/14/%E4%BD%BF%E7%94%A8%E8%BF%91%E4%BC%BC%E7%AE%97%E6%B3%95%E8%A7%A3%E5%86%B3%E6%97%85%E8%A1%8C%E5%95%86%EF%BC%88TSP%EF%BC%89%E9%97%AE%E9%A2%98">参考资料</a>,我们的问题是一个旅行商问题,因此没有一个多项式时间内可以实现的最优算法</p>
-<p>但是我们需要注意到,我们所面临的图是一个完全图,并且近似满足三角不等式.因此可以使用最小生成树的方法得到近似解,其结果不会大于最优解的两倍</p>
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>由于未来需要保留避障措施,但是避障之后的路径可以用一个新的路径代替,因此是通过<strong>修改路径获取函数实现</strong>(为未来预留接口)</p>
+        <p>在上一篇文章中我曾经提到有一种较好的替代算法,A*算法来处理存在障碍物的情况下对路径的寻找</p>
+<p>不过这种算法存在一个限制条件,就是其必须在网格内执行,而不是矢量(这看起来很正常,因为矢量的算法可以说几乎找不到)</p>
+<p>同时由于这种算法的性质,其运算过程是<strong>难以矢量化的</strong>,所以直接拿python去跑会变得非常让人难以接受,因此我们必须拿C++来实现这个功能</p>
+<p>具体而言,我们可以将这个问题转化为:<strong>网格化-&gt;A*寻路-&gt;矢量化</strong>三步进行</p>
+<span id="more"></span>
+
+<h2 id="网格化"><a href="#网格化" class="headerlink" title="网格化"></a>网格化</h2><p>在进行网格化的过程中,我是首先制作了一个<code>Mesh</code>类,这个类中会储存已知起点和终点以及密度的网格.然后其中有一个方法,可以将<strong>现实坐标</strong>转化为<strong>网格坐标</strong></p>
+<p>之后,这个类提供一个接口,可以将<strong>首尾不相连</strong>的多边形转换为网格,其原理就是先转换首末端点,然后用<code>Bresenham</code>算法对直线进行绘制(这种方法避免浮点运算,效率较高)</p>
+<p>这样就实现了对于坐标的网格化.</p>
 <blockquote>
-<p>这样做可能导致三角不等式不成立,但是影响应该不大</p>
+<p>&#x3D;&#x3D;索引问题&#x3D;&#x3D;</p>
+<p>由于在C中,数组的索引形式与<code>Eigen</code>(一个C++扩展,支持线性代数运算,可以参考<a target="_blank" rel="noopener" href="https://eigen.tuxfamily.org/">这个网页</a>)相同,都是先行后列的索引</p>
+<p>因此我们会看到像<code>a[y][x]</code>或是<code>a(y,x)</code>这样的索引</p>
+<p>在编写接口的过程中,需要多加小心</p>
 </blockquote>
-<p><code>datapoints</code>属性在修改时会重新计算<code>route</code>,因此<em>不要频繁修改点集</em></p>
+<blockquote>
+<p>&#x3D;&#x3D;网格化的优化&#x3D;&#x3D;</p>
+<p>这种网格化提供了网格”生长”的可能性,例如在实际的操作中,我们知道机器必然不能精确的沿着边缘走,但是根据这一算法得到的结果,很多就是沿着边缘进行的</p>
+<p>这个时候如果我们已经进行了网格化,就可以实现较为容易的计算机图形学中的膨胀操作</p>
+</blockquote>
+<blockquote>
+<p>&#x3D;&#x3D;向下舍入问题&#x3D;&#x3D;</p>
+<p>我们的计算是向下舍入的,即$a_x&#x3D;(x-x_{beg})&#x2F;\Delta x$一式向下舍入,那么我们在将网格倒推时,就需要加上0.5,减小误差</p>
+</blockquote>
+<h2 id="A-搜索"><a href="#A-搜索" class="headerlink" title="A*搜索"></a>A*搜索</h2><p>接下来就是我们讨论的A*搜索部分,实际上这一部分的内容网上都有,我就在这里给大家大略复述一下流程</p>
+<ol>
+<li><p>创建一个<code>open_set</code>和一个<code>close_set</code></p>
+</li>
+<li><p>从起点开始,将设定一个代价值(这个后面会讨论),然后将起点添加进<code>open_set</code>中</p>
+</li>
+<li><p>开始循环,直到达到终点:</p>
+<ol>
+<li>取出<code>open_set</code>中代价值最低的点,并将其加到<code>close_set</code>中</li>
+<li>在这个点周围寻找满足条件(可达且未经过的点),并将这些点加到<code>open_set</code>中</li>
+</ol>
+</li>
+<li><p>如果达到终点,则回溯找到来时的路径,并返回</p>
+</li>
+<li><p>如果没有找到终点,那么终点不可达(有错误)</p>
+</li>
+</ol>
+<blockquote>
+<p>&#x3D;&#x3D;关于代价函数&#x3D;&#x3D;</p>
+<p>我目前是使用曼哈顿距离作为代价函数进行计算实际上用欧几里得距离什么的也可以(但是计算效率会下降)</p>
+<p>但是使用的代价函数必须满足一个条件:<strong>一个点的代价必须是唯一的</strong>(可以不同点有相同代价)</p>
+<p>这与我们在算法中采用的<code>set</code>有关,如果出现一个点有不同代价,那么比较函数将无法抵达红黑树树叶,然后就会出错</p>
+<p>必须满足传递原则:若a&gt;b,b&gt;c则a&gt;c</p>
+</blockquote>
+<blockquote>
+<p>&#x3D;&#x3D;对于优化&#x3D;&#x3D;</p>
+<p>上面描述的是一般的代价函数,但是我们这里比较特殊,在进行计算前,我们需要对所有点进行初始化,此时一个起点对应的就不仅仅是一个终点了,也许可以极大的提高运算效率</p>
+</blockquote>
 
     </div>
 
@@ -286,7 +331,8 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/3D%E4%BD%8D%E7%A7%BB%E5%B9%B3%E5%8F%B0/" rel="tag"># 3D位移平台</a>
-              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/%E7%A8%8B%E5%BA%8F%E8%A7%84%E5%88%92/" rel="tag"># 程序规划</a>
+              <a href="/tags/c/" rel="tag"># c++</a>
           </div>
 
         
@@ -295,12 +341,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/01/16/3Dmover/3Dmove1/" rel="prev" title="位移平台程序应当满足的功能">
-      <i class="fa fa-chevron-left"></i> 位移平台程序应当满足的功能
+    <a href="/2023/02/05/control%20system/closecontrol2/" rel="prev" title="关注闭环系统的控制系统设计(下)">
+      <i class="fa fa-chevron-left"></i> 关注闭环系统的控制系统设计(下)
     </a></div>
       <div class="post-nav-item">
-    <a href="/2023/01/16/3Dmover/3Dmoveslice/" rel="next" title="处理3D模型">
-      处理3D模型 <i class="fa fa-chevron-right"></i>
+    <a href="/2023/02/07/python/python-learning/" rel="next" title="python学习建议">
+      python学习建议 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -367,7 +413,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">使用算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E6%A0%BC%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">网格化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-%E6%90%9C%E7%B4%A2"><span class="nav-number">2.</span> <span class="nav-text">A*搜索</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -484,6 +530,61 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
@@ -499,9 +600,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://lsyxiaopang.github.io/2023/01/16/3Dmover/3Dmove2/";
-    this.page.identifier = "2023/01/16/3Dmover/3Dmove2/";
-    this.page.title = "3D位移平台路径开发器记录1";
+    this.page.url = "https://lsyxiaopang.github.io/2023/02/07/3Dmover/astar/";
+    this.page.identifier = "2023/02/07/3Dmover/astar/";
+    this.page.title = "路径规划器设计 升级版";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

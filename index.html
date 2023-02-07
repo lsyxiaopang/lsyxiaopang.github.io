@@ -200,6 +200,219 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/07/python/python-learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Songyuli">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songyuli's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/02/07/python/python-learning/" class="post-title-link" itemprop="url">python学习建议</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-02-07 16:07:28 / Modified: 17:12:31" itemprop="dateCreated datePublished" datetime="2023-02-07T16:07:28+08:00">2023-02-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python%E5%9F%B9%E8%AE%AD/" itemprop="url" rel="index"><span itemprop="name">python培训</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/02/07/python/python-learning/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/02/07/python/python-learning/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>非常不幸,像我这种半吊子都要给大家来讲Python学习的问题了</p>
+<p>我大概会分成以下几个部分来讲:</p>
+<ol>
+<li>为什么要学python</li>
+<li>基础的学习</li>
+<li>进阶的学习</li>
+<li>其他的一些建议</li>
+</ol>
+<p>大家挑感兴趣的看吧</p>
+<h2 id="为什么要学python"><a href="#为什么要学python" class="headerlink" title="为什么要学python"></a>为什么要学python</h2><p>我一开始也是不想学,感觉这个玩意简直就是市面上某些广告的最爱,让人觉得非常轻浮.甚至都没有大括号(我当时曾经接触过<code>C,C++,C#,Ruby,汇编</code>等语言,自然是非常不精,但也算会一点点(现在除了<code>C/C++</code>其他全忘了))</p>
+<p>接触python的主要契机是当时我想写一个爬虫,然后想想python看起来实现最简单,于是就开始学了起来</p>
+<p>现在想想,确实python对我来讲意义重大,因为它有着强大的数学计算功能,但又究竟是一门以编程为目的的语言(问就是Matlab学PTSD了),有着非常多有用的库,而且这些库都是帮你配置好的<em>有人抱怨过python环境配置,那你是没有体验过C++各种链接库调用</em></p>
+<p>同时,python也是一个内存友好的语言,它能让你不用担心内存都去哪了(否则面对C&#x2F;C++,你可能要花整天时间研究你的程序是如何泄露掉20个G内存的)</p>
+<p>自然,python运行效率底下也总是被人所诟病,但是这在我们的应用环境中并不重要,我们注重的是开发效率,而对于那种计算密集型的问题,如果安排妥当,调库的效率实际上可能更高,实在不行,你还有一个”大杀器”,用C++编写python扩展</p>
+<blockquote>
+<p>效率的陷阱</p>
+<p>有些时候,C++写出来的程序真的不一定比python快,倘使你参加过信息学竞赛就会知道,很多问题的优化绝不是我们这种人能完全掌握的(我们是外行)</p>
+</blockquote>
+<h2 id="基础的学习"><a href="#基础的学习" class="headerlink" title="基础的学习"></a>基础的学习</h2><p>对于以前没有学过计算机程序设计语言的人来说,python作为你的第一个语言还是很不错的,我个人建议你还是可以去报python课(反正有学分)</p>
+<p>然后尽量挑一本书(最好是一本国外教材),从头到尾读一遍,将里面的东西实践一下(先不要管它有没有用,除非是那种教你搭建网页之类的,具体原因后面会讲)</p>
+<p>这样也许就可以了,你已经掌握了python的学习</p>
+<h2 id="进阶的学习"><a href="#进阶的学习" class="headerlink" title="进阶的学习"></a>进阶的学习</h2><p>如果你自觉自己基础的python学的很好了(<strong>我这里的标准是理论上你什么都可以干了</strong>),那么你就需要记住这样一句话,这是<em>Fluent Python</em>一书的作者写的</p>
+<blockquote>
+<p>We only miss stuff we know about.</p>
+</blockquote>
+<p>这句话很有深意,比如我们要把两个数组相加,首先想到的必然是用<code>for</code>循环,但是实际上生成器或者甚至<code>numpy</code>给了我们更加简单和高效的解决方案</p>
+<p>所以要把东西读完,而不是觉得”这是重复的”就跳了过去.</p>
+<blockquote>
+<p>所以,在做一个东西的时候,先查一下有没有现成的解决方案</p>
+</blockquote>
+<p>但是你到这一步,要专门学的东西也不多了,可能一个是<code>numpy</code>,还有一个就是<code>scikit-learn</code>,毕竟python对我们而言,主要还是工具,而不是目的</p>
+<blockquote>
+<p>倘使你对于python语言的高级特性感兴趣的话,建议去读一下<em>Fluent Python</em>一书,前提是你要学的够好</p>
+</blockquote>
+<p>另外,我强烈推荐大家在学习库的用法时,去读<strong>文档</strong>,那个东西比你在CSDN上面看到的各种教程都有用也更加详细.</p>
+<blockquote>
+<p>文档可比论文简单多了,毕竟就像使用说明</p>
+</blockquote>
+<h2 id="其他的一些建议"><a href="#其他的一些建议" class="headerlink" title="其他的一些建议"></a>其他的一些建议</h2><h3 id="关于Jupyter-Notebook"><a href="#关于Jupyter-Notebook" class="headerlink" title="关于Jupyter Notebook"></a>关于Jupyter Notebook</h3><p>我蛮喜欢这个可以将文档和代码放到一起的格式,但是我不建议大家去网上下载这样的电子书</p>
+<p>我建议大家对于示例代码,<strong>自己敲进去</strong>,不一定要像书上那么完备,可以偷个懒,但是在偷懒的过程也是你思考的过程</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/07/3Dmover/astar/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Songyuli">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songyuli's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/02/07/3Dmover/astar/" class="post-title-link" itemprop="url">路径规划器设计 升级版</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-02-07 12:36:14 / Modified: 16:04:15" itemprop="dateCreated datePublished" datetime="2023-02-07T12:36:14+08:00">2023-02-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/3D%E4%BD%8D%E7%A7%BB%E6%B5%8B%E9%87%8F%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">3D位移测量平台设计</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/02/07/3Dmover/astar/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/02/07/3Dmover/astar/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在上一篇文章中我曾经提到有一种较好的替代算法,A*算法来处理存在障碍物的情况下对路径的寻找</p>
+<p>不过这种算法存在一个限制条件,就是其必须在网格内执行,而不是矢量(这看起来很正常,因为矢量的算法可以说几乎找不到)</p>
+<p>同时由于这种算法的性质,其运算过程是<strong>难以矢量化的</strong>,所以直接拿python去跑会变得非常让人难以接受,因此我们必须拿C++来实现这个功能</p>
+<p>具体而言,我们可以将这个问题转化为:<strong>网格化-&gt;A*寻路-&gt;矢量化</strong>三步进行</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/02/07/3Dmover/astar/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/05/control%20system/closecontrol2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -313,10 +526,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-02-05 10:42:25 / Modified: 20:02:29" itemprop="dateCreated datePublished" datetime="2023-02-05T10:42:25+08:00">2023-02-05</time>
+              <time title="Created: 2023-02-05 10:42:25" itemprop="dateCreated datePublished" datetime="2023-02-05T10:42:25+08:00">2023-02-05</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-02-06 18:23:23" itemprop="dateModified" datetime="2023-02-06T18:23:23+08:00">2023-02-06</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -495,17 +714,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-01-31 00:14:56 / Modified: 13:36:40" itemprop="dateCreated datePublished" datetime="2023-01-31T00:14:56+08:00">2023-01-31</time>
+              <time title="Created: 2023-01-31 00:14:56" itemprop="dateCreated datePublished" datetime="2023-01-31T00:14:56+08:00">2023-01-31</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-02-06 18:41:00" itemprop="dateModified" datetime="2023-02-06T18:41:00+08:00">2023-02-06</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/3D%E4%BD%8D%E7%A7%BB%E5%B9%B3%E5%8F%B0/" itemprop="url" rel="index"><span itemprop="name">3D位移平台</span></a>
+                  <a href="/categories/3D%E4%BD%8D%E7%A7%BB%E6%B5%8B%E9%87%8F%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">3D位移测量平台设计</span></a>
                 </span>
             </span>
 
@@ -1067,192 +1292,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/24/MPS010602/process-logical/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Songyuli">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Songyuli's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/24/MPS010602/process-logical/" class="post-title-link" itemprop="url">对于数字信号处理的手段</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2023-01-24 21:12:55 / Modified: 21:41:28" itemprop="dateCreated datePublished" datetime="2023-01-24T21:12:55+08:00">2023-01-24</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MPS010602/" itemprop="url" rel="index"><span itemprop="name">MPS010602</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2023/01/24/MPS010602/process-logical/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/24/MPS010602/process-logical/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>之前研究过对于<code>MPS010602</code>中的数字信号,应当如何处理(在其中使用二进制位来表示逻辑),今天恰好看到了<code>numpy.bitwise_xor</code>函数,会非常有用,在此记录一下</p>
-<h2 id="逻辑位操作"><a href="#逻辑位操作" class="headerlink" title="逻辑位操作"></a>逻辑位操作</h2><p>在<code>numpy</code>库中有相应的逻辑操作函数,而最大的特点就在于它们可以实现向量化,这对于我们应用的场景来说非常重要.</p>
-<p>其使用的方法与&amp;类似,主要看代码,以下代码展示如何从一个八进制数取出某一位的数字信号</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_binary</span>(<span class="params">data_array:np.array,bit:<span class="built_in">int</span></span>):</span><br><span class="line">    check=<span class="number">1</span>&lt;&lt;bit</span><br><span class="line">    ca=np.array([check])</span><br><span class="line">    dataout=np.bitwise_and(data_array,ca)</span><br><span class="line">    <span class="keyword">return</span> np.where(dataout==<span class="number">0</span>,<span class="literal">False</span>,<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/24/machine-learning/machine1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Songyuli">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Songyuli's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/24/machine-learning/machine1/" class="post-title-link" itemprop="url">为分类问题训练简单的机器学习算法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2023-01-24 17:18:15 / Modified: 22:16:29" itemprop="dateCreated datePublished" datetime="2023-01-24T17:18:15+08:00">2023-01-24</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2023/01/24/machine-learning/machine1/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/24/machine-learning/machine1/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="标记与术语"><a href="#标记与术语" class="headerlink" title="标记与术语"></a>标记与术语</h2><ul>
-<li>特征(features):例如数据的种类(一般以列存储)</li>
-<li>样本(samples):一般以行存储,数据列表<br>$x^i_j$指第$i$个训练样本,训练集的第$j$维(第$j$个特征)<blockquote>
-<p>这种标记输入输出均可</p>
-</blockquote>
-</li>
-</ul>
-<blockquote>
-<p>另外,机器学习是一回事,这本书中的python代码非常优美,值得学习</p>
-</blockquote>
-<h1 id="为分类问题训练简单的机器学习算法"><a href="#为分类问题训练简单的机器学习算法" class="headerlink" title="为分类问题训练简单的机器学习算法"></a>为分类问题训练简单的机器学习算法</h1><p>在这一部分,我们构造一个简单的线性分类算法实现我们的分类任务</p>
-<h2 id="早期的机器学习模型"><a href="#早期的机器学习模型" class="headerlink" title="早期的机器学习模型"></a>早期的机器学习模型</h2><p>最早的机器学习模型是通过模拟神经元实现的<br>我们可以定义一个决定函数$\phi(x)$来从输入得到输出<br>通过将权重矢量与输入矢量点乘后通过一个阈值函数得到输出.<br>因此,通过计算$sign(\omega^Tx+\omega_0)$即可得到一个<strong>二分类输出</strong></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/01/24/machine-learning/machine1/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1322,14 +1361,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

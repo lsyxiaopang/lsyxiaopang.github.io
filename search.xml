@@ -171,7 +171,7 @@
 <p>无疑这个问题还需要查阅更多的资料</p>
 ]]></content>
       <categories>
-        <category>3D位移平台</category>
+        <category>3D位移测量平台设计</category>
       </categories>
       <tags>
         <tag>3D位移平台</tag>
@@ -1560,6 +1560,22 @@ C:\Users\h\AppData\Local\Temp\ipykernel_43220\485392308.py:21: UserWarning: You 
 <p>直接buff叠满,能做出来才有鬼.</p>
 <h2 id="使用cppimport"><a href="#使用cppimport" class="headerlink" title="使用cppimport"></a>使用<code>cppimport</code></h2><p>这是我目前看到的最好的方法来处理这个问题,<a href="https://github.com/tbenthompson/cppimport">源网页</a></p>
 <p>使用这个的好处在于反正我编译出来成功了</p>
+<p>这个库用法并不复杂,首先是在文件开头需要添加一行注释</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// cppimport</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在文件的末尾需要有</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">&lt;%</span></span><br><span class="line"><span class="comment">cfg[&#x27;sources&#x27;] = [&#x27;a_star.cpp&#x27;]</span></span><br><span class="line"><span class="comment">cfg[&#x27;extra_compile_args&#x27;] = [&#x27;/O2 /Oi&#x27;]</span></span><br><span class="line"><span class="comment">setup_pybind11(cfg)</span></span><br><span class="line"><span class="comment">%&gt;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>这实际上是一段<code>Mako</code>块,这一部分的python代码将会被运行  </p>
+<p>其中第一行是由于多文件编译,指定除了这个文件外的另外源文件</p>
+<p>第二行则是使用相关的编译选项</p>
+<h3 id="cppimport调用"><a href="#cppimport调用" class="headerlink" title="cppimport调用"></a><code>cppimport</code>调用</h3><p>虽然<code>cppimport</code>支持实时调用(每次<code>import</code>)的时候预编译,但是这么做对我们来讲没有必要,我们可以采用<code>cppimport</code>的预编译方式(就是<code>pyd</code>)实现</p>
+<p>使用以下代码</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -m cppimport build pytest.cpp</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>虽然理论上没有<code>pytest.cpp</code>也可以自动检测,但是我们不可避免会带有<code>Unicode</code>字符,然后就出错了</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>杂项</category>
@@ -2213,6 +2229,122 @@ C:\Users\h\AppData\Local\Temp\ipykernel_43220\485392308.py:21: UserWarning: You 
       <tags>
         <tag>python</tag>
         <tag>conda</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>路径规划器设计 升级版</title>
+    <url>/2023/02/07/3Dmover/astar/</url>
+    <content><![CDATA[<p>在上一篇文章中我曾经提到有一种较好的替代算法,A*算法来处理存在障碍物的情况下对路径的寻找</p>
+<p>不过这种算法存在一个限制条件,就是其必须在网格内执行,而不是矢量(这看起来很正常,因为矢量的算法可以说几乎找不到)</p>
+<p>同时由于这种算法的性质,其运算过程是<strong>难以矢量化的</strong>,所以直接拿python去跑会变得非常让人难以接受,因此我们必须拿C++来实现这个功能</p>
+<p>具体而言,我们可以将这个问题转化为:<strong>网格化-&gt;A*寻路-&gt;矢量化</strong>三步进行</p>
+<span id="more"></span>
+
+<h2 id="网格化"><a href="#网格化" class="headerlink" title="网格化"></a>网格化</h2><p>在进行网格化的过程中,我是首先制作了一个<code>Mesh</code>类,这个类中会储存已知起点和终点以及密度的网格.然后其中有一个方法,可以将<strong>现实坐标</strong>转化为<strong>网格坐标</strong></p>
+<p>之后,这个类提供一个接口,可以将<strong>首尾不相连</strong>的多边形转换为网格,其原理就是先转换首末端点,然后用<code>Bresenham</code>算法对直线进行绘制(这种方法避免浮点运算,效率较高)</p>
+<p>这样就实现了对于坐标的网格化.</p>
+<blockquote>
+<p>&#x3D;&#x3D;索引问题&#x3D;&#x3D;</p>
+<p>由于在C中,数组的索引形式与<code>Eigen</code>(一个C++扩展,支持线性代数运算,可以参考<a href="https://eigen.tuxfamily.org/">这个网页</a>)相同,都是先行后列的索引</p>
+<p>因此我们会看到像<code>a[y][x]</code>或是<code>a(y,x)</code>这样的索引</p>
+<p>在编写接口的过程中,需要多加小心</p>
+</blockquote>
+<blockquote>
+<p>&#x3D;&#x3D;网格化的优化&#x3D;&#x3D;</p>
+<p>这种网格化提供了网格”生长”的可能性,例如在实际的操作中,我们知道机器必然不能精确的沿着边缘走,但是根据这一算法得到的结果,很多就是沿着边缘进行的</p>
+<p>这个时候如果我们已经进行了网格化,就可以实现较为容易的计算机图形学中的膨胀操作</p>
+</blockquote>
+<blockquote>
+<p>&#x3D;&#x3D;向下舍入问题&#x3D;&#x3D;</p>
+<p>我们的计算是向下舍入的,即$a_x&#x3D;(x-x_{beg})&#x2F;\Delta x$一式向下舍入,那么我们在将网格倒推时,就需要加上0.5,减小误差</p>
+</blockquote>
+<h2 id="A-搜索"><a href="#A-搜索" class="headerlink" title="A*搜索"></a>A*搜索</h2><p>接下来就是我们讨论的A*搜索部分,实际上这一部分的内容网上都有,我就在这里给大家大略复述一下流程</p>
+<ol>
+<li><p>创建一个<code>open_set</code>和一个<code>close_set</code></p>
+</li>
+<li><p>从起点开始,将设定一个代价值(这个后面会讨论),然后将起点添加进<code>open_set</code>中</p>
+</li>
+<li><p>开始循环,直到达到终点:</p>
+<ol>
+<li>取出<code>open_set</code>中代价值最低的点,并将其加到<code>close_set</code>中</li>
+<li>在这个点周围寻找满足条件(可达且未经过的点),并将这些点加到<code>open_set</code>中</li>
+</ol>
+</li>
+<li><p>如果达到终点,则回溯找到来时的路径,并返回</p>
+</li>
+<li><p>如果没有找到终点,那么终点不可达(有错误)</p>
+</li>
+</ol>
+<blockquote>
+<p>&#x3D;&#x3D;关于代价函数&#x3D;&#x3D;</p>
+<p>我目前是使用曼哈顿距离作为代价函数进行计算实际上用欧几里得距离什么的也可以(但是计算效率会下降)</p>
+<p>但是使用的代价函数必须满足一个条件:<strong>一个点的代价必须是唯一的</strong>(可以不同点有相同代价)</p>
+<p>这与我们在算法中采用的<code>set</code>有关,如果出现一个点有不同代价,那么比较函数将无法抵达红黑树树叶,然后就会出错</p>
+<p>必须满足传递原则:若a&gt;b,b&gt;c则a&gt;c</p>
+</blockquote>
+<blockquote>
+<p>&#x3D;&#x3D;对于优化&#x3D;&#x3D;</p>
+<p>上面描述的是一般的代价函数,但是我们这里比较特殊,在进行计算前,我们需要对所有点进行初始化,此时一个起点对应的就不仅仅是一个终点了,也许可以极大的提高运算效率</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>3D位移测量平台设计</category>
+      </categories>
+      <tags>
+        <tag>3D位移平台</tag>
+        <tag>程序规划</tag>
+        <tag>c++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python学习建议</title>
+    <url>/2023/02/07/python/python-learning/</url>
+    <content><![CDATA[<p>非常不幸,像我这种半吊子都要给大家来讲Python学习的问题了</p>
+<p>我大概会分成以下几个部分来讲:</p>
+<ol>
+<li>为什么要学python</li>
+<li>基础的学习</li>
+<li>进阶的学习</li>
+<li>其他的一些建议</li>
+</ol>
+<p>大家挑感兴趣的看吧</p>
+<h2 id="为什么要学python"><a href="#为什么要学python" class="headerlink" title="为什么要学python"></a>为什么要学python</h2><p>我一开始也是不想学,感觉这个玩意简直就是市面上某些广告的最爱,让人觉得非常轻浮.甚至都没有大括号(我当时曾经接触过<code>C,C++,C#,Ruby,汇编</code>等语言,自然是非常不精,但也算会一点点(现在除了<code>C/C++</code>其他全忘了))</p>
+<p>接触python的主要契机是当时我想写一个爬虫,然后想想python看起来实现最简单,于是就开始学了起来</p>
+<p>现在想想,确实python对我来讲意义重大,因为它有着强大的数学计算功能,但又究竟是一门以编程为目的的语言(问就是Matlab学PTSD了),有着非常多有用的库,而且这些库都是帮你配置好的<em>有人抱怨过python环境配置,那你是没有体验过C++各种链接库调用</em></p>
+<p>同时,python也是一个内存友好的语言,它能让你不用担心内存都去哪了(否则面对C&#x2F;C++,你可能要花整天时间研究你的程序是如何泄露掉20个G内存的)</p>
+<p>自然,python运行效率底下也总是被人所诟病,但是这在我们的应用环境中并不重要,我们注重的是开发效率,而对于那种计算密集型的问题,如果安排妥当,调库的效率实际上可能更高,实在不行,你还有一个”大杀器”,用C++编写python扩展</p>
+<blockquote>
+<p>效率的陷阱</p>
+<p>有些时候,C++写出来的程序真的不一定比python快,倘使你参加过信息学竞赛就会知道,很多问题的优化绝不是我们这种人能完全掌握的(我们是外行)</p>
+</blockquote>
+<h2 id="基础的学习"><a href="#基础的学习" class="headerlink" title="基础的学习"></a>基础的学习</h2><p>对于以前没有学过计算机程序设计语言的人来说,python作为你的第一个语言还是很不错的,我个人建议你还是可以去报python课(反正有学分)</p>
+<p>然后尽量挑一本书(最好是一本国外教材),从头到尾读一遍,将里面的东西实践一下(先不要管它有没有用,除非是那种教你搭建网页之类的,具体原因后面会讲)</p>
+<p>这样也许就可以了,你已经掌握了python的学习</p>
+<h2 id="进阶的学习"><a href="#进阶的学习" class="headerlink" title="进阶的学习"></a>进阶的学习</h2><p>如果你自觉自己基础的python学的很好了(<strong>我这里的标准是理论上你什么都可以干了</strong>),那么你就需要记住这样一句话,这是<em>Fluent Python</em>一书的作者写的</p>
+<blockquote>
+<p>We only miss stuff we know about.</p>
+</blockquote>
+<p>这句话很有深意,比如我们要把两个数组相加,首先想到的必然是用<code>for</code>循环,但是实际上生成器或者甚至<code>numpy</code>给了我们更加简单和高效的解决方案</p>
+<p>所以要把东西读完,而不是觉得”这是重复的”就跳了过去.</p>
+<blockquote>
+<p>所以,在做一个东西的时候,先查一下有没有现成的解决方案</p>
+</blockquote>
+<p>但是你到这一步,要专门学的东西也不多了,可能一个是<code>numpy</code>,还有一个就是<code>scikit-learn</code>,毕竟python对我们而言,主要还是工具,而不是目的</p>
+<blockquote>
+<p>倘使你对于python语言的高级特性感兴趣的话,建议去读一下<em>Fluent Python</em>一书,前提是你要学的够好</p>
+</blockquote>
+<p>另外,我强烈推荐大家在学习库的用法时,去读<strong>文档</strong>,那个东西比你在CSDN上面看到的各种教程都有用也更加详细.</p>
+<blockquote>
+<p>文档可比论文简单多了,毕竟就像使用说明</p>
+</blockquote>
+<h2 id="其他的一些建议"><a href="#其他的一些建议" class="headerlink" title="其他的一些建议"></a>其他的一些建议</h2><h3 id="关于Jupyter-Notebook"><a href="#关于Jupyter-Notebook" class="headerlink" title="关于Jupyter Notebook"></a>关于Jupyter Notebook</h3><p>我蛮喜欢这个可以将文档和代码放到一起的格式,但是我不建议大家去网上下载这样的电子书</p>
+<p>我建议大家对于示例代码,<strong>自己敲进去</strong>,不一定要像书上那么完备,可以偷个懒,但是在偷懒的过程也是你思考的过程</p>
+]]></content>
+      <categories>
+        <category>python培训</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
       </tags>
   </entry>
 </search>
