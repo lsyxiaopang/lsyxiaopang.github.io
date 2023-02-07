@@ -2347,4 +2347,86 @@ C:\Users\h\AppData\Local\Temp\ipykernel_43220\485392308.py:21: UserWarning: You 
         <tag>python</tag>
       </tags>
   </entry>
+  <entry>
+    <title>向量化与面向对象</title>
+    <url>/2023/02/07/python/vectorize/</url>
+    <content><![CDATA[<p>在这一篇文章中,我们将讨论两个话题:向量化和面向对象</p>
+<p>第一个话题大家应该已经有相关的知识了,但是”可能”还缺乏一个非常清晰的理解;<br>而第二个话题大家可能听说的不多,虽然像”面向对象”这样的话题对于计算机程序设计非常重要,但是这对于我们做科学计算实际上意义有限,但是基本概念又不能不知道</p>
+<span id="more"></span>
+<h2 id="向量化"><a href="#向量化" class="headerlink" title="向量化"></a>向量化</h2><p>这一部分主要是关于<code>numpy</code>中<code>ndarray</code>类的</p>
+<blockquote>
+<p>虽然我的意思是,关于科学计算,真正需要”掌握”的就是<code>ndarray</code>,其他查一下就能现学现用  </p>
+</blockquote>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>在<code>numpy</code>中存在这样的操作,将一个数组与另一个数组(或者标量)进行数学运算时,这些数据会被”广播”进行计算</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a=np.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line">b=<span class="number">1</span></span><br><span class="line">a+b</span><br></pre></td></tr></table></figure>
+<pre><code>array([2, 3, 4, 5, 6])
+</code></pre><p>这些计算更多的可以被看做是对于线性代数的一种扩展,多了一种标量加矢量的运算</p>
+<h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p>在<code>numpy</code>中是使用C编写的代码,使用了大量的底层运算,其速度远快于构造python中的循环<br>下面就是一个例子来比较两种代码的效果</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">use_list</span>():</span><br><span class="line">    x=[<span class="number">1</span>]*<span class="number">1000</span> </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(x)):</span><br><span class="line">        x[i]+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">use_ndarray</span>():</span><br><span class="line">    x=np.ones(<span class="number">1000</span>)</span><br><span class="line">    x+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#计时</span></span><br><span class="line">%timeit use_list()</span><br><span class="line">%timeit use_ndarray()</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>67.7 µs ± 9.24 µs per loop (mean ± std. dev. of 7 runs, 10000 loops each)
+3.97 µs ± 193 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
+</code></pre><p>可以非常容易地看出,使用python列表(前者)的效率会远低于使用<code>ndarray</code>(后者)</p>
+<h3 id="shape"><a href="#shape" class="headerlink" title="shape"></a><code>shape</code></h3><p>前文提到,向量化的操作与线性代数有千丝万缕的联系.因此,数组的形状就显得非常重要<br>可以直接访问<code>shape</code>属性获得关于数组的形状信息</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a=np.array([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]])</span><br><span class="line">b=np.array([<span class="number">7</span>,<span class="number">8</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;The shape of a is &#123;&#125;&quot;</span>.<span class="built_in">format</span>(a.shape))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;The shape of b is &#123;&#125;&quot;</span>.<span class="built_in">format</span>(b.shape))</span><br></pre></td></tr></table></figure>
+<pre><code>The shape of a is (2, 3)
+The shape of b is (2,)
+</code></pre><p>而对于二维这种最为常见的情况来说,<code>a[i,j]</code>是先行后列.</p>
+<p>而为了实现计算,需要修改数组的形状,例如将<code>b</code>变为一个行向量可以进行矩阵乘法</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c=b.reshape(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">np.dot(c,a)</span><br></pre></td></tr></table></figure>
+<pre><code>array([[39, 54, 69]])
+</code></pre><p>这种<code>reshape</code>在处理解决实际问题的时候往往非常有用,在我个人的理解中,如果需要批量的计算,往往会把数组变到二维便于进行计算(更高的维度也不是不可以,但是会比较复杂).然后等到计算完成之后再变到自己所需的<code>shape</code><br>同时,<code>reshape</code>也支持使用<code>-1</code>缺省</p>
+<blockquote>
+<p>这里有一个需要注意的地方,<code>reshape</code>返回的是数组的浅拷贝,因此如果对reshape之后的元素进行修改,那么会影响到原来的数组.</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c[<span class="number">0</span>,<span class="number">1</span>]=<span class="number">1</span></span><br><span class="line">b</span><br></pre></td></tr></table></figure>
+<pre><code>array([7, 1])
+</code></pre><h3 id="axis"><a href="#axis" class="headerlink" title="axis"></a><code>axis</code></h3><p>如果执行一些操作(例如说<code>sum</code>),其就会向你提供一个可选参数<code>axis</code>,是指这个运算沿着哪个轴</p>
+<p>下面就展示一下沿着不同的轴进行操作的效果</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Along axis 0 is &#123;&#125;&quot;</span>.<span class="built_in">format</span>(a.<span class="built_in">sum</span>(axis=<span class="number">0</span>)))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Along axis 1 is &#123;&#125;&quot;</span>.<span class="built_in">format</span>(a.<span class="built_in">sum</span>(axis=<span class="number">1</span>)))</span><br></pre></td></tr></table></figure>
+<pre><code>Along axis 0 is [5 7 9]
+Along axis 1 is [ 6 15]
+</code></pre><p>可以将<code>axis</code>的效果简单地理解为如果沿着某个轴进行一些聚合操作(例如求和),那么执行操作之后数组的<code>shape</code>的这个元素就会变为1</p>
+<h3 id="布尔数组与布尔索引"><a href="#布尔数组与布尔索引" class="headerlink" title="布尔数组与布尔索引"></a>布尔数组与布尔索引</h3><p>在向量化中,还有一个重要的工具,记为布尔数组<br>我们可以对一个数组进行比较运算,得到布尔数组</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a&gt;<span class="number">4</span></span><br></pre></td></tr></table></figure>
+<pre><code>array([[False, False, False],
+       [False,  True,  True]])
+</code></pre><p>而这样的布尔数组一方面可以用作输入实现分类,另外一方面也可以作为索引来提取满足条件的元素<br>例如下面的代码展示如何将<code>a</code>中大于4的元素提取出来,以及按照<code>(-1,1)</code>分类</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(a[a&gt;<span class="number">4</span>])</span><br><span class="line"><span class="built_in">print</span>(np.where(a&gt;<span class="number">4</span>,<span class="number">1</span>,-<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>[5 6]
+[[-1 -1 -1]
+ [-1  1  1]]
+</code></pre><p>使用这样的功能,我们可以实现一些原本看起来难以实现向量化的运算<br>例如下面一段代码模拟了抛针法估算$\pi$的过程</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calc_pi</span>(<span class="params">sample_number:<span class="built_in">int</span>,ran_num:<span class="built_in">int</span></span>):</span><br><span class="line">    ran=np.random.RandomState(ran_num)</span><br><span class="line">    x=ran.uniform(-<span class="number">0.5</span>,<span class="number">0.5</span>,sample_number)<span class="comment">#生成中心坐标</span></span><br><span class="line">    theta=ran.uniform(<span class="number">0</span>,<span class="number">2</span>*np.pi,sample_number)<span class="comment">#生成角度</span></span><br><span class="line">    r1=x-<span class="number">0.5</span>*np.cos(theta)</span><br><span class="line">    r2=x+<span class="number">0.5</span>*np.cos(theta)</span><br><span class="line">    k=r1*r2</span><br><span class="line">    num=np.<span class="built_in">sum</span>(np.where(k&lt;=<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>))</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span>*sample_number/num</span><br><span class="line"></span><br><span class="line">calc_pi(<span class="number">1000000</span>,<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>3.139934312574181
+</code></pre><blockquote>
+<p>实际上,关于向量化,大家还有很多需要学,我这里展示的仅为冰山一角</p>
+</blockquote>
+<h2 id="“流畅地编程”-面向对象和一些特性"><a href="#“流畅地编程”-面向对象和一些特性" class="headerlink" title="“流畅地编程”:面向对象和一些特性"></a>“流畅地编程”:面向对象和一些特性</h2><p>我一开始并不打算讲面向对象,一方面在于面向对象本质太过复杂,完全可以涉及到另外一个完整而复杂的学科,而另外一方面则更为重要,在于面向对象对于我们这种”非专业”的程序设计者尤其如果你仅仅希望将python看成一个分析数据的脚本的人,面向对象是一个完全不需要涉及的内容;并且如果滥用里面的一些东西,<strong>无疑会造成很大灾难</strong>(不信的可以看看我Github上的几个屎山仓库)</p>
+<p>不过稍微学习一下相关内容也会有用,至少你不使用,但是在别人使用的时候你要看懂发生了什么</p>
+<p>另外,我将介绍一些python中的特性,这些特性和前面说的向量化一样,往往会被人忽视(因为没有它也能工作)</p>
+<blockquote>
+<p>但是请不要过于依赖一些偏门特性,正如python作者Tim Peters所说</p>
+<blockquote>
+<p>“Here’s the plan: When someone uses a feature you don’t understand, simply shoot them. This is easier than learning something new, and before too long the only living coders will be writing in an easily understood, tiny subset of Python 0.9.6 <wink>.”</p>
+</blockquote>
+</blockquote>
+<h3 id="面向对象-它是什么-会给我们带来什么影响"><a href="#面向对象-它是什么-会给我们带来什么影响" class="headerlink" title="面向对象:它是什么,会给我们带来什么影响"></a>面向对象:它是什么,会给我们带来什么影响</h3><blockquote>
+<p>Object-oriented programming (OOP) is a computer programming model that organizes software design around data, or objects, rather than functions and logic. An object can be defined as a data field that has unique attributes and behavior. </p>
+</blockquote>
+<p>上面这段话摘自<a href="https://www.techtarget.com/searchapparchitecture/definition/object-oriented-programming-OOP">这个网页</a>,其说明了OOP的一个基本特点:如何处理事物是次要的,主要是将事物抽象成一个个对象<br>这样的抽象有好处也有坏处<br>首先讲好处,其可以将更多东西抽象成一个,不仅仅是函数那样输入输出,这可以极大提升代码规整度并且在实现或改进新功能时尽可能不影响到用户(这里的用户是更加高层的调用)的调用,将各个地方实现”脱耦”<br>但是相应的存在缺陷,一个大问题就在于面向对象编程基本的可读性会变差(对于小程序),同时可能导致开销增大<br>实际上python自己就是非常依赖对象进行工作的,关于什么是属性,什么是方法,大家可以去参考<a href="https://www.runoob.com/python/python-object.html">这里</a><br>至于为何我不讲,一方面是因为我懒,另外一方面这个东西我将可能会误人子弟.大家看到类的基本特征就行了,像继承多态,装饰器等东西大家想看就看,不想看也不勉强.  </p>
+<h2 id="python中的一些技巧"><a href="#python中的一些技巧" class="headerlink" title="python中的一些技巧"></a>python中的一些技巧</h2><p>这里面收录了一些我看到的优雅的代码,就将其收集下来,以供参考  </p>
+<h3 id="使用迭代器生成形状"><a href="#使用迭代器生成形状" class="headerlink" title="使用迭代器生成形状"></a>使用迭代器生成形状</h3><p>在我们进行科学绘图的时候,总是会遇见一些让你眼前一黑的情况,比如要对于未知个特征的数据进行绘图,不同绘图的线形又要单独指定.这样的场景并不少见,但每一次碰到都会让人非常痛苦,下面是我看到的一个有意思的做法,可以用来参考</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">line_gen</span>():  </span><br><span class="line">    <span class="string">&quot;&quot;&quot;line_gen 产生不超过九个线形</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Yields</span></span><br><span class="line"><span class="string">    ------</span></span><br><span class="line"><span class="string">    str</span></span><br><span class="line"><span class="string">        产生得到线形的字符串</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span>    </span><br><span class="line">    line_shapes=[<span class="string">&quot;-&quot;</span>,<span class="string">&quot;--&quot;</span>,<span class="string">&quot;-.&quot;</span>]</span><br><span class="line">    line_cols=[<span class="string">&quot;r&quot;</span>,<span class="string">&quot;g&quot;</span>,<span class="string">&quot;b&quot;</span>]</span><br><span class="line">    <span class="keyword">for</span> line_shape <span class="keyword">in</span> line_shapes:</span><br><span class="line">        <span class="keyword">for</span> line_col <span class="keyword">in</span> line_cols:</span><br><span class="line">            <span class="keyword">yield</span> line_col+line_shape</span><br><span class="line">            </span><br><span class="line">indata=np.linspace(<span class="number">1</span>,<span class="number">5</span>,<span class="number">100</span>)</span><br><span class="line">pdatas=[indata**i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line">ls=line_gen()<span class="comment">#创建一个生成器实例</span></span><br><span class="line"><span class="keyword">for</span> pdata <span class="keyword">in</span> pdatas:</span><br><span class="line">    plt.plot(indata,pdata,<span class="built_in">next</span>(ls))</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>​<br><img src="26_0.png" alt="png"><br>​    </p>
+<p>可以看到,迭代器完美地处理了这样的情况.<br>其原理可以大概这样解释:</p>
+<ol>
+<li>解释器注意到函数中的<code>yield</code>关键字,因此在调用<code>line_gen()</code>时不会运行这个函数,而是返回一个生成器对象(<code>generator object</code>)</li>
+<li>之后每次调用<code>next</code>中以这个生成器对象作为参数,那么函数就会运行到下一个<code>yield</code>处并返回(需要注意到的是,再一次用同一生成器调用<code>next</code>的时候,函数保留了原来的”记忆”)</li>
+<li>如果在<code>next</code>时函数以及执行完了,那么就会发生<code>StopIteration</code>错误  <blockquote>
+<p><code>yield</code>的作用与其说”返回”,不如说是”产生”,因为函数并没有终止</p>
+</blockquote>
+</li>
+</ol>
+]]></content>
+  </entry>
 </search>
