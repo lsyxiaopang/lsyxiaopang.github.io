@@ -31,26 +31,6 @@
       </tags>
   </entry>
   <entry>
-    <title>3D位移平台路径开发器记录1</title>
-    <url>/2023/01/16/3Dmover/3Dmove2/</url>
-    <content><![CDATA[<p>完成路径规划的<code>RoutePlanner</code>类,实现从点集(<code>datapoints</code>)到路径命令(<code>routecmd</code>)的转换</p>
-<h3 id="使用算法"><a href="#使用算法" class="headerlink" title="使用算法"></a>使用算法</h3><p>使用的算法参考自<a href="https://zem12345678.github.io/2019/03/14/%E4%BD%BF%E7%94%A8%E8%BF%91%E4%BC%BC%E7%AE%97%E6%B3%95%E8%A7%A3%E5%86%B3%E6%97%85%E8%A1%8C%E5%95%86%EF%BC%88TSP%EF%BC%89%E9%97%AE%E9%A2%98">参考资料</a>,我们的问题是一个旅行商问题,因此没有一个多项式时间内可以实现的最优算法</p>
-<p>但是我们需要注意到,我们所面临的图是一个完全图,并且近似满足三角不等式.因此可以使用最小生成树的方法得到近似解,其结果不会大于最优解的两倍</p>
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>由于未来需要保留避障措施,但是避障之后的路径可以用一个新的路径代替,因此是通过<strong>修改路径获取函数实现</strong>(为未来预留接口)</p>
-<blockquote>
-<p>这样做可能导致三角不等式不成立,但是影响应该不大</p>
-</blockquote>
-<p><code>datapoints</code>属性在修改时会重新计算<code>route</code>,因此<em>不要频繁修改点集</em></p>
-]]></content>
-      <categories>
-        <category>3D位移测量平台设计</category>
-      </categories>
-      <tags>
-        <tag>3D位移平台</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>处理3D模型</title>
     <url>/2023/01/16/3Dmover/3Dmoveslice/</url>
     <content><![CDATA[<p>为了实现通过用户给的3D模型实现避障功能的路径规划,我们采取首先对模型进行切片,然后再通过修改路径长度和两点之间路径获取的函数完成</p>
@@ -92,40 +72,85 @@
       </tags>
   </entry>
   <entry>
-    <title>对控制驱动的改进</title>
-    <url>/2023/01/17/3Dmover/new-motor-driver/</url>
-    <content><![CDATA[<p>之前在制作控制程序的时候,有一些不够优雅的地方,今天决定对这些问题进行修正</p>
-<h2 id="事件驱动"><a href="#事件驱动" class="headerlink" title="事件驱动"></a>事件驱动</h2><p>之前的工作是通过不断地询问实现的,我们要实现<strong>与串口交互的部分不断询问,而上层则是通过事件去驱动</strong>,这样可以极大程度简便工作流程,并且为未来处理碰撞等问题提供解决方案.</p>
-<h3 id="对于电机"><a href="#对于电机" class="headerlink" title="对于电机"></a>对于电机</h3><p>电机输入一个<code>MoveControlCallbacksBase</code>,其中规定了三种可能的情况:状态更新,碰撞和坐标更新</p>
+    <title>3D位移平台路径开发器记录1</title>
+    <url>/2023/01/16/3Dmover/3Dmove2/</url>
+    <content><![CDATA[<p>完成路径规划的<code>RoutePlanner</code>类,实现从点集(<code>datapoints</code>)到路径命令(<code>routecmd</code>)的转换</p>
+<h3 id="使用算法"><a href="#使用算法" class="headerlink" title="使用算法"></a>使用算法</h3><p>使用的算法参考自<a href="https://zem12345678.github.io/2019/03/14/%E4%BD%BF%E7%94%A8%E8%BF%91%E4%BC%BC%E7%AE%97%E6%B3%95%E8%A7%A3%E5%86%B3%E6%97%85%E8%A1%8C%E5%95%86%EF%BC%88TSP%EF%BC%89%E9%97%AE%E9%A2%98">参考资料</a>,我们的问题是一个旅行商问题,因此没有一个多项式时间内可以实现的最优算法</p>
+<p>但是我们需要注意到,我们所面临的图是一个完全图,并且近似满足三角不等式.因此可以使用最小生成树的方法得到近似解,其结果不会大于最优解的两倍</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>由于未来需要保留避障措施,但是避障之后的路径可以用一个新的路径代替,因此是通过<strong>修改路径获取函数实现</strong>(为未来预留接口)</p>
 <blockquote>
-<p>这些函数只有在值改变的时候才会调用</p>
+<p>这样做可能导致三角不等式不成立,但是影响应该不大</p>
 </blockquote>
-<p>这样的话<code>MoveControl</code>类只留下了一个接受命令并阻塞运行的<code>run</code>方法(在阻塞运行时,坐标会更新),并且保留了两个公开可修改属性</p>
+<p><code>datapoints</code>属性在修改时会重新计算<code>route</code>,因此<em>不要频繁修改点集</em></p>
+]]></content>
+      <categories>
+        <category>3D位移测量平台设计</category>
+      </categories>
+      <tags>
+        <tag>3D位移平台</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>路径规划器设计 升级版</title>
+    <url>/2023/02/07/3Dmover/astar/</url>
+    <content><![CDATA[<p>在上一篇文章中我曾经提到有一种较好的替代算法,A*算法来处理存在障碍物的情况下对路径的寻找</p>
+<p>不过这种算法存在一个限制条件,就是其必须在网格内执行,而不是矢量(这看起来很正常,因为矢量的算法可以说几乎找不到)</p>
+<p>同时由于这种算法的性质,其运算过程是<strong>难以矢量化的</strong>,所以直接拿python去跑会变得非常让人难以接受,因此我们必须拿C++来实现这个功能</p>
+<p>具体而言,我们可以将这个问题转化为:<strong>网格化-&gt;A*寻路-&gt;矢量化</strong>三步进行</p>
+<span id="more"></span>
+
+<h2 id="网格化"><a href="#网格化" class="headerlink" title="网格化"></a>网格化</h2><p>在进行网格化的过程中,我是首先制作了一个<code>Mesh</code>类,这个类中会储存已知起点和终点以及密度的网格.然后其中有一个方法,可以将<strong>现实坐标</strong>转化为<strong>网格坐标</strong></p>
+<p>之后,这个类提供一个接口,可以将<strong>首尾不相连</strong>的多边形转换为网格,其原理就是先转换首末端点,然后用<code>Bresenham</code>算法对直线进行绘制(这种方法避免浮点运算,效率较高)</p>
+<p>这样就实现了对于坐标的网格化.</p>
+<blockquote>
+<p>&#x3D;&#x3D;索引问题&#x3D;&#x3D;</p>
+<p>由于在C中,数组的索引形式与<code>Eigen</code>(一个C++扩展,支持线性代数运算,可以参考<a href="https://eigen.tuxfamily.org/">这个网页</a>)相同,都是先行后列的索引</p>
+<p>因此我们会看到像<code>a[y][x]</code>或是<code>a(y,x)</code>这样的索引</p>
+<p>在编写接口的过程中,需要多加小心</p>
+<p><em>现在看好像并没有什么很显著的问题</em></p>
+</blockquote>
+<blockquote>
+<p>&#x3D;&#x3D;网格化的优化&#x3D;&#x3D;</p>
+<p>这种网格化提供了网格”生长”的可能性,例如在实际的操作中,我们知道机器必然不能精确的沿着边缘走,但是根据这一算法得到的结果,很多就是沿着边缘进行的</p>
+<p>这个时候如果我们已经进行了网格化,就可以实现较为容易的计算机图形学中的膨胀操作</p>
+<p>这里也许可以参考<a href="https://blog.csdn.net/qq_33732358/article/details/88725971">这篇文章</a></p>
+</blockquote>
+<blockquote>
+<p>&#x3D;&#x3D;向下舍入问题&#x3D;&#x3D;</p>
+<p>我们的计算是向下舍入的,即$a_x&#x3D;(x-x_{beg})&#x2F;\Delta x$一式向下舍入,那么我们在将网格倒推时,就需要加上0.5,减小误差</p>
+</blockquote>
+<h2 id="A-搜索"><a href="#A-搜索" class="headerlink" title="A*搜索"></a>A*搜索</h2><p>接下来就是我们讨论的A*搜索部分,实际上这一部分的内容网上都有,我就在这里给大家大略复述一下流程</p>
 <ol>
-<li><code>refreshtime</code>:控制多久刷新一次坐标信息</li>
-<li><code>feed_rate</code>:控制移动速度</li>
-</ol>
-<h3 id="对于控制器"><a href="#对于控制器" class="headerlink" title="对于控制器"></a>对于控制器</h3><p>计划将控制器的构造函数的参数<strong>不出现</strong>有关移动控制和测量控制的函数,这样可以保证更好的封装</p>
-<p>然后和电机保持一样的<strong>回调控制方式</strong></p>
-<p>对于控制器,则保留四种情况的回调:</p>
+<li><p>创建一个<code>open_set</code>和一个<code>close_set</code></p>
+</li>
+<li><p>从起点开始,将设定一个代价值(这个后面会讨论),然后将起点添加进<code>open_set</code>中</p>
+</li>
+<li><p>开始循环,直到达到终点:</p>
 <ol>
-<li><code>status_refresh_call</code>控制器状态刷新</li>
-<li><code>coordinate_refresh_call</code>坐标状态刷新</li>
-<li><code>measure_refresh_call</code>测量结果刷新</li>
-<li><code>no_command_call</code>无后续命令</li>
+<li>取出<code>open_set</code>中代价值最低的点,并将其加到<code>close_set</code>中</li>
+<li>在这个点周围寻找满足条件(可达且未经过的点),并将这些点加到<code>open_set</code>中</li>
 </ol>
-<p>并且保留了两个公开方法<code>add_cmd</code>和<code>change_motor_settings</code></p>
-<p>属性中保留<code>cmd_list</code>进行读取待进行指令,<code>cmd_now</code>为当前执行指令</p>
-<p>以及<code>move_start</code>控制是否开始测量</p>
-<h4 id="1-31更新"><a href="#1-31更新" class="headerlink" title="1.31更新"></a>1.31更新</h4><p>如果单纯的使用一个<code>cmd</code>来同时管理电机,测量和显示,这无疑是非常浪费的,而且这样操作如果未来需要修改命令格式以支持其他功能也是非常不妥当的,因此,我们需要对<code>cmd</code>进行预处理操作.</p>
-<p>我们添加了一个<code>_cmd_parser</code>指令,这个指令可以<strong>独立地</strong>去处理数据,目前可以处理两类:</p>
-<ol>
-<li>一次移动,一次测量</li>
-<li>多次移动一起,一次测量</li>
+</li>
+<li><p>如果达到终点,则回溯找到来时的路径,并返回</p>
+</li>
+<li><p>如果没有找到终点,那么终点不可达(有错误)</p>
+</li>
 </ol>
-<p>为了更好的适配2,我们在电机控制中添加了<code>_send_cmd_sync</code>这个命令,可以更高效处理曲折的路径</p>
-<p>同时,我们在回调函数中添加了<code>cmd_refresh_call</code>,避免用户去访问<code>cmd_now</code>属性造成混乱</p>
-<h2 id="测量驱动修改"><a href="#测量驱动修改" class="headerlink" title="测量驱动修改"></a>测量驱动修改</h2><p>应用了<code>MPS010602</code>,将相关文件打包成一个<code>weel</code>再安装,这个留到另外一篇文章讲</p>
+<blockquote>
+<p>&#x3D;&#x3D;关于代价函数&#x3D;&#x3D;</p>
+<p>我目前是使用曼哈顿距离作为代价函数进行计算实际上用欧几里得距离什么的也可以(但是计算效率会下降)</p>
+<p>但是使用的代价函数必须满足一个条件:<strong>一个点的代价必须是唯一的</strong>(可以不同点有相同代价)</p>
+<p>这与我们在算法中采用的<code>set</code>有关,如果出现一个点有不同代价,那么比较函数将无法抵达红黑树树叶,然后就会出错</p>
+<p>必须满足传递原则:若a&gt;b,b&gt;c则a&gt;c</p>
+</blockquote>
+<blockquote>
+<p>&#x3D;&#x3D;对于优化&#x3D;&#x3D;</p>
+<p>上面描述的是一般的代价函数,但是我们这里比较特殊,在进行计算前,我们需要对所有点进行初始化,此时一个起点对应的就不仅仅是一个终点了,也许可以极大的提高运算效率</p>
+</blockquote>
+<h2 id="反网格化"><a href="#反网格化" class="headerlink" title="反网格化"></a>反网格化</h2><p>这里就相当于是网格化的逆过程,我也不必过多解释,但是要注意最后为了减小误差,需要加上半个步长</p>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>下面是我用python调取C++库采用曼哈顿距离作为代价函数的运行结果,蓝色线为障碍物边界,红色线为规划得到的路径,其效果非常可观.</p>
+<p><img src="/2023/02/07/3Dmover/astar/outfig.png" alt="outfig"></p>
 ]]></content>
       <categories>
         <category>3D位移测量平台设计</category>
@@ -133,6 +158,7 @@
       <tags>
         <tag>3D位移平台</tag>
         <tag>程序规划</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
@@ -175,8 +201,8 @@
       </categories>
       <tags>
         <tag>3D位移平台</tag>
-        <tag>算法</tag>
         <tag>计算机图形学</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -270,19 +296,47 @@
       </tags>
   </entry>
   <entry>
-    <title>对于数字信号处理的手段</title>
-    <url>/2023/01/24/MPS010602/process-logical/</url>
-    <content><![CDATA[<p>之前研究过对于<code>MPS010602</code>中的数字信号,应当如何处理(在其中使用二进制位来表示逻辑),今天恰好看到了<code>numpy.bitwise_xor</code>函数,会非常有用,在此记录一下</p>
-<h2 id="逻辑位操作"><a href="#逻辑位操作" class="headerlink" title="逻辑位操作"></a>逻辑位操作</h2><p>在<code>numpy</code>库中有相应的逻辑操作函数,而最大的特点就在于它们可以实现向量化,这对于我们应用的场景来说非常重要.</p>
-<p>其使用的方法与&amp;类似,主要看代码,以下代码展示如何从一个八进制数取出某一位的数字信号</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_binary</span>(<span class="params">data_array:np.array,bit:<span class="built_in">int</span></span>):</span><br><span class="line">    check=<span class="number">1</span>&lt;&lt;bit</span><br><span class="line">    ca=np.array([check])</span><br><span class="line">    dataout=np.bitwise_and(data_array,ca)</span><br><span class="line">    <span class="keyword">return</span> np.where(dataout==<span class="number">0</span>,<span class="literal">False</span>,<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-
+    <title>对控制驱动的改进</title>
+    <url>/2023/01/17/3Dmover/new-motor-driver/</url>
+    <content><![CDATA[<p>之前在制作控制程序的时候,有一些不够优雅的地方,今天决定对这些问题进行修正</p>
+<h2 id="事件驱动"><a href="#事件驱动" class="headerlink" title="事件驱动"></a>事件驱动</h2><p>之前的工作是通过不断地询问实现的,我们要实现<strong>与串口交互的部分不断询问,而上层则是通过事件去驱动</strong>,这样可以极大程度简便工作流程,并且为未来处理碰撞等问题提供解决方案.</p>
+<h3 id="对于电机"><a href="#对于电机" class="headerlink" title="对于电机"></a>对于电机</h3><p>电机输入一个<code>MoveControlCallbacksBase</code>,其中规定了三种可能的情况:状态更新,碰撞和坐标更新</p>
+<blockquote>
+<p>这些函数只有在值改变的时候才会调用</p>
+</blockquote>
+<p>这样的话<code>MoveControl</code>类只留下了一个接受命令并阻塞运行的<code>run</code>方法(在阻塞运行时,坐标会更新),并且保留了两个公开可修改属性</p>
+<ol>
+<li><code>refreshtime</code>:控制多久刷新一次坐标信息</li>
+<li><code>feed_rate</code>:控制移动速度</li>
+</ol>
+<h3 id="对于控制器"><a href="#对于控制器" class="headerlink" title="对于控制器"></a>对于控制器</h3><p>计划将控制器的构造函数的参数<strong>不出现</strong>有关移动控制和测量控制的函数,这样可以保证更好的封装</p>
+<p>然后和电机保持一样的<strong>回调控制方式</strong></p>
+<p>对于控制器,则保留四种情况的回调:</p>
+<ol>
+<li><code>status_refresh_call</code>控制器状态刷新</li>
+<li><code>coordinate_refresh_call</code>坐标状态刷新</li>
+<li><code>measure_refresh_call</code>测量结果刷新</li>
+<li><code>no_command_call</code>无后续命令</li>
+</ol>
+<p>并且保留了两个公开方法<code>add_cmd</code>和<code>change_motor_settings</code></p>
+<p>属性中保留<code>cmd_list</code>进行读取待进行指令,<code>cmd_now</code>为当前执行指令</p>
+<p>以及<code>move_start</code>控制是否开始测量</p>
+<h4 id="1-31更新"><a href="#1-31更新" class="headerlink" title="1.31更新"></a>1.31更新</h4><p>如果单纯的使用一个<code>cmd</code>来同时管理电机,测量和显示,这无疑是非常浪费的,而且这样操作如果未来需要修改命令格式以支持其他功能也是非常不妥当的,因此,我们需要对<code>cmd</code>进行预处理操作.</p>
+<p>我们添加了一个<code>_cmd_parser</code>指令,这个指令可以<strong>独立地</strong>去处理数据,目前可以处理两类:</p>
+<ol>
+<li>一次移动,一次测量</li>
+<li>多次移动一起,一次测量</li>
+</ol>
+<p>为了更好的适配2,我们在电机控制中添加了<code>_send_cmd_sync</code>这个命令,可以更高效处理曲折的路径</p>
+<p>同时,我们在回调函数中添加了<code>cmd_refresh_call</code>,避免用户去访问<code>cmd_now</code>属性造成混乱</p>
+<h2 id="测量驱动修改"><a href="#测量驱动修改" class="headerlink" title="测量驱动修改"></a>测量驱动修改</h2><p>应用了<code>MPS010602</code>,将相关文件打包成一个<code>weel</code>再安装,这个留到另外一篇文章讲</p>
 ]]></content>
       <categories>
-        <category>MPS010602</category>
+        <category>3D位移测量平台设计</category>
       </categories>
       <tags>
-        <tag>python</tag>
+        <tag>3D位移平台</tag>
+        <tag>程序规划</tag>
       </tags>
   </entry>
   <entry>
@@ -321,132 +375,26 @@
       </tags>
   </entry>
   <entry>
+    <title>对于数字信号处理的手段</title>
+    <url>/2023/01/24/MPS010602/process-logical/</url>
+    <content><![CDATA[<p>之前研究过对于<code>MPS010602</code>中的数字信号,应当如何处理(在其中使用二进制位来表示逻辑),今天恰好看到了<code>numpy.bitwise_xor</code>函数,会非常有用,在此记录一下</p>
+<h2 id="逻辑位操作"><a href="#逻辑位操作" class="headerlink" title="逻辑位操作"></a>逻辑位操作</h2><p>在<code>numpy</code>库中有相应的逻辑操作函数,而最大的特点就在于它们可以实现向量化,这对于我们应用的场景来说非常重要.</p>
+<p>其使用的方法与&amp;类似,主要看代码,以下代码展示如何从一个八进制数取出某一位的数字信号</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_binary</span>(<span class="params">data_array:np.array,bit:<span class="built_in">int</span></span>):</span><br><span class="line">    check=<span class="number">1</span>&lt;&lt;bit</span><br><span class="line">    ca=np.array([check])</span><br><span class="line">    dataout=np.bitwise_and(data_array,ca)</span><br><span class="line">    <span class="keyword">return</span> np.where(dataout==<span class="number">0</span>,<span class="literal">False</span>,<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>MPS010602</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>poetry</title>
     <url>/2023/01/23/Pyerror/poetry/</url>
     <content><![CDATA[<h1 id="利用poetry进行包管理"><a href="#利用poetry进行包管理" class="headerlink" title="利用poetry进行包管理"></a>利用poetry进行包管理</h1><p>今天我突发奇想:</p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>关注闭环系统的控制系统设计(下)</title>
-    <url>/2023/02/05/control%20system/closecontrol2/</url>
-    <content><![CDATA[<h2 id="使用模型匹配法进行增益调整"><a href="#使用模型匹配法进行增益调整" class="headerlink" title="使用模型匹配法进行增益调整"></a>使用模型匹配法进行增益调整</h2><p>所谓<strong>模型匹配法</strong>就是通过指定合适的<strong>标准模型</strong>$\mathcal{M}(s)$尽量的去模拟目标值到控制量的传递函数$\mathcal{G}_{yr}(s)$<br>标准模型往往采用<strong>二项式系数标准型</strong>和<strong>巴特沃斯标准型</strong><br>例如,二阶系统的标准模型为:<br>$$\mathcal{M}(s)&#x3D;\frac{\omega_n^2}{s^2+2\zeta\omega_ns+\omega_n^2}$$<br>当我们将阻尼系数$\zeta$设为$\zeta&#x3D;1$时,就是二项式系数标准型,设为$\zeta&#x3D;\frac{1}{\sqrt{2}}$为巴特沃斯标准型<br>而无阻尼自然振荡频率$\omega_n$为决定快速性的参数,值越大控制系统启动上升越快  </p>
-<p>而对于三阶系统,其标准模型为<br>$$\mathcal{M}(s)&#x3D;\frac{\omega_n^3}{s^3+\alpha_2\omega_ns^2+\alpha_1\omega_n^2s+\omega_n^3}$$<br>当$(\alpha_1,\alpha_2)&#x3D;(3,3)$时这个模型为二项式系数标准型,当$(\alpha_1,\alpha_2)&#x3D;(2,2)$时这个模型为巴特沃斯标准型<br>此外,还有<strong>ITAE最小标准型</strong>,其可以使误差绝对值的时间加权积分最小,即<br>$$\int_0^t\tau|e(\tau)|\mathrm{d}\tau$$<br>值最小,可以将$(\alpha_1,\alpha_2)&#x3D;(2.15,1.75)$</p>
-<span id="more"></span>
-
-<p>下面展示了各种标准模型效果</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#准备工作</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> control <span class="keyword">as</span> ct </span><br><span class="line"><span class="keyword">from</span> control.matlab <span class="keyword">import</span> *</span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = [<span class="string">&#x27;Simhei&#x27;</span>]  <span class="comment">#显示中文</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = <span class="literal">False</span>    <span class="comment">#显示负号</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">line_generator</span>():</span><br><span class="line">    linestyle=[<span class="string">&quot;-&quot;</span>,<span class="string">&quot;--&quot;</span>,<span class="string">&quot;-.&quot;</span>,<span class="string">&quot;:&quot;</span>]</span><br><span class="line">    lineid=<span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">yield</span> linestyle[lineid] <span class="comment">#* 这个yield用法很有趣,可以学习一下</span></span><br><span class="line">        lineid=(lineid+<span class="number">1</span>)%<span class="built_in">len</span>(linestyle)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">plot_set</span>(<span class="params">fig_ax,*args</span>):</span><br><span class="line">    fig_ax.set_xlabel(args[<span class="number">0</span>])</span><br><span class="line">    fig_ax.set_ylabel(args[<span class="number">1</span>])</span><br><span class="line">    fig_ax.grid(ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)==<span class="number">3</span>:</span><br><span class="line">        fig_ax.legend(loc=args[<span class="number">2</span>])</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bodeplot_set</span>(<span class="params">fig_ax,*args</span>):</span><br><span class="line">    fig_ax[<span class="number">0</span>].grid(which=<span class="string">&#x27;both&#x27;</span>,ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">0</span>].set_ylabel(<span class="string">&#x27;Gain [dB]&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].grid(which=<span class="string">&#x27;both&#x27;</span>,ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].set_xlabel(<span class="string">&#x27;$\omega$ [rad/s]&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].set_ylabel(<span class="string">&#x27;Phase [deg]&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)&gt;<span class="number">0</span>:</span><br><span class="line">        fig_ax[<span class="number">1</span>].legend(loc=args[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)&gt;<span class="number">1</span>:</span><br><span class="line">        fig_ax[<span class="number">0</span>].legend(loc=args[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig,axs=plt.subplots(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">ls=line_generator()</span><br><span class="line">omega=<span class="number">10</span></span><br><span class="line">zetas=[<span class="number">1</span>,<span class="number">1</span>/np.sqrt(<span class="number">2</span>)]</span><br><span class="line">labels=[<span class="string">&quot;二项式系数标准型&quot;</span>,<span class="string">&quot;巴特沃斯标准型&quot;</span>]</span><br><span class="line"><span class="keyword">for</span> zeta,label <span class="keyword">in</span> <span class="built_in">zip</span>(zetas,labels):</span><br><span class="line">    p=tf([<span class="number">0</span>,omega**<span class="number">2</span>],[<span class="number">1</span>,<span class="number">2</span>*zeta*omega,omega**<span class="number">2</span>])</span><br><span class="line">    y,t=step(p,np.arange(<span class="number">0</span>,<span class="number">2</span>,<span class="number">0.01</span>))</span><br><span class="line">    axs[<span class="number">0</span>].plot(t,y,<span class="built_in">next</span>(ls),label=label)</span><br><span class="line">plot_set(axs[<span class="number">0</span>],<span class="string">&quot;t&quot;</span>,<span class="string">&quot;y&quot;</span>,<span class="string">&quot;best&quot;</span>)</span><br><span class="line"></span><br><span class="line">alphas=[(<span class="number">3</span>,<span class="number">3</span>),(<span class="number">2</span>,<span class="number">2</span>),(<span class="number">2.15</span>,<span class="number">1.75</span>)]</span><br><span class="line">labels=[<span class="string">&quot;二项式系数标准型&quot;</span>,<span class="string">&quot;巴特沃斯标准型&quot;</span>,<span class="string">&quot;ITAE最小标准型&quot;</span>]</span><br><span class="line"><span class="keyword">for</span> alpha,label <span class="keyword">in</span> <span class="built_in">zip</span>(alphas,labels):</span><br><span class="line">    p=tf([<span class="number">0</span>,omega**<span class="number">3</span>],[<span class="number">1</span>,alpha[<span class="number">0</span>]*omega,alpha[<span class="number">1</span>]*omega**<span class="number">2</span>,omega**<span class="number">3</span>])</span><br><span class="line">    y,t=step(p,np.arange(<span class="number">0</span>,<span class="number">2</span>,<span class="number">0.01</span>))</span><br><span class="line">    axs[<span class="number">1</span>].plot(t,y,<span class="built_in">next</span>(ls),label=label)</span><br><span class="line">plot_set(axs[<span class="number">1</span>],<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;y&#x27;</span>,<span class="string">&#x27;best&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-
-<p>​    <img src="/2023/02/05/control%20system/closecontrol2/close_control2_2_0.png" alt="png"><br>​    </p>
-<p>而模型匹配法是通过求取从$r$至$y$的传递函数,并且计算$\frac{1}{\mathcal{G}_{yr}(s)}$和$\frac{1}{\mathcal{M}(s)}$的麦克劳林展开式(即在$s&#x3D;0$时的泰勒展开)按照顺序使其一致  </p>
-<blockquote>
-<p>简单而言就是在前面几阶近似下保持相同(可以假设$s$比较大)<br>例如机械臂模型,我们就可以有以下形式<br>$$\mathcal{G}_{yr}(s)&#x3D;\frac{k_Ps+k_I}{Js^3+(\mu+k_D)s^2+(Mgl+k_P)s+k_I}$$<br>,我们可以利用<code>Sympy</code>库对于其进行展开</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sympy <span class="keyword">as</span> sp</span><br><span class="line">s=sp.Symbol(<span class="string">&#x27;s&#x27;</span>)</span><br><span class="line">kp,kd,ki=sp.symbols(<span class="string">&#x27;k_p k_d k_i&#x27;</span>)</span><br><span class="line">mgl,mu,j=sp.symbols(<span class="string">&#x27;mgl mu j&#x27;</span>)</span><br><span class="line"><span class="comment"># sp.init_printing()</span></span><br><span class="line">g=(kp*s+ki)/(j*s**<span class="number">3</span>+(mu+kd)*s**<span class="number">2</span>+(mgl+kp)*s+ki)</span><br><span class="line">sp.series(<span class="number">1</span>/g,s,<span class="number">0</span>,<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
-
-
-
-
-<p>$\displaystyle \frac{mgl s}{k_{i}} + 1 + s^{2} \left(\frac{k_{d}}{k_{i}} + \frac{\mu}{k_{i}} - \frac{k_{p} mgl}{k_{i}^{2}}\right) + s^{3} \left(\frac{j}{k_{i}} - \frac{k_{d} k_{p}}{k_{i}^{2}} - \frac{k_{p} \mu}{k_{i}^{2}} + \frac{k_{p}^{2} mgl}{k_{i}^{3}}\right) + O\left(s^{4}\right)$</p>
-<p>我们可以得到以上结果,与此同时,我们也可以展开$\frac{1}{\mathcal{M}(s)}$的方式得到另外一部分的结果</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=sp.Symbol(<span class="string">&#x27;s&#x27;</span>)</span><br><span class="line">omega,zeta=sp.symbols(<span class="string">&#x27;omega zeta&#x27;</span>)</span><br><span class="line">m=omega**<span class="number">2</span>/(s**<span class="number">2</span>+<span class="number">2</span>*zeta*omega*s+omega**<span class="number">2</span>)</span><br><span class="line">sp.series(<span class="number">1</span>/g,m,<span class="number">0</span>,<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
-
-
-
-
-<p>$\displaystyle \frac{j s^{3} + k_{i} + s^{2} \left(k_{d} + \mu\right) + s \left(k_{p} + mgl\right)}{k_{i} + k_{p} s}$</p>
-<p>联立两式,我们就可以得到$k_P,k_I,k_D$,在我们这种二阶滞后系统的情况下,可以实现$\frac{1}{\mathcal{G}_{yr}(s)}$和$\frac{1}{\mathcal{M}(s)}$完全一致  </p>
-<blockquote>
-<p>这是因为两者阶数恰好相同所以可以完全一致,但是在实际情况下只能大致相同</p>
-</blockquote>
-<h2 id="状态反馈控制"><a href="#状态反馈控制" class="headerlink" title="状态反馈控制"></a>状态反馈控制</h2><p>我们前面研究的是关于传递函数的模型,现在我们来研究<strong>状态空间模型$\dot{x}&#x3D;Ax+Bu$所描述的系统</strong><br>状态空间模型除了输入和输出,还存在有<strong>状态</strong>,我们可以假定可以通过传感器等观测到这些信息,具体而言,我们考虑如下的状态反馈控制:<br>$$u&#x3D;Fx$$<br>通过利用状态$x$的信息,来确定控制输入$u$,此处$F$称为<strong>状态反馈增益</strong><br>我们可以将状态反馈控制看作为一种PD控制,例如对于我们之前讨论的手推车系统,我们可以将手推车的位置$z$和速度$\dot{z}$当作状态,那么上式就可以被写作:<br>$$u&#x3D;Fx&#x3D;f_1z+f_2\dot{z}$$<br>其中$f_1$为比例增益,$f_2$为微分增益<br>而在状态反馈控制中最具代表性的设计方法有两种,分别为<strong>极点控制法</strong>和<strong>最优调节器</strong> </p>
-<h3 id="极点配置法"><a href="#极点配置法" class="headerlink" title="极点配置法"></a>极点配置法</h3><p>将状态反馈控制$u&#x3D;Fx$施加于系统$\dot{x}&#x3D;Ax+Bu$上之后,闭环系统可以写作如下形式:<br>$$\dot{x}&#x3D;(A+BF)x$$<br>倘使和矩阵的所有极点的实部均为负数,那么系统是稳定的  </p>
-<blockquote>
-<p>这里提醒一下,和矩阵的所有特征值实部均为负数(因为是在e指数上)  </p>
-</blockquote>
-<p>做法是这样的:</p>
-<ol>
-<li>找到我们所需的特征值</li>
-<li>寻找$F$,使$A+BF$能够满足我们的需要利用<code>acker</code>函数自带的阿克曼极点配置算法</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">A=<span class="string">&#x27;0 1;-4 5&#x27;</span></span><br><span class="line">B=<span class="string">&#x27;0; 1&#x27;</span></span><br><span class="line">C=<span class="string">&#x27;1 0;0 1&#x27;</span></span><br><span class="line">D=<span class="string">&#x27;0;0&#x27;</span></span><br><span class="line">P=ss(A,B,C,D)</span><br><span class="line"></span><br><span class="line">pole=[-<span class="number">1</span>,-<span class="number">1</span>] <span class="comment">#*指定极点</span></span><br><span class="line">F=-acker(P.A,P.B,pole)</span><br></pre></td></tr></table></figure>
-
-<p>这里有负号的原因是在于<code>acker</code>返回的是使$A-BF$的特征值作为指定极点的$F$<br>我们可以验证一下特征值是否正确</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">np.linalg.eigvals(P.A+P.B*F)</span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>array([-1.+6.68896751e-09j, -1.-6.68896751e-09j])
-</code></pre>
-<p>几乎就是1(前面的应该是<code>float</code>的误差),那么我们来看一下闭环控制系统的行为</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">acl=P.A+P.B*F</span><br><span class="line">pfb=ss(acl,P.B,P.C,P.D)</span><br><span class="line">td=np.arange(<span class="number">0</span>,<span class="number">5</span>,<span class="number">0.01</span>)</span><br><span class="line">x0=[-<span class="number">0.3</span>,<span class="number">0.4</span>]</span><br><span class="line">x,t=initial(pfb,td,x0)</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,x[:,<span class="number">0</span>],label=<span class="string">&quot;$x_1$&quot;</span>)</span><br><span class="line">ax.plot(t,x[:,<span class="number">1</span>],ls=<span class="string">&quot;-.&quot;</span>,label=<span class="string">&quot;$x_2$&quot;</span>)</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;x&quot;</span>,<span class="string">&quot;best&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="/2023/02/05/control%20system/closecontrol2/close_control2_14_0.png" alt="png"></p>
-<blockquote>
-<p>对于特征值的选定</p>
-</blockquote>
-<h3 id="最优调节器"><a href="#最优调节器" class="headerlink" title="最优调节器"></a>最优调节器</h3><p>我们既然已经知道了极点配置法如何工作,那么我们需要评估其结果,主要有两点特征:  </p>
-<ol>
-<li>特征值实部负值越大响应越快,但是反馈增益$F$也会变大导致输入非常大</li>
-<li>状态变量可能会出现涨幅较大的变量<br>为了解决这个问题,我们可以设定某个评价指标,同时求取状态反馈增益令评价指标最小化    <blockquote>
-<p>对于$Q&#x3D;Q^T&gt;0,R&#x3D;R^T&gt;0$,有以下的评价函数<br>$$J&#x3D;\int^\infin_0(x^T(t)Qx(t)+u^T(t)Ru(t))dt$$<br>使得这个函数最小化的控制器形式为$u&#x3D;F_{opt}x$,其中$F_{opt}$的值为<br>$$F&#x3D;-R^{-1}B^TP$$<br>其中$P&#x3D;P^T&gt;0$,是满足下述方程的唯一正定二次型<br>$$A^TP+PA+PBR^{-1}B^TP+Q&#x3D;0$$<br>那么$J$的最小值为$x(0)^TPx(0)$<br>(仔细看评价函数,两个二次型)</p>
-</blockquote>
-</li>
-</ol>
-<p>像这样通过评价函数最优化得到的状态反馈控制为<strong>最优调节器</strong><br>另外,我们通常设定$Q$为对角阵(标准型),其中$Q$的对角元往往用来表示哪个先收敛<br>相应的,在$u$恒定的条件下,$R$作为标量越大,就可以得到不会让输入过大的$F$<br>而在python中,我们可以使用<code>lqr</code>来设计最优调节器</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Q=[[<span class="number">100</span>,<span class="number">0</span>],[<span class="number">0</span>,<span class="number">1</span>]] <span class="comment">#*使用这个Q表示我们要让状态第一个变量速度大</span></span><br><span class="line">R=<span class="number">100</span></span><br><span class="line"></span><br><span class="line">F,X,E=lqr(P.A,P.B,Q,R)<span class="comment">#*F为得到的反馈增益(要加一个负号),X为里卡提方程的解,E则为这个闭环系统的极点</span></span><br><span class="line">F=-F</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;反馈增益&quot;</span>.center(<span class="number">50</span>,<span class="string">&#x27;-&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(F)<span class="comment">#使用-(1/R)*B.T*X也能有相似的效果</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;闭环极点&quot;</span>.center(<span class="number">50</span>,<span class="string">&#x27;-&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(E)</span><br><span class="line">acl=P.A+P.B*F</span><br><span class="line">pfb=ss(acl,P.B,P.C,P.D)</span><br><span class="line">td=np.arange(<span class="number">0</span>,<span class="number">5</span>,<span class="number">0.01</span>)</span><br><span class="line">x0=[-<span class="number">0.3</span>,<span class="number">0.4</span>]</span><br><span class="line">x,t=initial(pfb,td,x0)</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,x[:,<span class="number">0</span>],label=<span class="string">&quot;$x_1$&quot;</span>)</span><br><span class="line">ax.plot(t,x[:,<span class="number">1</span>],ls=<span class="string">&quot;-.&quot;</span>,label=<span class="string">&quot;$x_2$&quot;</span>)</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;x&quot;</span>,<span class="string">&quot;best&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<pre><code>-----------------------反馈增益-----------------------
-[[ -0.12310563 -10.02555582]]
------------------------闭环极点-----------------------
-[-1.03259306 -3.99296276]
-</code></pre>
-<p><img src="/2023/02/05/control%20system/closecontrol2/close_control2_17_1.png" alt="png"></p>
-<blockquote>
-<p>使用<code>care</code>也可以得到相似的结果,在此不再介绍 </p>
-</blockquote>
-<blockquote>
-<p>还有,我想当怀疑这个状态空间就是所谓的相空间,太像了(但是维度又不止二维)</p>
-</blockquote>
-<blockquote>
-<p>同时,前面使用配置极点法时,要求任意状态$x$开始,要能够达到相空间的任何地方,可以使用<code>ctrb</code>求可控性矩阵</p>
-</blockquote>
-<h2 id="闭环系统规格"><a href="#闭环系统规格" class="headerlink" title="闭环系统规格"></a>闭环系统规格</h2><table>
-<thead>
-<tr>
-<th></th>
-<th>随动系统</th>
-<th>恒值调节系统</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>阻尼系数</td>
-<td>0.6~0.8</td>
-<td>0.2~0.5</td>
-</tr>
-<tr>
-<td>超调量</td>
-<td>0~0.25</td>
-<td>0~0.25</td>
-</tr>
-<tr>
-<td>峰值增益</td>
-<td>1.1~1.5</td>
-<td>1.1~1.5</td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>Python设计控制系统</category>
-      </categories>
-      <tags>
-        <tag>控制系统</tag>
-      </tags>
   </entry>
   <entry>
     <title>关注闭环系统的控制系统设计(上)</title>
@@ -597,6 +545,128 @@
 
 
 <p><img src="/2023/01/31/control%20system/close-sys1/close_sys_36_0.png" alt="png"><br>​    </p>
+]]></content>
+      <categories>
+        <category>Python设计控制系统</category>
+      </categories>
+      <tags>
+        <tag>控制系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关注闭环系统的控制系统设计(下)</title>
+    <url>/2023/02/05/control%20system/closecontrol2/</url>
+    <content><![CDATA[<h2 id="使用模型匹配法进行增益调整"><a href="#使用模型匹配法进行增益调整" class="headerlink" title="使用模型匹配法进行增益调整"></a>使用模型匹配法进行增益调整</h2><p>所谓<strong>模型匹配法</strong>就是通过指定合适的<strong>标准模型</strong>$\mathcal{M}(s)$尽量的去模拟目标值到控制量的传递函数$\mathcal{G}_{yr}(s)$<br>标准模型往往采用<strong>二项式系数标准型</strong>和<strong>巴特沃斯标准型</strong><br>例如,二阶系统的标准模型为:<br>$$\mathcal{M}(s)&#x3D;\frac{\omega_n^2}{s^2+2\zeta\omega_ns+\omega_n^2}$$<br>当我们将阻尼系数$\zeta$设为$\zeta&#x3D;1$时,就是二项式系数标准型,设为$\zeta&#x3D;\frac{1}{\sqrt{2}}$为巴特沃斯标准型<br>而无阻尼自然振荡频率$\omega_n$为决定快速性的参数,值越大控制系统启动上升越快  </p>
+<p>而对于三阶系统,其标准模型为<br>$$\mathcal{M}(s)&#x3D;\frac{\omega_n^3}{s^3+\alpha_2\omega_ns^2+\alpha_1\omega_n^2s+\omega_n^3}$$<br>当$(\alpha_1,\alpha_2)&#x3D;(3,3)$时这个模型为二项式系数标准型,当$(\alpha_1,\alpha_2)&#x3D;(2,2)$时这个模型为巴特沃斯标准型<br>此外,还有<strong>ITAE最小标准型</strong>,其可以使误差绝对值的时间加权积分最小,即<br>$$\int_0^t\tau|e(\tau)|\mathrm{d}\tau$$<br>值最小,可以将$(\alpha_1,\alpha_2)&#x3D;(2.15,1.75)$</p>
+<span id="more"></span>
+
+<p>下面展示了各种标准模型效果</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#准备工作</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> control <span class="keyword">as</span> ct </span><br><span class="line"><span class="keyword">from</span> control.matlab <span class="keyword">import</span> *</span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = [<span class="string">&#x27;Simhei&#x27;</span>]  <span class="comment">#显示中文</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = <span class="literal">False</span>    <span class="comment">#显示负号</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">line_generator</span>():</span><br><span class="line">    linestyle=[<span class="string">&quot;-&quot;</span>,<span class="string">&quot;--&quot;</span>,<span class="string">&quot;-.&quot;</span>,<span class="string">&quot;:&quot;</span>]</span><br><span class="line">    lineid=<span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">yield</span> linestyle[lineid] <span class="comment">#* 这个yield用法很有趣,可以学习一下</span></span><br><span class="line">        lineid=(lineid+<span class="number">1</span>)%<span class="built_in">len</span>(linestyle)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">plot_set</span>(<span class="params">fig_ax,*args</span>):</span><br><span class="line">    fig_ax.set_xlabel(args[<span class="number">0</span>])</span><br><span class="line">    fig_ax.set_ylabel(args[<span class="number">1</span>])</span><br><span class="line">    fig_ax.grid(ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)==<span class="number">3</span>:</span><br><span class="line">        fig_ax.legend(loc=args[<span class="number">2</span>])</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bodeplot_set</span>(<span class="params">fig_ax,*args</span>):</span><br><span class="line">    fig_ax[<span class="number">0</span>].grid(which=<span class="string">&#x27;both&#x27;</span>,ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">0</span>].set_ylabel(<span class="string">&#x27;Gain [dB]&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].grid(which=<span class="string">&#x27;both&#x27;</span>,ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].set_xlabel(<span class="string">&#x27;$\omega$ [rad/s]&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].set_ylabel(<span class="string">&#x27;Phase [deg]&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)&gt;<span class="number">0</span>:</span><br><span class="line">        fig_ax[<span class="number">1</span>].legend(loc=args[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)&gt;<span class="number">1</span>:</span><br><span class="line">        fig_ax[<span class="number">0</span>].legend(loc=args[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig,axs=plt.subplots(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">ls=line_generator()</span><br><span class="line">omega=<span class="number">10</span></span><br><span class="line">zetas=[<span class="number">1</span>,<span class="number">1</span>/np.sqrt(<span class="number">2</span>)]</span><br><span class="line">labels=[<span class="string">&quot;二项式系数标准型&quot;</span>,<span class="string">&quot;巴特沃斯标准型&quot;</span>]</span><br><span class="line"><span class="keyword">for</span> zeta,label <span class="keyword">in</span> <span class="built_in">zip</span>(zetas,labels):</span><br><span class="line">    p=tf([<span class="number">0</span>,omega**<span class="number">2</span>],[<span class="number">1</span>,<span class="number">2</span>*zeta*omega,omega**<span class="number">2</span>])</span><br><span class="line">    y,t=step(p,np.arange(<span class="number">0</span>,<span class="number">2</span>,<span class="number">0.01</span>))</span><br><span class="line">    axs[<span class="number">0</span>].plot(t,y,<span class="built_in">next</span>(ls),label=label)</span><br><span class="line">plot_set(axs[<span class="number">0</span>],<span class="string">&quot;t&quot;</span>,<span class="string">&quot;y&quot;</span>,<span class="string">&quot;best&quot;</span>)</span><br><span class="line"></span><br><span class="line">alphas=[(<span class="number">3</span>,<span class="number">3</span>),(<span class="number">2</span>,<span class="number">2</span>),(<span class="number">2.15</span>,<span class="number">1.75</span>)]</span><br><span class="line">labels=[<span class="string">&quot;二项式系数标准型&quot;</span>,<span class="string">&quot;巴特沃斯标准型&quot;</span>,<span class="string">&quot;ITAE最小标准型&quot;</span>]</span><br><span class="line"><span class="keyword">for</span> alpha,label <span class="keyword">in</span> <span class="built_in">zip</span>(alphas,labels):</span><br><span class="line">    p=tf([<span class="number">0</span>,omega**<span class="number">3</span>],[<span class="number">1</span>,alpha[<span class="number">0</span>]*omega,alpha[<span class="number">1</span>]*omega**<span class="number">2</span>,omega**<span class="number">3</span>])</span><br><span class="line">    y,t=step(p,np.arange(<span class="number">0</span>,<span class="number">2</span>,<span class="number">0.01</span>))</span><br><span class="line">    axs[<span class="number">1</span>].plot(t,y,<span class="built_in">next</span>(ls),label=label)</span><br><span class="line">plot_set(axs[<span class="number">1</span>],<span class="string">&#x27;t&#x27;</span>,<span class="string">&#x27;y&#x27;</span>,<span class="string">&#x27;best&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p>​    <img src="/2023/02/05/control%20system/closecontrol2/close_control2_2_0.png" alt="png"><br>​    </p>
+<p>而模型匹配法是通过求取从$r$至$y$的传递函数,并且计算$\frac{1}{\mathcal{G}_{yr}(s)}$和$\frac{1}{\mathcal{M}(s)}$的麦克劳林展开式(即在$s&#x3D;0$时的泰勒展开)按照顺序使其一致  </p>
+<blockquote>
+<p>简单而言就是在前面几阶近似下保持相同(可以假设$s$比较大)<br>例如机械臂模型,我们就可以有以下形式<br>$$\mathcal{G}_{yr}(s)&#x3D;\frac{k_Ps+k_I}{Js^3+(\mu+k_D)s^2+(Mgl+k_P)s+k_I}$$<br>,我们可以利用<code>Sympy</code>库对于其进行展开</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sympy <span class="keyword">as</span> sp</span><br><span class="line">s=sp.Symbol(<span class="string">&#x27;s&#x27;</span>)</span><br><span class="line">kp,kd,ki=sp.symbols(<span class="string">&#x27;k_p k_d k_i&#x27;</span>)</span><br><span class="line">mgl,mu,j=sp.symbols(<span class="string">&#x27;mgl mu j&#x27;</span>)</span><br><span class="line"><span class="comment"># sp.init_printing()</span></span><br><span class="line">g=(kp*s+ki)/(j*s**<span class="number">3</span>+(mu+kd)*s**<span class="number">2</span>+(mgl+kp)*s+ki)</span><br><span class="line">sp.series(<span class="number">1</span>/g,s,<span class="number">0</span>,<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>$\displaystyle \frac{mgl s}{k_{i}} + 1 + s^{2} \left(\frac{k_{d}}{k_{i}} + \frac{\mu}{k_{i}} - \frac{k_{p} mgl}{k_{i}^{2}}\right) + s^{3} \left(\frac{j}{k_{i}} - \frac{k_{d} k_{p}}{k_{i}^{2}} - \frac{k_{p} \mu}{k_{i}^{2}} + \frac{k_{p}^{2} mgl}{k_{i}^{3}}\right) + O\left(s^{4}\right)$</p>
+<p>我们可以得到以上结果,与此同时,我们也可以展开$\frac{1}{\mathcal{M}(s)}$的方式得到另外一部分的结果</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=sp.Symbol(<span class="string">&#x27;s&#x27;</span>)</span><br><span class="line">omega,zeta=sp.symbols(<span class="string">&#x27;omega zeta&#x27;</span>)</span><br><span class="line">m=omega**<span class="number">2</span>/(s**<span class="number">2</span>+<span class="number">2</span>*zeta*omega*s+omega**<span class="number">2</span>)</span><br><span class="line">sp.series(<span class="number">1</span>/g,m,<span class="number">0</span>,<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>$\displaystyle \frac{j s^{3} + k_{i} + s^{2} \left(k_{d} + \mu\right) + s \left(k_{p} + mgl\right)}{k_{i} + k_{p} s}$</p>
+<p>联立两式,我们就可以得到$k_P,k_I,k_D$,在我们这种二阶滞后系统的情况下,可以实现$\frac{1}{\mathcal{G}_{yr}(s)}$和$\frac{1}{\mathcal{M}(s)}$完全一致  </p>
+<blockquote>
+<p>这是因为两者阶数恰好相同所以可以完全一致,但是在实际情况下只能大致相同</p>
+</blockquote>
+<h2 id="状态反馈控制"><a href="#状态反馈控制" class="headerlink" title="状态反馈控制"></a>状态反馈控制</h2><p>我们前面研究的是关于传递函数的模型,现在我们来研究<strong>状态空间模型$\dot{x}&#x3D;Ax+Bu$所描述的系统</strong><br>状态空间模型除了输入和输出,还存在有<strong>状态</strong>,我们可以假定可以通过传感器等观测到这些信息,具体而言,我们考虑如下的状态反馈控制:<br>$$u&#x3D;Fx$$<br>通过利用状态$x$的信息,来确定控制输入$u$,此处$F$称为<strong>状态反馈增益</strong><br>我们可以将状态反馈控制看作为一种PD控制,例如对于我们之前讨论的手推车系统,我们可以将手推车的位置$z$和速度$\dot{z}$当作状态,那么上式就可以被写作:<br>$$u&#x3D;Fx&#x3D;f_1z+f_2\dot{z}$$<br>其中$f_1$为比例增益,$f_2$为微分增益<br>而在状态反馈控制中最具代表性的设计方法有两种,分别为<strong>极点控制法</strong>和<strong>最优调节器</strong> </p>
+<h3 id="极点配置法"><a href="#极点配置法" class="headerlink" title="极点配置法"></a>极点配置法</h3><p>将状态反馈控制$u&#x3D;Fx$施加于系统$\dot{x}&#x3D;Ax+Bu$上之后,闭环系统可以写作如下形式:<br>$$\dot{x}&#x3D;(A+BF)x$$<br>倘使和矩阵的所有极点的实部均为负数,那么系统是稳定的  </p>
+<blockquote>
+<p>这里提醒一下,和矩阵的所有特征值实部均为负数(因为是在e指数上)  </p>
+</blockquote>
+<p>做法是这样的:</p>
+<ol>
+<li>找到我们所需的特征值</li>
+<li>寻找$F$,使$A+BF$能够满足我们的需要利用<code>acker</code>函数自带的阿克曼极点配置算法</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">A=<span class="string">&#x27;0 1;-4 5&#x27;</span></span><br><span class="line">B=<span class="string">&#x27;0; 1&#x27;</span></span><br><span class="line">C=<span class="string">&#x27;1 0;0 1&#x27;</span></span><br><span class="line">D=<span class="string">&#x27;0;0&#x27;</span></span><br><span class="line">P=ss(A,B,C,D)</span><br><span class="line"></span><br><span class="line">pole=[-<span class="number">1</span>,-<span class="number">1</span>] <span class="comment">#*指定极点</span></span><br><span class="line">F=-acker(P.A,P.B,pole)</span><br></pre></td></tr></table></figure>
+
+<p>这里有负号的原因是在于<code>acker</code>返回的是使$A-BF$的特征值作为指定极点的$F$<br>我们可以验证一下特征值是否正确</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">np.linalg.eigvals(P.A+P.B*F)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>array([-1.+6.68896751e-09j, -1.-6.68896751e-09j])
+</code></pre>
+<p>几乎就是1(前面的应该是<code>float</code>的误差),那么我们来看一下闭环控制系统的行为</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">acl=P.A+P.B*F</span><br><span class="line">pfb=ss(acl,P.B,P.C,P.D)</span><br><span class="line">td=np.arange(<span class="number">0</span>,<span class="number">5</span>,<span class="number">0.01</span>)</span><br><span class="line">x0=[-<span class="number">0.3</span>,<span class="number">0.4</span>]</span><br><span class="line">x,t=initial(pfb,td,x0)</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,x[:,<span class="number">0</span>],label=<span class="string">&quot;$x_1$&quot;</span>)</span><br><span class="line">ax.plot(t,x[:,<span class="number">1</span>],ls=<span class="string">&quot;-.&quot;</span>,label=<span class="string">&quot;$x_2$&quot;</span>)</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;x&quot;</span>,<span class="string">&quot;best&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/2023/02/05/control%20system/closecontrol2/close_control2_14_0.png" alt="png"></p>
+<blockquote>
+<p>对于特征值的选定</p>
+</blockquote>
+<h3 id="最优调节器"><a href="#最优调节器" class="headerlink" title="最优调节器"></a>最优调节器</h3><p>我们既然已经知道了极点配置法如何工作,那么我们需要评估其结果,主要有两点特征:  </p>
+<ol>
+<li>特征值实部负值越大响应越快,但是反馈增益$F$也会变大导致输入非常大</li>
+<li>状态变量可能会出现涨幅较大的变量<br>为了解决这个问题,我们可以设定某个评价指标,同时求取状态反馈增益令评价指标最小化    <blockquote>
+<p>对于$Q&#x3D;Q^T&gt;0,R&#x3D;R^T&gt;0$,有以下的评价函数<br>$$J&#x3D;\int^\infin_0(x^T(t)Qx(t)+u^T(t)Ru(t))dt$$<br>使得这个函数最小化的控制器形式为$u&#x3D;F_{opt}x$,其中$F_{opt}$的值为<br>$$F&#x3D;-R^{-1}B^TP$$<br>其中$P&#x3D;P^T&gt;0$,是满足下述方程的唯一正定二次型<br>$$A^TP+PA+PBR^{-1}B^TP+Q&#x3D;0$$<br>那么$J$的最小值为$x(0)^TPx(0)$<br>(仔细看评价函数,两个二次型)</p>
+</blockquote>
+</li>
+</ol>
+<p>像这样通过评价函数最优化得到的状态反馈控制为<strong>最优调节器</strong><br>另外,我们通常设定$Q$为对角阵(标准型),其中$Q$的对角元往往用来表示哪个先收敛<br>相应的,在$u$恒定的条件下,$R$作为标量越大,就可以得到不会让输入过大的$F$<br>而在python中,我们可以使用<code>lqr</code>来设计最优调节器</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Q=[[<span class="number">100</span>,<span class="number">0</span>],[<span class="number">0</span>,<span class="number">1</span>]] <span class="comment">#*使用这个Q表示我们要让状态第一个变量速度大</span></span><br><span class="line">R=<span class="number">100</span></span><br><span class="line"></span><br><span class="line">F,X,E=lqr(P.A,P.B,Q,R)<span class="comment">#*F为得到的反馈增益(要加一个负号),X为里卡提方程的解,E则为这个闭环系统的极点</span></span><br><span class="line">F=-F</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;反馈增益&quot;</span>.center(<span class="number">50</span>,<span class="string">&#x27;-&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(F)<span class="comment">#使用-(1/R)*B.T*X也能有相似的效果</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;闭环极点&quot;</span>.center(<span class="number">50</span>,<span class="string">&#x27;-&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(E)</span><br><span class="line">acl=P.A+P.B*F</span><br><span class="line">pfb=ss(acl,P.B,P.C,P.D)</span><br><span class="line">td=np.arange(<span class="number">0</span>,<span class="number">5</span>,<span class="number">0.01</span>)</span><br><span class="line">x0=[-<span class="number">0.3</span>,<span class="number">0.4</span>]</span><br><span class="line">x,t=initial(pfb,td,x0)</span><br><span class="line">fig,ax=plt.subplots()</span><br><span class="line">ax.plot(t,x[:,<span class="number">0</span>],label=<span class="string">&quot;$x_1$&quot;</span>)</span><br><span class="line">ax.plot(t,x[:,<span class="number">1</span>],ls=<span class="string">&quot;-.&quot;</span>,label=<span class="string">&quot;$x_2$&quot;</span>)</span><br><span class="line">plot_set(ax,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;x&quot;</span>,<span class="string">&quot;best&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>-----------------------反馈增益-----------------------
+[[ -0.12310563 -10.02555582]]
+-----------------------闭环极点-----------------------
+[-1.03259306 -3.99296276]
+</code></pre>
+<p><img src="/2023/02/05/control%20system/closecontrol2/close_control2_17_1.png" alt="png"></p>
+<blockquote>
+<p>使用<code>care</code>也可以得到相似的结果,在此不再介绍 </p>
+</blockquote>
+<blockquote>
+<p>还有,我想当怀疑这个状态空间就是所谓的相空间,太像了(但是维度又不止二维)</p>
+</blockquote>
+<blockquote>
+<p>同时,前面使用配置极点法时,要求任意状态$x$开始,要能够达到相空间的任何地方,可以使用<code>ctrb</code>求可控性矩阵</p>
+</blockquote>
+<h2 id="闭环系统规格"><a href="#闭环系统规格" class="headerlink" title="闭环系统规格"></a>闭环系统规格</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>随动系统</th>
+<th>恒值调节系统</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>阻尼系数</td>
+<td>0.6~0.8</td>
+<td>0.2~0.5</td>
+</tr>
+<tr>
+<td>超调量</td>
+<td>0~0.25</td>
+<td>0~0.25</td>
+</tr>
+<tr>
+<td>峰值增益</td>
+<td>1.1~1.5</td>
+<td>1.1~1.5</td>
+</tr>
+</tbody></table>
 ]]></content>
       <categories>
         <category>Python设计控制系统</category>
@@ -1384,426 +1454,6 @@ C:\Users\h\AppData\Local\Temp\ipykernel_43220\485392308.py:21: UserWarning: You 
       </tags>
   </entry>
   <entry>
-    <title>VSCode特别功能总结</title>
-    <url>/2023/01/17/misc/VSCode/</url>
-    <content><![CDATA[<p>VSCode作为一个常用的编辑器(有时可以作为集成开发环境),其拥有许多重要的”特殊功能”,在这里进行笔记,以便未来查阅</p>
-<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><h2 id="正则表达式搜索替换"><a href="#正则表达式搜索替换" class="headerlink" title="正则表达式搜索替换"></a>正则表达式搜索替换</h2><h3 id="正则表达式速查表"><a href="#正则表达式速查表" class="headerlink" title="正则表达式速查表"></a>正则表达式速查表</h3><table>
-<thead>
-<tr>
-<th>转义字符</th>
-<th>匹配内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>\t</td>
-<td>tab</td>
-</tr>
-<tr>
-<td>\r</td>
-<td>回车符号\r</td>
-</tr>
-<tr>
-<td>\n</td>
-<td>换行符号\n</td>
-</tr>
-<tr>
-<td>\</td>
-<td>特殊符号转义，如”<em>“ ，转义后匹配的是字符”</em>“， “(” 匹配的是括号”(“</td>
-</tr>
-<tr>
-<td>[字符序列]</td>
-<td>匹配[ ]中的任意字符，如[ae]，字符a和字符e均匹配</td>
-</tr>
-<tr>
-<td>[^字符序列]</td>
-<td>匹配不在[ ]中的任意字符，如[^ae]除了a和e，其他字符都匹配</td>
-</tr>
-<tr>
-<td>[字符1-字符2]</td>
-<td>匹配在[ ]之间的任意字符，如[a-x]，就是匹配a和x之间的所有字符（包括a和x）</td>
-</tr>
-<tr>
-<td><strong>.</strong></td>
-<td>匹配任意单个字符(除了\n)</td>
-</tr>
-<tr>
-<td>\w</td>
-<td>匹配所有单词字符（如”a”，“3”，“E”，但不匹配”?”，”.”等）</td>
-</tr>
-<tr>
-<td>\W</td>
-<td>和\w相反，匹配所有非单词字符</td>
-</tr>
-<tr>
-<td>\s</td>
-<td>匹配空格</td>
-</tr>
-<tr>
-<td>\S</td>
-<td>和\s相反，匹配非空格</td>
-</tr>
-<tr>
-<td>\d</td>
-<td>匹配数字字符，如”1”，“4”，”9”等</td>
-</tr>
-<tr>
-<td>\D</td>
-<td>和\d相反，匹配除了数字字符外的其他字符</td>
-</tr>
-<tr>
-<td>*</td>
-<td>将前面的元素匹配0到多次，如”\d*.\d”，可以匹配”19.9”，”.0”,“129.9”</td>
-</tr>
-<tr>
-<td>+</td>
-<td>将前面的元素匹配1到多次，如”be+”，可以匹配”be”， “beeeeee”</td>
-</tr>
-<tr>
-<td>？</td>
-<td>将前面的元素匹配0次或者一次，如”rai?n” 可以且只可以匹配 “ran” 或者 “rain”</td>
-</tr>
-<tr>
-<td>{n}</td>
-<td>n是个数字，将前面的元素匹配n次，如”be{3}“可以且只可以匹配 ”beee”</td>
-</tr>
-<tr>
-<td>{n, m}</td>
-<td>将前面的元素匹配至少n次，最多m次，如”be{1,3}” 可以且只可以匹配”be”,“bee”, “beee”</td>
-</tr>
-<tr>
-<td>|</td>
-<td>相当于”或”,表示匹配由</td>
-</tr>
-</tbody></table>
-<p>而正则表达式中的”子模式”<code>()</code>,在替换时可以使用<code>$1</code>来相应的替换.</p>
-<p>例如对于<code>anaconda</code>导出的<code>environment.yml</code>文件,其一部分格式如下:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- packagename=0.0.0=aaaaa</span><br></pre></td></tr></table></figure>
-
-<p>由于在跨操作系统迁移时要将后面那个详细版本给去掉因此可以使用替换功能</p>
-<p>查找<code>(.=.)=.</code></p>
-<p>替换为<code>$1</code></p>
-<h2 id="VSC分屏显示"><a href="#VSC分屏显示" class="headerlink" title="VSC分屏显示"></a>VSC分屏显示</h2><p>由于在写代码时希望可以做到两个显示屏共同显示project的代码,因此需要用分屏显示</p>
-<p>首先<code>ctrl+shift+P</code>,然后输入<code>Workspace: Duplicate As Workspace in New Window</code></p>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>VSCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于EasyConnect可能存在的问题以及解决方案</title>
-    <url>/2023/01/16/misc/abouteasyconnect/</url>
-    <content><![CDATA[<h2 id="事情起因"><a href="#事情起因" class="headerlink" title="事情起因"></a>事情起因</h2><p>今天我刷到了一个<a href="https://www.bilibili.com/video/BV163411Z7BD">视频</a>了解到<code>EasyConnect</code>似乎有滥用权限,泄露用户数据的可能,因此希望找到一种方法,在正常访问内网资源的同时实现对<code>EasyConnect</code>的控制.</p>
-<h2 id="解决手段"><a href="#解决手段" class="headerlink" title="解决手段"></a>解决手段</h2><p>我采用的是视频中提供的方案,是<code>docker-easyconnect</code>,[此为源代码地址][<a href="https://github.com/Hagb/docker-easyconnect]">https://github.com/Hagb/docker-easyconnect]</a></p>
-<p>在操作的时候,需要使用<code>Docker</code>环境进行隔离,刚好也对<code>Docker</code>环境进行学习</p>
-<blockquote>
-<p>需要注意的,在使用<code>socks5</code>代理的时候,把端口从1080改为其他类型的端口</p>
-</blockquote>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>算是实现了部分的功能,在<code>Docker</code>上顺利登陆了,并且使用<code>Firefox</code>上的<code>SwichyOmega</code>实现对于流量的分流(基于<code>socks5</code>原理)(不过目前只代理了&#96;<em>.fudan.edu.cn</em>网页),这么做可以保障我在使用内网资源的时候同时可以访问外网资料</p>
-<p>不过,这样的连接存在较为严重的稳定性问题,问题比较像<a href="https://github.com/Hagb/docker-easyconnect/issues/177">一个issue</a>,如何解决目前不明.</p>
-<p>同时,非常遗憾的,使用这种手段无法解决我使用<code>ssh</code>的问题,而网上的资料似乎主要针对<code>Linux</code>系统,因此还是无法摆脱<code>EasyConnect</code>的困扰.</p>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>通讯安全</tag>
-        <tag>Docker</tag>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用C++为python编写扩展</title>
-    <url>/2023/02/05/misc/cpython/</url>
-    <content><![CDATA[<blockquote>
-<p>编译一时爽,环境火葬场</p>
-</blockquote>
-<p>因为使用A*算法对于路径的寻找需要更高的效率,很明显,python自身完全不能满足我们的需求,因此使用C++编写python扩展变得非常重要.</p>
-<p>不幸的是,我昨天花了整整一天都没有解决这个问题,但是今天却进行的异常顺利,下面我来讲一下在使用C++编写python中的几个坑</p>
-<span id="more"></span>
-
-<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>我们使用的是<code>pybind</code>的库,具体<code>pybind</code>应当如何使用在这里我就不过多介绍了,下面先贴出来我用做测试的代码:</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;pybind11/pybind11.h&quot;</span></span></span><br><span class="line"><span class="keyword">namespace</span> py = pybind11;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">testadd</span><span class="params">(<span class="type">int</span> i,<span class="type">int</span> j)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> i+j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">PYBIND11_MODULE</span>(pytest2,m)</span><br><span class="line">&#123;</span><br><span class="line">    m.<span class="built_in">def</span>(<span class="string">&quot;testadd&quot;</span>,&amp;testadd,<span class="string">&quot;A function to add&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>需要注意将安装好的<code>pybind11</code>中的<code>include</code>文件夹的<code>pybind11</code>文件夹拷贝到工程文件夹中.</p>
-<h2 id="使用g-直接编译"><a href="#使用g-直接编译" class="headerlink" title="使用g++直接编译"></a>使用g++直接编译</h2><p>接下来就到了万恶的编译环节,首先,我看见文档里面直接给<code>g++</code>编译的命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">g++ -O3 -march=native -Wall -shared -std=c++11 -fPIC `python3 -m pybind11 --includes` test.cpp -o test `python3-config --extension-suffix`</span><br></pre></td></tr></table></figure>
-
-<p>这个命令看起来很简单,但是存在一个问题,里面依赖<code>python-config</code>命令的输出,但是众所周知,这个命令只有在Linux下才能使用.</p>
-<blockquote>
-<p>我再一次感觉到了windows开发的险恶</p>
-</blockquote>
-<h2 id="使用CMake编译"><a href="#使用CMake编译" class="headerlink" title="使用CMake编译"></a>使用CMake编译</h2><p>接下来,我看到网上说<code>cmake</code>可以进行编译,这样看起来挺好,然而暗藏杀机.</p>
-<p>因为<code>cmake</code>也需要类似于<code>python-config</code>的环境,然后虽然我安装<code>mingw</code>确实来了一个<code>python-config</code>但是这会导致我编译工具链使用的是MS的产品,但是采用的解释器却是GCC编译的.</p>
-<blockquote>
-<p>中间省略了因为使用<code>anaconda</code>而不得不一步步教<code>cmake</code>如何找到我的<code>pybind</code>的过程</p>
-</blockquote>
-<p>然后这就带来一个完全爆炸<code>.pyd</code>文件,这个<code>pyd</code>在<code>mingw</code>里面的python不认,然后到了<code>conda</code>里面的python直接提示我dll丢失.</p>
-<blockquote>
-<p>你以为我没查Google,直接提示你:<em>“你安装的库可能有误,建议卸载重装”</em></p>
-<p>我自己写的库怎么卸载重装</p>
-</blockquote>
-<p>但是如果我换做<code>mingw</code>编译,则更加刺激,直接python给我闪退了</p>
-<blockquote>
-<p>我拿<code>windbg</code>查了一下,是内存冲突,但是别的我也不知道了</p>
-</blockquote>
-<h2 id="使用setup-py编译"><a href="#使用setup-py编译" class="headerlink" title="使用setup.py编译"></a>使用<code>setup.py</code>编译</h2><p>这种方法看起来简单,但是结果和那<code>CMake</code>一样</p>
-<p>简而言之,我电脑的状态就是这样:</p>
-<ol>
-<li>使用windows操作系统</li>
-<li>卸载了<code>VisualStudio</code></li>
-<li>装了<code>mingw</code></li>
-<li>使用<code>anaconda</code>管理python环境</li>
-</ol>
-<p>直接buff叠满,能做出来才有鬼.</p>
-<h2 id="使用cppimport"><a href="#使用cppimport" class="headerlink" title="使用cppimport"></a>使用<code>cppimport</code></h2><p>这是我目前看到的最好的方法来处理这个问题,<a href="https://github.com/tbenthompson/cppimport">源网页</a></p>
-<p>使用这个的好处在于反正我编译出来成功了</p>
-<p>这个库用法并不复杂,首先是在文件开头需要添加一行注释</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// cppimport</span></span><br></pre></td></tr></table></figure>
-
-<p>然后在文件的末尾需要有</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">&lt;%</span></span><br><span class="line"><span class="comment">cfg[&#x27;sources&#x27;] = [&#x27;a_star.cpp&#x27;]</span></span><br><span class="line"><span class="comment">cfg[&#x27;extra_compile_args&#x27;] = [&#x27;/O2 /Oi&#x27;]</span></span><br><span class="line"><span class="comment">setup_pybind11(cfg)</span></span><br><span class="line"><span class="comment">%&gt;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-
-<p>这实际上是一段<code>Mako</code>块,这一部分的python代码将会被运行  </p>
-<p>其中第一行是由于多文件编译,指定除了这个文件外的另外源文件</p>
-<p>第二行则是使用相关的编译选项</p>
-<h3 id="cppimport调用"><a href="#cppimport调用" class="headerlink" title="cppimport调用"></a><code>cppimport</code>调用</h3><p>虽然<code>cppimport</code>支持实时调用(每次<code>import</code>)的时候预编译,但是这么做对我们来讲没有必要,我们可以采用<code>cppimport</code>的预编译方式(就是<code>pyd</code>)实现</p>
-<p>使用以下代码</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -m cppimport build pytest.cpp</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>虽然理论上没有<code>pytest.cpp</code>也可以自动检测,但是我们不可避免会带有<code>Unicode</code>字符,然后就出错了</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>c++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>所思即所得,一些画图软件(包)介绍</title>
-    <url>/2023/01/26/misc/graphviz/</url>
-    <content><![CDATA[<p>由于我在学习控制系统的时候,感觉<code>Visio</code>绘图手感像坨屎(我承认是我手不行),但是像流程图这样的东西有特点,即如果你能在这些空间里面把你想要塞的东西全部塞进去,那么优化这样的工作可以是完全交由计算机自行处理的.</p>
-<p>在这里,我主要将介绍两种方式进行该类绘图,一种是使用<code>LaTex</code>中<code>tikz</code>包进行绘图,还有一种是使用<code>Graphviz</code>进行绘图</p>
-<span id="more"></span>
-
-<h2 id="tikz包的使用与导出"><a href="#tikz包的使用与导出" class="headerlink" title="tikz包的使用与导出"></a><code>tikz</code>包的使用与导出</h2><p><code>tikz</code>包是在<code>LaTex</code>中的一个包,其可以方便(有模板的条件下)实现图的绘制</p>
-<p>不过<code>LaTex</code>主要导出的是<code>pdf</code>文件,因此需要进行转换</p>
-<h3 id="tikz包的使用-以一个例子为例"><a href="#tikz包的使用-以一个例子为例" class="headerlink" title="tikz包的使用(以一个例子为例)"></a><code>tikz</code>包的使用(以一个例子为例)</h3><p>我们首先以一个官方例子来介绍<code>tikz</code>包</p>
-<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\documentclass</span>&#123;article&#125;  </span><br><span class="line"><span class="keyword">\usepackage</span>&#123;tikz&#125;</span><br><span class="line"><span class="keyword">\usetikzlibrary</span>&#123;shapes,arrows&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\begin</span>&#123;document&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;block&#125; = [draw, fill=blue!20, rectangle, </span><br><span class="line">    minimum height=3em, minimum width=6em]</span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;sum&#125; = [draw, fill=blue!20, circle, node distance=1cm]</span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;input&#125; = [coordinate]</span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;output&#125; = [coordinate]</span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;pinstyle&#125; = [pin edge=&#123;to-,thin,black&#125;]</span><br><span class="line"></span><br><span class="line"><span class="comment">% The block diagram code is probably more verbose than necessary</span></span><br><span class="line"><span class="keyword">\begin</span>&#123;tikzpicture&#125;[auto, node distance=2cm,&gt;=latex&#x27;]</span><br><span class="line">    <span class="comment">% We start by placing the blocks</span></span><br><span class="line">    <span class="keyword">\node</span> [input, name=input] &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [sum, right of=input] (sum) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block, right of=sum] (controller) &#123;Controller&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block, right of=controller, pin=&#123;[pinstyle]above:Disturbances&#125;,</span><br><span class="line">            node distance=3cm] (system) &#123;System&#125;;</span><br><span class="line">    <span class="comment">% We draw an edge between the controller and system block to </span></span><br><span class="line">    <span class="comment">% calculate the coordinate u. We need it to place the measurement block. </span></span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (controller) -- node[name=u] &#123;<span class="built_in">$</span>u<span class="built_in">$</span>&#125; (system);</span><br><span class="line">    <span class="keyword">\node</span> [output, right of=system] (output) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block, below of=u] (measurements) &#123;Measurements&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">% Once the nodes are placed, connecting them is easy. </span></span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (input) -- node &#123;<span class="built_in">$</span>r<span class="built_in">$</span>&#125; (sum);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (sum) -- node &#123;<span class="built_in">$</span>e<span class="built_in">$</span>&#125; (controller);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (system) -- node [name=y] &#123;<span class="built_in">$</span>y<span class="built_in">$</span>&#125;(output);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (y) |- (measurements);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (measurements) -| node[pos=0.99] &#123;<span class="built_in">$</span>-<span class="built_in">$</span>&#125; </span><br><span class="line">        node [near end] &#123;<span class="built_in">$</span>y<span class="built_in">_</span>m<span class="built_in">$</span>&#125; (sum);</span><br><span class="line"><span class="keyword">\end</span>&#123;tikzpicture&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\end</span>&#123;document&#125;</span><br></pre></td></tr></table></figure>
-
-<p>以上代码会带来以下的渲染结果:</p>
-<p><img src="/2023/01/26/misc/graphviz/test-1.png" alt="test-1"></p>
-<p>我们来分段介绍内容</p>
-<h4 id="节点node"><a href="#节点node" class="headerlink" title="节点node"></a>节点<code>node</code></h4><p>节点可以看作骨架,应当是最为基础的部分</p>
-<p><code>node</code>有三种定义方式:</p>
-<ol>
-<li>使用<code>\node</code>定义,这里的定义方式应当为<code>\node [style and place] (name) &#123;label&#125;</code></li>
-<li>在<code>draw</code>中定义,这种定义往往是用于在线上写字<code>-- node [name and position] &#123;label&#125;</code></li>
-<li>使用<code>pin</code>定义</li>
-</ol>
-<p>然后关于位置,<code>pos</code>应该是线的位置,越大越靠近终点</p>
-<h4 id="箭头draw"><a href="#箭头draw" class="headerlink" title="箭头draw"></a>箭头<code>draw</code></h4><p><code>\draw [-&gt;] (nodefrom) -- (nodeto)</code></p>
-<p>直接在两个中间添加一个箭头(中间可以添加新节点)</p>
-<p><code>\draw [-&gt;] (nodefrom) -| (nodeto)</code></p>
-<p>这个箭头是折线</p>
-<h4 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h4><p>这里我们就直接套用好了没有必要去修改</p>
-<h4 id="应用举例"><a href="#应用举例" class="headerlink" title="应用举例"></a>应用举例</h4><p>下面我以控制系统中的一幅框图来实践刚才的知识(只保留)主干部分代码</p>
-<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;tikzpicture&#125;[auto, node distance=2cm,&gt;=latex&#x27;]</span><br><span class="line">    <span class="keyword">\node</span> [input] (input) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [sum, right of=input] (sum1) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block, right of=sum1] (controlp) &#123;<span class="built_in">$</span>k<span class="built_in">_</span>P<span class="built_in">$</span>&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [sum, right of=controlp,node distance=2cm] (sum2) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [input, above of=sum2] (dis) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block ,right of=sum2] (p) &#123;<span class="built_in">$</span><span class="keyword">\mathcal</span>&#123;P&#125;<span class="built_in">$</span>&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [output, right of=p] (output) &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">\node</span> [output, below of=sum2] (ins) &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (input) -- node &#123;<span class="built_in">$</span>r<span class="built_in">$</span>&#125; (sum1);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (sum1) -- node &#123;<span class="built_in">$</span>e<span class="built_in">$</span>&#125; (controlp);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (controlp) -- node &#123;<span class="built_in">$</span>u<span class="built_in">$</span>&#125; node[pos=0.99] &#123;+&#125; (sum2);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (dis) -- node &#123;<span class="built_in">$</span>d<span class="built_in">$</span>&#125; node[pos=0.99] &#123;+&#125; (sum2);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (sum2) -- (p);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (p) -- node[name=y] &#123;<span class="built_in">$</span>y<span class="built_in">$</span>&#125; (output);</span><br><span class="line">    <span class="keyword">\draw</span> [-] (y) |-   (ins);<span class="comment">%中间切断了一下</span></span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (ins) -| node[pos=0.99] &#123;-&#125; (sum1);</span><br><span class="line"><span class="keyword">\end</span>&#123;tikzpicture&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>其渲染结果如下所示:</p>
-<p><img src="/2023/01/26/misc/graphviz/image-20230127220705981.png" alt="image-20230127220705981"></p>
-<p>可以看到渲染效果不错</p>
-<blockquote>
-<p>但是敲<code>tikz</code><strong>太累人</strong>了</p>
-</blockquote>
-<p>这里主要是介绍性使用<code>tikz</code>,更加完备的教程应当参考这个<a href="https://github.com/Hansimov/pgfmanual-zh">仓库</a></p>
-<h3 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h3><p>目前来说,我觉得还是<strong>截图保存</strong>的方式最便捷</p>
-<p>虽然确实可以用<code>LaTex</code>直接导出,也可以用python对<code>pdf</code>进行转换,但是太麻烦,还是截图方便</p>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>LaTex</tag>
-        <tag>绘图</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用loguru编写日志文件</title>
-    <url>/2023/01/27/misc/pylog/</url>
-    <content><![CDATA[<p>在编写程序,尤其是某些运行时间长,中间存在可能错误的程序,往往需要记录日志以便于调试.  </p>
-<p>但是日志的编写往往存在大量重复劳动,并且对于我目前的状况来讲可能需要在已有的程序中添加日志代码.  </p>
-<p>经过相关资料查阅,我找到了一个内置<code>logging</code>库,其可以较好地实现对于日志的编写.但是查阅了一下相关资料后,发现似乎<code>logging</code>的使用较为复杂,我们往往不需要那么复杂的应用场景,因此我在这里选择另外一个库<code>loguru</code>对日志进行记录</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>如果使用<code>anaconda</code>,可以用以下命令安装:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">conda install -c conda-forge loguru</span><br></pre></td></tr></table></figure>
-
-<h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><p>我们可以直接利用封装好的<code>logger</code>对象,直接对不同级别的日志进行输出,例如使用以下代码可以实现不同级别的日志:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> loguru <span class="keyword">import</span> logger</span><br><span class="line"></span><br><span class="line">logger.debug(<span class="string">&#x27;This is debug information&#x27;</span>)</span><br><span class="line">logger.info(<span class="string">&#x27;This is info information&#x27;</span>)</span><br><span class="line">logger.warning(<span class="string">&#x27;This is warn information&#x27;</span>)</span><br><span class="line">logger.error(<span class="string">&#x27;This is error information&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>可以注意到在运行时,其对于不同级别的结果,有着不同的格式化与颜色</p>
-<p><img src="/2023/01/27/misc/pylog/image-20230127192915053.png" alt="image-20230127192915053"></p>
-<p>接下来,我们可以注意到<code>logger</code>编写日志的一个优势在于其无需设定复杂的如处理器,过滤器等信息</p>
-<h2 id="输出到文件"><a href="#输出到文件" class="headerlink" title="输出到文件"></a>输出到文件</h2><p>我们往往需要将数据输出到文件,<em>尤其是在使用如<code>xspec</code>这样自己会有大量数据输出的程序</em>(默认是在<code>sys.std_err</code>中输出),可以使用<code>add</code>改变输出位置(<code>add</code>的具体用法之后会讲)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">logger.add(<span class="string">&quot;file_&#123;time&#125;.log&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>其中<code>&#123;time&#125;</code>会自动替换为当前时间,还有其他的格式化字典如下:  </p>
-<table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Description</th>
-<th>Attributes</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>elapsed</td>
-<td>The time elapsed since the start of the program</td>
-<td>See <a href="https://docs.python.org/3/library/datetime.html#datetime.timedelta"><code>datetime.timedelta</code></a></td>
-</tr>
-<tr>
-<td>exception</td>
-<td>The formatted exception if any, <code>None</code> otherwise</td>
-<td><code>type</code>, <code>value</code>, <code>traceback</code></td>
-</tr>
-<tr>
-<td>extra</td>
-<td>The dict of attributes bound by the user (see <a href="https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind"><code>bind()</code></a>)</td>
-<td>None</td>
-</tr>
-<tr>
-<td>file</td>
-<td>The file where the logging call was made</td>
-<td><code>name</code> (default), <code>path</code></td>
-</tr>
-<tr>
-<td>function</td>
-<td>The function from which the logging call was made</td>
-<td>None</td>
-</tr>
-<tr>
-<td>level</td>
-<td>The severity used to log the message</td>
-<td><code>name</code> (default), <code>no</code>, <code>icon</code></td>
-</tr>
-<tr>
-<td>line</td>
-<td>The line number in the source code</td>
-<td>None</td>
-</tr>
-<tr>
-<td>message</td>
-<td>The logged message (not yet formatted)</td>
-<td>None</td>
-</tr>
-<tr>
-<td>module</td>
-<td>The module where the logging call was made</td>
-<td>None</td>
-</tr>
-<tr>
-<td>name</td>
-<td>The <code>__name__</code> where the logging call was made</td>
-<td>None</td>
-</tr>
-<tr>
-<td>process</td>
-<td>The process in which the logging call was made</td>
-<td><code>name</code>, <code>id</code> (default)</td>
-</tr>
-<tr>
-<td>thread</td>
-<td>The thread in which the logging call was made</td>
-<td><code>name</code>, <code>id</code> (default)</td>
-</tr>
-<tr>
-<td>time</td>
-<td>The aware local time when the logging call was made</td>
-<td></td>
-</tr>
-</tbody></table>
-<p>输出到文件还有滚动和压缩等功能,在这里不再过多赘述(目前也用不到)</p>
-<blockquote>
-<p>关于字符着色:</p>
-<p>字符着色的问题是通过调节<code>add</code>中的参数<code>colorize</code>来控制的,其添加后有好处有坏处</p>
-<p>好处在于可以使用<code>tail -f</code>等很方便看到数据内容</p>
-<p>坏处在于由于字符串着色的机理是通过添加字符串进行的,会对编辑器查看带来不便</p>
-<p>因此可以尝试同时记录两个log</p>
-</blockquote>
-<h2 id="过滤器与格式化"><a href="#过滤器与格式化" class="headerlink" title="过滤器与格式化"></a>过滤器与格式化</h2><p>下面是关于更加复杂的过滤器写法和格式化写法的问题,这里不涉及(可能以后会),可以先看参考资料</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://github.com/Delgan/loguru">源代码与特性介绍</a></p>
-<p><a href="https://loguru.readthedocs.io/en/stable/api/logger.html">类定义</a></p>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用python发送邮件</title>
-    <url>/2023/01/30/misc/pythonsmtp/</url>
-    <content><![CDATA[<p>由于之前写了一个误差计算脚本,采用了万能的<code>nohup python calc_error.py &gt;logs &amp;</code>实现了后台运行,但是在实际使用过程中,经常会遇到异常或者一些奇奇怪怪的问题,自己每次上线检查也麻烦,遂思考能不能用邮件来解决问题.  </p>
-<p>我参考<a href="https://zhuanlan.zhihu.com/p/24180606">这篇文章</a>,学习一下使用python发送邮件</p>
-<h2 id="所用到的库"><a href="#所用到的库" class="headerlink" title="所用到的库"></a>所用到的库</h2><p>我们分为两部,一方面是写邮件的过程,需要特定的邮件头和附件,这一部分使用的是<code>email</code>模块进行</p>
-<blockquote>
-<p>我在使用<code>pip install email</code>的时候一直出错,但是到<code>pip install emails</code>就可以,目前不确定两者关系,但是都可以使用<code>import email</code>调用</p>
-</blockquote>
-<p>而编写完邮件后,对于邮件的发送则是通过<code>smtp</code>服务进行,这一部分则是用<code>smtplib</code>实现,而其安装可以用<code>pip install aiosmtplib</code>进行</p>
-<h2 id="配置smtp"><a href="#配置smtp" class="headerlink" title="配置smtp"></a>配置<code>smtp</code></h2><p>我计划使用<code>Gmail</code>对这些邮件进行配置,为此,我打开了<code>Gmail</code>中的<code>imap</code>和<code>pop3</code>服务,关于<code>Gmail</code>更多信息如下,<a href="https://support.google.com/mail/answer/7126229">摘自于此</a></p>
-<table>
-<thead>
-<tr>
-<th>内容</th>
-<th>配置</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>接收邮件 (IMAP) 服务器</td>
-<td>imap.gmail.com       要求 SSL：是       端口：993</td>
-</tr>
-<tr>
-<td>发送邮件 (SMTP) 服务器</td>
-<td>smtp.gmail.com       要求 SSL：是       要求 TLS：是（如适用）       使用身份验证：是       SSL 端口：465       TLS&#x2F;STARTTLS 端口：587</td>
-</tr>
-<tr>
-<td>完整名称或显示名称</td>
-<td>您的姓名</td>
-</tr>
-<tr>
-<td>帐号名、用户名或电子邮件地址</td>
-<td>您的完整电子邮件地址</td>
-</tr>
-<tr>
-<td>密码</td>
-<td>您的 Gmail 密码</td>
-</tr>
-</tbody></table>
-<h2 id="尝试发送邮件"><a href="#尝试发送邮件" class="headerlink" title="尝试发送邮件"></a>尝试发送邮件</h2><p>下面代码展示发送测试邮件过程</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> smtplib</span><br><span class="line"><span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText</span><br><span class="line"></span><br><span class="line">mail_host=<span class="string">&#x27;&#x27;</span></span><br><span class="line">mail_user=<span class="string">&#x27;&#x27;</span></span><br><span class="line">mail_pass=<span class="string">&#x27;&#x27;</span></span><br><span class="line">sender=<span class="string">&#x27;&#x27;</span></span><br><span class="line">receivers=[<span class="string">&#x27;&#x27;</span>]<span class="comment">#可以群发</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置邮件信息</span></span><br><span class="line">message=MIMEText(<span class="string">&#x27;content&#x27;</span>,<span class="string">&#x27;plain&#x27;</span>,<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">message[<span class="string">&#x27;Subject&#x27;</span>]=<span class="string">&quot;Test email&quot;</span></span><br><span class="line">message[<span class="string">&#x27;From&#x27;</span>]=sender</span><br><span class="line">message[<span class="string">&#x27;To&#x27;</span>]=receivers[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># smtpobj=smtplib.SMTP()</span></span><br><span class="line">    <span class="comment"># smtpobj.connect(mail_host,25)#这是无需ssl验证的情况</span></span><br><span class="line">    smtpobj=smtplib.SMTP_SSL(mail_host)<span class="comment">#这是需要ssl验证的情况</span></span><br><span class="line">    smtpobj.login(mail_user,mail_pass)</span><br><span class="line">    smtpobj.sendmail(sender,receivers,message.as_string())</span><br><span class="line">    smtpobj.quit()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Success&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> smtplib.SMTPException <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;error&#x27;</span>,e)</span><br></pre></td></tr></table></figure>
-
-<p>这个代码确实可以发送邮件,测试完成</p>
-<h2 id="添加附件"><a href="#添加附件" class="headerlink" title="添加附件"></a>添加附件</h2><p>我们可以利用<code>MIMENonMultipart</code>中的<code>MIMEText</code>类来发送我们得到的csv文件</p>
-<p>可以参考<a href="https://www.cnblogs.com/sunjump/p/15593585.html">这篇文章</a></p>
-<h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2><p>自然,我们可以实现更多内容(比如HTML等),但是我目前不需要,就先留在这里,可能未来还会更新</p>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>The results and the problems in fitting the spectrum of the maxi1820+70</title>
     <url>/2023/01/15/maxi1820/maxi1/</url>
     <content><![CDATA[<h2 id="Fitting-points"><a href="#Fitting-points" class="headerlink" title="Fitting points"></a>Fitting points</h2><p>We chose three typical points from the HID graph.</p>
@@ -2232,71 +1882,6 @@ C:\Users\h\AppData\Local\Temp\ipykernel_43220\485392308.py:21: UserWarning: You 
       </tags>
   </entry>
   <entry>
-    <title>路径规划器设计 升级版</title>
-    <url>/2023/02/07/3Dmover/astar/</url>
-    <content><![CDATA[<p>在上一篇文章中我曾经提到有一种较好的替代算法,A*算法来处理存在障碍物的情况下对路径的寻找</p>
-<p>不过这种算法存在一个限制条件,就是其必须在网格内执行,而不是矢量(这看起来很正常,因为矢量的算法可以说几乎找不到)</p>
-<p>同时由于这种算法的性质,其运算过程是<strong>难以矢量化的</strong>,所以直接拿python去跑会变得非常让人难以接受,因此我们必须拿C++来实现这个功能</p>
-<p>具体而言,我们可以将这个问题转化为:<strong>网格化-&gt;A*寻路-&gt;矢量化</strong>三步进行</p>
-<span id="more"></span>
-
-<h2 id="网格化"><a href="#网格化" class="headerlink" title="网格化"></a>网格化</h2><p>在进行网格化的过程中,我是首先制作了一个<code>Mesh</code>类,这个类中会储存已知起点和终点以及密度的网格.然后其中有一个方法,可以将<strong>现实坐标</strong>转化为<strong>网格坐标</strong></p>
-<p>之后,这个类提供一个接口,可以将<strong>首尾不相连</strong>的多边形转换为网格,其原理就是先转换首末端点,然后用<code>Bresenham</code>算法对直线进行绘制(这种方法避免浮点运算,效率较高)</p>
-<p>这样就实现了对于坐标的网格化.</p>
-<blockquote>
-<p>&#x3D;&#x3D;索引问题&#x3D;&#x3D;</p>
-<p>由于在C中,数组的索引形式与<code>Eigen</code>(一个C++扩展,支持线性代数运算,可以参考<a href="https://eigen.tuxfamily.org/">这个网页</a>)相同,都是先行后列的索引</p>
-<p>因此我们会看到像<code>a[y][x]</code>或是<code>a(y,x)</code>这样的索引</p>
-<p>在编写接口的过程中,需要多加小心</p>
-</blockquote>
-<blockquote>
-<p>&#x3D;&#x3D;网格化的优化&#x3D;&#x3D;</p>
-<p>这种网格化提供了网格”生长”的可能性,例如在实际的操作中,我们知道机器必然不能精确的沿着边缘走,但是根据这一算法得到的结果,很多就是沿着边缘进行的</p>
-<p>这个时候如果我们已经进行了网格化,就可以实现较为容易的计算机图形学中的膨胀操作</p>
-</blockquote>
-<blockquote>
-<p>&#x3D;&#x3D;向下舍入问题&#x3D;&#x3D;</p>
-<p>我们的计算是向下舍入的,即$a_x&#x3D;(x-x_{beg})&#x2F;\Delta x$一式向下舍入,那么我们在将网格倒推时,就需要加上0.5,减小误差</p>
-</blockquote>
-<h2 id="A-搜索"><a href="#A-搜索" class="headerlink" title="A*搜索"></a>A*搜索</h2><p>接下来就是我们讨论的A*搜索部分,实际上这一部分的内容网上都有,我就在这里给大家大略复述一下流程</p>
-<ol>
-<li><p>创建一个<code>open_set</code>和一个<code>close_set</code></p>
-</li>
-<li><p>从起点开始,将设定一个代价值(这个后面会讨论),然后将起点添加进<code>open_set</code>中</p>
-</li>
-<li><p>开始循环,直到达到终点:</p>
-<ol>
-<li>取出<code>open_set</code>中代价值最低的点,并将其加到<code>close_set</code>中</li>
-<li>在这个点周围寻找满足条件(可达且未经过的点),并将这些点加到<code>open_set</code>中</li>
-</ol>
-</li>
-<li><p>如果达到终点,则回溯找到来时的路径,并返回</p>
-</li>
-<li><p>如果没有找到终点,那么终点不可达(有错误)</p>
-</li>
-</ol>
-<blockquote>
-<p>&#x3D;&#x3D;关于代价函数&#x3D;&#x3D;</p>
-<p>我目前是使用曼哈顿距离作为代价函数进行计算实际上用欧几里得距离什么的也可以(但是计算效率会下降)</p>
-<p>但是使用的代价函数必须满足一个条件:<strong>一个点的代价必须是唯一的</strong>(可以不同点有相同代价)</p>
-<p>这与我们在算法中采用的<code>set</code>有关,如果出现一个点有不同代价,那么比较函数将无法抵达红黑树树叶,然后就会出错</p>
-<p>必须满足传递原则:若a&gt;b,b&gt;c则a&gt;c</p>
-</blockquote>
-<blockquote>
-<p>&#x3D;&#x3D;对于优化&#x3D;&#x3D;</p>
-<p>上面描述的是一般的代价函数,但是我们这里比较特殊,在进行计算前,我们需要对所有点进行初始化,此时一个起点对应的就不仅仅是一个终点了,也许可以极大的提高运算效率</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>3D位移测量平台设计</category>
-      </categories>
-      <tags>
-        <tag>3D位移平台</tag>
-        <tag>程序规划</tag>
-        <tag>c++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>python学习建议</title>
     <url>/2023/02/07/python/python-learning/</url>
     <content><![CDATA[<p>非常不幸,像我这种半吊子都要给大家来讲Python学习的问题了</p>
@@ -2308,6 +1893,8 @@ C:\Users\h\AppData\Local\Temp\ipykernel_43220\485392308.py:21: UserWarning: You 
 <li>其他的一些建议</li>
 </ol>
 <p>大家挑感兴趣的看吧</p>
+<span id="more"></span>
+
 <h2 id="为什么要学python"><a href="#为什么要学python" class="headerlink" title="为什么要学python"></a>为什么要学python</h2><p>我一开始也是不想学,感觉这个玩意简直就是市面上某些广告的最爱,让人觉得非常轻浮.甚至都没有大括号(我当时曾经接触过<code>C,C++,C#,Ruby,汇编</code>等语言,自然是非常不精,但也算会一点点(现在除了<code>C/C++</code>其他全忘了))</p>
 <p>接触python的主要契机是当时我想写一个爬虫,然后想想python看起来实现最简单,于是就开始学了起来</p>
 <p>现在想想,确实python对我来讲意义重大,因为它有着强大的数学计算功能,但又究竟是一门以编程为目的的语言(问就是Matlab学PTSD了),有着非常多有用的库,而且这些库都是帮你配置好的<em>有人抱怨过python环境配置,那你是没有体验过C++各种链接库调用</em></p>
@@ -2353,52 +1940,86 @@ C:\Users\h\AppData\Local\Temp\ipykernel_43220\485392308.py:21: UserWarning: You 
     <content><![CDATA[<p>在这一篇文章中,我们将讨论两个话题:向量化和面向对象</p>
 <p>第一个话题大家应该已经有相关的知识了,但是”可能”还缺乏一个非常清晰的理解;<br>而第二个话题大家可能听说的不多,虽然像”面向对象”这样的话题对于计算机程序设计非常重要,但是这对于我们做科学计算实际上意义有限,但是基本概念又不能不知道</p>
 <span id="more"></span>
+
 <h2 id="向量化"><a href="#向量化" class="headerlink" title="向量化"></a>向量化</h2><p>这一部分主要是关于<code>numpy</code>中<code>ndarray</code>类的</p>
 <blockquote>
 <p>虽然我的意思是,关于科学计算,真正需要”掌握”的就是<code>ndarray</code>,其他查一下就能现学现用  </p>
 </blockquote>
 <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>在<code>numpy</code>中存在这样的操作,将一个数组与另一个数组(或者标量)进行数学运算时,这些数据会被”广播”进行计算</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a=np.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line">b=<span class="number">1</span></span><br><span class="line">a+b</span><br></pre></td></tr></table></figure>
+
+
+
+
 <pre><code>array([2, 3, 4, 5, 6])
-</code></pre><p>这些计算更多的可以被看做是对于线性代数的一种扩展,多了一种标量加矢量的运算</p>
+</code></pre>
+<p>这些计算更多的可以被看做是对于线性代数的一种扩展,多了一种标量加矢量的运算</p>
 <h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p>在<code>numpy</code>中是使用C编写的代码,使用了大量的底层运算,其速度远快于构造python中的循环<br>下面就是一个例子来比较两种代码的效果</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">use_list</span>():</span><br><span class="line">    x=[<span class="number">1</span>]*<span class="number">1000</span> </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(x)):</span><br><span class="line">        x[i]+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">use_ndarray</span>():</span><br><span class="line">    x=np.ones(<span class="number">1000</span>)</span><br><span class="line">    x+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#计时</span></span><br><span class="line">%timeit use_list()</span><br><span class="line">%timeit use_ndarray()</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <pre><code>67.7 µs ± 9.24 µs per loop (mean ± std. dev. of 7 runs, 10000 loops each)
 3.97 µs ± 193 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
-</code></pre><p>可以非常容易地看出,使用python列表(前者)的效率会远低于使用<code>ndarray</code>(后者)</p>
+</code></pre>
+<p>可以非常容易地看出,使用python列表(前者)的效率会远低于使用<code>ndarray</code>(后者)</p>
 <h3 id="shape"><a href="#shape" class="headerlink" title="shape"></a><code>shape</code></h3><p>前文提到,向量化的操作与线性代数有千丝万缕的联系.因此,数组的形状就显得非常重要<br>可以直接访问<code>shape</code>属性获得关于数组的形状信息</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a=np.array([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]])</span><br><span class="line">b=np.array([<span class="number">7</span>,<span class="number">8</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;The shape of a is &#123;&#125;&quot;</span>.<span class="built_in">format</span>(a.shape))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;The shape of b is &#123;&#125;&quot;</span>.<span class="built_in">format</span>(b.shape))</span><br></pre></td></tr></table></figure>
+
 <pre><code>The shape of a is (2, 3)
 The shape of b is (2,)
-</code></pre><p>而对于二维这种最为常见的情况来说,<code>a[i,j]</code>是先行后列.</p>
+</code></pre>
+<p>而对于二维这种最为常见的情况来说,<code>a[i,j]</code>是先行后列.</p>
 <p>而为了实现计算,需要修改数组的形状,例如将<code>b</code>变为一个行向量可以进行矩阵乘法</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c=b.reshape(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">np.dot(c,a)</span><br></pre></td></tr></table></figure>
+
+
+
+
 <pre><code>array([[39, 54, 69]])
-</code></pre><p>这种<code>reshape</code>在处理解决实际问题的时候往往非常有用,在我个人的理解中,如果需要批量的计算,往往会把数组变到二维便于进行计算(更高的维度也不是不可以,但是会比较复杂).然后等到计算完成之后再变到自己所需的<code>shape</code><br>同时,<code>reshape</code>也支持使用<code>-1</code>缺省</p>
+</code></pre>
+<p>这种<code>reshape</code>在处理解决实际问题的时候往往非常有用,在我个人的理解中,如果需要批量的计算,往往会把数组变到二维便于进行计算(更高的维度也不是不可以,但是会比较复杂).然后等到计算完成之后再变到自己所需的<code>shape</code><br>同时,<code>reshape</code>也支持使用<code>-1</code>缺省</p>
 <blockquote>
 <p>这里有一个需要注意的地方,<code>reshape</code>返回的是数组的浅拷贝,因此如果对reshape之后的元素进行修改,那么会影响到原来的数组.</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c[<span class="number">0</span>,<span class="number">1</span>]=<span class="number">1</span></span><br><span class="line">b</span><br></pre></td></tr></table></figure>
+
+
+
+
 <pre><code>array([7, 1])
-</code></pre><h3 id="axis"><a href="#axis" class="headerlink" title="axis"></a><code>axis</code></h3><p>如果执行一些操作(例如说<code>sum</code>),其就会向你提供一个可选参数<code>axis</code>,是指这个运算沿着哪个轴</p>
+</code></pre>
+<h3 id="axis"><a href="#axis" class="headerlink" title="axis"></a><code>axis</code></h3><p>如果执行一些操作(例如说<code>sum</code>),其就会向你提供一个可选参数<code>axis</code>,是指这个运算沿着哪个轴</p>
 <p>下面就展示一下沿着不同的轴进行操作的效果</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Along axis 0 is &#123;&#125;&quot;</span>.<span class="built_in">format</span>(a.<span class="built_in">sum</span>(axis=<span class="number">0</span>)))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Along axis 1 is &#123;&#125;&quot;</span>.<span class="built_in">format</span>(a.<span class="built_in">sum</span>(axis=<span class="number">1</span>)))</span><br></pre></td></tr></table></figure>
+
 <pre><code>Along axis 0 is [5 7 9]
 Along axis 1 is [ 6 15]
-</code></pre><p>可以将<code>axis</code>的效果简单地理解为如果沿着某个轴进行一些聚合操作(例如求和),那么执行操作之后数组的<code>shape</code>的这个元素就会变为1</p>
+</code></pre>
+<p>可以将<code>axis</code>的效果简单地理解为如果沿着某个轴进行一些聚合操作(例如求和),那么执行操作之后数组的<code>shape</code>的这个元素就会变为1</p>
 <h3 id="布尔数组与布尔索引"><a href="#布尔数组与布尔索引" class="headerlink" title="布尔数组与布尔索引"></a>布尔数组与布尔索引</h3><p>在向量化中,还有一个重要的工具,记为布尔数组<br>我们可以对一个数组进行比较运算,得到布尔数组</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a&gt;<span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+
+
+
 <pre><code>array([[False, False, False],
        [False,  True,  True]])
-</code></pre><p>而这样的布尔数组一方面可以用作输入实现分类,另外一方面也可以作为索引来提取满足条件的元素<br>例如下面的代码展示如何将<code>a</code>中大于4的元素提取出来,以及按照<code>(-1,1)</code>分类</p>
+</code></pre>
+<p>而这样的布尔数组一方面可以用作输入实现分类,另外一方面也可以作为索引来提取满足条件的元素<br>例如下面的代码展示如何将<code>a</code>中大于4的元素提取出来,以及按照<code>(-1,1)</code>分类</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(a[a&gt;<span class="number">4</span>])</span><br><span class="line"><span class="built_in">print</span>(np.where(a&gt;<span class="number">4</span>,<span class="number">1</span>,-<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+
 <pre><code>[5 6]
 [[-1 -1 -1]
  [-1  1  1]]
-</code></pre><p>使用这样的功能,我们可以实现一些原本看起来难以实现向量化的运算<br>例如下面一段代码模拟了抛针法估算$\pi$的过程</p>
+</code></pre>
+<p>使用这样的功能,我们可以实现一些原本看起来难以实现向量化的运算<br>例如下面一段代码模拟了抛针法估算$\pi$的过程</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calc_pi</span>(<span class="params">sample_number:<span class="built_in">int</span>,ran_num:<span class="built_in">int</span></span>):</span><br><span class="line">    ran=np.random.RandomState(ran_num)</span><br><span class="line">    x=ran.uniform(-<span class="number">0.5</span>,<span class="number">0.5</span>,sample_number)<span class="comment">#生成中心坐标</span></span><br><span class="line">    theta=ran.uniform(<span class="number">0</span>,<span class="number">2</span>*np.pi,sample_number)<span class="comment">#生成角度</span></span><br><span class="line">    r1=x-<span class="number">0.5</span>*np.cos(theta)</span><br><span class="line">    r2=x+<span class="number">0.5</span>*np.cos(theta)</span><br><span class="line">    k=r1*r2</span><br><span class="line">    num=np.<span class="built_in">sum</span>(np.where(k&lt;=<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>))</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span>*sample_number/num</span><br><span class="line"></span><br><span class="line">calc_pi(<span class="number">1000000</span>,<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
 <pre><code>3.139934312574181
-</code></pre><blockquote>
+</code></pre>
+<blockquote>
 <p>实际上,关于向量化,大家还有很多需要学,我这里展示的仅为冰山一角</p>
 </blockquote>
 <h2 id="“流畅地编程”-面向对象和一些特性"><a href="#“流畅地编程”-面向对象和一些特性" class="headerlink" title="“流畅地编程”:面向对象和一些特性"></a>“流畅地编程”:面向对象和一些特性</h2><p>我一开始并不打算讲面向对象,一方面在于面向对象本质太过复杂,完全可以涉及到另外一个完整而复杂的学科,而另外一方面则更为重要,在于面向对象对于我们这种”非专业”的程序设计者尤其如果你仅仅希望将python看成一个分析数据的脚本的人,面向对象是一个完全不需要涉及的内容;并且如果滥用里面的一些东西,<strong>无疑会造成很大灾难</strong>(不信的可以看看我Github上的几个屎山仓库)</p>
@@ -2417,7 +2038,9 @@ Along axis 1 is [ 6 15]
 <h2 id="python中的一些技巧"><a href="#python中的一些技巧" class="headerlink" title="python中的一些技巧"></a>python中的一些技巧</h2><p>这里面收录了一些我看到的优雅的代码,就将其收集下来,以供参考  </p>
 <h3 id="使用迭代器生成形状"><a href="#使用迭代器生成形状" class="headerlink" title="使用迭代器生成形状"></a>使用迭代器生成形状</h3><p>在我们进行科学绘图的时候,总是会遇见一些让你眼前一黑的情况,比如要对于未知个特征的数据进行绘图,不同绘图的线形又要单独指定.这样的场景并不少见,但每一次碰到都会让人非常痛苦,下面是我看到的一个有意思的做法,可以用来参考</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">line_gen</span>():  </span><br><span class="line">    <span class="string">&quot;&quot;&quot;line_gen 产生不超过九个线形</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Yields</span></span><br><span class="line"><span class="string">    ------</span></span><br><span class="line"><span class="string">    str</span></span><br><span class="line"><span class="string">        产生得到线形的字符串</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span>    </span><br><span class="line">    line_shapes=[<span class="string">&quot;-&quot;</span>,<span class="string">&quot;--&quot;</span>,<span class="string">&quot;-.&quot;</span>]</span><br><span class="line">    line_cols=[<span class="string">&quot;r&quot;</span>,<span class="string">&quot;g&quot;</span>,<span class="string">&quot;b&quot;</span>]</span><br><span class="line">    <span class="keyword">for</span> line_shape <span class="keyword">in</span> line_shapes:</span><br><span class="line">        <span class="keyword">for</span> line_col <span class="keyword">in</span> line_cols:</span><br><span class="line">            <span class="keyword">yield</span> line_col+line_shape</span><br><span class="line">            </span><br><span class="line">indata=np.linspace(<span class="number">1</span>,<span class="number">5</span>,<span class="number">100</span>)</span><br><span class="line">pdatas=[indata**i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line">ls=line_gen()<span class="comment">#创建一个生成器实例</span></span><br><span class="line"><span class="keyword">for</span> pdata <span class="keyword">in</span> pdatas:</span><br><span class="line">    plt.plot(indata,pdata,<span class="built_in">next</span>(ls))</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p>​<br><img src="26_0.png" alt="png"><br>​    </p>
+
+
+<p>​<br><img src="/2023/02/07/python/vectorize/26_0.png" alt="png"><br>​    </p>
 <p>可以看到,迭代器完美地处理了这样的情况.<br>其原理可以大概这样解释:</p>
 <ol>
 <li>解释器注意到函数中的<code>yield</code>关键字,因此在调用<code>line_gen()</code>时不会运行这个函数,而是返回一个生成器对象(<code>generator object</code>)</li>
@@ -2428,5 +2051,425 @@ Along axis 1 is [ 6 15]
 </li>
 </ol>
 ]]></content>
+  </entry>
+  <entry>
+    <title>VSCode特别功能总结</title>
+    <url>/2023/01/17/misc/VSCode/</url>
+    <content><![CDATA[<p>VSCode作为一个常用的编辑器(有时可以作为集成开发环境),其拥有许多重要的”特殊功能”,在这里进行笔记,以便未来查阅</p>
+<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><h2 id="正则表达式搜索替换"><a href="#正则表达式搜索替换" class="headerlink" title="正则表达式搜索替换"></a>正则表达式搜索替换</h2><h3 id="正则表达式速查表"><a href="#正则表达式速查表" class="headerlink" title="正则表达式速查表"></a>正则表达式速查表</h3><table>
+<thead>
+<tr>
+<th>转义字符</th>
+<th>匹配内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\t</td>
+<td>tab</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>回车符号\r</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>换行符号\n</td>
+</tr>
+<tr>
+<td>\</td>
+<td>特殊符号转义，如”<em>“ ，转义后匹配的是字符”</em>“， “(” 匹配的是括号”(“</td>
+</tr>
+<tr>
+<td>[字符序列]</td>
+<td>匹配[ ]中的任意字符，如[ae]，字符a和字符e均匹配</td>
+</tr>
+<tr>
+<td>[^字符序列]</td>
+<td>匹配不在[ ]中的任意字符，如[^ae]除了a和e，其他字符都匹配</td>
+</tr>
+<tr>
+<td>[字符1-字符2]</td>
+<td>匹配在[ ]之间的任意字符，如[a-x]，就是匹配a和x之间的所有字符（包括a和x）</td>
+</tr>
+<tr>
+<td><strong>.</strong></td>
+<td>匹配任意单个字符(除了\n)</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配所有单词字符（如”a”，“3”，“E”，但不匹配”?”，”.”等）</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>和\w相反，匹配所有非单词字符</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配空格</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>和\s相反，匹配非空格</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配数字字符，如”1”，“4”，”9”等</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>和\d相反，匹配除了数字字符外的其他字符</td>
+</tr>
+<tr>
+<td>*</td>
+<td>将前面的元素匹配0到多次，如”\d*.\d”，可以匹配”19.9”，”.0”,“129.9”</td>
+</tr>
+<tr>
+<td>+</td>
+<td>将前面的元素匹配1到多次，如”be+”，可以匹配”be”， “beeeeee”</td>
+</tr>
+<tr>
+<td>？</td>
+<td>将前面的元素匹配0次或者一次，如”rai?n” 可以且只可以匹配 “ran” 或者 “rain”</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>n是个数字，将前面的元素匹配n次，如”be{3}“可以且只可以匹配 ”beee”</td>
+</tr>
+<tr>
+<td>{n, m}</td>
+<td>将前面的元素匹配至少n次，最多m次，如”be{1,3}” 可以且只可以匹配”be”,“bee”, “beee”</td>
+</tr>
+<tr>
+<td>|</td>
+<td>相当于”或”,表示匹配由</td>
+</tr>
+</tbody></table>
+<p>而正则表达式中的”子模式”<code>()</code>,在替换时可以使用<code>$1</code>来相应的替换.</p>
+<p>例如对于<code>anaconda</code>导出的<code>environment.yml</code>文件,其一部分格式如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- packagename=0.0.0=aaaaa</span><br></pre></td></tr></table></figure>
+
+<p>由于在跨操作系统迁移时要将后面那个详细版本给去掉因此可以使用替换功能</p>
+<p>查找<code>(.=.)=.</code></p>
+<p>替换为<code>$1</code></p>
+<h2 id="VSC分屏显示"><a href="#VSC分屏显示" class="headerlink" title="VSC分屏显示"></a>VSC分屏显示</h2><p>由于在写代码时希望可以做到两个显示屏共同显示project的代码,因此需要用分屏显示</p>
+<p>首先<code>ctrl+shift+P</code>,然后输入<code>Workspace: Duplicate As Workspace in New Window</code></p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>VSCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用C++为python编写扩展</title>
+    <url>/2023/02/05/misc/cpython/</url>
+    <content><![CDATA[<blockquote>
+<p>编译一时爽,环境火葬场</p>
+</blockquote>
+<p>因为使用A*算法对于路径的寻找需要更高的效率,很明显,python自身完全不能满足我们的需求,因此使用C++编写python扩展变得非常重要.</p>
+<p>不幸的是,我昨天花了整整一天都没有解决这个问题,但是今天却进行的异常顺利,下面我来讲一下在使用C++编写python中的几个坑</p>
+<span id="more"></span>
+
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>我们使用的是<code>pybind</code>的库,具体<code>pybind</code>应当如何使用在这里我就不过多介绍了,下面先贴出来我用做测试的代码:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;pybind11/pybind11.h&quot;</span></span></span><br><span class="line"><span class="keyword">namespace</span> py = pybind11;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">testadd</span><span class="params">(<span class="type">int</span> i,<span class="type">int</span> j)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> i+j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">PYBIND11_MODULE</span>(pytest2,m)</span><br><span class="line">&#123;</span><br><span class="line">    m.<span class="built_in">def</span>(<span class="string">&quot;testadd&quot;</span>,&amp;testadd,<span class="string">&quot;A function to add&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>需要注意将安装好的<code>pybind11</code>中的<code>include</code>文件夹的<code>pybind11</code>文件夹拷贝到工程文件夹中.</p>
+<h2 id="使用g-直接编译"><a href="#使用g-直接编译" class="headerlink" title="使用g++直接编译"></a>使用g++直接编译</h2><p>接下来就到了万恶的编译环节,首先,我看见文档里面直接给<code>g++</code>编译的命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">g++ -O3 -march=native -Wall -shared -std=c++11 -fPIC `python3 -m pybind11 --includes` test.cpp -o test `python3-config --extension-suffix`</span><br></pre></td></tr></table></figure>
+
+<p>这个命令看起来很简单,但是存在一个问题,里面依赖<code>python-config</code>命令的输出,但是众所周知,这个命令只有在Linux下才能使用.</p>
+<blockquote>
+<p>我再一次感觉到了windows开发的险恶</p>
+</blockquote>
+<h2 id="使用CMake编译"><a href="#使用CMake编译" class="headerlink" title="使用CMake编译"></a>使用CMake编译</h2><p>接下来,我看到网上说<code>cmake</code>可以进行编译,这样看起来挺好,然而暗藏杀机.</p>
+<p>因为<code>cmake</code>也需要类似于<code>python-config</code>的环境,然后虽然我安装<code>mingw</code>确实来了一个<code>python-config</code>但是这会导致我编译工具链使用的是MS的产品,但是采用的解释器却是GCC编译的.</p>
+<blockquote>
+<p>中间省略了因为使用<code>anaconda</code>而不得不一步步教<code>cmake</code>如何找到我的<code>pybind</code>的过程</p>
+</blockquote>
+<p>然后这就带来一个完全爆炸<code>.pyd</code>文件,这个<code>pyd</code>在<code>mingw</code>里面的python不认,然后到了<code>conda</code>里面的python直接提示我dll丢失.</p>
+<blockquote>
+<p>你以为我没查Google,直接提示你:<em>“你安装的库可能有误,建议卸载重装”</em></p>
+<p>我自己写的库怎么卸载重装</p>
+</blockquote>
+<p>但是如果我换做<code>mingw</code>编译,则更加刺激,直接python给我闪退了</p>
+<blockquote>
+<p>我拿<code>windbg</code>查了一下,是内存冲突,但是别的我也不知道了</p>
+</blockquote>
+<h2 id="使用setup-py编译"><a href="#使用setup-py编译" class="headerlink" title="使用setup.py编译"></a>使用<code>setup.py</code>编译</h2><p>这种方法看起来简单,但是结果和那<code>CMake</code>一样</p>
+<p>简而言之,我电脑的状态就是这样:</p>
+<ol>
+<li>使用windows操作系统</li>
+<li>卸载了<code>VisualStudio</code></li>
+<li>装了<code>mingw</code></li>
+<li>使用<code>anaconda</code>管理python环境</li>
+</ol>
+<p>直接buff叠满,能做出来才有鬼.</p>
+<h2 id="使用cppimport"><a href="#使用cppimport" class="headerlink" title="使用cppimport"></a>使用<code>cppimport</code></h2><p>这是我目前看到的最好的方法来处理这个问题,<a href="https://github.com/tbenthompson/cppimport">源网页</a></p>
+<p>使用这个的好处在于反正我编译出来成功了</p>
+<p>这个库用法并不复杂,首先是在文件开头需要添加一行注释</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// cppimport</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在文件的末尾需要有</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">&lt;%</span></span><br><span class="line"><span class="comment">cfg[&#x27;sources&#x27;] = [&#x27;a_star.cpp&#x27;]</span></span><br><span class="line"><span class="comment">cfg[&#x27;extra_compile_args&#x27;] = [&#x27;/O2 /Oi&#x27;]</span></span><br><span class="line"><span class="comment">setup_pybind11(cfg)</span></span><br><span class="line"><span class="comment">%&gt;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>这实际上是一段<code>Mako</code>块,这一部分的python代码将会被运行  </p>
+<p>其中第一行是由于多文件编译,指定除了这个文件外的另外源文件</p>
+<p>第二行则是使用相关的编译选项</p>
+<h3 id="cppimport调用"><a href="#cppimport调用" class="headerlink" title="cppimport调用"></a><code>cppimport</code>调用</h3><p>虽然<code>cppimport</code>支持实时调用(每次<code>import</code>)的时候预编译,但是这么做对我们来讲没有必要,我们可以采用<code>cppimport</code>的预编译方式(就是<code>pyd</code>)实现</p>
+<p>使用以下代码</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -m cppimport build pytest.cpp</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>虽然理论上没有<code>pytest.cpp</code>也可以自动检测,但是我们不可避免会带有<code>Unicode</code>字符,然后就出错了</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于EasyConnect可能存在的问题以及解决方案</title>
+    <url>/2023/01/16/misc/abouteasyconnect/</url>
+    <content><![CDATA[<h2 id="事情起因"><a href="#事情起因" class="headerlink" title="事情起因"></a>事情起因</h2><p>今天我刷到了一个<a href="https://www.bilibili.com/video/BV163411Z7BD">视频</a>了解到<code>EasyConnect</code>似乎有滥用权限,泄露用户数据的可能,因此希望找到一种方法,在正常访问内网资源的同时实现对<code>EasyConnect</code>的控制.</p>
+<h2 id="解决手段"><a href="#解决手段" class="headerlink" title="解决手段"></a>解决手段</h2><p>我采用的是视频中提供的方案,是<code>docker-easyconnect</code>,[此为源代码地址][<a href="https://github.com/Hagb/docker-easyconnect]">https://github.com/Hagb/docker-easyconnect]</a></p>
+<p>在操作的时候,需要使用<code>Docker</code>环境进行隔离,刚好也对<code>Docker</code>环境进行学习</p>
+<blockquote>
+<p>需要注意的,在使用<code>socks5</code>代理的时候,把端口从1080改为其他类型的端口</p>
+</blockquote>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>算是实现了部分的功能,在<code>Docker</code>上顺利登陆了,并且使用<code>Firefox</code>上的<code>SwichyOmega</code>实现对于流量的分流(基于<code>socks5</code>原理)(不过目前只代理了&#96;<em>.fudan.edu.cn</em>网页),这么做可以保障我在使用内网资源的时候同时可以访问外网资料</p>
+<p>不过,这样的连接存在较为严重的稳定性问题,问题比较像<a href="https://github.com/Hagb/docker-easyconnect/issues/177">一个issue</a>,如何解决目前不明.</p>
+<p>同时,非常遗憾的,使用这种手段无法解决我使用<code>ssh</code>的问题,而网上的资料似乎主要针对<code>Linux</code>系统,因此还是无法摆脱<code>EasyConnect</code>的困扰.</p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>通讯安全</tag>
+        <tag>Docker</tag>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用loguru编写日志文件</title>
+    <url>/2023/01/27/misc/pylog/</url>
+    <content><![CDATA[<p>在编写程序,尤其是某些运行时间长,中间存在可能错误的程序,往往需要记录日志以便于调试.  </p>
+<p>但是日志的编写往往存在大量重复劳动,并且对于我目前的状况来讲可能需要在已有的程序中添加日志代码.  </p>
+<p>经过相关资料查阅,我找到了一个内置<code>logging</code>库,其可以较好地实现对于日志的编写.但是查阅了一下相关资料后,发现似乎<code>logging</code>的使用较为复杂,我们往往不需要那么复杂的应用场景,因此我在这里选择另外一个库<code>loguru</code>对日志进行记录</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>如果使用<code>anaconda</code>,可以用以下命令安装:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">conda install -c conda-forge loguru</span><br></pre></td></tr></table></figure>
+
+<h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><p>我们可以直接利用封装好的<code>logger</code>对象,直接对不同级别的日志进行输出,例如使用以下代码可以实现不同级别的日志:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> loguru <span class="keyword">import</span> logger</span><br><span class="line"></span><br><span class="line">logger.debug(<span class="string">&#x27;This is debug information&#x27;</span>)</span><br><span class="line">logger.info(<span class="string">&#x27;This is info information&#x27;</span>)</span><br><span class="line">logger.warning(<span class="string">&#x27;This is warn information&#x27;</span>)</span><br><span class="line">logger.error(<span class="string">&#x27;This is error information&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>可以注意到在运行时,其对于不同级别的结果,有着不同的格式化与颜色</p>
+<p><img src="/2023/01/27/misc/pylog/image-20230127192915053.png" alt="image-20230127192915053"></p>
+<p>接下来,我们可以注意到<code>logger</code>编写日志的一个优势在于其无需设定复杂的如处理器,过滤器等信息</p>
+<h2 id="输出到文件"><a href="#输出到文件" class="headerlink" title="输出到文件"></a>输出到文件</h2><p>我们往往需要将数据输出到文件,<em>尤其是在使用如<code>xspec</code>这样自己会有大量数据输出的程序</em>(默认是在<code>sys.std_err</code>中输出),可以使用<code>add</code>改变输出位置(<code>add</code>的具体用法之后会讲)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">logger.add(<span class="string">&quot;file_&#123;time&#125;.log&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>&#123;time&#125;</code>会自动替换为当前时间,还有其他的格式化字典如下:  </p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Attributes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>elapsed</td>
+<td>The time elapsed since the start of the program</td>
+<td>See <a href="https://docs.python.org/3/library/datetime.html#datetime.timedelta"><code>datetime.timedelta</code></a></td>
+</tr>
+<tr>
+<td>exception</td>
+<td>The formatted exception if any, <code>None</code> otherwise</td>
+<td><code>type</code>, <code>value</code>, <code>traceback</code></td>
+</tr>
+<tr>
+<td>extra</td>
+<td>The dict of attributes bound by the user (see <a href="https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind"><code>bind()</code></a>)</td>
+<td>None</td>
+</tr>
+<tr>
+<td>file</td>
+<td>The file where the logging call was made</td>
+<td><code>name</code> (default), <code>path</code></td>
+</tr>
+<tr>
+<td>function</td>
+<td>The function from which the logging call was made</td>
+<td>None</td>
+</tr>
+<tr>
+<td>level</td>
+<td>The severity used to log the message</td>
+<td><code>name</code> (default), <code>no</code>, <code>icon</code></td>
+</tr>
+<tr>
+<td>line</td>
+<td>The line number in the source code</td>
+<td>None</td>
+</tr>
+<tr>
+<td>message</td>
+<td>The logged message (not yet formatted)</td>
+<td>None</td>
+</tr>
+<tr>
+<td>module</td>
+<td>The module where the logging call was made</td>
+<td>None</td>
+</tr>
+<tr>
+<td>name</td>
+<td>The <code>__name__</code> where the logging call was made</td>
+<td>None</td>
+</tr>
+<tr>
+<td>process</td>
+<td>The process in which the logging call was made</td>
+<td><code>name</code>, <code>id</code> (default)</td>
+</tr>
+<tr>
+<td>thread</td>
+<td>The thread in which the logging call was made</td>
+<td><code>name</code>, <code>id</code> (default)</td>
+</tr>
+<tr>
+<td>time</td>
+<td>The aware local time when the logging call was made</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>输出到文件还有滚动和压缩等功能,在这里不再过多赘述(目前也用不到)</p>
+<blockquote>
+<p>关于字符着色:</p>
+<p>字符着色的问题是通过调节<code>add</code>中的参数<code>colorize</code>来控制的,其添加后有好处有坏处</p>
+<p>好处在于可以使用<code>tail -f</code>等很方便看到数据内容</p>
+<p>坏处在于由于字符串着色的机理是通过添加字符串进行的,会对编辑器查看带来不便</p>
+<p>因此可以尝试同时记录两个log</p>
+</blockquote>
+<h2 id="过滤器与格式化"><a href="#过滤器与格式化" class="headerlink" title="过滤器与格式化"></a>过滤器与格式化</h2><p>下面是关于更加复杂的过滤器写法和格式化写法的问题,这里不涉及(可能以后会),可以先看参考资料</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://github.com/Delgan/loguru">源代码与特性介绍</a></p>
+<p><a href="https://loguru.readthedocs.io/en/stable/api/logger.html">类定义</a></p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用python发送邮件</title>
+    <url>/2023/01/30/misc/pythonsmtp/</url>
+    <content><![CDATA[<p>由于之前写了一个误差计算脚本,采用了万能的<code>nohup python calc_error.py &gt;logs &amp;</code>实现了后台运行,但是在实际使用过程中,经常会遇到异常或者一些奇奇怪怪的问题,自己每次上线检查也麻烦,遂思考能不能用邮件来解决问题.  </p>
+<p>我参考<a href="https://zhuanlan.zhihu.com/p/24180606">这篇文章</a>,学习一下使用python发送邮件</p>
+<h2 id="所用到的库"><a href="#所用到的库" class="headerlink" title="所用到的库"></a>所用到的库</h2><p>我们分为两部,一方面是写邮件的过程,需要特定的邮件头和附件,这一部分使用的是<code>email</code>模块进行</p>
+<blockquote>
+<p>我在使用<code>pip install email</code>的时候一直出错,但是到<code>pip install emails</code>就可以,目前不确定两者关系,但是都可以使用<code>import email</code>调用</p>
+</blockquote>
+<p>而编写完邮件后,对于邮件的发送则是通过<code>smtp</code>服务进行,这一部分则是用<code>smtplib</code>实现,而其安装可以用<code>pip install aiosmtplib</code>进行</p>
+<h2 id="配置smtp"><a href="#配置smtp" class="headerlink" title="配置smtp"></a>配置<code>smtp</code></h2><p>我计划使用<code>Gmail</code>对这些邮件进行配置,为此,我打开了<code>Gmail</code>中的<code>imap</code>和<code>pop3</code>服务,关于<code>Gmail</code>更多信息如下,<a href="https://support.google.com/mail/answer/7126229">摘自于此</a></p>
+<table>
+<thead>
+<tr>
+<th>内容</th>
+<th>配置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>接收邮件 (IMAP) 服务器</td>
+<td>imap.gmail.com       要求 SSL：是       端口：993</td>
+</tr>
+<tr>
+<td>发送邮件 (SMTP) 服务器</td>
+<td>smtp.gmail.com       要求 SSL：是       要求 TLS：是（如适用）       使用身份验证：是       SSL 端口：465       TLS&#x2F;STARTTLS 端口：587</td>
+</tr>
+<tr>
+<td>完整名称或显示名称</td>
+<td>您的姓名</td>
+</tr>
+<tr>
+<td>帐号名、用户名或电子邮件地址</td>
+<td>您的完整电子邮件地址</td>
+</tr>
+<tr>
+<td>密码</td>
+<td>您的 Gmail 密码</td>
+</tr>
+</tbody></table>
+<h2 id="尝试发送邮件"><a href="#尝试发送邮件" class="headerlink" title="尝试发送邮件"></a>尝试发送邮件</h2><p>下面代码展示发送测试邮件过程</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> smtplib</span><br><span class="line"><span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText</span><br><span class="line"></span><br><span class="line">mail_host=<span class="string">&#x27;&#x27;</span></span><br><span class="line">mail_user=<span class="string">&#x27;&#x27;</span></span><br><span class="line">mail_pass=<span class="string">&#x27;&#x27;</span></span><br><span class="line">sender=<span class="string">&#x27;&#x27;</span></span><br><span class="line">receivers=[<span class="string">&#x27;&#x27;</span>]<span class="comment">#可以群发</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置邮件信息</span></span><br><span class="line">message=MIMEText(<span class="string">&#x27;content&#x27;</span>,<span class="string">&#x27;plain&#x27;</span>,<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">message[<span class="string">&#x27;Subject&#x27;</span>]=<span class="string">&quot;Test email&quot;</span></span><br><span class="line">message[<span class="string">&#x27;From&#x27;</span>]=sender</span><br><span class="line">message[<span class="string">&#x27;To&#x27;</span>]=receivers[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># smtpobj=smtplib.SMTP()</span></span><br><span class="line">    <span class="comment"># smtpobj.connect(mail_host,25)#这是无需ssl验证的情况</span></span><br><span class="line">    smtpobj=smtplib.SMTP_SSL(mail_host)<span class="comment">#这是需要ssl验证的情况</span></span><br><span class="line">    smtpobj.login(mail_user,mail_pass)</span><br><span class="line">    smtpobj.sendmail(sender,receivers,message.as_string())</span><br><span class="line">    smtpobj.quit()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Success&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> smtplib.SMTPException <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;error&#x27;</span>,e)</span><br></pre></td></tr></table></figure>
+
+<p>这个代码确实可以发送邮件,测试完成</p>
+<h2 id="添加附件"><a href="#添加附件" class="headerlink" title="添加附件"></a>添加附件</h2><p>我们可以利用<code>MIMENonMultipart</code>中的<code>MIMEText</code>类来发送我们得到的csv文件</p>
+<p>可以参考<a href="https://www.cnblogs.com/sunjump/p/15593585.html">这篇文章</a></p>
+<h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2><p>自然,我们可以实现更多内容(比如HTML等),但是我目前不需要,就先留在这里,可能未来还会更新</p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>所思即所得,一些画图软件(包)介绍</title>
+    <url>/2023/01/26/misc/graphviz/</url>
+    <content><![CDATA[<p>由于我在学习控制系统的时候,感觉<code>Visio</code>绘图手感像坨屎(我承认是我手不行),但是像流程图这样的东西有特点,即如果你能在这些空间里面把你想要塞的东西全部塞进去,那么优化这样的工作可以是完全交由计算机自行处理的.</p>
+<p>在这里,我主要将介绍两种方式进行该类绘图,一种是使用<code>LaTex</code>中<code>tikz</code>包进行绘图,还有一种是使用<code>Graphviz</code>进行绘图</p>
+<span id="more"></span>
+
+<h2 id="tikz包的使用与导出"><a href="#tikz包的使用与导出" class="headerlink" title="tikz包的使用与导出"></a><code>tikz</code>包的使用与导出</h2><p><code>tikz</code>包是在<code>LaTex</code>中的一个包,其可以方便(有模板的条件下)实现图的绘制</p>
+<p>不过<code>LaTex</code>主要导出的是<code>pdf</code>文件,因此需要进行转换</p>
+<h3 id="tikz包的使用-以一个例子为例"><a href="#tikz包的使用-以一个例子为例" class="headerlink" title="tikz包的使用(以一个例子为例)"></a><code>tikz</code>包的使用(以一个例子为例)</h3><p>我们首先以一个官方例子来介绍<code>tikz</code>包</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\documentclass</span>&#123;article&#125;  </span><br><span class="line"><span class="keyword">\usepackage</span>&#123;tikz&#125;</span><br><span class="line"><span class="keyword">\usetikzlibrary</span>&#123;shapes,arrows&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\begin</span>&#123;document&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;block&#125; = [draw, fill=blue!20, rectangle, </span><br><span class="line">    minimum height=3em, minimum width=6em]</span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;sum&#125; = [draw, fill=blue!20, circle, node distance=1cm]</span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;input&#125; = [coordinate]</span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;output&#125; = [coordinate]</span><br><span class="line"><span class="keyword">\tikzstyle</span>&#123;pinstyle&#125; = [pin edge=&#123;to-,thin,black&#125;]</span><br><span class="line"></span><br><span class="line"><span class="comment">% The block diagram code is probably more verbose than necessary</span></span><br><span class="line"><span class="keyword">\begin</span>&#123;tikzpicture&#125;[auto, node distance=2cm,&gt;=latex&#x27;]</span><br><span class="line">    <span class="comment">% We start by placing the blocks</span></span><br><span class="line">    <span class="keyword">\node</span> [input, name=input] &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [sum, right of=input] (sum) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block, right of=sum] (controller) &#123;Controller&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block, right of=controller, pin=&#123;[pinstyle]above:Disturbances&#125;,</span><br><span class="line">            node distance=3cm] (system) &#123;System&#125;;</span><br><span class="line">    <span class="comment">% We draw an edge between the controller and system block to </span></span><br><span class="line">    <span class="comment">% calculate the coordinate u. We need it to place the measurement block. </span></span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (controller) -- node[name=u] &#123;<span class="built_in">$</span>u<span class="built_in">$</span>&#125; (system);</span><br><span class="line">    <span class="keyword">\node</span> [output, right of=system] (output) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block, below of=u] (measurements) &#123;Measurements&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">% Once the nodes are placed, connecting them is easy. </span></span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (input) -- node &#123;<span class="built_in">$</span>r<span class="built_in">$</span>&#125; (sum);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (sum) -- node &#123;<span class="built_in">$</span>e<span class="built_in">$</span>&#125; (controller);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (system) -- node [name=y] &#123;<span class="built_in">$</span>y<span class="built_in">$</span>&#125;(output);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (y) |- (measurements);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (measurements) -| node[pos=0.99] &#123;<span class="built_in">$</span>-<span class="built_in">$</span>&#125; </span><br><span class="line">        node [near end] &#123;<span class="built_in">$</span>y<span class="built_in">_</span>m<span class="built_in">$</span>&#125; (sum);</span><br><span class="line"><span class="keyword">\end</span>&#123;tikzpicture&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">\end</span>&#123;document&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上代码会带来以下的渲染结果:</p>
+<p><img src="/2023/01/26/misc/graphviz/test-1.png" alt="test-1"></p>
+<p>我们来分段介绍内容</p>
+<h4 id="节点node"><a href="#节点node" class="headerlink" title="节点node"></a>节点<code>node</code></h4><p>节点可以看作骨架,应当是最为基础的部分</p>
+<p><code>node</code>有三种定义方式:</p>
+<ol>
+<li>使用<code>\node</code>定义,这里的定义方式应当为<code>\node [style and place] (name) &#123;label&#125;</code></li>
+<li>在<code>draw</code>中定义,这种定义往往是用于在线上写字<code>-- node [name and position] &#123;label&#125;</code></li>
+<li>使用<code>pin</code>定义</li>
+</ol>
+<p>然后关于位置,<code>pos</code>应该是线的位置,越大越靠近终点</p>
+<h4 id="箭头draw"><a href="#箭头draw" class="headerlink" title="箭头draw"></a>箭头<code>draw</code></h4><p><code>\draw [-&gt;] (nodefrom) -- (nodeto)</code></p>
+<p>直接在两个中间添加一个箭头(中间可以添加新节点)</p>
+<p><code>\draw [-&gt;] (nodefrom) -| (nodeto)</code></p>
+<p>这个箭头是折线</p>
+<h4 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h4><p>这里我们就直接套用好了没有必要去修改</p>
+<h4 id="应用举例"><a href="#应用举例" class="headerlink" title="应用举例"></a>应用举例</h4><p>下面我以控制系统中的一幅框图来实践刚才的知识(只保留)主干部分代码</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;tikzpicture&#125;[auto, node distance=2cm,&gt;=latex&#x27;]</span><br><span class="line">    <span class="keyword">\node</span> [input] (input) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [sum, right of=input] (sum1) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block, right of=sum1] (controlp) &#123;<span class="built_in">$</span>k<span class="built_in">_</span>P<span class="built_in">$</span>&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [sum, right of=controlp,node distance=2cm] (sum2) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [input, above of=sum2] (dis) &#123;&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [block ,right of=sum2] (p) &#123;<span class="built_in">$</span><span class="keyword">\mathcal</span>&#123;P&#125;<span class="built_in">$</span>&#125;;</span><br><span class="line">    <span class="keyword">\node</span> [output, right of=p] (output) &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">\node</span> [output, below of=sum2] (ins) &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (input) -- node &#123;<span class="built_in">$</span>r<span class="built_in">$</span>&#125; (sum1);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (sum1) -- node &#123;<span class="built_in">$</span>e<span class="built_in">$</span>&#125; (controlp);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (controlp) -- node &#123;<span class="built_in">$</span>u<span class="built_in">$</span>&#125; node[pos=0.99] &#123;+&#125; (sum2);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (dis) -- node &#123;<span class="built_in">$</span>d<span class="built_in">$</span>&#125; node[pos=0.99] &#123;+&#125; (sum2);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (sum2) -- (p);</span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (p) -- node[name=y] &#123;<span class="built_in">$</span>y<span class="built_in">$</span>&#125; (output);</span><br><span class="line">    <span class="keyword">\draw</span> [-] (y) |-   (ins);<span class="comment">%中间切断了一下</span></span><br><span class="line">    <span class="keyword">\draw</span> [-&gt;] (ins) -| node[pos=0.99] &#123;-&#125; (sum1);</span><br><span class="line"><span class="keyword">\end</span>&#123;tikzpicture&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>其渲染结果如下所示:</p>
+<p><img src="/2023/01/26/misc/graphviz/image-20230127220705981.png" alt="image-20230127220705981"></p>
+<p>可以看到渲染效果不错</p>
+<blockquote>
+<p>但是敲<code>tikz</code><strong>太累人</strong>了</p>
+</blockquote>
+<p>这里主要是介绍性使用<code>tikz</code>,更加完备的教程应当参考这个<a href="https://github.com/Hansimov/pgfmanual-zh">仓库</a></p>
+<h3 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h3><p>目前来说,我觉得还是<strong>截图保存</strong>的方式最便捷</p>
+<p>虽然确实可以用<code>LaTex</code>直接导出,也可以用python对<code>pdf</code>进行转换,但是太麻烦,还是截图方便</p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>LaTex</tag>
+        <tag>绘图</tag>
+      </tags>
   </entry>
 </search>

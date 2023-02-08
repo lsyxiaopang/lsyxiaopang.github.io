@@ -1240,7 +1240,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #42bbff;
+  background: #d588ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2576,14 +2576,14 @@ hr {
   display: inline-block;
 }
 body {
-  background: url("https://api.vvhan.com/api/acgimg");
+  background: url("https://api.yimian.xyz/img");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center center;
 }
 .content-wrap {
-  opacity: 0.9;
+  opacity: 0.85;
 }
 .popup {
   opacity: 0.9;

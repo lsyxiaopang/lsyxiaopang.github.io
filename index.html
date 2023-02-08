@@ -304,10 +304,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-02-07 16:07:28 / Modified: 17:12:31" itemprop="dateCreated datePublished" datetime="2023-02-07T16:07:28+08:00">2023-02-07</time>
+              <time title="Created: 2023-02-07 16:07:28" itemprop="dateCreated datePublished" datetime="2023-02-07T16:07:28+08:00">2023-02-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-02-08 14:55:00" itemprop="dateModified" datetime="2023-02-08T14:55:00+08:00">2023-02-08</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -352,38 +358,14 @@
 <li>其他的一些建议</li>
 </ol>
 <p>大家挑感兴趣的看吧</p>
-<h2 id="为什么要学python"><a href="#为什么要学python" class="headerlink" title="为什么要学python"></a>为什么要学python</h2><p>我一开始也是不想学,感觉这个玩意简直就是市面上某些广告的最爱,让人觉得非常轻浮.甚至都没有大括号(我当时曾经接触过<code>C,C++,C#,Ruby,汇编</code>等语言,自然是非常不精,但也算会一点点(现在除了<code>C/C++</code>其他全忘了))</p>
-<p>接触python的主要契机是当时我想写一个爬虫,然后想想python看起来实现最简单,于是就开始学了起来</p>
-<p>现在想想,确实python对我来讲意义重大,因为它有着强大的数学计算功能,但又究竟是一门以编程为目的的语言(问就是Matlab学PTSD了),有着非常多有用的库,而且这些库都是帮你配置好的<em>有人抱怨过python环境配置,那你是没有体验过C++各种链接库调用</em></p>
-<p>同时,python也是一个内存友好的语言,它能让你不用担心内存都去哪了(否则面对C&#x2F;C++,你可能要花整天时间研究你的程序是如何泄露掉20个G内存的)</p>
-<p>自然,python运行效率底下也总是被人所诟病,但是这在我们的应用环境中并不重要,我们注重的是开发效率,而对于那种计算密集型的问题,如果安排妥当,调库的效率实际上可能更高,实在不行,你还有一个”大杀器”,用C++编写python扩展</p>
-<blockquote>
-<p>效率的陷阱</p>
-<p>有些时候,C++写出来的程序真的不一定比python快,倘使你参加过信息学竞赛就会知道,很多问题的优化绝不是我们这种人能完全掌握的(我们是外行)</p>
-</blockquote>
-<h2 id="基础的学习"><a href="#基础的学习" class="headerlink" title="基础的学习"></a>基础的学习</h2><p>对于以前没有学过计算机程序设计语言的人来说,python作为你的第一个语言还是很不错的,我个人建议你还是可以去报python课(反正有学分)</p>
-<p>然后尽量挑一本书(最好是一本国外教材),从头到尾读一遍,将里面的东西实践一下(先不要管它有没有用,除非是那种教你搭建网页之类的,具体原因后面会讲)</p>
-<p>这样也许就可以了,你已经掌握了python的学习</p>
-<h2 id="进阶的学习"><a href="#进阶的学习" class="headerlink" title="进阶的学习"></a>进阶的学习</h2><p>如果你自觉自己基础的python学的很好了(<strong>我这里的标准是理论上你什么都可以干了</strong>),那么你就需要记住这样一句话,这是<em>Fluent Python</em>一书的作者写的</p>
-<blockquote>
-<p>We only miss stuff we know about.</p>
-</blockquote>
-<p>这句话很有深意,比如我们要把两个数组相加,首先想到的必然是用<code>for</code>循环,但是实际上生成器或者甚至<code>numpy</code>给了我们更加简单和高效的解决方案</p>
-<p>所以要把东西读完,而不是觉得”这是重复的”就跳了过去.</p>
-<blockquote>
-<p>所以,在做一个东西的时候,先查一下有没有现成的解决方案</p>
-</blockquote>
-<p>但是你到这一步,要专门学的东西也不多了,可能一个是<code>numpy</code>,还有一个就是<code>scikit-learn</code>,毕竟python对我们而言,主要还是工具,而不是目的</p>
-<blockquote>
-<p>倘使你对于python语言的高级特性感兴趣的话,建议去读一下<em>Fluent Python</em>一书,前提是你要学的够好</p>
-</blockquote>
-<p>另外,我强烈推荐大家在学习库的用法时,去读<strong>文档</strong>,那个东西比你在CSDN上面看到的各种教程都有用也更加详细.</p>
-<blockquote>
-<p>文档可比论文简单多了,毕竟就像使用说明</p>
-</blockquote>
-<h2 id="其他的一些建议"><a href="#其他的一些建议" class="headerlink" title="其他的一些建议"></a>其他的一些建议</h2><h3 id="关于Jupyter-Notebook"><a href="#关于Jupyter-Notebook" class="headerlink" title="关于Jupyter Notebook"></a>关于Jupyter Notebook</h3><p>我蛮喜欢这个可以将文档和代码放到一起的格式,但是我不建议大家去网上下载这样的电子书</p>
-<p>我建议大家对于示例代码,<strong>自己敲进去</strong>,不一定要像书上那么完备,可以偷个懒,但是在偷懒的过程也是你思考的过程</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/02/07/python/python-learning/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -425,10 +407,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-02-07 12:36:14 / Modified: 16:04:15" itemprop="dateCreated datePublished" datetime="2023-02-07T12:36:14+08:00">2023-02-07</time>
+              <time title="Created: 2023-02-07 12:36:14" itemprop="dateCreated datePublished" datetime="2023-02-07T12:36:14+08:00">2023-02-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-02-08 14:53:38" itemprop="dateModified" datetime="2023-02-08T14:53:38+08:00">2023-02-08</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
