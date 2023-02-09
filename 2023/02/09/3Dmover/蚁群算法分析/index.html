@@ -20,26 +20,22 @@
     var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Fitting pointsWe chose three typical points from the HID graph.  The first pointThe first point is the observation is the three observation in P14661084 and we use the low energy and mid energy part o">
+  <meta name="description" content="之前提到过三维路径的查找的方法,使用A*寻找,但是在找完之后就面临一个问题,如何挑选出一个合适的路径.很明显,我们这里的这个问题是一个旅行商问题,这玩意不可能有一个”完美”的算法.之前我所使用的方法是使用基于贪心算法的最小生成树进行路径查找但是这种方法的结果只能保证路径总代价不超过2倍.原本我想想只需要无脑调库就可以了,但是一查,虽然有一个民间制作的蚁群优化算法,但是那些都是基于python的py">
 <meta property="og:type" content="article">
-<meta property="og:title" content="The results and the problems in fitting the spectrum of the maxi1820+70">
-<meta property="og:url" content="https://lsyxiaopang.github.io/2023/01/15/maxi1820/maxi1/index.html">
+<meta property="og:title" content="蚁群算法分析">
+<meta property="og:url" content="https://lsyxiaopang.github.io/2023/02/09/3Dmover/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="Songyuli&#39;s blog">
-<meta property="og:description" content="Fitting pointsWe chose three typical points from the HID graph.  The first pointThe first point is the observation is the three observation in P14661084 and we use the low energy and mid energy part o">
+<meta property="og:description" content="之前提到过三维路径的查找的方法,使用A*寻找,但是在找完之后就面临一个问题,如何挑选出一个合适的路径.很明显,我们这里的这个问题是一个旅行商问题,这玩意不可能有一个”完美”的算法.之前我所使用的方法是使用基于贪心算法的最小生成树进行路径查找但是这种方法的结果只能保证路径总代价不超过2倍.原本我想想只需要无脑调库就可以了,但是一查,虽然有一个民间制作的蚁群优化算法,但是那些都是基于python的py">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://lsyxiaopang.github.io/2023/01/15/maxi1820/maxi1/hid.png">
-<meta property="og:image" content="https://lsyxiaopang.github.io/2023/01/15/maxi1820/maxi1/fitLS.png">
-<meta property="og:image" content="https://lsyxiaopang.github.io/2023/01/15/maxi1820/maxi1/fitLH.png">
-<meta property="og:image" content="https://lsyxiaopang.github.io/2023/01/15/maxi1820/maxi1/fit3.png">
-<meta property="article:published_time" content="2023-01-15T13:24:08.000Z">
-<meta property="article:modified_time" content="2023-01-24T08:39:04.962Z">
+<meta property="article:published_time" content="2023-02-09T13:40:14.000Z">
+<meta property="article:modified_time" content="2023-02-09T16:28:54.078Z">
 <meta property="article:author" content="Songyuli">
-<meta property="article:tag" content="maxi1820">
-<meta property="article:tag" content="X-ray spectrum fitting">
+<meta property="article:tag" content="3D位移平台">
+<meta property="article:tag" content="程序规划">
+<meta property="article:tag" content="c++">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://lsyxiaopang.github.io/2023/01/15/maxi1820/maxi1/hid.png">
 
-<link rel="canonical" href="https://lsyxiaopang.github.io/2023/01/15/maxi1820/maxi1/">
+<link rel="canonical" href="https://lsyxiaopang.github.io/2023/02/09/3Dmover/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/">
 
 
 <script id="page-configurations">
@@ -52,7 +48,7 @@
   };
 </script>
 
-  <title>The results and the problems in fitting the spectrum of the maxi1820+70 | Songyuli's blog</title>
+  <title>蚁群算法分析 | Songyuli's blog</title>
   
 
 
@@ -212,7 +208,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/15/maxi1820/maxi1/">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/09/3Dmover/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -225,7 +221,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          The results and the problems in fitting the spectrum of the maxi1820+70
+          蚁群算法分析
         </h1>
 
         <div class="post-meta">
@@ -235,14 +231,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2023-01-15 21:24:08" itemprop="dateCreated datePublished" datetime="2023-01-15T21:24:08+08:00">2023-01-15</time>
+              <time title="Created: 2023-02-09 21:40:14" itemprop="dateCreated datePublished" datetime="2023-02-09T21:40:14+08:00">2023-02-09</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-24 16:39:04" itemprop="dateModified" datetime="2023-01-24T16:39:04+08:00">2023-01-24</time>
+                <time title="Modified: 2023-02-10 00:28:54" itemprop="dateModified" datetime="2023-02-10T00:28:54+08:00">2023-02-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -250,7 +246,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/maxi1820/" itemprop="url" rel="index"><span itemprop="name">maxi1820</span></a>
+                  <a href="/categories/3D%E4%BD%8D%E7%A7%BB%E6%B5%8B%E9%87%8F%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">3D位移测量平台设计</span></a>
                 </span>
             </span>
 
@@ -263,8 +259,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2023/01/15/maxi1820/maxi1/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/15/maxi1820/maxi1/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2023/02/09/3Dmover/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/02/09/3Dmover/蚁群算法分析/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -279,245 +275,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Fitting-points"><a href="#Fitting-points" class="headerlink" title="Fitting points"></a>Fitting points</h2><p>We chose three typical points from the HID graph.</p>
-<p><img src="hid.png" alt="hid"></p>
-<h2 id="The-first-point"><a href="#The-first-point" class="headerlink" title="The first point"></a>The first point</h2><p>The first point is the observation is the three observation in <code>P14661084</code> and we use the low energy and mid energy part of the spectrum.</p>
-<p>We combine the spectra in <code>P14661084</code> and use the model <code>constant*TBabs*(simplcutx*(diskbb+relxillCp)+xillverCp)</code>(The reason why I didn’t use the model <code>mbknpo</code> is that if I add this model, then the spectrum of the very low energy(about 2keV) may not fit well), and I got the best-fit like this.</p>
-<p><img src="fitLS.png" alt="fitLS"></p>
-<p>Also, we calculate the error of each parameter, and got the table below</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>par</th>
-<th>model</th>
-<th>par name</th>
-<th>value</th>
-<th>range</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>3</td>
-<td><code>simplcutx</code></td>
-<td><code>Gamma</code></td>
-<td>2.32037</td>
-<td>2.29367~2.34282</td>
-</tr>
-<tr>
-<td>4</td>
-<td><code>simplcutx</code></td>
-<td><code>FracSctr</code></td>
-<td>0.146214</td>
-<td>0.139002~0.153343</td>
-</tr>
-<tr>
-<td>6</td>
-<td><code>simplcutx</code></td>
-<td><code>kT_e</code></td>
-<td>963.399</td>
-<td>151.681~0(-811.624,-963.304)</td>
-</tr>
-<tr>
-<td>7</td>
-<td><code>diskbb</code></td>
-<td><code>Tin</code></td>
-<td>0.740488</td>
-<td>0.737991~0.742486(-0.00249779,0.00199709)</td>
-</tr>
-<tr>
-<td>8</td>
-<td><code>diskbb</code></td>
-<td><code>norm</code></td>
-<td>1.53996E4</td>
-<td>15170.5~15622(-229.123,222.451)</td>
-</tr>
-<tr>
-<td>9</td>
-<td><code>relxillCp</code></td>
-<td><code>Index1</code></td>
-<td>10.00000</td>
-<td>9.20764~0(-0.792358,-10)</td>
-</tr>
-<tr>
-<td>13</td>
-<td><code>relxillCp</code></td>
-<td><code>Incl</code></td>
-<td>73.6178</td>
-<td>72.3889~73.842(-1.22892,0.224224)</td>
-</tr>
-<tr>
-<td>14</td>
-<td><code>relxillCp</code></td>
-<td><code>Rin</code></td>
-<td>-1.01333</td>
-<td>-1.03082~-1.00407(-0.0174862,0.00926662)</td>
-</tr>
-<tr>
-<td>18</td>
-<td><code>relxillCp</code></td>
-<td><code>logxi</code></td>
-<td>3.74057</td>
-<td>3.61639~3.8515(-0.124187,0.110924)</td>
-</tr>
-<tr>
-<td>19</td>
-<td><code>relxillCp</code></td>
-<td><code>Afe</code></td>
-<td>10.0000</td>
-<td>9.32562~0(-0.67438,-10)</td>
-</tr>
-<tr>
-<td>22</td>
-<td><code>relxillCp</code></td>
-<td><code>norm</code></td>
-<td>0.340764</td>
-<td>0.29189~0.352971(-0.0488737,0.0122078)</td>
-</tr>
-<tr>
-<td>30</td>
-<td><code>xillverCp</code></td>
-<td><code>norm</code></td>
-<td>1.3216E-3</td>
-<td>0~0.00371015(-0.00132301,0.00238714)</td>
-</tr>
-<tr>
-<td>31</td>
-<td><code>constant</code>(2)</td>
-<td><code>factor</code></td>
-<td>1.02040</td>
-<td>1.01158~1.03362(-0.00881818,0.0132216)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="The-second-point"><a href="#The-second-point" class="headerlink" title="The second point"></a>The second point</h2><p>The second point is the three observation in ``, we used all the energy part of the spectrum.</p>
-<p>Also, we used the model <code>constant*TBabs*(simplcutx*(diskbb+relxillCp)+xillverCp)</code>to fit the spectrum. And ignored the spectrum between 21keV to 23keV. This time, however, we found that the model cannot fit the spectrum very well, especially at about Fe-line and at about 25 keV. </p>
-<p>The unfolded spectrum and the ratio is like below:</p>
-<p><img src="fitLH.png" alt="fitLH"></p>
-<p>We calculated the error of each parameter, and got the table below:</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>par</th>
-<th>model</th>
-<th>par name</th>
-<th>value</th>
-<th>range</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>3</td>
-<td><code>simplcutx</code></td>
-<td><code>Gamma</code></td>
-<td>1.55434</td>
-<td>1.54259~1.56467(-0.0117559,0.0103268)</td>
-</tr>
-<tr>
-<td>4</td>
-<td><code>simplcutx</code></td>
-<td><code>FracSctr</code></td>
-<td>0.204196</td>
-<td>0.187275~0.21611(-0.016921,0.0119141)</td>
-</tr>
-<tr>
-<td>6</td>
-<td><code>simplcutx</code></td>
-<td><code>kT_e</code></td>
-<td>50.2392</td>
-<td>49.7608 ~52.4421(-0.47835,2.20294)</td>
-</tr>
-<tr>
-<td>7</td>
-<td><code>diskbb</code></td>
-<td><code>Tin</code></td>
-<td>0.530084</td>
-<td>0.519304~0.546117(-0.0107803,0.0160332)</td>
-</tr>
-<tr>
-<td>8</td>
-<td><code>diskbb</code></td>
-<td><code>norm</code></td>
-<td>14927.14</td>
-<td>4290.33~5755.6(-636.818,828.452)</td>
-</tr>
-<tr>
-<td>9</td>
-<td><code>relxillCp</code></td>
-<td><code>Index1</code></td>
-<td>10.00000</td>
-<td>3.70664~0(-6.29336,-10)</td>
-</tr>
-<tr>
-<td>13</td>
-<td><code>relxillCp</code></td>
-<td><code>Incl</code></td>
-<td>41.5373</td>
-<td>38.802~???(-2.73533,4.29916)</td>
-</tr>
-<tr>
-<td>14</td>
-<td><code>relxillCp</code></td>
-<td><code>Rin</code></td>
-<td>-14.5510</td>
-<td>-18.111~-9.07362(-3.56002,5.47737)</td>
-</tr>
-<tr>
-<td>18</td>
-<td><code>relxillCp</code></td>
-<td><code>logxi</code></td>
-<td>4.40865</td>
-<td>4.35113~4.44465(-0.057525,0.0360025)</td>
-</tr>
-<tr>
-<td>19</td>
-<td><code>relxillCp</code></td>
-<td><code>Afe</code></td>
-<td>9.29539</td>
-<td>7.81846~0(-1.47693,-9.29539)</td>
-</tr>
-<tr>
-<td>22</td>
-<td><code>relxillCp</code></td>
-<td><code>norm</code></td>
-<td>8.8196E-2</td>
-<td>0.0847278~ 0.0938056(-0.0034684,0.00560941)</td>
-</tr>
-<tr>
-<td>30</td>
-<td><code>xillverCp</code></td>
-<td><code>norm</code></td>
-<td>5.4875E-3</td>
-<td>0.00463134~0.00628511(-0.000856129,0.000797643)</td>
-</tr>
-<tr>
-<td>31</td>
-<td><code>constant</code>(2)</td>
-<td><code>factor</code></td>
-<td>1.03591</td>
-<td>1.02896~1.04286(-0.00695636,0.00694697)</td>
-</tr>
-<tr>
-<td>61</td>
-<td><code>constant</code>(2)</td>
-<td><code>factor</code></td>
-<td>1.05928</td>
-<td>1.05126~1.06678(-0.00801573,0.00750175)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>I noticed that the range of the parameter <code>Rin</code>  is quite large, which may be related to the unfitted Fe-line.</p>
-<h2 id="The-third-point"><a href="#The-third-point" class="headerlink" title="The third point"></a>The third point</h2><p>The second point is the two observation in <code>P0114661136</code>, we used all the energy part of the spectrum.</p>
-<p>We use the model <code>constant*TBabs*(simplcutx*(diskbb+mbnkpo*relxillCp)+xillverCp)</code> to fit the spectrum. And ignored the spectrum between 21keV to 23keV. This time except the problem at about 20keV and 25keV, the model can fit the spectrum quite well.</p>
-<p>The unfolded spectrum and the ratio is like below:<img src="fit3.png" alt="fit3"></p>
-<p>We calculated the error of each parameter, and got the table below:<br>| par  | model         | par name   | value     | range                                     |<br>| —— | ——————- | ————— | ————- | ———————————————————————- |<br>| 3    | <code>simplcutx</code>   | <code>Gamma</code>    | 1.70835   |1.69696~1.71736(-0.0113903,0.00900463)|<br>| 4    | <code>simplcutx</code>   | <code>FracSctr</code> | 0.423500  |0.388402~0.452862 (-0.0350982,0.0293619)|<br>| 6    | <code>simplcutx</code>   | <code>kT_e</code>     | 296.876  |156.831~0(-140.045,-296.876)|<br>| 7    | <code>diskbb</code>      | <code>Tin</code>      | 0.521368  | 0.499858~0.547507(-0.0215105,0.0261386) |<br>| 8    | <code>diskbb</code>      | <code>norm</code>     | 1679.12 | 1315.87~2075.26(-363.28,396.115)          |<br>| 11    | <code>relxillCp</code>   | <code>Index1</code>   | 10.00000  |4.04933~0 (-5.95067,-10)                  |<br>| 15   | <code>relxillCp</code>   | <code>Incl</code>     | 44.0274  |41.2731~48.205 (-2.75424,4.17761)         |<br>| 16   | <code>relxillCp</code>   | <code>Rin</code>      | -4.37220  |-5.43035 ~-3.03198 (-1.05815,1.34022) |<br>| 20   | <code>relxillCp</code>   | <code>logxi</code>    | 3.64956   |3.48269~3.80451(-0.166872,0.154944)       |<br>| 21   | <code>relxillCp</code>   | <code>Afe</code>      | 10.0000   | 7.14676~0 (-2.85324,-10)                  |<br>| 24   | <code>relxillCp</code>   | <code>norm</code>     | 07.31228E-3  | 0.0061945~0.00893408(-0.00111789,0.00162169)   |<br>| 32   | <code>xillverCp</code>   | <code>norm</code>     | 2.39388E-11 | 0~0.000333344(-6.82725e-15,0.000333344)      |<br>| 33   | <code>constant</code>(2) | <code>factor</code>   | 1.00827   |0.985256~1.02789 (-0.0230121,0.0196176)   |<br>|65|<code>constant</code>(3) | <code>factor</code>   | 1.03501   | 1.00417~1.06166(-0.0308423,0.0266517)    |</p>
-<h2 id="Discussions"><a href="#Discussions" class="headerlink" title="Discussions"></a>Discussions</h2><ol>
-<li>In real world ,the <code>Incl</code> should not change with time, so we should fix it to some value (In the ==NuSTAR== it is 63, but we’ve found that it cannot fit very well)</li>
-<li>We don’t need to get the best fit because our goal is to fit <strong>all</strong> the observations, so if the <code>Reduced Chi-Squared</code>(Chi-Squared/Degrees of freedom)is under 1.2,although it is still not the best fit ,it would be ok.</li>
+        <p>之前提到过三维路径的查找的方法,使用A*寻找,但是在找完之后就面临一个问题,如何挑选出一个合适的路径.<br>很明显,我们这里的这个问题是一个旅行商问题,这玩意不可能有一个”完美”的算法.<br>之前我所使用的方法是使用基于贪心算法的最小生成树进行路径查找但是这种方法的结果只能保证路径总代价不超过2倍.<br>原本我想想只需要无脑调库就可以了,但是一查,虽然有一个民间制作的蚁群优化算法,但是那些都是基于python的python库,完全没法用.</p>
+<blockquote>
+<p>虽然你可能会觉得上面那句话很怪,但如果你了解过python的运行效率,那么就会知道这么做就是自寻死路</p>
+</blockquote>
+<p>所以我看来又得”自己造轮子”,使用C++处理蚁群算法</p>
+<span id="more"></span>
+
+<h2 id="蚁群算法机理"><a href="#蚁群算法机理" class="headerlink" title="蚁群算法机理"></a>蚁群算法机理</h2><p>这里的机理我主要参考的<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/151442866">这篇知乎文章</a>,在这里我简单介绍以下(当然也包括我的一些实现细节,便于未来查找错误)</p>
+<h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><p>蚁群算法的基本处理方式是在原本的类似于贪心算法(但又不完全贪心)上添加了一个<em>信息素矩阵</em>,并且选取的途径并不是”决定性”的选取,而是概率选取,越符合要求的选取到的概率越高.<br>同时这个信息素的产生和变化遵循以下条件:</p>
+<ol>
+<li>不同蚂蚁产生信息素相互线性叠加</li>
+<li>一只蚂蚁在所有路径上分泌的信息素总和为定值</li>
+<li>信息素在每次迭代后都会挥发一部分</li>
 </ol>
+<p>使用这种方法实现结果</p>
+<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><p>首先是概率的计算,在每一只蚂蚁选择下一个点(从$i$到$j$)时,每一个点的概率为</p>
+<p>$$p_{ij}&#x3D;\frac{t_{ij}^\alpha r_{ij}^{\beta}}{\sum_j t_{ij}^\alpha r_{ij}^{\beta}}$$<br>其中$t_{ij}$为从$i$到$j$的信息素含量,而$r_{ij}$则为基于贪心的路径选择$r_{ij}&#x3D;\frac{1}{L_{ij}},L_{ij}$为这两点之间的距离,具体如何通过$p_{ij}$来进行选取,我们采用的是”轮盘赌”的方法,可以参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39068956/article/details/105121469">这篇文章</a></p>
+<p>而每次迭代之后,对于$t_{ij}$其变化为<br>$$t_{ij}&#x3D;pt_{ij}+\sum \frac{G}{L_i}$$<br>其中,$p$为挥发后剩余量,$G$为常数,$L_i$为经过这个边的第$i$个个体总路径长度.<br>而在达到迭代次数后,输出计算得到的结果.</p>
+<blockquote>
+<p>关于$G$的选取和初始化<br>我们面临一个初始化的问题,就是在第一次迭代之前,如何选取$t_{ij}$,我目前的做法是将其全部初始化为1,而令$G&#x3D;n\bar{L_{ij}}$,即边长平均值乘以$n$,(类似于平均边长)</p>
+</blockquote>
 
     </div>
 
@@ -527,8 +305,9 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/maxi1820/" rel="tag"># maxi1820</a>
-              <a href="/tags/X-ray-spectrum-fitting/" rel="tag"># X-ray spectrum fitting</a>
+              <a href="/tags/3D%E4%BD%8D%E7%A7%BB%E5%B9%B3%E5%8F%B0/" rel="tag"># 3D位移平台</a>
+              <a href="/tags/%E7%A8%8B%E5%BA%8F%E8%A7%84%E5%88%92/" rel="tag"># 程序规划</a>
+              <a href="/tags/c/" rel="tag"># c++</a>
           </div>
 
         
@@ -537,13 +316,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/01/15/control%20system/control2/" rel="prev" title="被控对象的行为">
-      <i class="fa fa-chevron-left"></i> 被控对象的行为
+    <a href="/2023/02/07/python/vectorize/" rel="prev" title="向量化与面向对象">
+      <i class="fa fa-chevron-left"></i> 向量化与面向对象
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2023/01/15/control%20system/control1/" rel="next" title="控制系统建模">
-      控制系统建模 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -609,7 +385,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Fitting-points"><span class="nav-number">1.</span> <span class="nav-text">Fitting points</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-first-point"><span class="nav-number">2.</span> <span class="nav-text">The first point</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-second-point"><span class="nav-number">3.</span> <span class="nav-text">The second point</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-third-point"><span class="nav-number">4.</span> <span class="nav-text">The third point</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Discussions"><span class="nav-number">5.</span> <span class="nav-text">Discussions</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95%E6%9C%BA%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">蚁群算法机理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">基本原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.2.</span> <span class="nav-text">具体实现</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -726,6 +502,61 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
@@ -741,9 +572,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://lsyxiaopang.github.io/2023/01/15/maxi1820/maxi1/";
-    this.page.identifier = "2023/01/15/maxi1820/maxi1/";
-    this.page.title = "The results and the problems in fitting the spectrum of the maxi1820+70";
+    this.page.url = "https://lsyxiaopang.github.io/2023/02/09/3Dmover/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/";
+    this.page.identifier = "2023/02/09/3Dmover/蚁群算法分析/";
+    this.page.title = "蚁群算法分析";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

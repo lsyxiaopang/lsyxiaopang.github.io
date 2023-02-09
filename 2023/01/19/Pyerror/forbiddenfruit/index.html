@@ -28,7 +28,7 @@
 <meta property="og:description" content="请注意:在本文中包含了一些非常危险的行为,在使用前请务必三思  事情起因因为之前我做过一个处理误差的库的尝试,虽然构造了一个可以自动计算常见误差形式的类,然而这样一个类用在科学计算上的价值却不大,原因就在于这么做没法使用python中的常用数学计算库numpy,那么我就开始动起了歪脑筋:是不是可以通过修改np.ndarray一些函数支持来实现我所想要的功能 就以__add__为例,我可以创建一个">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-01-18T16:14:09.000Z">
-<meta property="article:modified_time" content="2023-01-19T04:33:34.000Z">
+<meta property="article:modified_time" content="2023-01-19T04:33:34.693Z">
 <meta property="article:author" content="Songyuli">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="作死行为">
@@ -275,7 +275,6 @@
 <p>就以<code>__add__</code>为例,我可以创建一个新函数去替代<code>__add__</code>以实现我的功能.</p>
 <p>于是尝试了一下<code>np.ndarray.__add__=myadd</code>,很不幸,解释器告诉我</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TypeError: can&#x27;t set attributes of built-in/extension type &#x27;numpy.ndarray&#x27;</span><br></pre></td></tr></table></figure>
-
 <p>我考虑了一下,发现原因是<code>numpy</code>不是由python编写的,因此也无法直接使用python修改动态类型的手段.</p>
 <h2 id="解决-forbiddenfruit"><a href="#解决-forbiddenfruit" class="headerlink" title="解决:forbiddenfruit"></a>解决:<code>forbiddenfruit</code></h2><p>正在我表示绝望准备放弃的时候(原本准备用类继承实现功能),突然看到了<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/345547458">一篇文章</a></p>
 <p>在这篇文章,作者介绍了一个神奇又危险的库<code>forbiddenfruit</code>(<a target="_blank" rel="noopener" href="https://pypi.org/project/forbiddenfruit/">下载地址</a>),在这个库里,你可以替换python内置的类型</p>
@@ -285,7 +284,6 @@
 </blockquote>
 <p>那么下面我可以来演示一下如何替换掉python中list的加法方法</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> forbiddenfruit <span class="keyword">import</span> curse</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">change_list_add</span>():</span><br><span class="line">    old_add=<span class="built_in">list</span>.__add__<span class="comment">#保存原来加法实现</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">new_add</span>(<span class="params">self,o</span>):</span><br><span class="line">        <span class="keyword">return</span> old_add(old_add(self,[<span class="string">&quot; &quot;</span>]),o)<span class="comment">#新的加法</span></span><br><span class="line">    curse(<span class="built_in">list</span>,<span class="string">&quot;__add__&quot;</span>,new_add)<span class="comment">#替换掉原有加法</span></span><br><span class="line">change_list_add()</span><br></pre></td></tr></table></figure>
-
 <p>然后未来进行列表加法时大家就会惊奇地发现列表两个元素之间总是会有一个空格</p>
 <blockquote>
 <p>在实际的生产中,这样的做法可能会导致暴力事件的发生</p>
@@ -314,8 +312,8 @@
       <i class="fa fa-chevron-left"></i> 创建wheels
     </a></div>
       <div class="post-nav-item">
-    <a href="/2023/01/23/Pyerror/poetry/" rel="next" title="poetry">
-      poetry <i class="fa fa-chevron-right"></i>
+    <a href="/2023/01/19/Indexs/hello-world/" rel="next" title="Hello World">
+      Hello World <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -396,7 +394,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

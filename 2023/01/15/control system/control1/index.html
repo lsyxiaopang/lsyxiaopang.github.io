@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="123import numpy as npimport matplotlib.pyplot as plt%matplotlib inline  描述控制系统在这一部分,假设$u(t)$为系统某一时刻的输入,$y(t)$为系统某一时刻的输出$t$为时间 利用递推法即$y_n&#x3D;\Sigma f(y_k)+g(u_n)$,我们可以得到一个齐次线性微分方程描述输出和输入之间的关系$$\Sigma">
+  <meta name="description" content="123import numpy as npimport matplotlib.pyplot as plt%matplotlib inline 描述控制系统   利用递推法即$y_n&#x3D;\Sigma f(y_k)+g(u_n)$,我们可以得到一个齐次线性微分方程描述输出和输入之间的关系 $$\Sigma_k^n\frac&amp;#123;\mathbb&amp;#123;d&amp;#125;^k&amp;#125;&amp;#123;\">
 <meta property="og:type" content="article">
 <meta property="og:title" content="控制系统建模">
 <meta property="og:url" content="https://lsyxiaopang.github.io/2023/01/15/control%20system/control1/index.html">
 <meta property="og:site_name" content="Songyuli&#39;s blog">
-<meta property="og:description" content="123import numpy as npimport matplotlib.pyplot as plt%matplotlib inline  描述控制系统在这一部分,假设$u(t)$为系统某一时刻的输入,$y(t)$为系统某一时刻的输出$t$为时间 利用递推法即$y_n&#x3D;\Sigma f(y_k)+g(u_n)$,我们可以得到一个齐次线性微分方程描述输出和输入之间的关系$$\Sigma">
+<meta property="og:description" content="123import numpy as npimport matplotlib.pyplot as plt%matplotlib inline 描述控制系统   利用递推法即$y_n&#x3D;\Sigma f(y_k)+g(u_n)$,我们可以得到一个齐次线性微分方程描述输出和输入之间的关系 $$\Sigma_k^n\frac&amp;#123;\mathbb&amp;#123;d&amp;#125;^k&amp;#125;&amp;#123;\">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-01-15T15:40:19.000Z">
-<meta property="article:modified_time" content="2023-01-24T14:17:05.000Z">
+<meta property="article:modified_time" content="2023-01-24T14:17:05.736Z">
 <meta property="article:author" content="Songyuli">
 <meta property="article:tag" content="控制系统">
 <meta name="twitter:card" content="summary">
@@ -274,78 +274,71 @@
 
       
         <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+<h2 id="描述控制系统"><a href="#描述控制系统" class="headerlink" title="描述控制系统"></a>描述控制系统</h2><pre><code class="lang-在这一部分,假设$u(t)$为系统某一时刻的输入,$y(t)$为系统某一时刻的输出$t$为时间```">
 
-<h2 id="描述控制系统"><a href="#描述控制系统" class="headerlink" title="描述控制系统"></a>描述控制系统</h2><p><code>在这一部分,假设$u(t)$为系统某一时刻的输入,$y(t)$为系统某一时刻的输出$t$为时间</code></p>
-<p>利用递推法即$y_n&#x3D;\Sigma f(y_k)+g(u_n)$,我们可以得到一个齐次线性微分方程描述输出和输入之间的关系<br>$$\Sigma_k^n\frac{\mathbb{d}^k}{\mathbb{d}t^k}a_ky(t)&#x3D;\Sigma_i^n\frac{\mathbb{d}^i}{\mathbb{d}t^i}b_ku(t)$$</p>
+
+利用递推法即$y_n=\Sigma f(y_k)+g(u_n)$,我们可以得到一个齐次线性微分方程描述输出和输入之间的关系
+$$\Sigma_k^n\frac&#123;\mathbb&#123;d&#125;^k&#125;&#123;\mathbb&#123;d&#125;t^k&#125;a_ky(t)=\Sigma_i^n\frac&#123;\mathbb&#123;d&#125;^i&#125;&#123;\mathbb&#123;d&#125;t^i&#125;b_ku(t)$$
+&gt; 对于一些特殊情况,例如系统的状态与其历史无关,那么系统可以被简化为$y(t)=b_0u(t)$
+&gt; 下面将对一个常见模型进行建模
+
+&lt;!-- more --&gt;
+
+
+----
+### 垂直驱动机械臂模型
+$$J\ddot&#123;\theta&#125;(t)+\mu\dot&#123;\theta&#125;(t)+Mgl\sin \theta(t)=u(t)$$
+```臂转动惯量为$J$,质量为$M$,重力加速度为$g$,考虑阻尼作用,整体外部扭矩被表示为$u$
+</code></pre>
+<p>但是这不是一个线性微分方程(由于$\sin$的存在),因此我们可以对$\theta$进行小角度假设,那么就可以得到一个线性微分方程</p>
+<script type="math/tex; mode=display">J\ddot{\theta}(t)+\mu\dot{\theta}(t)+Mgl\theta(t)=u(t)</script><h3 id="控制工程所使用的模型描述"><a href="#控制工程所使用的模型描述" class="headerlink" title="控制工程所使用的模型描述"></a>控制工程所使用的模型描述</h3><p>由于微分方程往往很高阶,因此直接分析会非常困难.<br>将微分方程转换为”传递函数模型”或者是”状态方程模型”</p>
+<h2 id="传递函数模型"><a href="#传递函数模型" class="headerlink" title="传递函数模型"></a>传递函数模型</h2><p>传递函数模型形式$\mathcal{P}(s)=\frac{\Sigma^m_k b_ks^k}{\Sigma^n_i b_is^i}$<br>利用这种模型,可以将在时间域上的微积分操作转化为在$s$上的乘法操作,例如说<script type="math/tex">\dot{y(t)}\to sy(s)</script><br>$\mathcal{P}(s)=\frac{y(s)}{u(s)}$其中$y(s)=\mathcal{L}[y(t)],u(s)=\mathcal{L}[u(t)]$</p>
 <blockquote>
-<p>对于一些特殊情况,例如系统的状态与其历史无关,那么系统可以被简化为$y(t)&#x3D;b_0u(t)$<br>下面将对一个常见模型进行建模</p>
+<p>拉普拉斯变换$\mathcal{L}$,定义<script type="math/tex">g(s)=\mathcal{L}[g(t)]:=\int_0^\infin g(t)e^{-st}\mathbb{d}t</script><br>对其进行$N$次积分相当于除以$s^N$,微分则相反</p>
 </blockquote>
-<span id="more"></span>
-
-
-<hr>
-<h3 id="垂直驱动机械臂模型"><a href="#垂直驱动机械臂模型" class="headerlink" title="垂直驱动机械臂模型"></a>垂直驱动机械臂模型</h3><p>$$J\ddot{\theta}(t)+\mu\dot{\theta}(t)+Mgl\sin \theta(t)&#x3D;u(t)$$<br><code>臂转动惯量为$J$,质量为$M$,重力加速度为$g$,考虑阻尼作用,整体外部扭矩被表示为$u$</code><br>但是这不是一个线性微分方程(由于$\sin$的存在),因此我们可以对$\theta$进行小角度假设,那么就可以得到一个线性微分方程</p>
-<p>$$J\ddot{\theta}(t)+\mu\dot{\theta}(t)+Mgl\theta(t)&#x3D;u(t)$$</p>
-<h3 id="控制工程所使用的模型描述"><a href="#控制工程所使用的模型描述" class="headerlink" title="控制工程所使用的模型描述"></a>控制工程所使用的模型描述</h3><p>由于微分方程往往很高阶,因此直接分析会非常困难.<br>将微分方程转换为”传递函数模型”或者是”状态方程模型”</p>
-<h2 id="传递函数模型"><a href="#传递函数模型" class="headerlink" title="传递函数模型"></a>传递函数模型</h2><p>传递函数模型形式$\mathcal{P}(s)&#x3D;\frac{\Sigma^m_k b_ks^k}{\Sigma^n_i b_is^i}$<br>利用这种模型,可以将在时间域上的微积分操作转化为在$s$上的乘法操作,例如说$$\dot{y(t)}\to sy(s)$$<br>$\mathcal{P}(s)&#x3D;\frac{y(s)}{u(s)}$其中$y(s)&#x3D;\mathcal{L}[y(t)],u(s)&#x3D;\mathcal{L}[u(t)]$</p>
-<blockquote>
-<p>拉普拉斯变换$\mathcal{L}$,定义$$g(s)&#x3D;\mathcal{L}[g(t)]:&#x3D;\int_0^\infin g(t)e^{-st}\mathbb{d}t$$<br>对其进行$N$次积分相当于除以$s^N$,微分则相反</p>
-</blockquote>
-<h3 id="传递函数举例"><a href="#传递函数举例" class="headerlink" title="传递函数举例"></a>传递函数举例</h3><p>对于之前的机械臂模型,我们可以将传递函数写作<br>$$\mathcal{P}(s)&#x3D;\frac{1}{s^2J+\mu s+Mgl}$$<br>也可以利用Python中的(<code>tf</code>)函数来表示,例如我们现在有一个控制函数<br>$$\mathcal{P}(s)&#x3D;\frac{1}{s^2+2s+3}$$<br>可以用以下代码表示</p>
+<h3 id="传递函数举例"><a href="#传递函数举例" class="headerlink" title="传递函数举例"></a>传递函数举例</h3><p>对于之前的机械臂模型,我们可以将传递函数写作</p>
+<script type="math/tex; mode=display">\mathcal{P}(s)=\frac{1}{s^2J+\mu s+Mgl}</script><p>也可以利用Python中的(<code>tf</code>)函数来表示,例如我们现在有一个控制函数</p>
+<script type="math/tex; mode=display">\mathcal{P}(s)=\frac{1}{s^2+2s+3}</script><p>可以用以下代码表示</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> control</span><br><span class="line">np=[<span class="number">0</span>,<span class="number">1</span>]</span><br><span class="line">dp=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">p=control.tf(np,dp)</span><br><span class="line"><span class="built_in">print</span>(p)</span><br></pre></td></tr></table></figure>
-
-
 <pre><code>      1
 -------------
 s^2 + 2 s + 3
-</code></pre>
-<p>​    </p>
-<p>或者像这样$$\mathcal{P}(s)&#x3D;\frac{s+2}{(s+1)(s+2)^2}$$</p>
+</code></pre><p>​    </p>
+<p>或者像这样<script type="math/tex">\mathcal{P}(s)=\frac{s+2}{(s+1)(s+2)^2}</script></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(control.tf([<span class="number">1</span>,<span class="number">2</span>],[<span class="number">1</span>,<span class="number">1</span>])*control.tf([<span class="number">1</span>],[<span class="number">1</span>,<span class="number">2</span>])**<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-
-
 <pre><code>        s + 2
 ---------------------
 s^3 + 5 s^2 + 8 s + 4
-</code></pre>
-<p>​    </p>
+</code></pre><p>​    </p>
 <p>可以利用(<code>tfdata</code>)重新获取分母和分子</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[[nump]],[[denp]]=control.tfdata(p)</span><br><span class="line"><span class="built_in">print</span>(nump,denp)</span><br></pre></td></tr></table></figure>
-
 <pre><code>[1] [1 2 3]
-</code></pre>
-<h2 id="状态空间模型"><a href="#状态空间模型" class="headerlink" title="状态空间模型"></a>状态空间模型</h2><p>状态空间模型可以<strong>将多元高阶微分方程表示为一阶微分方程的形式</strong><br>通常可以编写为两个(两组)方程<br>$$<br>\dot{x}(t)&#x3D;Ax(t)+Bu(t)\qquad (状态方程)<br>$$<br>和<br>$$<br>y(t)&#x3D;Cx(t)+Du(t)\qquad (输出方程)<br>$$<br>需要注意的是,$ABCD$都可以是矩阵,$xyu$都可以是矢量,但是我们主要考虑单输入单输出情况(但是$x$可能还是矢量)</p>
+</code></pre><h2 id="状态空间模型"><a href="#状态空间模型" class="headerlink" title="状态空间模型"></a>状态空间模型</h2><p>状态空间模型可以<strong>将多元高阶微分方程表示为一阶微分方程的形式</strong><br>通常可以编写为两个(两组)方程</p>
+<script type="math/tex; mode=display">
+\dot{x}(t)=Ax(t)+Bu(t)\qquad (状态方程)</script><p>和</p>
+<script type="math/tex; mode=display">
+y(t)=Cx(t)+Du(t)\qquad (输出方程)</script><p>需要注意的是,$ABCD$都可以是矩阵,$xyu$都可以是矢量,但是我们主要考虑单输入单输出情况(但是$x$可能还是矢量)</p>
 <blockquote>
-<p>如何建模?<br>考虑$p&#x3D;\frac{\mathbb{d}}{\mathbb{d}t}$,那么可以假设$p$的多项式$A(p)$和$B(p)$,于是我们就可以定义一个新变量$v$,有<br>$A(p)&#x3D;u,y&#x3D;B(p)v$<br>可以定义$x$向量为$v$的各阶导数,就可以写出原来的方程</p>
+<p>如何建模?<br>考虑$p=\frac{\mathbb{d}}{\mathbb{d}t}$,那么可以假设$p$的多项式$A(p)$和$B(p)$,于是我们就可以定义一个新变量$v$,有<br>$A(p)=u,y=B(p)v$<br>可以定义$x$向量为$v$的各阶导数,就可以写出原来的方程</p>
 </blockquote>
-<h3 id="机械臂的状态空间模型"><a href="#机械臂的状态空间模型" class="headerlink" title="机械臂的状态空间模型"></a>机械臂的状态空间模型</h3><p>下面以之前的机械臂为例,讨论一下状态空间模型的推导<br>由于机械臂运动状态由角度和角速度确定,因此$x&#x3D;\left[\begin{matrix}\theta\\dot{\theta}\end{matrix}\right]$,然后其状态方程为<br>$$\dot{x}(t)&#x3D;\left[\begin{matrix}\dot{\theta}\\ddot{\theta}\end{matrix}\right]&#x3D;\left[\begin{matrix}0&amp;1\-\frac{Mgl}{J}&amp;-\frac{\mu}{J}\end{matrix}\right]x(t)+\left[\begin{matrix}0\\frac{1}{J}\end{matrix}\right]u(t)$$<br>输出方程为<br>$$y(t)&#x3D;\left[\begin{matrix}1&amp;0\end{matrix}\right]x(t)$$</p>
-<h3 id="状态空间模型的Python代码"><a href="#状态空间模型的Python代码" class="headerlink" title="状态空间模型的Python代码"></a>状态空间模型的Python代码</h3><p>可以使用函数<code>ss(A,B,C,D)</code>表示状态空间,非常方便,例如对于一组方程<br>$$\dot{x}(t)&#x3D;\left[\begin{matrix}1&amp;1&amp;2\2&amp;1&amp;1\3&amp;4&amp;5\end{matrix}\right]x(t)+\left[\begin{matrix}2\0\1\end{matrix}\right]u(t)$$<br>$$y(t)&#x3D;\left[\begin{matrix}1&amp;1&amp;0\end{matrix}\right]x(t)+u(t)$$</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">&quot;1 1 2;2 1 1;3 4 5&quot;</span></span><br><span class="line">b=<span class="string">&quot;2;0;1&quot;</span></span><br><span class="line">c=<span class="string">&quot;1 1 0&quot;</span></span><br><span class="line">d=<span class="string">&quot;1&quot;</span></span><br><span class="line">control.ss(a,b,c,d).A</span><br></pre></td></tr></table></figure>
-
-
-
-
+<h3 id="机械臂的状态空间模型"><a href="#机械臂的状态空间模型" class="headerlink" title="机械臂的状态空间模型"></a>机械臂的状态空间模型</h3><p>下面以之前的机械臂为例,讨论一下状态空间模型的推导<br>由于机械臂运动状态由角度和角速度确定,因此$x=\left[\begin{matrix}\theta\\\dot{\theta}\end{matrix}\right]$,然后其状态方程为</p>
+<script type="math/tex; mode=display">\dot{x}(t)=\left[\begin{matrix}\dot{\theta}\\\ddot{\theta}\end{matrix}\right]=\left[\begin{matrix}0&1\\-\frac{Mgl}{J}&-\frac{\mu}{J}\end{matrix}\right]x(t)+\left[\begin{matrix}0\\\frac{1}{J}\end{matrix}\right]u(t)</script><p>输出方程为</p>
+<script type="math/tex; mode=display">y(t)=\left[\begin{matrix}1&0\end{matrix}\right]x(t)</script><h3 id="状态空间模型的Python代码"><a href="#状态空间模型的Python代码" class="headerlink" title="状态空间模型的Python代码"></a>状态空间模型的Python代码</h3><p>可以使用函数<code>ss(A,B,C,D)</code>表示状态空间,非常方便,例如对于一组方程</p>
+<script type="math/tex; mode=display">\dot{x}(t)=\left[\begin{matrix}1&1&2\\2&1&1\\3&4&5\end{matrix}\right]x(t)+\left[\begin{matrix}2\\0\\1\end{matrix}\right]u(t)</script><script type="math/tex; mode=display">y(t)=\left[\begin{matrix}1&1&0\end{matrix}\right]x(t)+u(t)</script><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">&quot;1 1 2;2 1 1;3 4 5&quot;</span></span><br><span class="line">b=<span class="string">&quot;2;0;1&quot;</span></span><br><span class="line">c=<span class="string">&quot;1 1 0&quot;</span></span><br><span class="line">d=<span class="string">&quot;1&quot;</span></span><br><span class="line">control.ss(a,b,c,d).A</span><br></pre></td></tr></table></figure>
 <pre><code>array([[1., 1., 2.],
        [2., 1., 1.],
        [3., 4., 5.]])
-</code></pre>
-<h2 id="框图"><a href="#框图" class="headerlink" title="框图"></a>框图</h2><p>可以利用框图来描述控制系统</p>
-<h3 id="串联"><a href="#串联" class="headerlink" title="串联"></a>串联</h3><p>将两个系统输入输出相连,可以得到一个串联的系统,例如将$y&#x3D;\mathcal{S_1}u$与$z&#x3D;\mathcal{S_2}y$串联后就得到$z&#x3D;\mathcal{S_1}\cdot\mathcal{S_2}u$<br>系统可以表示为$$\mathcal{S&#x3D;S_1\cdot S_2}$$<br>这一结果不满足交换律,框图如下所示<br>可以使用Python求得系统中串联的结果模型:</p>
+</code></pre><h2 id="框图"><a href="#框图" class="headerlink" title="框图"></a>框图</h2><p>可以利用框图来描述控制系统</p>
+<h3 id="串联"><a href="#串联" class="headerlink" title="串联"></a>串联</h3><p>将两个系统输入输出相连,可以得到一个串联的系统,例如将$y=\mathcal{S_1}u$与$z=\mathcal{S_2}y$串联后就得到$z=\mathcal{S_1}\cdot\mathcal{S_2}u$<br>系统可以表示为<script type="math/tex">\mathcal{S=S_1\cdot S_2}</script><br>这一结果不满足交换律,框图如下所示<br>可以使用Python求得系统中串联的结果模型:</p>
 <blockquote>
 <p>需要注意如果使用乘法,那么后作用的系统在前(参考矩阵),反之则是先作用的系统在前</p>
-</blockquote>
 <h3 id="并联"><a href="#并联" class="headerlink" title="并联"></a>并联</h3><p>将输入分别通过两个过程再叠加(略)</p>
-<h3 id="反馈"><a href="#反馈" class="headerlink" title="反馈"></a>反馈</h3><p>当一个的输出再通过某些形式返回,就构成了反馈系统.例如在一个反馈系统中<br>$$y&#x3D;\mathcal{S_1}r-\mathcal{S_2}y$$<br>那么这个反馈系统可以被化简为<br>$$y&#x3D;\mathcal{S}r\qquad \mathcal{S}&#x3D;\frac{\mathcal{S_1}}{1+\mathcal{S_1S_2}}$$</p>
-<blockquote>
-<p>可以利用<code>feedback</code>实现反馈</p>
+<h3 id="反馈"><a href="#反馈" class="headerlink" title="反馈"></a>反馈</h3><p>当一个的输出再通过某些形式返回,就构成了反馈系统.例如在一个反馈系统中</p>
+<script type="math/tex; mode=display">y=\mathcal{S_1}r-\mathcal{S_2}y</script><p>那么这个反馈系统可以被化简为</p>
+<script type="math/tex; mode=display">y=\mathcal{S}r\qquad \mathcal{S}=\frac{\mathcal{S_1}}{1+\mathcal{S_1S_2}}</script><p>可以利用<code>feedback</code>实现反馈</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s1=control.tf([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">1</span>])</span><br><span class="line">s2=control.tf([<span class="number">1</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>])</span><br><span class="line">s=control.series(s1,s2)</span><br><span class="line">s</span><br></pre></td></tr></table></figure>
-
-
-
-
-<p>$$\frac{s + 1}{s^3 + 2 s^2 + 2 s + 1}$$</p>
-
+<script type="math/tex; mode=display">\frac{s + 1}{s^3 + 2 s^2 + 2 s + 1}</script>
     </div>
 
     
@@ -435,7 +428,7 @@ s^3 + 5 s^2 + 8 s + 4
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">描述控制系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9E%82%E7%9B%B4%E9%A9%B1%E5%8A%A8%E6%9C%BA%E6%A2%B0%E8%87%82%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">垂直驱动机械臂模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E5%B7%A5%E7%A8%8B%E6%89%80%E4%BD%BF%E7%94%A8%E7%9A%84%E6%A8%A1%E5%9E%8B%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.2.</span> <span class="nav-text">控制工程所使用的模型描述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E9%80%92%E5%87%BD%E6%95%B0%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">传递函数模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E9%80%92%E5%87%BD%E6%95%B0%E4%B8%BE%E4%BE%8B"><span class="nav-number">2.1.</span> <span class="nav-text">传递函数举例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">状态空间模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%BA%E6%A2%B0%E8%87%82%E7%9A%84%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.1.</span> <span class="nav-text">机械臂的状态空间模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4%E6%A8%A1%E5%9E%8B%E7%9A%84Python%E4%BB%A3%E7%A0%81"><span class="nav-number">3.2.</span> <span class="nav-text">状态空间模型的Python代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%86%E5%9B%BE"><span class="nav-number">4.</span> <span class="nav-text">框图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%B2%E8%81%94"><span class="nav-number">4.1.</span> <span class="nav-text">串联</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E8%81%94"><span class="nav-number">4.2.</span> <span class="nav-text">并联</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E9%A6%88"><span class="nav-number">4.3.</span> <span class="nav-text">反馈</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">描述控制系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E5%B7%A5%E7%A8%8B%E6%89%80%E4%BD%BF%E7%94%A8%E7%9A%84%E6%A8%A1%E5%9E%8B%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">控制工程所使用的模型描述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E9%80%92%E5%87%BD%E6%95%B0%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">传递函数模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E9%80%92%E5%87%BD%E6%95%B0%E4%B8%BE%E4%BE%8B"><span class="nav-number">2.1.</span> <span class="nav-text">传递函数举例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">状态空间模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%BA%E6%A2%B0%E8%87%82%E7%9A%84%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.1.</span> <span class="nav-text">机械臂的状态空间模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4%E6%A8%A1%E5%9E%8B%E7%9A%84Python%E4%BB%A3%E7%A0%81"><span class="nav-number">3.2.</span> <span class="nav-text">状态空间模型的Python代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%86%E5%9B%BE"><span class="nav-number">4.</span> <span class="nav-text">框图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%B2%E8%81%94"><span class="nav-number">4.1.</span> <span class="nav-text">串联</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E8%81%94"><span class="nav-number">4.2.</span> <span class="nav-text">并联</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E9%A6%88"><span class="nav-number">4.3.</span> <span class="nav-text">反馈</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -449,7 +442,7 @@ s^3 + 5 s^2 + 8 s + 4
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

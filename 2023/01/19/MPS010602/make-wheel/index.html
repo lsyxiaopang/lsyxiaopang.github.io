@@ -28,7 +28,7 @@
 <meta property="og:description" content="由于在开发3D位移平台时,需要使用到MPS010602,但是因为MPS010602是一个独立的项目(目前还在开发),因此正好学习一下如何打包为wheel库,以及其中遇到的一些问题 源代码整理与__init__.py首先,我们要把源代码放置在一个文件夹中,并且需要有一个__init__.py __init__.py应当如何编写,这篇文章写得很清楚,可以去参考一下 目前我就采用最为简易的方式 如果目录">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-01-18T16:13:49.000Z">
-<meta property="article:modified_time" content="2023-01-18T16:38:52.674Z">
+<meta property="article:modified_time" content="2023-01-18T16:38:52.000Z">
 <meta property="article:author" content="Songyuli">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="conda">
@@ -274,16 +274,13 @@
 <p>目前我就采用最为简易的方式</p>
 <p>如果目录结构是这样</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---MPS010602(import时所用的名称)</span><br><span class="line">  |-__init__.py</span><br><span class="line">  |-DriverOperator.py</span><br><span class="line">  |-MPSDataType.py</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
-
 <p>那么在<code>__init.py__</code>中,为了方便(不需要引用子文件名),可以这么写</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from MPS010602.MPSDataType import *</span><br><span class="line">from MPS010602.DriverOperator import *</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>需要注意在两个源文件中如果出现了交叉引用,需要修改<code>import</code>格式</p>
 </blockquote>
 <h2 id="setup-py"><a href="#setup-py" class="headerlink" title="setup.py"></a><code>setup.py</code></h2><p>在放置代码的文件夹外,新建一个<code>setup.py</code>,然后填写以下内容</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> setuptools</span><br><span class="line">setuptools.setup(</span><br><span class="line">    name=<span class="string">&#x27;mps010602&#x27;</span>,</span><br><span class="line">    version=<span class="string">&#x27;0.0.0&#x27;</span>,</span><br><span class="line">    description=<span class="string">&#x27;This is a program for MPS-010602&#x27;</span>,</span><br><span class="line">    author=<span class="string">&#x27;songyuli&#x27;</span>,</span><br><span class="line">    author_email=<span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    packages=setuptools.find_packages(),</span><br><span class="line">    package_data=&#123;<span class="string">&#x27;&#x27;</span>:[<span class="string">&#x27;*.dll&#x27;</span>],&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
 <p>其他部分都很简单,除了两个需要注意的地方:</p>
 <ol>
 <li>包名称和<code>import</code>时使用的名称不同</li>
@@ -314,8 +311,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/01/17/Indexs/hello-world/" rel="prev" title="Hello World">
-      <i class="fa fa-chevron-left"></i> Hello World
+    <a href="/2023/01/17/3Dmover/new-motor-driver/" rel="prev" title="对控制驱动的改进">
+      <i class="fa fa-chevron-left"></i> 对控制驱动的改进
     </a></div>
       <div class="post-nav-item">
     <a href="/2023/01/19/Pyerror/forbiddenfruit/" rel="next" title="forbiddenfruit修改ndarray">
@@ -400,7 +397,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

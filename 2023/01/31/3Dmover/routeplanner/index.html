@@ -31,11 +31,11 @@
 <meta property="og:image" content="https://lsyxiaopang.github.io/2023/01/31/3Dmover/routeplanner/findroute.png">
 <meta property="og:image" content="https://lsyxiaopang.github.io/2023/01/31/3Dmover/routeplanner/Figure_1.png">
 <meta property="article:published_time" content="2023-01-30T16:14:56.000Z">
-<meta property="article:modified_time" content="2023-02-06T10:41:00.999Z">
+<meta property="article:modified_time" content="2023-02-06T10:41:00.000Z">
 <meta property="article:author" content="Songyuli">
 <meta property="article:tag" content="3D位移平台">
-<meta property="article:tag" content="计算机图形学">
 <meta property="article:tag" content="算法">
+<meta property="article:tag" content="计算机图形学">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://lsyxiaopang.github.io/2023/01/31/3Dmover/routeplanner/struct.png">
 
@@ -281,13 +281,12 @@
       
         <p>经过数日的鏖战,我算是把一个路径规划程序给写完了,然而,这其中隐藏着不少的问题,以至于虽然这个程序<em>理论上</em>能够给出正确答案,但是实际上由于某些原因完全无法使用,下面我将这个记录下来,以供参考</p>
 <span id="more"></span>
-
 <h2 id="程序目的"><a href="#程序目的" class="headerlink" title="程序目的"></a>程序目的</h2><p>因为我们研究的磁场中存在物体,因此不能简单的整个空间到处跑,而是要根据物体的位置,进行<strong>避障</strong>,避完障之后还要<strong>选择一个尽量好的路径</strong></p>
 <p>虽然说后者是一个典型的<strong>旅行商问题</strong>,显然是不可能在多项式时间以内完成的,但是我们这里不是算法题,并且实际计算的点并不多,因此并不是最为复杂的</p>
 <p>但是前面一个问题就要复杂的多,因为我没有学过计算机图形学,只能自己猜应该怎么做,之后可以查一些别的资料(好像在这一部分可以用<strong>蚁群算法</strong>实现)</p>
 <p>下面我就来介绍一下我的这个程序是如何工作的</p>
 <h2 id="程序整体框架"><a href="#程序整体框架" class="headerlink" title="程序整体框架"></a>程序整体框架</h2><p>下图展示了这个程序的整体框架</p>
-<p><img src="/2023/01/31/3Dmover/routeplanner/struct.png" alt="struct"></p>
+<p><img src="struct.png" alt="struct"></p>
 <h2 id="算法内容"><a href="#算法内容" class="headerlink" title="算法内容"></a>算法内容</h2><p>这些算法可以参考以下内容</p>
 <ol>
 <li><a href="https://lsyxiaopang.github.io/2023/01/16/3Dmover/3Dmoveslice/">输入模型与判断点线与模型关系</a></li>
@@ -295,7 +294,7 @@
 </ol>
 <p>我们主要要讲的是中间<em>寻找任意两点间路径</em>这一部分实现</p>
 <h3 id="寻找任意两点间路径"><a href="#寻找任意两点间路径" class="headerlink" title="寻找任意两点间路径"></a>寻找任意两点间路径</h3><p>寻找任意两点间的路径算法如下</p>
-<p><img src="/2023/01/31/3Dmover/routeplanner/findroute.png" alt="findroute"></p>
+<p><img src="findroute.png" alt="findroute"></p>
 <p>这中间有一个找顶点<strong>做偏移</strong>的步骤,理论上来说是可以贴边不偏移的,但是实际上你那么做的时候由于凹多边形,两个顶点都在边上时你<strong>难以判断这条线是不是在模型里面</strong></p>
 <blockquote>
 <p>也许我们可以在线上随机取点判断是否在模型中,但这未免太麻烦</p>
@@ -305,7 +304,7 @@
 <p>这种方法偏移太大自然不行,但是偏移太小也会导致点判断错误,这与判断点是否在障碍物内算法有关</p>
 </blockquote>
 <h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p>我拿了一个非常简单的模型进行了尝试,结果它硬生生跑了好久,最后扔给我这样一个结果</p>
-<p><img src="/2023/01/31/3Dmover/routeplanner/Figure_1.png" alt="Figure_1"></p>
+<p><img src="Figure_1.png" alt="Figure_1"></p>
 <p>红色的是障碍物轮廓,蓝色的是规划的路径</p>
 <p>确实其给了我一个<em>可行答案</em>,但是这个答案<em>并不好</em>,而且获得答案的代价<strong>不可接受</strong></p>
 <p>我认为主要原因来自于避障规划使用贪心算法,会给出并不一定好的结果,但是并不能用上贪心算法的高效</p>
@@ -320,8 +319,8 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/3D%E4%BD%8D%E7%A7%BB%E5%B9%B3%E5%8F%B0/" rel="tag"># 3D位移平台</a>
-              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag"># 计算机图形学</a>
               <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag"># 计算机图形学</a>
           </div>
 
         
@@ -416,7 +415,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

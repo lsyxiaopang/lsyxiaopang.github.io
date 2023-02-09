@@ -28,7 +28,7 @@
 <meta property="og:description" content="编译一时爽,环境火葬场  因为使用A*算法对于路径的寻找需要更高的效率,很明显,python自身完全不能满足我们的需求,因此使用C++编写python扩展变得非常重要. 不幸的是,我昨天花了整整一天都没有解决这个问题,但是今天却进行的异常顺利,下面我来讲一下在使用C++编写python中的几个坑">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-02-05T02:42:25.000Z">
-<meta property="article:modified_time" content="2023-02-06T10:23:23.261Z">
+<meta property="article:modified_time" content="2023-02-06T10:23:23.000Z">
 <meta property="article:author" content="Songyuli">
 <meta property="article:tag" content="c++">
 <meta property="article:tag" content="python">
@@ -280,14 +280,11 @@
 <p>因为使用A*算法对于路径的寻找需要更高的效率,很明显,python自身完全不能满足我们的需求,因此使用C++编写python扩展变得非常重要.</p>
 <p>不幸的是,我昨天花了整整一天都没有解决这个问题,但是今天却进行的异常顺利,下面我来讲一下在使用C++编写python中的几个坑</p>
 <span id="more"></span>
-
 <h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>我们使用的是<code>pybind</code>的库,具体<code>pybind</code>应当如何使用在这里我就不过多介绍了,下面先贴出来我用做测试的代码:</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;pybind11/pybind11.h&quot;</span></span></span><br><span class="line"><span class="keyword">namespace</span> py = pybind11;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">testadd</span><span class="params">(<span class="type">int</span> i,<span class="type">int</span> j)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> i+j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">PYBIND11_MODULE</span>(pytest2,m)</span><br><span class="line">&#123;</span><br><span class="line">    m.<span class="built_in">def</span>(<span class="string">&quot;testadd&quot;</span>,&amp;testadd,<span class="string">&quot;A function to add&quot;</span>);</span><br></pre></td></tr></table></figure>
-
 <p>需要注意将安装好的<code>pybind11</code>中的<code>include</code>文件夹的<code>pybind11</code>文件夹拷贝到工程文件夹中.</p>
 <h2 id="使用g-直接编译"><a href="#使用g-直接编译" class="headerlink" title="使用g++直接编译"></a>使用g++直接编译</h2><p>接下来就到了万恶的编译环节,首先,我看见文档里面直接给<code>g++</code>编译的命令</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -O3 -march=native -Wall -shared -std=c++11 -fPIC `python3 -m pybind11 --includes` test.cpp -o test `python3-config --extension-suffix`</span><br></pre></td></tr></table></figure>
-
 <p>这个命令看起来很简单,但是存在一个问题,里面依赖<code>python-config</code>命令的输出,但是众所周知,这个命令只有在Linux下才能使用.</p>
 <blockquote>
 <p>我再一次感觉到了windows开发的险恶</p>
@@ -319,17 +316,14 @@
 <p>使用这个的好处在于反正我编译出来成功了</p>
 <p>这个库用法并不复杂,首先是在文件开头需要添加一行注释</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// cppimport</span></span><br></pre></td></tr></table></figure>
-
 <p>然后在文件的末尾需要有</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">&lt;%</span></span><br><span class="line"><span class="comment">cfg[&#x27;sources&#x27;] = [&#x27;a_star.cpp&#x27;]</span></span><br><span class="line"><span class="comment">cfg[&#x27;extra_compile_args&#x27;] = [&#x27;/O2 /Oi&#x27;]</span></span><br><span class="line"><span class="comment">setup_pybind11(cfg)</span></span><br><span class="line"><span class="comment">%&gt;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-
 <p>这实际上是一段<code>Mako</code>块,这一部分的python代码将会被运行  </p>
 <p>其中第一行是由于多文件编译,指定除了这个文件外的另外源文件</p>
 <p>第二行则是使用相关的编译选项</p>
 <h3 id="cppimport调用"><a href="#cppimport调用" class="headerlink" title="cppimport调用"></a><code>cppimport</code>调用</h3><p>虽然<code>cppimport</code>支持实时调用(每次<code>import</code>)的时候预编译,但是这么做对我们来讲没有必要,我们可以采用<code>cppimport</code>的预编译方式(就是<code>pyd</code>)实现</p>
 <p>使用以下代码</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m cppimport build pytest.cpp</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>虽然理论上没有<code>pytest.cpp</code>也可以自动检测,但是我们不可避免会带有<code>Unicode</code>字符,然后就出错了</p>
 </blockquote>
@@ -438,7 +432,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
