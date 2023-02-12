@@ -20,21 +20,26 @@
     var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="由于在开发3D位移平台时,需要使用到MPS010602,但是因为MPS010602是一个独立的项目(目前还在开发),因此正好学习一下如何打包为wheel库,以及其中遇到的一些问题 源代码整理与__init__.py首先,我们要把源代码放置在一个文件夹中,并且需要有一个__init__.py __init__.py应当如何编写,这篇文章写得很清楚,可以去参考一下 目前我就采用最为简易的方式 如果目录">
+  <meta name="description" content="之前提到过三维路径的查找的方法,使用A*寻找,但是在找完之后就面临一个问题,如何挑选出一个合适的路径.很明显,我们这里的这个问题是一个旅行商问题,这玩意不可能有一个”完美”的算法.之前我所使用的方法是使用基于贪心算法的最小生成树进行路径查找但是这种方法的结果只能保证路径总代价不超过2倍.原本我想想只需要无脑调库就可以了,但是一查,虽然有一个民间制作的蚁群优化算法,但是那些都是基于python的py">
 <meta property="og:type" content="article">
-<meta property="og:title" content="创建wheels">
-<meta property="og:url" content="https://lsyxiaopang.github.io/2023/01/19/MPS010602/make-wheel/index.html">
+<meta property="og:title" content="蚁群算法分析">
+<meta property="og:url" content="https://lsyxiaopang.github.io/2023/02/09/3Dmover/ant/index.html">
 <meta property="og:site_name" content="Songyuli&#39;s blog">
-<meta property="og:description" content="由于在开发3D位移平台时,需要使用到MPS010602,但是因为MPS010602是一个独立的项目(目前还在开发),因此正好学习一下如何打包为wheel库,以及其中遇到的一些问题 源代码整理与__init__.py首先,我们要把源代码放置在一个文件夹中,并且需要有一个__init__.py __init__.py应当如何编写,这篇文章写得很清楚,可以去参考一下 目前我就采用最为简易的方式 如果目录">
+<meta property="og:description" content="之前提到过三维路径的查找的方法,使用A*寻找,但是在找完之后就面临一个问题,如何挑选出一个合适的路径.很明显,我们这里的这个问题是一个旅行商问题,这玩意不可能有一个”完美”的算法.之前我所使用的方法是使用基于贪心算法的最小生成树进行路径查找但是这种方法的结果只能保证路径总代价不超过2倍.原本我想想只需要无脑调库就可以了,但是一查,虽然有一个民间制作的蚁群优化算法,但是那些都是基于python的py">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-01-18T16:13:49.000Z">
-<meta property="article:modified_time" content="2023-01-18T16:38:52.000Z">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/02/09/3Dmover/ant/0.95_2_1_1.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/02/09/3Dmover/ant/Figure_1.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/02/09/3Dmover/ant/Figure_2.png">
+<meta property="article:published_time" content="2023-02-09T13:40:14.000Z">
+<meta property="article:modified_time" content="2023-02-10T06:55:16.422Z">
 <meta property="article:author" content="Songyuli">
-<meta property="article:tag" content="python">
-<meta property="article:tag" content="conda">
+<meta property="article:tag" content="3D位移平台">
+<meta property="article:tag" content="程序规划">
+<meta property="article:tag" content="c++">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lsyxiaopang.github.io/2023/02/09/3Dmover/ant/0.95_2_1_1.png">
 
-<link rel="canonical" href="https://lsyxiaopang.github.io/2023/01/19/MPS010602/make-wheel/">
+<link rel="canonical" href="https://lsyxiaopang.github.io/2023/02/09/3Dmover/ant/">
 
 
 <script id="page-configurations">
@@ -47,7 +52,7 @@
   };
 </script>
 
-  <title>创建wheels | Songyuli's blog</title>
+  <title>蚁群算法分析 | Songyuli's blog</title>
   
 
 
@@ -207,7 +212,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/19/MPS010602/make-wheel/">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/09/3Dmover/ant/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -220,7 +225,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          创建wheels
+          蚁群算法分析
         </h1>
 
         <div class="post-meta">
@@ -229,17 +234,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-01-19 00:13:49 / Modified: 00:38:52" itemprop="dateCreated datePublished" datetime="2023-01-19T00:13:49+08:00">2023-01-19</time>
+              <time title="Created: 2023-02-09 21:40:14" itemprop="dateCreated datePublished" datetime="2023-02-09T21:40:14+08:00">2023-02-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-02-10 14:55:16" itemprop="dateModified" datetime="2023-02-10T14:55:16+08:00">2023-02-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MPS010602/" itemprop="url" rel="index"><span itemprop="name">MPS010602</span></a>
+                  <a href="/categories/3D%E4%BD%8D%E7%A7%BB%E6%B5%8B%E9%87%8F%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">3D位移测量平台设计</span></a>
                 </span>
             </span>
 
@@ -252,8 +263,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2023/01/19/MPS010602/make-wheel/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/19/MPS010602/make-wheel/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2023/02/09/3Dmover/ant/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/02/09/3Dmover/ant/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -268,30 +279,33 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>由于在开发3D位移平台时,需要使用到MPS010602,但是因为MPS010602是一个独立的项目(目前还在开发),因此正好学习一下如何打包为wheel库,以及其中遇到的一些问题</p>
-<h2 id="源代码整理与-init-py"><a href="#源代码整理与-init-py" class="headerlink" title="源代码整理与__init__.py"></a>源代码整理与<code>__init__.py</code></h2><p>首先,我们要把源代码放置在一个文件夹中,并且需要有一个<code>__init__.py</code></p>
-<p><code>__init__.py</code>应当如何编写,<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/474874811">这篇文章</a>写得很清楚,可以去参考一下</p>
-<p>目前我就采用最为简易的方式</p>
-<p>如果目录结构是这样</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---MPS010602(import时所用的名称)</span><br><span class="line">  |-__init__.py</span><br><span class="line">  |-DriverOperator.py</span><br><span class="line">  |-MPSDataType.py</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
-<p>那么在<code>__init.py__</code>中,为了方便(不需要引用子文件名),可以这么写</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from MPS010602.MPSDataType import *</span><br><span class="line">from MPS010602.DriverOperator import *</span><br></pre></td></tr></table></figure>
+        <p>之前提到过三维路径的查找的方法,使用A*寻找,但是在找完之后就面临一个问题,如何挑选出一个合适的路径.<br>很明显,我们这里的这个问题是一个旅行商问题,这玩意不可能有一个”完美”的算法.<br>之前我所使用的方法是使用基于贪心算法的最小生成树进行路径查找但是这种方法的结果只能保证路径总代价不超过2倍.<br>原本我想想只需要无脑调库就可以了,但是一查,虽然有一个民间制作的蚁群优化算法,但是那些都是基于python的python库,完全没法用.</p>
 <blockquote>
-<p>需要注意在两个源文件中如果出现了交叉引用,需要修改<code>import</code>格式</p>
+<p>虽然你可能会觉得上面那句话很怪,但如果你了解过python的运行效率,那么就会知道这么做就是自寻死路</p>
 </blockquote>
-<h2 id="setup-py"><a href="#setup-py" class="headerlink" title="setup.py"></a><code>setup.py</code></h2><p>在放置代码的文件夹外,新建一个<code>setup.py</code>,然后填写以下内容</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> setuptools</span><br><span class="line">setuptools.setup(</span><br><span class="line">    name=<span class="string">&#x27;mps010602&#x27;</span>,</span><br><span class="line">    version=<span class="string">&#x27;0.0.0&#x27;</span>,</span><br><span class="line">    description=<span class="string">&#x27;This is a program for MPS-010602&#x27;</span>,</span><br><span class="line">    author=<span class="string">&#x27;songyuli&#x27;</span>,</span><br><span class="line">    author_email=<span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    packages=setuptools.find_packages(),</span><br><span class="line">    package_data=&#123;<span class="string">&#x27;&#x27;</span>:[<span class="string">&#x27;*.dll&#x27;</span>],&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>其他部分都很简单,除了两个需要注意的地方:</p>
+<p>所以我看来又得”自己造轮子”,使用C++处理蚁群算法</p>
+<span id="more"></span>
+
+<h2 id="蚁群算法机理"><a href="#蚁群算法机理" class="headerlink" title="蚁群算法机理"></a>蚁群算法机理</h2><p>这里的机理我主要参考的<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/151442866">这篇知乎文章</a>,在这里我简单介绍以下(当然也包括我的一些实现细节,便于未来查找错误)</p>
+<h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><p>蚁群算法的基本处理方式是在原本的类似于贪心算法(但又不完全贪心)上添加了一个<em>信息素矩阵</em>,并且选取的途径并不是”决定性”的选取,而是概率选取,越符合要求的选取到的概率越高.<br>同时这个信息素的产生和变化遵循以下条件:</p>
 <ol>
-<li>包名称和<code>import</code>时使用的名称不同</li>
-<li><code>package_data</code>包含了你希望包含的除了源代码以外的内容(例如说使用的动态链接库)</li>
+<li>不同蚂蚁产生信息素相互线性叠加</li>
+<li>一只蚂蚁在所有路径上分泌的信息素总和为定值</li>
+<li>信息素在每次迭代后都会挥发一部分</li>
 </ol>
-<h2 id="构建与安装"><a href="#构建与安装" class="headerlink" title="构建与安装"></a>构建与安装</h2><p>在这一文件夹下,输入<code>python setup.py bdist_wheel</code>,之后在<code>dist</code>文件夹内可以看见编译好的<code>whl</code>文件,然后文件用<code>pip install</code>可以直接安装</p>
+<p>使用这种方法实现结果</p>
+<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><p>首先是概率的计算,在每一只蚂蚁选择下一个点(从$i$到$j$)时,每一个点的概率为</p>
+<p>$$p_{ij}&#x3D;\frac{t_{ij}^\alpha r_{ij}^{\beta}}{\sum_j t_{ij}^\alpha r_{ij}^{\beta}}$$<br>其中$t_{ij}$为从$i$到$j$的信息素含量,而$r_{ij}$则为基于贪心的路径选择$r_{ij}&#x3D;\frac{1}{L_{ij}},L_{ij}$为这两点之间的距离,具体如何通过$p_{ij}$来进行选取,我们采用的是”轮盘赌”的方法,可以参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39068956/article/details/105121469">这篇文章</a></p>
+<p>而每次迭代之后,对于$t_{ij}$其变化为<br>$$t_{ij}&#x3D;pt_{ij}+\sum \frac{G}{L_i}$$<br>其中,$p$为挥发后剩余量,$G$为常数,$L_i$为经过这个边的第$i$个个体总路径长度.<br>而在达到迭代次数后,输出计算得到的结果.</p>
 <blockquote>
-<p>为了未来后续开发方便,建议一个环境开发,一个环境测试</p>
+<p>关于$G$的选取和初始化<br>我们面临一个初始化的问题,就是在第一次迭代之前,如何选取$t_{ij}$,我目前的做法是将其全部初始化为1,而令$G&#x3D;n\bar{L_{ij}}$,即边长平均值乘以$n$,(类似于平均边长)</p>
 </blockquote>
-<h2 id="其他的一些问题"><a href="#其他的一些问题" class="headerlink" title="其他的一些问题"></a>其他的一些问题</h2><p>我之前在引用动态链接库时遇到问题(因为工作目录发生改变)</p>
-<p>因此获取自己当前的位置,可以通过<code>os.path.dirname(os.path.abspath(__file__))</code>访问当前所在文件夹</p>
+<h2 id="代码结构"><a href="#代码结构" class="headerlink" title="代码结构"></a>代码结构</h2><p>目前我的C++程序库使用的结构定义了一个<code>MapSearcher</code>类,其构造函数确定各个点间的连接矩阵<code>road_mat</code>,每个点的蚂蚁数<code>ant_num_per_point</code>,保留率<code>p</code>,以及$\alpha,\beta$,同时,为了保证结果的可重复性,其可以指定随机数种子.</p>
+<p>在初始化后,<code>one_iter</code>方法迭代一次,并且返回最佳结果的总长度</p>
+<p>类中有三个只读属性<code>best_now</code>保存目前全局最佳结果总长度,<code>best_route</code>返回这一结果所对应的路径(以<code>list</code>形式返回),<code>tmat</code>保存系统目前的信息素矩阵</p>
+<h2 id="目前效果"><a href="#目前效果" class="headerlink" title="目前效果"></a>目前效果</h2><p>下面展示了50个随机点$\alpha&#x3D;2$,$\beta&#x3D;1$的计算处理的收敛图像<br><img src="/2023/02/09/3Dmover/ant/0.95_2_1_1.png" alt="Figure_1.png"><br>可以看出来200次迭代有较好的收敛能力.</p>
+<p>但是我们为了更好研究结果与<strong>实际的</strong>最小相差多少,我们采用网格点进行测试<br>我们在网格上按照正方形排布均匀放49个点,然后经过迭代,得到了以下结果<br><img src="/2023/02/09/3Dmover/ant/Figure_1.png" alt="Figure_1.png"><br>其路径为<br><img src="/2023/02/09/3Dmover/ant/Figure_2.png" alt="Figure_2.png"><br>可以看出来,其实这种方法得到的结果与理论极限48有着较为明显的差距,还需要进一步优化</p>
+<h2 id="可能存在的一些bug"><a href="#可能存在的一些bug" class="headerlink" title="可能存在的一些bug"></a>可能存在的一些bug</h2><p>似乎现在如果<code>p</code>太小或者$\alpha$太大的话,在迭代过程中可能出现概率为0的情况,因此如果库内无法正常选点触发异常,将输出此时这个节点上的总路径和</p>
 
     </div>
 
@@ -301,8 +315,9 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/python/" rel="tag"># python</a>
-              <a href="/tags/conda/" rel="tag"># conda</a>
+              <a href="/tags/3D%E4%BD%8D%E7%A7%BB%E5%B9%B3%E5%8F%B0/" rel="tag"># 3D位移平台</a>
+              <a href="/tags/%E7%A8%8B%E5%BA%8F%E8%A7%84%E5%88%92/" rel="tag"># 程序规划</a>
+              <a href="/tags/c/" rel="tag"># c++</a>
           </div>
 
         
@@ -311,12 +326,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/01/17/3Dmover/new-motor-driver/" rel="prev" title="对控制驱动的改进">
-      <i class="fa fa-chevron-left"></i> 对控制驱动的改进
+    <a href="/2023/02/07/python/vectorize/" rel="prev" title="向量化与面向对象">
+      <i class="fa fa-chevron-left"></i> 向量化与面向对象
     </a></div>
       <div class="post-nav-item">
-    <a href="/2023/01/19/Pyerror/forbiddenfruit/" rel="next" title="forbiddenfruit修改ndarray">
-      forbiddenfruit修改ndarray <i class="fa fa-chevron-right"></i>
+    <a href="/2023/02/12/Linux/linux-server1/" rel="next" title="Linux服务器配置日志1">
+      Linux服务器配置日志1 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -383,7 +398,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81%E6%95%B4%E7%90%86%E4%B8%8E-init-py"><span class="nav-number">1.</span> <span class="nav-text">源代码整理与__init__.py</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setup-py"><span class="nav-number">2.</span> <span class="nav-text">setup.py</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E4%B8%8E%E5%AE%89%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text">构建与安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">其他的一些问题</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95%E6%9C%BA%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">蚁群算法机理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">基本原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.2.</span> <span class="nav-text">具体实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">代码结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%89%8D%E6%95%88%E6%9E%9C"><span class="nav-number">3.</span> <span class="nav-text">目前效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E5%AD%98%E5%9C%A8%E7%9A%84%E4%B8%80%E4%BA%9Bbug"><span class="nav-number">4.</span> <span class="nav-text">可能存在的一些bug</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -500,6 +515,61 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
@@ -515,9 +585,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://lsyxiaopang.github.io/2023/01/19/MPS010602/make-wheel/";
-    this.page.identifier = "2023/01/19/MPS010602/make-wheel/";
-    this.page.title = "创建wheels";
+    this.page.url = "https://lsyxiaopang.github.io/2023/02/09/3Dmover/ant/";
+    this.page.identifier = "2023/02/09/3Dmover/ant/";
+    this.page.title = "蚁群算法分析";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

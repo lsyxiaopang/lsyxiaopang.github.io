@@ -198,12 +198,13 @@
     <url>/2023/01/31/3Dmover/routeplanner/</url>
     <content><![CDATA[<p>经过数日的鏖战,我算是把一个路径规划程序给写完了,然而,这其中隐藏着不少的问题,以至于虽然这个程序<em>理论上</em>能够给出正确答案,但是实际上由于某些原因完全无法使用,下面我将这个记录下来,以供参考</p>
 <span id="more"></span>
+
 <h2 id="程序目的"><a href="#程序目的" class="headerlink" title="程序目的"></a>程序目的</h2><p>因为我们研究的磁场中存在物体,因此不能简单的整个空间到处跑,而是要根据物体的位置,进行<strong>避障</strong>,避完障之后还要<strong>选择一个尽量好的路径</strong></p>
 <p>虽然说后者是一个典型的<strong>旅行商问题</strong>,显然是不可能在多项式时间以内完成的,但是我们这里不是算法题,并且实际计算的点并不多,因此并不是最为复杂的</p>
 <p>但是前面一个问题就要复杂的多,因为我没有学过计算机图形学,只能自己猜应该怎么做,之后可以查一些别的资料(好像在这一部分可以用<strong>蚁群算法</strong>实现)</p>
 <p>下面我就来介绍一下我的这个程序是如何工作的</p>
 <h2 id="程序整体框架"><a href="#程序整体框架" class="headerlink" title="程序整体框架"></a>程序整体框架</h2><p>下图展示了这个程序的整体框架</p>
-<p><img src="struct.png" alt="struct"></p>
+<p><img src="/2023/01/31/3Dmover/routeplanner/struct.png" alt="struct"></p>
 <h2 id="算法内容"><a href="#算法内容" class="headerlink" title="算法内容"></a>算法内容</h2><p>这些算法可以参考以下内容</p>
 <ol>
 <li><a href="https://lsyxiaopang.github.io/2023/01/16/3Dmover/3Dmoveslice/">输入模型与判断点线与模型关系</a></li>
@@ -211,7 +212,7 @@
 </ol>
 <p>我们主要要讲的是中间<em>寻找任意两点间路径</em>这一部分实现</p>
 <h3 id="寻找任意两点间路径"><a href="#寻找任意两点间路径" class="headerlink" title="寻找任意两点间路径"></a>寻找任意两点间路径</h3><p>寻找任意两点间的路径算法如下</p>
-<p><img src="findroute.png" alt="findroute"></p>
+<p><img src="/2023/01/31/3Dmover/routeplanner/findroute.png" alt="findroute"></p>
 <p>这中间有一个找顶点<strong>做偏移</strong>的步骤,理论上来说是可以贴边不偏移的,但是实际上你那么做的时候由于凹多边形,两个顶点都在边上时你<strong>难以判断这条线是不是在模型里面</strong></p>
 <blockquote>
 <p>也许我们可以在线上随机取点判断是否在模型中,但这未免太麻烦</p>
@@ -221,7 +222,7 @@
 <p>这种方法偏移太大自然不行,但是偏移太小也会导致点判断错误,这与判断点是否在障碍物内算法有关</p>
 </blockquote>
 <h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p>我拿了一个非常简单的模型进行了尝试,结果它硬生生跑了好久,最后扔给我这样一个结果</p>
-<p><img src="Figure_1.png" alt="Figure_1"></p>
+<p><img src="/ant/Figure_1.png" alt="Figure_1"></p>
 <p>红色的是障碍物轮廓,蓝色的是规划的路径</p>
 <p>确实其给了我一个<em>可行答案</em>,但是这个答案<em>并不好</em>,而且获得答案的代价<strong>不可接受</strong></p>
 <p>我认为主要原因来自于避障规划使用贪心算法,会给出并不一定好的结果,但是并不能用上贪心算法的高效</p>
@@ -2069,7 +2070,7 @@ Along axis 1 is [ 6 15]
   </entry>
   <entry>
     <title>蚁群算法分析</title>
-    <url>/2023/02/09/3Dmover/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/</url>
+    <url>/2023/02/09/3Dmover/ant/</url>
     <content><![CDATA[<p>之前提到过三维路径的查找的方法,使用A*寻找,但是在找完之后就面临一个问题,如何挑选出一个合适的路径.<br>很明显,我们这里的这个问题是一个旅行商问题,这玩意不可能有一个”完美”的算法.<br>之前我所使用的方法是使用基于贪心算法的最小生成树进行路径查找但是这种方法的结果只能保证路径总代价不超过2倍.<br>原本我想想只需要无脑调库就可以了,但是一查,虽然有一个民间制作的蚁群优化算法,但是那些都是基于python的python库,完全没法用.</p>
 <blockquote>
 <p>虽然你可能会觉得上面那句话很怪,但如果你了解过python的运行效率,那么就会知道这么做就是自寻死路</p>
@@ -2091,6 +2092,12 @@ Along axis 1 is [ 6 15]
 <blockquote>
 <p>关于$G$的选取和初始化<br>我们面临一个初始化的问题,就是在第一次迭代之前,如何选取$t_{ij}$,我目前的做法是将其全部初始化为1,而令$G&#x3D;n\bar{L_{ij}}$,即边长平均值乘以$n$,(类似于平均边长)</p>
 </blockquote>
+<h2 id="代码结构"><a href="#代码结构" class="headerlink" title="代码结构"></a>代码结构</h2><p>目前我的C++程序库使用的结构定义了一个<code>MapSearcher</code>类,其构造函数确定各个点间的连接矩阵<code>road_mat</code>,每个点的蚂蚁数<code>ant_num_per_point</code>,保留率<code>p</code>,以及$\alpha,\beta$,同时,为了保证结果的可重复性,其可以指定随机数种子.</p>
+<p>在初始化后,<code>one_iter</code>方法迭代一次,并且返回最佳结果的总长度</p>
+<p>类中有三个只读属性<code>best_now</code>保存目前全局最佳结果总长度,<code>best_route</code>返回这一结果所对应的路径(以<code>list</code>形式返回),<code>tmat</code>保存系统目前的信息素矩阵</p>
+<h2 id="目前效果"><a href="#目前效果" class="headerlink" title="目前效果"></a>目前效果</h2><p>下面展示了50个随机点$\alpha&#x3D;2$,$\beta&#x3D;1$的计算处理的收敛图像<br><img src="/2023/02/09/3Dmover/ant/0.95_2_1_1.png" alt="Figure_1.png"><br>可以看出来200次迭代有较好的收敛能力.</p>
+<p>但是我们为了更好研究结果与<strong>实际的</strong>最小相差多少,我们采用网格点进行测试<br>我们在网格上按照正方形排布均匀放49个点,然后经过迭代,得到了以下结果<br><img src="/2023/02/09/3Dmover/ant/Figure_1.png" alt="Figure_1.png"><br>其路径为<br><img src="/2023/02/09/3Dmover/ant/Figure_2.png" alt="Figure_2.png"><br>可以看出来,其实这种方法得到的结果与理论极限48有着较为明显的差距,还需要进一步优化</p>
+<h2 id="可能存在的一些bug"><a href="#可能存在的一些bug" class="headerlink" title="可能存在的一些bug"></a>可能存在的一些bug</h2><p>似乎现在如果<code>p</code>太小或者$\alpha$太大的话,在迭代过程中可能出现概率为0的情况,因此如果库内无法正常选点触发异常,将输出此时这个节点上的总路径和</p>
 ]]></content>
       <categories>
         <category>3D位移测量平台设计</category>
@@ -2099,6 +2106,28 @@ Along axis 1 is [ 6 15]
         <tag>3D位移平台</tag>
         <tag>程序规划</tag>
         <tag>c++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux服务器配置日志1</title>
+    <url>/2023/02/12/Linux/linux-server1/</url>
+    <content><![CDATA[<p>因为我认为需要搭建一个Linux服务器用于一些用途(比如说,练习使用Linux,或者未来搭建一些网页,以及部署偏微分方程求解器,都是很有用的).<br>我第一步,先在宿舍里面搭建这个服务器,好处是宿舍用的电信宽带拥有<strong>公网ip</strong>,因此我可以在任何地方访问到这台服务器,而且配置相对简单,因为不用使用校园网那样一套专门的认证系统,非常麻烦.<br>但相应的,缺点也非常显著,因为在宿舍,由于安全和考虑,白天必须断电,所以这就产生了定时开关机的问题<br>同时,一个服务器放在公网上总是显得不是那么安全,因此未来我会考虑把它搬到校内(这样的话也可以省去使用easyconnect这种软件)<br>下面是我在2.12日配置Linux服务器遇到的问题.</p>
+<h2 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h2><p>版本: Ubuntu 20.04.5 LTS</p>
+<h2 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h2><h3 id="连上网"><a href="#连上网" class="headerlink" title="连上网"></a>连上网</h3><p>下面是万恶的网络配置环节,由于安装的Linux-Server是完全没有GUI界面的,结果就网络配置起来非常痛苦.<br>幸好我有网线,可以在网络配置的过程中方便一些,我参考的是[这篇网页][1]对我的有限网络进行配置,但有一点不同,就是在我配置好这个,并且reboot之后,实际上还是没有反应.<br>就在我心灰意冷准备去改为使用无线连接时,在输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo netplan apply</span><br></pre></td></tr></table></figure>
+<p>之后,突然就可以了,我不确定是不是<code>netplan</code>的效果,但是未来也许可以参考</p>
+<h3 id="外网访问"><a href="#外网访问" class="headerlink" title="外网访问"></a>外网访问</h3><p>我这里使用的是TP-LINK路由器提供的外网连接服务”DMZ主机”功能</p>
+<h2 id="邮件问题"><a href="#邮件问题" class="headerlink" title="邮件问题"></a>邮件问题</h2><h3 id="邮件"><a href="#邮件" class="headerlink" title="邮件"></a>邮件</h3><p>这里先颠倒一下顺序,讲一下邮件<br>一开始,我打算使用Linux里面的<code>mail</code>命令,但是不幸的是,<code>mail</code>命令不支持修改邮件的发送者,也就是说我发送的邮件会毫无例外地被移到垃圾箱中,而且还不好移出来(会提示说邮件格式有问题),因此我打算使用<code>mailx</code>来解决问题<br>但是<code>mailx</code>也遇到的相应的问题,那就是对于外来的邮件似乎还是无法解析<br>看起来目前只有两种选项:</p>
+<ol>
+<li>使用前面已经妥善处理了的python脚本进行邮件处理</li>
+<li>就扔到垃圾箱好了<br>这个问题值得去讨论<br>[1]:<a href="https://www.cnblogs.com/wayneliu007/p/10312202.html">https://www.cnblogs.com/wayneliu007/p/10312202.html</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Linux服务器</category>
+      </categories>
+      <tags>
+        <tag>Linux功能</tag>
       </tags>
   </entry>
 </search>

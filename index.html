@@ -200,7 +200,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/09/3Dmover/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/12/Linux/linux-server1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -214,7 +214,99 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/02/09/3Dmover/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">蚁群算法分析</a>
+            <a href="/2023/02/12/Linux/linux-server1/" class="post-title-link" itemprop="url">Linux服务器配置日志1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-02-12 19:58:24 / Modified: 23:04:32" itemprop="dateCreated datePublished" datetime="2023-02-12T19:58:24+08:00">2023-02-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">Linux服务器</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/02/12/Linux/linux-server1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/02/12/Linux/linux-server1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>因为我认为需要搭建一个Linux服务器用于一些用途(比如说,练习使用Linux,或者未来搭建一些网页,以及部署偏微分方程求解器,都是很有用的).<br>我第一步,先在宿舍里面搭建这个服务器,好处是宿舍用的电信宽带拥有<strong>公网ip</strong>,因此我可以在任何地方访问到这台服务器,而且配置相对简单,因为不用使用校园网那样一套专门的认证系统,非常麻烦.<br>但相应的,缺点也非常显著,因为在宿舍,由于安全和考虑,白天必须断电,所以这就产生了定时开关机的问题<br>同时,一个服务器放在公网上总是显得不是那么安全,因此未来我会考虑把它搬到校内(这样的话也可以省去使用easyconnect这种软件)<br>下面是我在2.12日配置Linux服务器遇到的问题.</p>
+<h2 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h2><p>版本: Ubuntu 20.04.5 LTS</p>
+<h2 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h2><h3 id="连上网"><a href="#连上网" class="headerlink" title="连上网"></a>连上网</h3><p>下面是万恶的网络配置环节,由于安装的Linux-Server是完全没有GUI界面的,结果就网络配置起来非常痛苦.<br>幸好我有网线,可以在网络配置的过程中方便一些,我参考的是[这篇网页][1]对我的有限网络进行配置,但有一点不同,就是在我配置好这个,并且reboot之后,实际上还是没有反应.<br>就在我心灰意冷准备去改为使用无线连接时,在输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo netplan apply</span><br></pre></td></tr></table></figure>
+<p>之后,突然就可以了,我不确定是不是<code>netplan</code>的效果,但是未来也许可以参考</p>
+<h3 id="外网访问"><a href="#外网访问" class="headerlink" title="外网访问"></a>外网访问</h3><p>我这里使用的是TP-LINK路由器提供的外网连接服务”DMZ主机”功能</p>
+<h2 id="邮件问题"><a href="#邮件问题" class="headerlink" title="邮件问题"></a>邮件问题</h2><h3 id="邮件"><a href="#邮件" class="headerlink" title="邮件"></a>邮件</h3><p>这里先颠倒一下顺序,讲一下邮件<br>一开始,我打算使用Linux里面的<code>mail</code>命令,但是不幸的是,<code>mail</code>命令不支持修改邮件的发送者,也就是说我发送的邮件会毫无例外地被移到垃圾箱中,而且还不好移出来(会提示说邮件格式有问题),因此我打算使用<code>mailx</code>来解决问题<br>但是<code>mailx</code>也遇到的相应的问题,那就是对于外来的邮件似乎还是无法解析<br>看起来目前只有两种选项:</p>
+<ol>
+<li>使用前面已经妥善处理了的python脚本进行邮件处理</li>
+<li>就扔到垃圾箱好了<br>这个问题值得去讨论<br>[1]:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wayneliu007/p/10312202.html">https://www.cnblogs.com/wayneliu007/p/10312202.html</a></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/09/3Dmover/ant/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Songyuli">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songyuli's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/02/09/3Dmover/ant/" class="post-title-link" itemprop="url">蚁群算法分析</a>
         </h2>
 
         <div class="post-meta">
@@ -231,7 +323,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-10 00:28:54" itemprop="dateModified" datetime="2023-02-10T00:28:54+08:00">2023-02-10</time>
+                <time title="Modified: 2023-02-10 14:55:16" itemprop="dateModified" datetime="2023-02-10T14:55:16+08:00">2023-02-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -252,8 +344,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2023/02/09/3Dmover/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/02/09/3Dmover/蚁群算法分析/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2023/02/09/3Dmover/ant/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/02/09/3Dmover/ant/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -275,7 +367,7 @@
 <p>所以我看来又得”自己造轮子”,使用C++处理蚁群算法</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/02/09/3Dmover/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/#more" rel="contents">
+              <a class="btn" href="/2023/02/09/3Dmover/ant/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -893,7 +985,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-06 18:41:00" itemprop="dateModified" datetime="2023-02-06T18:41:00+08:00">2023-02-06</time>
+                <time title="Modified: 2023-02-10 14:47:25" itemprop="dateModified" datetime="2023-02-10T14:47:25+08:00">2023-02-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1048,194 +1140,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/27/misc/pylog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Songyuli">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Songyuli's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/27/misc/pylog/" class="post-title-link" itemprop="url">使用loguru编写日志文件</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-01-27 19:02:22" itemprop="dateCreated datePublished" datetime="2023-01-27T19:02:22+08:00">2023-01-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-28 22:13:15" itemprop="dateModified" datetime="2023-01-28T22:13:15+08:00">2023-01-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E9%A1%B9/" itemprop="url" rel="index"><span itemprop="name">杂项</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2023/01/27/misc/pylog/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/27/misc/pylog/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在编写程序,尤其是某些运行时间长,中间存在可能错误的程序,往往需要记录日志以便于调试.  </p>
-<p>但是日志的编写往往存在大量重复劳动,并且对于我目前的状况来讲可能需要在已有的程序中添加日志代码.  </p>
-<p>经过相关资料查阅,我找到了一个内置<code>logging</code>库,其可以较好地实现对于日志的编写.但是查阅了一下相关资料后,发现似乎<code>logging</code>的使用较为复杂,我们往往不需要那么复杂的应用场景,因此我在这里选择另外一个库<code>loguru</code>对日志进行记录</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>如果使用<code>anaconda</code>,可以用以下命令安装:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install -c conda-forge loguru</span><br></pre></td></tr></table></figure>
-<h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><p>我们可以直接利用封装好的<code>logger</code>对象,直接对不同级别的日志进行输出,例如使用以下代码可以实现不同级别的日志:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> loguru <span class="keyword">import</span> logger</span><br><span class="line"></span><br><span class="line">logger.debug(<span class="string">&#x27;This is debug information&#x27;</span>)</span><br><span class="line">logger.info(<span class="string">&#x27;This is info information&#x27;</span>)</span><br><span class="line">logger.warning(<span class="string">&#x27;This is warn information&#x27;</span>)</span><br><span class="line">logger.error(<span class="string">&#x27;This is error information&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>可以注意到在运行时,其对于不同级别的结果,有着不同的格式化与颜色</p>
-<p><img src="image-20230127192915053.png" alt="image-20230127192915053"></p>
-<p>接下来,我们可以注意到<code>logger</code>编写日志的一个优势在于其无需设定复杂的如处理器,过滤器等信息</p>
-<h2 id="输出到文件"><a href="#输出到文件" class="headerlink" title="输出到文件"></a>输出到文件</h2><p>我们往往需要将数据输出到文件,<em>尤其是在使用如<code>xspec</code>这样自己会有大量数据输出的程序</em>(默认是在<code>sys.std_err</code>中输出),可以使用<code>add</code>改变输出位置(<code>add</code>的具体用法之后会讲)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logger.add(<span class="string">&quot;file_&#123;time&#125;.log&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>其中<code>&#123;time&#125;</code>会自动替换为当前时间,还有其他的格式化字典如下:  </p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Description</th>
-<th>Attributes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>elapsed</td>
-<td>The time elapsed since the start of the program</td>
-<td>See <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta"><code>datetime.timedelta</code></a></td>
-</tr>
-<tr>
-<td>exception</td>
-<td>The formatted exception if any, <code>None</code> otherwise</td>
-<td><code>type</code>, <code>value</code>, <code>traceback</code></td>
-</tr>
-<tr>
-<td>extra</td>
-<td>The dict of attributes bound by the user (see <a target="_blank" rel="noopener" href="https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind"><code>bind()</code></a>)</td>
-<td>None</td>
-</tr>
-<tr>
-<td>file</td>
-<td>The file where the logging call was made</td>
-<td><code>name</code> (default), <code>path</code></td>
-</tr>
-<tr>
-<td>function</td>
-<td>The function from which the logging call was made</td>
-<td>None</td>
-</tr>
-<tr>
-<td>level</td>
-<td>The severity used to log the message</td>
-<td><code>name</code> (default), <code>no</code>, <code>icon</code></td>
-</tr>
-<tr>
-<td>line</td>
-<td>The line number in the source code</td>
-<td>None</td>
-</tr>
-<tr>
-<td>message</td>
-<td>The logged message (not yet formatted)</td>
-<td>None</td>
-</tr>
-<tr>
-<td>module</td>
-<td>The module where the logging call was made</td>
-<td>None</td>
-</tr>
-<tr>
-<td>name</td>
-<td>The <code>__name__</code> where the logging call was made</td>
-<td>None</td>
-</tr>
-<tr>
-<td>process</td>
-<td>The process in which the logging call was made</td>
-<td><code>name</code>, <code>id</code> (default)</td>
-</tr>
-<tr>
-<td>thread</td>
-<td>The thread in which the logging call was made</td>
-<td><code>name</code>, <code>id</code> (default)</td>
-</tr>
-<tr>
-<td>time</td>
-<td>The aware local time when the logging call was made</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>输出到文件还有滚动和压缩等功能,在这里不再过多赘述(目前也用不到)</p>
-<blockquote>
-<p>关于字符着色:</p>
-<p>字符着色的问题是通过调节<code>add</code>中的参数<code>colorize</code>来控制的,其添加后有好处有坏处</p>
-<p>好处在于可以使用<code>tail -f</code>等很方便看到数据内容</p>
-<p>坏处在于由于字符串着色的机理是通过添加字符串进行的,会对编辑器查看带来不便</p>
-<p>因此可以尝试同时记录两个log</p>
-</blockquote>
-<h2 id="过滤器与格式化"><a href="#过滤器与格式化" class="headerlink" title="过滤器与格式化"></a>过滤器与格式化</h2><p>下面是关于更加复杂的过滤器写法和格式化写法的问题,这里不涉及(可能以后会),可以先看参考资料</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://github.com/Delgan/loguru">源代码与特性介绍</a></p>
-<p><a target="_blank" rel="noopener" href="https://loguru.readthedocs.io/en/stable/api/logger.html">类定义</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1305,20 +1209,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

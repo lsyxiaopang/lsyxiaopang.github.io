@@ -20,22 +20,20 @@
     var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="之前提到过三维路径的查找的方法,使用A*寻找,但是在找完之后就面临一个问题,如何挑选出一个合适的路径.很明显,我们这里的这个问题是一个旅行商问题,这玩意不可能有一个”完美”的算法.之前我所使用的方法是使用基于贪心算法的最小生成树进行路径查找但是这种方法的结果只能保证路径总代价不超过2倍.原本我想想只需要无脑调库就可以了,但是一查,虽然有一个民间制作的蚁群优化算法,但是那些都是基于python的py">
+  <meta name="description" content="因为我认为需要搭建一个Linux服务器用于一些用途(比如说,练习使用Linux,或者未来搭建一些网页,以及部署偏微分方程求解器,都是很有用的).我第一步,先在宿舍里面搭建这个服务器,好处是宿舍用的电信宽带拥有公网ip,因此我可以在任何地方访问到这台服务器,而且配置相对简单,因为不用使用校园网那样一套专门的认证系统,非常麻烦.但相应的,缺点也非常显著,因为在宿舍,由于安全和考虑,白天必须断电,所以这">
 <meta property="og:type" content="article">
-<meta property="og:title" content="蚁群算法分析">
-<meta property="og:url" content="https://lsyxiaopang.github.io/2023/02/09/3Dmover/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/index.html">
+<meta property="og:title" content="Linux服务器配置日志1">
+<meta property="og:url" content="https://lsyxiaopang.github.io/2023/02/12/Linux/linux-server1/index.html">
 <meta property="og:site_name" content="Songyuli&#39;s blog">
-<meta property="og:description" content="之前提到过三维路径的查找的方法,使用A*寻找,但是在找完之后就面临一个问题,如何挑选出一个合适的路径.很明显,我们这里的这个问题是一个旅行商问题,这玩意不可能有一个”完美”的算法.之前我所使用的方法是使用基于贪心算法的最小生成树进行路径查找但是这种方法的结果只能保证路径总代价不超过2倍.原本我想想只需要无脑调库就可以了,但是一查,虽然有一个民间制作的蚁群优化算法,但是那些都是基于python的py">
+<meta property="og:description" content="因为我认为需要搭建一个Linux服务器用于一些用途(比如说,练习使用Linux,或者未来搭建一些网页,以及部署偏微分方程求解器,都是很有用的).我第一步,先在宿舍里面搭建这个服务器,好处是宿舍用的电信宽带拥有公网ip,因此我可以在任何地方访问到这台服务器,而且配置相对简单,因为不用使用校园网那样一套专门的认证系统,非常麻烦.但相应的,缺点也非常显著,因为在宿舍,由于安全和考虑,白天必须断电,所以这">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-02-09T13:40:14.000Z">
-<meta property="article:modified_time" content="2023-02-09T16:28:54.078Z">
+<meta property="article:published_time" content="2023-02-12T11:58:24.000Z">
+<meta property="article:modified_time" content="2023-02-12T15:04:32.078Z">
 <meta property="article:author" content="Songyuli">
-<meta property="article:tag" content="3D位移平台">
-<meta property="article:tag" content="程序规划">
-<meta property="article:tag" content="c++">
+<meta property="article:tag" content="Linux功能">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://lsyxiaopang.github.io/2023/02/09/3Dmover/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/">
+<link rel="canonical" href="https://lsyxiaopang.github.io/2023/02/12/Linux/linux-server1/">
 
 
 <script id="page-configurations">
@@ -48,7 +46,7 @@
   };
 </script>
 
-  <title>蚁群算法分析 | Songyuli's blog</title>
+  <title>Linux服务器配置日志1 | Songyuli's blog</title>
   
 
 
@@ -208,7 +206,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/09/3Dmover/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/12/Linux/linux-server1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -221,7 +219,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          蚁群算法分析
+          Linux服务器配置日志1
         </h1>
 
         <div class="post-meta">
@@ -230,23 +228,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2023-02-09 21:40:14" itemprop="dateCreated datePublished" datetime="2023-02-09T21:40:14+08:00">2023-02-09</time>
+              <time title="Created: 2023-02-12 19:58:24 / Modified: 23:04:32" itemprop="dateCreated datePublished" datetime="2023-02-12T19:58:24+08:00">2023-02-12</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-10 00:28:54" itemprop="dateModified" datetime="2023-02-10T00:28:54+08:00">2023-02-10</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/3D%E4%BD%8D%E7%A7%BB%E6%B5%8B%E9%87%8F%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">3D位移测量平台设计</span></a>
+                  <a href="/categories/Linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">Linux服务器</span></a>
                 </span>
             </span>
 
@@ -259,8 +251,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2023/02/09/3Dmover/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/02/09/3Dmover/蚁群算法分析/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2023/02/12/Linux/linux-server1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/02/12/Linux/linux-server1/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -275,27 +267,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>之前提到过三维路径的查找的方法,使用A*寻找,但是在找完之后就面临一个问题,如何挑选出一个合适的路径.<br>很明显,我们这里的这个问题是一个旅行商问题,这玩意不可能有一个”完美”的算法.<br>之前我所使用的方法是使用基于贪心算法的最小生成树进行路径查找但是这种方法的结果只能保证路径总代价不超过2倍.<br>原本我想想只需要无脑调库就可以了,但是一查,虽然有一个民间制作的蚁群优化算法,但是那些都是基于python的python库,完全没法用.</p>
-<blockquote>
-<p>虽然你可能会觉得上面那句话很怪,但如果你了解过python的运行效率,那么就会知道这么做就是自寻死路</p>
-</blockquote>
-<p>所以我看来又得”自己造轮子”,使用C++处理蚁群算法</p>
-<span id="more"></span>
-
-<h2 id="蚁群算法机理"><a href="#蚁群算法机理" class="headerlink" title="蚁群算法机理"></a>蚁群算法机理</h2><p>这里的机理我主要参考的<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/151442866">这篇知乎文章</a>,在这里我简单介绍以下(当然也包括我的一些实现细节,便于未来查找错误)</p>
-<h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><p>蚁群算法的基本处理方式是在原本的类似于贪心算法(但又不完全贪心)上添加了一个<em>信息素矩阵</em>,并且选取的途径并不是”决定性”的选取,而是概率选取,越符合要求的选取到的概率越高.<br>同时这个信息素的产生和变化遵循以下条件:</p>
+        <p>因为我认为需要搭建一个Linux服务器用于一些用途(比如说,练习使用Linux,或者未来搭建一些网页,以及部署偏微分方程求解器,都是很有用的).<br>我第一步,先在宿舍里面搭建这个服务器,好处是宿舍用的电信宽带拥有<strong>公网ip</strong>,因此我可以在任何地方访问到这台服务器,而且配置相对简单,因为不用使用校园网那样一套专门的认证系统,非常麻烦.<br>但相应的,缺点也非常显著,因为在宿舍,由于安全和考虑,白天必须断电,所以这就产生了定时开关机的问题<br>同时,一个服务器放在公网上总是显得不是那么安全,因此未来我会考虑把它搬到校内(这样的话也可以省去使用easyconnect这种软件)<br>下面是我在2.12日配置Linux服务器遇到的问题.</p>
+<h2 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h2><p>版本: Ubuntu 20.04.5 LTS</p>
+<h2 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h2><h3 id="连上网"><a href="#连上网" class="headerlink" title="连上网"></a>连上网</h3><p>下面是万恶的网络配置环节,由于安装的Linux-Server是完全没有GUI界面的,结果就网络配置起来非常痛苦.<br>幸好我有网线,可以在网络配置的过程中方便一些,我参考的是[这篇网页][1]对我的有限网络进行配置,但有一点不同,就是在我配置好这个,并且reboot之后,实际上还是没有反应.<br>就在我心灰意冷准备去改为使用无线连接时,在输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo netplan apply</span><br></pre></td></tr></table></figure>
+<p>之后,突然就可以了,我不确定是不是<code>netplan</code>的效果,但是未来也许可以参考</p>
+<h3 id="外网访问"><a href="#外网访问" class="headerlink" title="外网访问"></a>外网访问</h3><p>我这里使用的是TP-LINK路由器提供的外网连接服务”DMZ主机”功能</p>
+<h2 id="邮件问题"><a href="#邮件问题" class="headerlink" title="邮件问题"></a>邮件问题</h2><h3 id="邮件"><a href="#邮件" class="headerlink" title="邮件"></a>邮件</h3><p>这里先颠倒一下顺序,讲一下邮件<br>一开始,我打算使用Linux里面的<code>mail</code>命令,但是不幸的是,<code>mail</code>命令不支持修改邮件的发送者,也就是说我发送的邮件会毫无例外地被移到垃圾箱中,而且还不好移出来(会提示说邮件格式有问题),因此我打算使用<code>mailx</code>来解决问题<br>但是<code>mailx</code>也遇到的相应的问题,那就是对于外来的邮件似乎还是无法解析<br>看起来目前只有两种选项:</p>
 <ol>
-<li>不同蚂蚁产生信息素相互线性叠加</li>
-<li>一只蚂蚁在所有路径上分泌的信息素总和为定值</li>
-<li>信息素在每次迭代后都会挥发一部分</li>
+<li>使用前面已经妥善处理了的python脚本进行邮件处理</li>
+<li>就扔到垃圾箱好了<br>这个问题值得去讨论<br>[1]:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wayneliu007/p/10312202.html">https://www.cnblogs.com/wayneliu007/p/10312202.html</a></li>
 </ol>
-<p>使用这种方法实现结果</p>
-<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><p>首先是概率的计算,在每一只蚂蚁选择下一个点(从$i$到$j$)时,每一个点的概率为</p>
-<p>$$p_{ij}&#x3D;\frac{t_{ij}^\alpha r_{ij}^{\beta}}{\sum_j t_{ij}^\alpha r_{ij}^{\beta}}$$<br>其中$t_{ij}$为从$i$到$j$的信息素含量,而$r_{ij}$则为基于贪心的路径选择$r_{ij}&#x3D;\frac{1}{L_{ij}},L_{ij}$为这两点之间的距离,具体如何通过$p_{ij}$来进行选取,我们采用的是”轮盘赌”的方法,可以参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39068956/article/details/105121469">这篇文章</a></p>
-<p>而每次迭代之后,对于$t_{ij}$其变化为<br>$$t_{ij}&#x3D;pt_{ij}+\sum \frac{G}{L_i}$$<br>其中,$p$为挥发后剩余量,$G$为常数,$L_i$为经过这个边的第$i$个个体总路径长度.<br>而在达到迭代次数后,输出计算得到的结果.</p>
-<blockquote>
-<p>关于$G$的选取和初始化<br>我们面临一个初始化的问题,就是在第一次迭代之前,如何选取$t_{ij}$,我目前的做法是将其全部初始化为1,而令$G&#x3D;n\bar{L_{ij}}$,即边长平均值乘以$n$,(类似于平均边长)</p>
-</blockquote>
 
     </div>
 
@@ -305,9 +287,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/3D%E4%BD%8D%E7%A7%BB%E5%B9%B3%E5%8F%B0/" rel="tag"># 3D位移平台</a>
-              <a href="/tags/%E7%A8%8B%E5%BA%8F%E8%A7%84%E5%88%92/" rel="tag"># 程序规划</a>
-              <a href="/tags/c/" rel="tag"># c++</a>
+              <a href="/tags/Linux%E5%8A%9F%E8%83%BD/" rel="tag"># Linux功能</a>
           </div>
 
         
@@ -316,8 +296,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/02/07/python/vectorize/" rel="prev" title="向量化与面向对象">
-      <i class="fa fa-chevron-left"></i> 向量化与面向对象
+    <a href="/2023/02/09/3Dmover/ant/" rel="prev" title="蚁群算法分析">
+      <i class="fa fa-chevron-left"></i> 蚁群算法分析
     </a></div>
       <div class="post-nav-item"></div>
     </div>
@@ -385,7 +365,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95%E6%9C%BA%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">蚁群算法机理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">基本原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.2.</span> <span class="nav-text">具体实现</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="nav-number">1.</span> <span class="nav-text">基本信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">网络配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E4%B8%8A%E7%BD%91"><span class="nav-number">2.1.</span> <span class="nav-text">连上网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE"><span class="nav-number">2.2.</span> <span class="nav-text">外网访问</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%AE%E4%BB%B6%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">邮件问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%82%AE%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">邮件</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -399,20 +379,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -502,61 +482,6 @@
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-          load: ['[tex]/mhchem'],
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-          packages: {'[+]': ['mhchem']},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 
@@ -572,9 +497,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://lsyxiaopang.github.io/2023/02/09/3Dmover/%E8%9A%81%E7%BE%A4%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/";
-    this.page.identifier = "2023/02/09/3Dmover/蚁群算法分析/";
-    this.page.title = "蚁群算法分析";
+    this.page.url = "https://lsyxiaopang.github.io/2023/02/12/Linux/linux-server1/";
+    this.page.identifier = "2023/02/12/Linux/linux-server1/";
+    this.page.title = "Linux服务器配置日志1";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
