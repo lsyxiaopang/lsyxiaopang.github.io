@@ -2117,6 +2117,10 @@ Along axis 1 is [ 6 15]
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo netplan apply</span><br></pre></td></tr></table></figure>
 <p>之后,突然就可以了,我不确定是不是<code>netplan</code>的效果,但是未来也许可以参考</p>
 <h3 id="外网访问"><a href="#外网访问" class="headerlink" title="外网访问"></a>外网访问</h3><p>我这里使用的是TP-LINK路由器提供的外网连接服务”DMZ主机”功能</p>
+<blockquote>
+<p>我之前发现机器重启之后不能用了,原因是没有分配静态ip</p>
+</blockquote>
+<h3 id="关于Samba访问"><a href="#关于Samba访问" class="headerlink" title="关于Samba访问"></a>关于Samba访问</h3><p>似乎由于之前的一个病毒,因此445端口的访问被关闭了,所以无法正常连接samba,所以还是得移到校内局域网环境</p>
 <h2 id="邮件问题"><a href="#邮件问题" class="headerlink" title="邮件问题"></a>邮件问题</h2><h3 id="邮件"><a href="#邮件" class="headerlink" title="邮件"></a>邮件</h3><p>这里先颠倒一下顺序,讲一下邮件<br>一开始,我打算使用Linux里面的<code>mail</code>命令,但是不幸的是,<code>mail</code>命令不支持修改邮件的发送者,也就是说我发送的邮件会毫无例外地被移到垃圾箱中,而且还不好移出来(会提示说邮件格式有问题),因此我打算使用<code>mailx</code>来解决问题<br>但是<code>mailx</code>也遇到的相应的问题,那就是对于外来的邮件似乎还是无法解析<br>看起来目前只有两种选项:</p>
 <ol>
 <li>使用前面已经妥善处理了的python脚本进行邮件处理</li>
@@ -2128,6 +2132,49 @@ Along axis 1 is [ 6 15]
       </categories>
       <tags>
         <tag>Linux功能</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对已有代码的整理</title>
+    <url>/2023/02/14/3Dmover/tidy/</url>
+    <content><![CDATA[<p>我将所有的源代码均整理到了github上,之后的改进将会以<code>issue</code>的形式发布,除非非常具有广泛参考价值,不然就不在这里重复了<br><a href="https://github.com/lsyxiaopang/Translation-platform-programming">这个是github地址</a></p>
+]]></content>
+      <categories>
+        <category>3D位移测量平台设计</category>
+      </categories>
+      <tags>
+        <tag>3D位移平台</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux服务器配置日志2</title>
+    <url>/2023/02/14/Linux/linux-server2/</url>
+    <content><![CDATA[<p>今天我意识到一个问题,<strong>在物理楼只有靠南的网线接口可以对外开放除22端口外的端口</strong></p>
+<h2 id="检测手段"><a href="#检测手段" class="headerlink" title="检测手段"></a>检测手段</h2><p>一般判断服务器的一个端口是否开放,最为简单的方法是使用<code>telnet</code><br>就是<code>telnet 10.92.1.163 445</code>就可以检测其445端口是否开放</p>
+]]></content>
+      <categories>
+        <category>Linux服务器</category>
+      </categories>
+      <tags>
+        <tag>Linux功能</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>库索引与编写__init__.py</title>
+    <url>/2023/02/14/python/pyinit/</url>
+    <content><![CDATA[<p><code>__init__.py</code>,这个文件很不起眼,而且经常会被人忽略,但是实际在软件开发的过程中非常重要,在这里,我将简单介绍一下<code>__init__.py</code>的编写以及相关可能会遇到的坑.</p>
+<span id="more"></span>
+<h2 id="引入-多文件夹运行模式"><a href="#引入-多文件夹运行模式" class="headerlink" title="引入:多文件夹运行模式"></a>引入:多文件夹运行模式</h2><p>就以之前的三维移动平台中遇到的例子,由于测量设备三天两头更换,因此需要设计一个方便的切换模块的方式</p>
+<blockquote>
+<p>我个人感觉这有点像C里面的<code>#ifdef</code>命令,但是这里是脚本语言</p>
+</blockquote>
+<p>于是就有了这样一个文件结构<br><img src="/Pasted%20image%2020230214235917.png"><br>当我在外面调用<code>import Measuredevices</code>这个命令的时候,我希望能够通过调用<code>Measuredevices.MeasureControl</code>来直接得到</p>
+]]></content>
+      <categories>
+        <category>python培训</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
       </tags>
   </entry>
 </search>

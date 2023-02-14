@@ -200,6 +200,332 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/19/Pyerror/forbiddenfruit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Songyuli">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songyuli's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/01/19/Pyerror/forbiddenfruit/" class="post-title-link" itemprop="url">forbiddenfruit修改ndarray</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-01-19 00:14:09 / Modified: 12:33:34" itemprop="dateCreated datePublished" datetime="2023-01-19T00:14:09+08:00">2023-01-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PyError/" itemprop="url" rel="index"><span itemprop="name">PyError</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/01/19/Pyerror/forbiddenfruit/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/19/Pyerror/forbiddenfruit/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>请注意:在本文中包含了一些<strong>非常危险</strong>的行为,在使用前请务必三思</p>
+</blockquote>
+<h2 id="事情起因"><a href="#事情起因" class="headerlink" title="事情起因"></a>事情起因</h2><p>因为之前我做过一个处理误差的库的尝试,虽然构造了一个可以自动计算常见误差形式的类,然而这样一个类用在科学计算上的价值却不大,原因就在于这么做没法使用python中的常用数学计算库<code>numpy</code>,那么我就开始动起了歪脑筋:<em>是不是可以通过修改<code>np.ndarray</code>一些函数支持来实现我所想要的功能</em></p>
+<p>就以<code>__add__</code>为例,我可以创建一个新函数去替代<code>__add__</code>以实现我的功能.</p>
+<p>于是尝试了一下<code>np.ndarray.__add__=myadd</code>,很不幸,解释器告诉我</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TypeError: can&#x27;t set attributes of built-in/extension type &#x27;numpy.ndarray&#x27;</span><br></pre></td></tr></table></figure>
+<p>我考虑了一下,发现原因是<code>numpy</code>不是由python编写的,因此也无法直接使用python修改动态类型的手段.</p>
+<h2 id="解决-forbiddenfruit"><a href="#解决-forbiddenfruit" class="headerlink" title="解决:forbiddenfruit"></a>解决:<code>forbiddenfruit</code></h2><p>正在我表示绝望准备放弃的时候(原本准备用类继承实现功能),突然看到了<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/345547458">一篇文章</a></p>
+<p>在这篇文章,作者介绍了一个神奇又危险的库<code>forbiddenfruit</code>(<a target="_blank" rel="noopener" href="https://pypi.org/project/forbiddenfruit/">下载地址</a>),在这个库里,你可以替换python内置的类型</p>
+<blockquote>
+<p>在文章中也介绍了修改内置类的工作原理,但是仍然无法解决运算符重载的问题</p>
+<p>即<code>__add__</code>可以正常被替换,但是<code>+</code>就不行了</p>
+</blockquote>
+<p>那么下面我可以来演示一下如何替换掉python中list的加法方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> forbiddenfruit <span class="keyword">import</span> curse</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">change_list_add</span>():</span><br><span class="line">    old_add=<span class="built_in">list</span>.__add__<span class="comment">#保存原来加法实现</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">new_add</span>(<span class="params">self,o</span>):</span><br><span class="line">        <span class="keyword">return</span> old_add(old_add(self,[<span class="string">&quot; &quot;</span>]),o)<span class="comment">#新的加法</span></span><br><span class="line">    curse(<span class="built_in">list</span>,<span class="string">&quot;__add__&quot;</span>,new_add)<span class="comment">#替换掉原有加法</span></span><br><span class="line">change_list_add()</span><br></pre></td></tr></table></figure>
+<p>然后未来进行列表加法时大家就会惊奇地发现列表两个元素之间总是会有一个空格</p>
+<blockquote>
+<p>在实际的生产中,这样的做法可能会导致暴力事件的发生</p>
+<p>大家也可以试试在python大作业中用这个东西(吃C别怪我)</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/19/MPS010602/make-wheel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Songyuli">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songyuli's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/01/19/MPS010602/make-wheel/" class="post-title-link" itemprop="url">创建wheels</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-01-19 00:13:49 / Modified: 00:38:52" itemprop="dateCreated datePublished" datetime="2023-01-19T00:13:49+08:00">2023-01-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MPS010602/" itemprop="url" rel="index"><span itemprop="name">MPS010602</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/01/19/MPS010602/make-wheel/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/19/MPS010602/make-wheel/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>由于在开发3D位移平台时,需要使用到MPS010602,但是因为MPS010602是一个独立的项目(目前还在开发),因此正好学习一下如何打包为wheel库,以及其中遇到的一些问题</p>
+<h2 id="源代码整理与-init-py"><a href="#源代码整理与-init-py" class="headerlink" title="源代码整理与__init__.py"></a>源代码整理与<code>__init__.py</code></h2><p>首先,我们要把源代码放置在一个文件夹中,并且需要有一个<code>__init__.py</code></p>
+<p><code>__init__.py</code>应当如何编写,<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/474874811">这篇文章</a>写得很清楚,可以去参考一下</p>
+<p>目前我就采用最为简易的方式</p>
+<p>如果目录结构是这样</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---MPS010602(import时所用的名称)</span><br><span class="line">  |-__init__.py</span><br><span class="line">  |-DriverOperator.py</span><br><span class="line">  |-MPSDataType.py</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<p>那么在<code>__init.py__</code>中,为了方便(不需要引用子文件名),可以这么写</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from MPS010602.MPSDataType import *</span><br><span class="line">from MPS010602.DriverOperator import *</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>需要注意在两个源文件中如果出现了交叉引用,需要修改<code>import</code>格式</p>
+</blockquote>
+<h2 id="setup-py"><a href="#setup-py" class="headerlink" title="setup.py"></a><code>setup.py</code></h2><p>在放置代码的文件夹外,新建一个<code>setup.py</code>,然后填写以下内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> setuptools</span><br><span class="line">setuptools.setup(</span><br><span class="line">    name=<span class="string">&#x27;mps010602&#x27;</span>,</span><br><span class="line">    version=<span class="string">&#x27;0.0.0&#x27;</span>,</span><br><span class="line">    description=<span class="string">&#x27;This is a program for MPS-010602&#x27;</span>,</span><br><span class="line">    author=<span class="string">&#x27;songyuli&#x27;</span>,</span><br><span class="line">    author_email=<span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    packages=setuptools.find_packages(),</span><br><span class="line">    package_data=&#123;<span class="string">&#x27;&#x27;</span>:[<span class="string">&#x27;*.dll&#x27;</span>],&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>其他部分都很简单,除了两个需要注意的地方:</p>
+<ol>
+<li>包名称和<code>import</code>时使用的名称不同</li>
+<li><code>package_data</code>包含了你希望包含的除了源代码以外的内容(例如说使用的动态链接库)</li>
+</ol>
+<h2 id="构建与安装"><a href="#构建与安装" class="headerlink" title="构建与安装"></a>构建与安装</h2><p>在这一文件夹下,输入<code>python setup.py bdist_wheel</code>,之后在<code>dist</code>文件夹内可以看见编译好的<code>whl</code>文件,然后文件用<code>pip install</code>可以直接安装</p>
+<blockquote>
+<p>为了未来后续开发方便,建议一个环境开发,一个环境测试</p>
+</blockquote>
+<h2 id="其他的一些问题"><a href="#其他的一些问题" class="headerlink" title="其他的一些问题"></a>其他的一些问题</h2><p>我之前在引用动态链接库时遇到问题(因为工作目录发生改变)</p>
+<p>因此获取自己当前的位置,可以通过<code>os.path.dirname(os.path.abspath(__file__))</code>访问当前所在文件夹</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/17/3Dmover/new-motor-driver/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Songyuli">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songyuli's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/01/17/3Dmover/new-motor-driver/" class="post-title-link" itemprop="url">对控制驱动的改进</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-01-17 22:14:16" itemprop="dateCreated datePublished" datetime="2023-01-17T22:14:16+08:00">2023-01-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-02-01 20:12:35" itemprop="dateModified" datetime="2023-02-01T20:12:35+08:00">2023-02-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/3D%E4%BD%8D%E7%A7%BB%E6%B5%8B%E9%87%8F%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">3D位移测量平台设计</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/01/17/3Dmover/new-motor-driver/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/17/3Dmover/new-motor-driver/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>之前在制作控制程序的时候,有一些不够优雅的地方,今天决定对这些问题进行修正</p>
+<h2 id="事件驱动"><a href="#事件驱动" class="headerlink" title="事件驱动"></a>事件驱动</h2><p>之前的工作是通过不断地询问实现的,我们要实现<strong>与串口交互的部分不断询问,而上层则是通过事件去驱动</strong>,这样可以极大程度简便工作流程,并且为未来处理碰撞等问题提供解决方案.</p>
+<h3 id="对于电机"><a href="#对于电机" class="headerlink" title="对于电机"></a>对于电机</h3><p>电机输入一个<code>MoveControlCallbacksBase</code>,其中规定了三种可能的情况:状态更新,碰撞和坐标更新</p>
+<blockquote>
+<p>这些函数只有在值改变的时候才会调用</p>
+</blockquote>
+<p>这样的话<code>MoveControl</code>类只留下了一个接受命令并阻塞运行的<code>run</code>方法(在阻塞运行时,坐标会更新),并且保留了两个公开可修改属性</p>
+<ol>
+<li><code>refreshtime</code>:控制多久刷新一次坐标信息</li>
+<li><code>feed_rate</code>:控制移动速度</li>
+</ol>
+<h3 id="对于控制器"><a href="#对于控制器" class="headerlink" title="对于控制器"></a>对于控制器</h3><p>计划将控制器的构造函数的参数<strong>不出现</strong>有关移动控制和测量控制的函数,这样可以保证更好的封装</p>
+<p>然后和电机保持一样的<strong>回调控制方式</strong></p>
+<p>对于控制器,则保留四种情况的回调:</p>
+<ol>
+<li><code>status_refresh_call</code>控制器状态刷新</li>
+<li><code>coordinate_refresh_call</code>坐标状态刷新</li>
+<li><code>measure_refresh_call</code>测量结果刷新</li>
+<li><code>no_command_call</code>无后续命令</li>
+</ol>
+<p>并且保留了两个公开方法<code>add_cmd</code>和<code>change_motor_settings</code></p>
+<p>属性中保留<code>cmd_list</code>进行读取待进行指令,<code>cmd_now</code>为当前执行指令</p>
+<p>以及<code>move_start</code>控制是否开始测量</p>
+<h4 id="1-31更新"><a href="#1-31更新" class="headerlink" title="1.31更新"></a>1.31更新</h4><p>如果单纯的使用一个<code>cmd</code>来同时管理电机,测量和显示,这无疑是非常浪费的,而且这样操作如果未来需要修改命令格式以支持其他功能也是非常不妥当的,因此,我们需要对<code>cmd</code>进行预处理操作.</p>
+<p>我们添加了一个<code>_cmd_parser</code>指令,这个指令可以<strong>独立地</strong>去处理数据,目前可以处理两类:</p>
+<ol>
+<li>一次移动,一次测量</li>
+<li>多次移动一起,一次测量</li>
+</ol>
+<p>为了更好的适配2,我们在电机控制中添加了<code>_send_cmd_sync</code>这个命令,可以更高效处理曲折的路径</p>
+<p>同时,我们在回调函数中添加了<code>cmd_refresh_call</code>,避免用户去访问<code>cmd_now</code>属性造成混乱</p>
+<h2 id="测量驱动修改"><a href="#测量驱动修改" class="headerlink" title="测量驱动修改"></a>测量驱动修改</h2><p>应用了<code>MPS010602</code>,将相关文件打包成一个<code>weel</code>再安装,这个留到另外一篇文章讲</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/17/misc/VSCode/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1067,542 +1393,10 @@ y(t)=Cx(t)+Du(t)\qquad (输出方程)</script><p>需要注意的是,$ABCD$都可
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/15/maxi1820/maxi1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Songyuli">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Songyuli's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/15/maxi1820/maxi1/" class="post-title-link" itemprop="url">The results and the problems in fitting the spectrum of the maxi1820+70</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-01-15 21:24:08" itemprop="dateCreated datePublished" datetime="2023-01-15T21:24:08+08:00">2023-01-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-24 16:39:04" itemprop="dateModified" datetime="2023-01-24T16:39:04+08:00">2023-01-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/maxi1820/" itemprop="url" rel="index"><span itemprop="name">maxi1820</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2023/01/15/maxi1820/maxi1/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/15/maxi1820/maxi1/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Fitting-points"><a href="#Fitting-points" class="headerlink" title="Fitting points"></a>Fitting points</h2><p>We chose three typical points from the HID graph.</p>
-<p><img src="hid.png" alt="hid"></p>
-<h2 id="The-first-point"><a href="#The-first-point" class="headerlink" title="The first point"></a>The first point</h2><p>The first point is the observation is the three observation in <code>P14661084</code> and we use the low energy and mid energy part of the spectrum.</p>
-<p>We combine the spectra in <code>P14661084</code> and use the model <code>constant*TBabs*(simplcutx*(diskbb+relxillCp)+xillverCp)</code>(The reason why I didn’t use the model <code>mbknpo</code> is that if I add this model, then the spectrum of the very low energy(about 2keV) may not fit well), and I got the best-fit like this.</p>
-<p><img src="fitLS.png" alt="fitLS"></p>
-<p>Also, we calculate the error of each parameter, and got the table below</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>par</th>
-<th>model</th>
-<th>par name</th>
-<th>value</th>
-<th>range</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>3</td>
-<td><code>simplcutx</code></td>
-<td><code>Gamma</code></td>
-<td>2.32037</td>
-<td>2.29367~2.34282</td>
-</tr>
-<tr>
-<td>4</td>
-<td><code>simplcutx</code></td>
-<td><code>FracSctr</code></td>
-<td>0.146214</td>
-<td>0.139002~0.153343</td>
-</tr>
-<tr>
-<td>6</td>
-<td><code>simplcutx</code></td>
-<td><code>kT_e</code></td>
-<td>963.399</td>
-<td>151.681~0(-811.624,-963.304)</td>
-</tr>
-<tr>
-<td>7</td>
-<td><code>diskbb</code></td>
-<td><code>Tin</code></td>
-<td>0.740488</td>
-<td>0.737991~0.742486(-0.00249779,0.00199709)</td>
-</tr>
-<tr>
-<td>8</td>
-<td><code>diskbb</code></td>
-<td><code>norm</code></td>
-<td>1.53996E4</td>
-<td>15170.5~15622(-229.123,222.451)</td>
-</tr>
-<tr>
-<td>9</td>
-<td><code>relxillCp</code></td>
-<td><code>Index1</code></td>
-<td>10.00000</td>
-<td>9.20764~0(-0.792358,-10)</td>
-</tr>
-<tr>
-<td>13</td>
-<td><code>relxillCp</code></td>
-<td><code>Incl</code></td>
-<td>73.6178</td>
-<td>72.3889~73.842(-1.22892,0.224224)</td>
-</tr>
-<tr>
-<td>14</td>
-<td><code>relxillCp</code></td>
-<td><code>Rin</code></td>
-<td>-1.01333</td>
-<td>-1.03082~-1.00407(-0.0174862,0.00926662)</td>
-</tr>
-<tr>
-<td>18</td>
-<td><code>relxillCp</code></td>
-<td><code>logxi</code></td>
-<td>3.74057</td>
-<td>3.61639~3.8515(-0.124187,0.110924)</td>
-</tr>
-<tr>
-<td>19</td>
-<td><code>relxillCp</code></td>
-<td><code>Afe</code></td>
-<td>10.0000</td>
-<td>9.32562~0(-0.67438,-10)</td>
-</tr>
-<tr>
-<td>22</td>
-<td><code>relxillCp</code></td>
-<td><code>norm</code></td>
-<td>0.340764</td>
-<td>0.29189~0.352971(-0.0488737,0.0122078)</td>
-</tr>
-<tr>
-<td>30</td>
-<td><code>xillverCp</code></td>
-<td><code>norm</code></td>
-<td>1.3216E-3</td>
-<td>0~0.00371015(-0.00132301,0.00238714)</td>
-</tr>
-<tr>
-<td>31</td>
-<td><code>constant</code>(2)</td>
-<td><code>factor</code></td>
-<td>1.02040</td>
-<td>1.01158~1.03362(-0.00881818,0.0132216)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="The-second-point"><a href="#The-second-point" class="headerlink" title="The second point"></a>The second point</h2><p>The second point is the three observation in ``, we used all the energy part of the spectrum.</p>
-<p>Also, we used the model <code>constant*TBabs*(simplcutx*(diskbb+relxillCp)+xillverCp)</code>to fit the spectrum. And ignored the spectrum between 21keV to 23keV. This time, however, we found that the model cannot fit the spectrum very well, especially at about Fe-line and at about 25 keV. </p>
-<p>The unfolded spectrum and the ratio is like below:</p>
-<p><img src="fitLH.png" alt="fitLH"></p>
-<p>We calculated the error of each parameter, and got the table below:</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>par</th>
-<th>model</th>
-<th>par name</th>
-<th>value</th>
-<th>range</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>3</td>
-<td><code>simplcutx</code></td>
-<td><code>Gamma</code></td>
-<td>1.55434</td>
-<td>1.54259~1.56467(-0.0117559,0.0103268)</td>
-</tr>
-<tr>
-<td>4</td>
-<td><code>simplcutx</code></td>
-<td><code>FracSctr</code></td>
-<td>0.204196</td>
-<td>0.187275~0.21611(-0.016921,0.0119141)</td>
-</tr>
-<tr>
-<td>6</td>
-<td><code>simplcutx</code></td>
-<td><code>kT_e</code></td>
-<td>50.2392</td>
-<td>49.7608 ~52.4421(-0.47835,2.20294)</td>
-</tr>
-<tr>
-<td>7</td>
-<td><code>diskbb</code></td>
-<td><code>Tin</code></td>
-<td>0.530084</td>
-<td>0.519304~0.546117(-0.0107803,0.0160332)</td>
-</tr>
-<tr>
-<td>8</td>
-<td><code>diskbb</code></td>
-<td><code>norm</code></td>
-<td>14927.14</td>
-<td>4290.33~5755.6(-636.818,828.452)</td>
-</tr>
-<tr>
-<td>9</td>
-<td><code>relxillCp</code></td>
-<td><code>Index1</code></td>
-<td>10.00000</td>
-<td>3.70664~0(-6.29336,-10)</td>
-</tr>
-<tr>
-<td>13</td>
-<td><code>relxillCp</code></td>
-<td><code>Incl</code></td>
-<td>41.5373</td>
-<td>38.802~???(-2.73533,4.29916)</td>
-</tr>
-<tr>
-<td>14</td>
-<td><code>relxillCp</code></td>
-<td><code>Rin</code></td>
-<td>-14.5510</td>
-<td>-18.111~-9.07362(-3.56002,5.47737)</td>
-</tr>
-<tr>
-<td>18</td>
-<td><code>relxillCp</code></td>
-<td><code>logxi</code></td>
-<td>4.40865</td>
-<td>4.35113~4.44465(-0.057525,0.0360025)</td>
-</tr>
-<tr>
-<td>19</td>
-<td><code>relxillCp</code></td>
-<td><code>Afe</code></td>
-<td>9.29539</td>
-<td>7.81846~0(-1.47693,-9.29539)</td>
-</tr>
-<tr>
-<td>22</td>
-<td><code>relxillCp</code></td>
-<td><code>norm</code></td>
-<td>8.8196E-2</td>
-<td>0.0847278~ 0.0938056(-0.0034684,0.00560941)</td>
-</tr>
-<tr>
-<td>30</td>
-<td><code>xillverCp</code></td>
-<td><code>norm</code></td>
-<td>5.4875E-3</td>
-<td>0.00463134~0.00628511(-0.000856129,0.000797643)</td>
-</tr>
-<tr>
-<td>31</td>
-<td><code>constant</code>(2)</td>
-<td><code>factor</code></td>
-<td>1.03591</td>
-<td>1.02896~1.04286(-0.00695636,0.00694697)</td>
-</tr>
-<tr>
-<td>61</td>
-<td><code>constant</code>(2)</td>
-<td><code>factor</code></td>
-<td>1.05928</td>
-<td>1.05126~1.06678(-0.00801573,0.00750175)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>I noticed that the range of the parameter <code>Rin</code>  is quite large, which may be related to the unfitted Fe-line.</p>
-<h2 id="The-third-point"><a href="#The-third-point" class="headerlink" title="The third point"></a>The third point</h2><p>The second point is the two observation in <code>P0114661136</code>, we used all the energy part of the spectrum.</p>
-<p>We use the model <code>constant*TBabs*(simplcutx*(diskbb+mbnkpo*relxillCp)+xillverCp)</code> to fit the spectrum. And ignored the spectrum between 21keV to 23keV. This time except the problem at about 20keV and 25keV, the model can fit the spectrum quite well.</p>
-<p>The unfolded spectrum and the ratio is like below:<img src="fit3.png" alt="fit3"></p>
-<p>We calculated the error of each parameter, and got the table below:<br>| par  | model         | par name   | value     | range                                     |<br>| —— | ——————- | ————— | ————- | ———————————————————————- |<br>| 3    | <code>simplcutx</code>   | <code>Gamma</code>    | 1.70835   |1.69696~1.71736(-0.0113903,0.00900463)|<br>| 4    | <code>simplcutx</code>   | <code>FracSctr</code> | 0.423500  |0.388402~0.452862 (-0.0350982,0.0293619)|<br>| 6    | <code>simplcutx</code>   | <code>kT_e</code>     | 296.876  |156.831~0(-140.045,-296.876)|<br>| 7    | <code>diskbb</code>      | <code>Tin</code>      | 0.521368  | 0.499858~0.547507(-0.0215105,0.0261386) |<br>| 8    | <code>diskbb</code>      | <code>norm</code>     | 1679.12 | 1315.87~2075.26(-363.28,396.115)          |<br>| 11    | <code>relxillCp</code>   | <code>Index1</code>   | 10.00000  |4.04933~0 (-5.95067,-10)                  |<br>| 15   | <code>relxillCp</code>   | <code>Incl</code>     | 44.0274  |41.2731~48.205 (-2.75424,4.17761)         |<br>| 16   | <code>relxillCp</code>   | <code>Rin</code>      | -4.37220  |-5.43035 ~-3.03198 (-1.05815,1.34022) |<br>| 20   | <code>relxillCp</code>   | <code>logxi</code>    | 3.64956   |3.48269~3.80451(-0.166872,0.154944)       |<br>| 21   | <code>relxillCp</code>   | <code>Afe</code>      | 10.0000   | 7.14676~0 (-2.85324,-10)                  |<br>| 24   | <code>relxillCp</code>   | <code>norm</code>     | 07.31228E-3  | 0.0061945~0.00893408(-0.00111789,0.00162169)   |<br>| 32   | <code>xillverCp</code>   | <code>norm</code>     | 2.39388E-11 | 0~0.000333344(-6.82725e-15,0.000333344)      |<br>| 33   | <code>constant</code>(2) | <code>factor</code>   | 1.00827   |0.985256~1.02789 (-0.0230121,0.0196176)   |<br>|65|<code>constant</code>(3) | <code>factor</code>   | 1.03501   | 1.00417~1.06166(-0.0308423,0.0266517)    |</p>
-<h2 id="Discussions"><a href="#Discussions" class="headerlink" title="Discussions"></a>Discussions</h2><ol>
-<li>In real world ,the <code>Incl</code> should not change with time, so we should fix it to some value (In the ==NuSTAR== it is 63, but we’ve found that it cannot fit very well)</li>
-<li>We don’t need to get the best fit because our goal is to fit <strong>all</strong> the observations, so if the <code>Reduced Chi-Squared</code>(Chi-Squared/Degrees of freedom)is under 1.2,although it is still not the best fit ,it would be ok.</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/15/control%20system/control2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Songyuli">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Songyuli's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/15/control%20system/control2/" class="post-title-link" itemprop="url">被控对象的行为</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-01-15 13:25:56" itemprop="dateCreated datePublished" datetime="2023-01-15T13:25:56+08:00">2023-01-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-24 22:17:43" itemprop="dateModified" datetime="2023-01-24T22:17:43+08:00">2023-01-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python%E8%AE%BE%E8%AE%A1%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">Python设计控制系统</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2023/01/15/control%20system/control2/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/15/control system/control2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="被控对象的行为"><a href="#被控对象的行为" class="headerlink" title="被控对象的行为"></a>被控对象的行为</h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>为了更加方便地绘制相关图像,在这里要进行相应的准备工作</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> control <span class="keyword">as</span> ct </span><br><span class="line"><span class="keyword">from</span> control.matlab <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure>
-<p>绘图时用以确定线条类型</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">line_generator</span>():</span><br><span class="line">    linestyle=[<span class="string">&quot;-&quot;</span>,<span class="string">&quot;--&quot;</span>,<span class="string">&quot;-.&quot;</span>,<span class="string">&quot;:&quot;</span>]</span><br><span class="line">    lineid=<span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">yield</span> linestyle[lineid] <span class="comment">#* 这个yield用法很有趣,可以学习一下</span></span><br><span class="line">        lineid=(lineid+<span class="number">1</span>)%<span class="built_in">len</span>(linestyle)</span><br></pre></td></tr></table></figure>
-<p>用以完善绘图</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">plot_set</span>(<span class="params">fig_ax,*args</span>):</span><br><span class="line">    fig_ax.set_xlabel(args[<span class="number">0</span>])</span><br><span class="line">    fig_ax.set_ylabel(args[<span class="number">1</span>])</span><br><span class="line">    fig_ax.grid(ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)==<span class="number">3</span>:</span><br><span class="line">        fig_ax.legend(loc=args[<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
-<p>用以完善伯德图函数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">bodeplot_set</span>(<span class="params">fig_ax,*args</span>):</span><br><span class="line">    fig_ax[<span class="number">0</span>].grid(which=<span class="string">&#x27;both&#x27;</span>,ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">0</span>].set_ylabel(<span class="string">&#x27;Gain [dB]&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].grid(which=<span class="string">&#x27;both&#x27;</span>,ls=<span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].set_xlabel(<span class="string">&#x27;$\omega$ [rad/s]&#x27;</span>)</span><br><span class="line">    fig_ax[<span class="number">1</span>].set_ylabel(<span class="string">&#x27;Phase [deg]&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)&gt;<span class="number">0</span>:</span><br><span class="line">        fig_ax[<span class="number">1</span>].legend(loc=args[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args)&gt;<span class="number">1</span>:</span><br><span class="line">        fig_ax[<span class="number">0</span>].legend(loc=args[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
-<h2 id="时域响应"><a href="#时域响应" class="headerlink" title="时域响应"></a>时域响应</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/01/15/control%20system/control2/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/15/Indexs/My-first-bolg/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Songyuli">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Songyuli's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/15/Indexs/My-first-bolg/" class="post-title-link" itemprop="url">The index blog</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-01-15 12:08:29" itemprop="dateCreated datePublished" datetime="2023-01-15T12:08:29+08:00">2023-01-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-16 00:11:59" itemprop="dateModified" datetime="2023-01-16T00:11:59+08:00">2023-01-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2023/01/15/Indexs/My-first-bolg/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/15/Indexs/My-first-bolg/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>This is the introduction and index of my blog, and it’s for testing the <code>Hexo</code>.</p>
-<h2 id="My-plans-and-projects"><a href="#My-plans-and-projects" class="headerlink" title="My plans and projects"></a>My plans and projects</h2><p>This is the list of my plans and projects.</p>
-<p>Some of them would be written in Chinese and some of them would be written in English(awful English).</p>
-<ul>
-<li><p>A magnetic field sensor based on a 3D printer(3D 位移平台)</p>
-</li>
-<li><p>Study the spectrum of maxi1820(maxi1820)</p>
-</li>
-<li><p>Make and improve a python library to process the uncertainty</p>
-</li>
-<li><p>Some other useful tools</p>
-</li>
-</ul>
-<h2 id="My-study-plans"><a href="#My-study-plans" class="headerlink" title="My study plans"></a>My study plans</h2><p>Also, I need to learn some interesting thing, the list can be the index of my notes</p>
-<ul>
-<li><p>Controlling system with python(Python设计控制系统)</p>
-</li>
-<li><p>Machine learning(机器学习)</p>
-</li>
-<li><p>Analyzing X-ray spectrum from BH(X-ray spectrum)</p>
-</li>
-<li><p>Statics(统计学)</p>
-</li>
-</ul>
-<h2 id="My-logs"><a href="#My-logs" class="headerlink" title="My logs"></a>My logs</h2><p>Sometimes there are interesting logs in my project and study, most of them may be about Python and Linux.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1668,7 +1462,7 @@ y(t)=Cx(t)+Du(t)\qquad (输出方程)</script><p>需要注意的是,$ABCD$都可
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
