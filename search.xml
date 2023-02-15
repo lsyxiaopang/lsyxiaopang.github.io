@@ -2162,19 +2162,40 @@ Along axis 1 is [ 6 15]
   <entry>
     <title>库索引与编写__init__.py</title>
     <url>/2023/02/14/python/pyinit/</url>
-    <content><![CDATA[<p><code>__init__.py</code>,这个文件很不起眼,而且经常会被人忽略,但是实际在软件开发的过程中非常重要,在这里,我将简单介绍一下<code>__init__.py</code>的编写以及相关可能会遇到的坑.</p>
-<span id="more"></span>
+    <content><![CDATA[<p><code>__init__.py</code>,这个文件很不起眼,而且经常会被人忽略,但是实际在软件开发的过程中非常重要,在这里,我将简单介绍一下<code>__init__.py</code>的编写以及相关可能会遇到的坑.<br><span id="more"></span></p>
 <h2 id="引入-多文件夹运行模式"><a href="#引入-多文件夹运行模式" class="headerlink" title="引入:多文件夹运行模式"></a>引入:多文件夹运行模式</h2><p>就以之前的三维移动平台中遇到的例子,由于测量设备三天两头更换,因此需要设计一个方便的切换模块的方式</p>
 <blockquote>
 <p>我个人感觉这有点像C里面的<code>#ifdef</code>命令,但是这里是脚本语言</p>
 </blockquote>
-<p>于是就有了这样一个文件结构<br><img src="/Pasted%20image%2020230214235917.png"><br>当我在外面调用<code>import Measuredevices</code>这个命令的时候,我希望能够通过调用<code>Measuredevices.MeasureControl</code>来直接得到</p>
+<p>于是就有了这样一个文件结构<br><img src="Pasted%20image%2020230214235917.png" alt=""><br>当我在外面调用<code>import Measuredevices</code>这个命令的时候,我希望能够通过调用<code>Measuredevices.MeasureControl</code>来直接得到</p>
+<h2 id="基本的概念"><a href="#基本的概念" class="headerlink" title="基本的概念"></a>基本的概念</h2><p>当你<code>import</code>一个文件夹时,解释器会首先运行<code>__init__.py</code>,执行其中的内容,那么你可以在这一步中进行一些初始化的操作(比如检查系统版本,依赖库之类)<br>因此,我可以这么做,在<code>__init__.py</code>中写入<br><code>from mps import *</code><br>这样的写法使得我们无需关注内部的库结构,实现遍历的调用</p>
+<blockquote>
+<p>这在为不同系统提供环境支持的时候尤为重要,可能用户看起来调用的同一个库,因为环境不同而实现完全不同</p>
+</blockquote>
+<p>当然,也可以使用<code>__all__</code>来实现更加精准的调用,可以参考<a href="https://blog.csdn.net/weixin_44835732/article/details/103901283">这篇文章</a></p>
+<h2 id="遇到的问题与库调用逻辑"><a href="#遇到的问题与库调用逻辑" class="headerlink" title="遇到的问题与库调用逻辑"></a>遇到的问题与库调用逻辑</h2><p>但是我们在这么做之前需要注意到:python库的查找需要修改<code>sys.path</code>,这样文件夹中的<code>__init__.py</code>就<strong>无法找到</strong>一个文件夹中的文件,因此,需要在<code>sys.path</code>中添加上当前文件所在位置<br><code>sys.path.append(os.path.dirname(__file__))</code></p>
+<blockquote>
+<p>当然,用完之后(在退出<code>__init__.py</code>的时候)记得恢复,否则你的<code>path</code>会非常臃肿</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>python培训</category>
       </categories>
       <tags>
         <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在使用CNCSheld和GRBL的一些坑</title>
+    <url>/2023/02/16/3Dmover/cncsheld/</url>
+    <content><![CDATA[<p>在安装限位开关时,需要注意由于版本不对应,需要<strong>修改z限位开关接线</strong>,具体可以看<a href="https://github.com/grbl/grbl/issues/1128">这篇文章</a></p>
+<p>GRBL的设定,应当参考<a href="https://www.diymachining.com/downloads/GRBL_Settings_Pocket_Guide_Rev_B.pdf">这篇文档</a></p>
+]]></content>
+      <categories>
+        <category>3D位移测量平台设计</category>
+      </categories>
+      <tags>
+        <tag>3D位移平台</tag>
       </tags>
   </entry>
 </search>

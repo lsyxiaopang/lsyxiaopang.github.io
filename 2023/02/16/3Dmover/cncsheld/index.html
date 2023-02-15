@@ -20,15 +20,20 @@
     var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Songyuli&#39;s blog">
-<meta property="og:url" content="https://lsyxiaopang.github.io/tags/LaTex/index.html">
+  <meta name="description" content="在安装限位开关时,需要注意由于版本不对应,需要修改z限位开关接线,具体可以看这篇文章 GRBL的设定,应当参考这篇文档">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在使用CNCSheld和GRBL的一些坑">
+<meta property="og:url" content="https://lsyxiaopang.github.io/2023/02/16/3Dmover/cncsheld/index.html">
 <meta property="og:site_name" content="Songyuli&#39;s blog">
+<meta property="og:description" content="在安装限位开关时,需要注意由于版本不对应,需要修改z限位开关接线,具体可以看这篇文章 GRBL的设定,应当参考这篇文档">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-02-15T16:35:01.000Z">
+<meta property="article:modified_time" content="2023-02-15T16:38:33.724Z">
 <meta property="article:author" content="Songyuli">
+<meta property="article:tag" content="3D位移平台">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://lsyxiaopang.github.io/tags/LaTex/">
+<link rel="canonical" href="https://lsyxiaopang.github.io/2023/02/16/3Dmover/cncsheld/">
 
 
 <script id="page-configurations">
@@ -36,12 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Tag: LaTex | Songyuli's blog</title>
+  <title>在使用CNCSheld和GRBL的一些坑 | Songyuli's blog</title>
   
 
 
@@ -194,57 +199,117 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/16/3Dmover/cncsheld/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Songyuli">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songyuli's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          在使用CNCSheld和GRBL的一些坑
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-02-16 00:35:01 / Modified: 00:38:33" itemprop="dateCreated datePublished" datetime="2023-02-16T00:35:01+08:00">2023-02-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/3D%E4%BD%8D%E7%A7%BB%E6%B5%8B%E9%87%8F%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">3D位移测量平台设计</span></a>
+                </span>
+            </span>
+
+          
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">LaTex
-          <small>Tag</small>
-        </h2>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/02/16/3Dmover/cncsheld/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/02/16/3Dmover/cncsheld/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2023</span>
+        <p>在安装限位开关时,需要注意由于版本不对应,需要<strong>修改z限位开关接线</strong>,具体可以看<a target="_blank" rel="noopener" href="https://github.com/grbl/grbl/issues/1128">这篇文章</a></p>
+<p>GRBL的设定,应当参考<a target="_blank" rel="noopener" href="https://www.diymachining.com/downloads/GRBL_Settings_Pocket_Guide_Rev_B.pdf">这篇文档</a></p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-01-26T22:56:18+08:00"
-              content="2023-01-26">
-          01-26
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/3D%E4%BD%8D%E7%A7%BB%E5%B9%B3%E5%8F%B0/" rel="tag"># 3D位移平台</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/01/26/misc/graphviz/" itemprop="url">
-            <span itemprop="name">所思即所得,一些画图软件(包)介绍</span>
-          </a>
-      </div>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/02/14/python/pyinit/" rel="prev" title="库索引与编写__init__.py">
+      <i class="fa fa-chevron-left"></i> 库索引与编写__init__.py
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
-
-    </div>
-  </div>
   
   
-  
-
   
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -419,6 +484,26 @@
   }
   // defer loading until the whole page loading is completed
   window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://lsyxiaopang.github.io/2023/02/16/3Dmover/cncsheld/";
+    this.page.identifier = "2023/02/16/3Dmover/cncsheld/";
+    this.page.title = "在使用CNCSheld和GRBL的一些坑";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://UNICODE_STRING.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
 </script>
 
 </body>
