@@ -200,6 +200,99 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/05/control%20system/closecontrol2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Songyuli">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songyuli's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/02/05/control%20system/closecontrol2/" class="post-title-link" itemprop="url">关注闭环系统的控制系统设计(下)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-02-05 19:53:15 / Modified: 20:04:31" itemprop="dateCreated datePublished" datetime="2023-02-05T19:53:15+08:00">2023-02-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python%E8%AE%BE%E8%AE%A1%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">Python设计控制系统</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/02/05/control%20system/closecontrol2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/02/05/control system/closecontrol2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="使用模型匹配法进行增益调整"><a href="#使用模型匹配法进行增益调整" class="headerlink" title="使用模型匹配法进行增益调整"></a>使用模型匹配法进行增益调整</h2><p>所谓<strong>模型匹配法</strong>就是通过指定合适的<strong>标准模型</strong>$\mathcal{M}(s)$尽量的去模拟目标值到控制量的传递函数$\mathcal{G}_{yr}(s)$<br>标准模型往往采用<strong>二项式系数标准型</strong>和<strong>巴特沃斯标准型</strong><br>例如,二阶系统的标准模型为: </p>
+<script type="math/tex; mode=display">\mathcal{M}(s)=\frac{\omega_n^2}{s^2+2\zeta\omega_ns+\omega_n^2}</script><p>当我们将阻尼系数$\zeta$设为$\zeta=1$时,就是二项式系数标准型,设为$\zeta=\frac{1}{\sqrt{2}}$为巴特沃斯标准型<br>而无阻尼自然振荡频率$\omega_n$为决定快速性的参数,值越大控制系统启动上升越快  </p>
+<p>而对于三阶系统,其标准模型为</p>
+<script type="math/tex; mode=display">\mathcal{M}(s)=\frac{\omega_n^3}{s^3+\alpha_2\omega_ns^2+\alpha_1\omega_n^2s+\omega_n^3}</script><p>当$(\alpha_1,\alpha_2)=(3,3)$时这个模型为二项式系数标准型,当$(\alpha_1,\alpha_2)=(2,2)$时这个模型为巴特沃斯标准型<br>此外,还有<strong>ITAE最小标准型</strong>,其可以使误差绝对值的时间加权积分最小,即</p>
+<script type="math/tex; mode=display">\int_0^t\tau|e(\tau)|\mathrm{d}\tau</script><p>值最小,可以将$(\alpha_1,\alpha_2)=(2.15,1.75)$</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/02/05/control%20system/closecontrol2/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/05/misc/cpython/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1151,79 +1244,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/23/Pyerror/poetry/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Songyuli">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Songyuli's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/23/Pyerror/poetry/" class="post-title-link" itemprop="url">poetry</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2023-01-23 23:08:36 / Modified: 23:29:53" itemprop="dateCreated datePublished" datetime="2023-01-23T23:08:36+08:00">2023-01-23</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2023/01/23/Pyerror/poetry/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/23/Pyerror/poetry/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="利用poetry进行包管理"><a href="#利用poetry进行包管理" class="headerlink" title="利用poetry进行包管理"></a>利用poetry进行包管理</h1><p>今天我突发奇想:</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1293,7 +1313,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">35</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

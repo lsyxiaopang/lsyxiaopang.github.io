@@ -2198,4 +2198,19 @@ Along axis 1 is [ 6 15]
         <tag>3D位移平台</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Linux服务器配置日志3</title>
+    <url>/2023/02/16/Linux/linux-server3/</url>
+    <content><![CDATA[<p>今天配置了<code>samba</code>服务器,用来放一些共享文档便于查阅,这里记录一下过程以及遇到的问题</p>
+<h2 id="在Linux服务器上配置samba"><a href="#在Linux服务器上配置samba" class="headerlink" title="在Linux服务器上配置samba"></a>在Linux服务器上配置samba</h2><p><a href="https://phoenixnap.com/kb/ubuntu-samba">参考资料</a><br>需要注意到,<strong>尽量不要使用默认账户去访问</strong>,因此需要添加专门用来访问的账户<br>过程要先在<code>sudo adduser username</code>进行设定,再在<code>sudo smbpasswd -a new_user</code><br>同时,需要注意:<strong>在授权远程用户具有rwx权限前要先保证这个账户本地具有rwx权限</strong>,例如要分享一个文件夹,即使在samba的配置文件中授权了这个用户的访问,但如果用户自身没有修改等权限,那么即使远程连接上了samba,还是会提示缺乏权限</p>
+<h2 id="在Windows上连接samba"><a href="#在Windows上连接samba" class="headerlink" title="在Windows上连接samba"></a>在Windows上连接samba</h2><p>由于Windows服务器那个阴间的密码管理(个人感受),所以连接的时候不能简单地在运行里面输入或者”新建网络位置”,而是应当参考<a href="https://www.cnblogs.com/ssdq/p/12857316.html">这个方法</a>(不过如果是匿名只读用户应该不用担心)</p>
+<h2 id="Fish"><a href="#Fish" class="headerlink" title="Fish"></a>Fish</h2><p><a href="https://www.cnblogs.com/Masquer/p/13920104.html">看这里</a></p>
+]]></content>
+      <categories>
+        <category>Linux服务器</category>
+      </categories>
+      <tags>
+        <tag>Linux功能</tag>
+      </tags>
+  </entry>
 </search>

@@ -20,15 +20,20 @@
     var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Songyuli&#39;s blog">
-<meta property="og:url" content="https://lsyxiaopang.github.io/archives/2023/page/4/index.html">
+  <meta name="description" content="今天配置了samba服务器,用来放一些共享文档便于查阅,这里记录一下过程以及遇到的问题 在Linux服务器上配置samba参考资料需要注意到,尽量不要使用默认账户去访问,因此需要添加专门用来访问的账户过程要先在sudo adduser username进行设定,再在sudo smbpasswd -a new_user同时,需要注意:在授权远程用户具有rwx权限前要先保证这个账户本地具有rwx权限,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux服务器配置日志3">
+<meta property="og:url" content="https://lsyxiaopang.github.io/2023/02/16/Linux/linux-server3/index.html">
 <meta property="og:site_name" content="Songyuli&#39;s blog">
+<meta property="og:description" content="今天配置了samba服务器,用来放一些共享文档便于查阅,这里记录一下过程以及遇到的问题 在Linux服务器上配置samba参考资料需要注意到,尽量不要使用默认账户去访问,因此需要添加专门用来访问的账户过程要先在sudo adduser username进行设定,再在sudo smbpasswd -a new_user同时,需要注意:在授权远程用户具有rwx权限前要先保证这个账户本地具有rwx权限,">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-02-16T14:20:24.000Z">
+<meta property="article:modified_time" content="2023-02-16T14:22:01.527Z">
 <meta property="article:author" content="Songyuli">
+<meta property="article:tag" content="Linux功能">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://lsyxiaopang.github.io/archives/2023/page/4/">
+<link rel="canonical" href="https://lsyxiaopang.github.io/2023/02/16/Linux/linux-server3/">
 
 
 <script id="page-configurations">
@@ -36,12 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Archive | Songyuli's blog</title>
+  <title>Linux服务器配置日志3 | Songyuli's blog</title>
   
 
 
@@ -194,140 +199,119 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/16/Linux/linux-server3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Songyuli">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songyuli's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux服务器配置日志3
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-02-16 22:20:24 / Modified: 22:22:01" itemprop="dateCreated datePublished" datetime="2023-02-16T22:20:24+08:00">2023-02-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">Linux服务器</span></a>
+                </span>
+            </span>
+
+          
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        
-        <span class="collection-header">OK! 35 posts in total. Keep on posting.</span>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/02/16/Linux/linux-server3/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/02/16/Linux/linux-server3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2023</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-01-16T00:04:08+08:00"
-              content="2023-01-16">
-          01-16
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/01/16/3Dmover/3Dmove1/" itemprop="url">
-            <span itemprop="name">位移平台程序应当满足的功能</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-01-15T23:40:19+08:00"
-              content="2023-01-15">
-          01-15
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/01/15/control%20system/control1/" itemprop="url">
-            <span itemprop="name">控制系统建模</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-01-15T21:24:08+08:00"
-              content="2023-01-15">
-          01-15
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/01/15/maxi1820/maxi1/" itemprop="url">
-            <span itemprop="name">The results and the problems in fitting the spectrum of the maxi1820+70</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-01-15T13:25:56+08:00"
-              content="2023-01-15">
-          01-15
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/01/15/control%20system/control2/" itemprop="url">
-            <span itemprop="name">被控对象的行为</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-01-15T12:08:29+08:00"
-              content="2023-01-15">
-          01-15
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/01/15/Indexs/My-first-bolg/" itemprop="url">
-            <span itemprop="name">The index blog</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+        <p>今天配置了<code>samba</code>服务器,用来放一些共享文档便于查阅,这里记录一下过程以及遇到的问题</p>
+<h2 id="在Linux服务器上配置samba"><a href="#在Linux服务器上配置samba" class="headerlink" title="在Linux服务器上配置samba"></a>在Linux服务器上配置samba</h2><p><a target="_blank" rel="noopener" href="https://phoenixnap.com/kb/ubuntu-samba">参考资料</a><br>需要注意到,<strong>尽量不要使用默认账户去访问</strong>,因此需要添加专门用来访问的账户<br>过程要先在<code>sudo adduser username</code>进行设定,再在<code>sudo smbpasswd -a new_user</code><br>同时,需要注意:<strong>在授权远程用户具有rwx权限前要先保证这个账户本地具有rwx权限</strong>,例如要分享一个文件夹,即使在samba的配置文件中授权了这个用户的访问,但如果用户自身没有修改等权限,那么即使远程连接上了samba,还是会提示缺乏权限</p>
+<h2 id="在Windows上连接samba"><a href="#在Windows上连接samba" class="headerlink" title="在Windows上连接samba"></a>在Windows上连接samba</h2><p>由于Windows服务器那个阴间的密码管理(个人感受),所以连接的时候不能简单地在运行里面输入或者”新建网络位置”,而是应当参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/ssdq/p/12857316.html">这个方法</a>(不过如果是匿名只读用户应该不用担心)</p>
+<h2 id="Fish"><a href="#Fish" class="headerlink" title="Fish"></a>Fish</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Masquer/p/13920104.html">看这里</a></p>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux%E5%8A%9F%E8%83%BD/" rel="tag"># Linux功能</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/02/16/3Dmover/cncsheld/" rel="prev" title="在使用CNCSheld和GRBL的一些坑">
+      <i class="fa fa-chevron-left"></i> 在使用CNCSheld和GRBL的一些坑
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
   
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2023/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/archives/2023/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2023/page/3/">3</a><span class="page-number current">4</span>
-  </nav>
+  
+  
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -374,6 +358,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%85%8D%E7%BD%AEsamba"><span class="nav-number">1.</span> <span class="nav-text">在Linux服务器上配置samba</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8Windows%E4%B8%8A%E8%BF%9E%E6%8E%A5samba"><span class="nav-number">2.</span> <span class="nav-text">在Windows上连接samba</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fish"><span class="nav-number">3.</span> <span class="nav-text">Fish</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -502,6 +487,26 @@
   }
   // defer loading until the whole page loading is completed
   window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://lsyxiaopang.github.io/2023/02/16/Linux/linux-server3/";
+    this.page.identifier = "2023/02/16/Linux/linux-server3/";
+    this.page.title = "Linux服务器配置日志3";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://UNICODE_STRING.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
 </script>
 
 </body>
