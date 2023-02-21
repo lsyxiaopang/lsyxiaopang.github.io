@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="数据的优劣和有效信息量的多少是决定机器学习算法能够学的多好的核心要素,因此,我们在喂给机器学习算法之前确保去检查和预处理一个数据集非常重要,在这一章,我们将介绍以下内容:  移除和内插空白值 将分类数据整形为机器学习算法 为模型建构选择相关的特征">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对机器学习数据集进行处理和筛选">
+<meta property="og:url" content="https://lsyxiaopang.github.io/2023/02/22/machine-learning/goodtrainingsets/index.html">
+<meta property="og:site_name" content="Songyuli&#39;s blog">
+<meta property="og:description" content="数据的优劣和有效信息量的多少是决定机器学习算法能够学的多好的核心要素,因此,我们在喂给机器学习算法之前确保去检查和预处理一个数据集非常重要,在这一章,我们将介绍以下内容:  移除和内插空白值 将分类数据整形为机器学习算法 为模型建构选择相关的特征">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/02/22/machine-learning/goodtrainingsets/image-20230222003147893.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/02/22/machine-learning/goodtrainingsets/1.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/02/22/machine-learning/goodtrainingsets/2.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/02/22/machine-learning/goodtrainingsets/goodtrainingsets/3.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/02/22/machine-learning/goodtrainingsets/goodtrainingsets_68_0.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/02/22/machine-learning/goodtrainingsets/goodtrainingsets_files/goodtrainingsets_73_0.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/02/22/machine-learning/goodtrainingsets/goodtrainingsets_76_0.png">
+<meta property="article:published_time" content="2023-02-21T16:28:15.000Z">
+<meta property="article:modified_time" content="2023-02-21T16:32:19.750Z">
+<meta property="article:author" content="Songyuli">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lsyxiaopang.github.io/2023/02/22/machine-learning/goodtrainingsets/image-20230222003147893.png">
+
+<link rel="canonical" href="https://lsyxiaopang.github.io/2023/02/22/machine-learning/goodtrainingsets/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>对机器学习数据集进行处理和筛选 | Songyuli's blog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a7a854a00bb6d149dfb94eb16e7c9fdf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Songyuli's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/lsyxiaopang" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/22/machine-learning/goodtrainingsets/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Songyuli">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songyuli's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          对机器学习数据集进行处理和筛选
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-02-22 00:28:15 / Modified: 00:32:19" itemprop="dateCreated datePublished" datetime="2023-02-22T00:28:15+08:00">2023-02-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/02/22/machine-learning/goodtrainingsets/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/02/22/machine-learning/goodtrainingsets/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>数据的优劣和有效信息量的多少是决定机器学习算法能够学的多好的核心要素,因此,我们在喂给机器学习算法之前确保去检查和预处理一个数据集非常重要,在这一章,我们将介绍以下内容:</p>
+<ol>
+<li>移除和内插空白值</li>
+<li>将分类数据整形为机器学习算法</li>
+<li>为模型建构选择相关的特征<span id="more"></span>
+</li>
+</ol>
+<h2 id="处理丢失的数据"><a href="#处理丢失的数据" class="headerlink" title="处理丢失的数据"></a>处理丢失的数据</h2><p>在现实生活中的数据集中,数据丢失并不罕见,这些可能来自于数据收集过程中的错误,一部分无法实现的测量或者对于调查而言一部分值空白之类.<br>我们一般会看到这些缺失值为<code>NaN</code>或者如<code>NULL</code><br>不幸的是,许多计算工具无法处理缺失值,或者会给出一些非常诡异的答案,因此我们必须亲自去处理这些问题</p>
+<h3 id="在表格数据中找到缺失值"><a href="#在表格数据中找到缺失值" class="headerlink" title="在表格数据中找到缺失值"></a>在表格数据中找到缺失值</h3><p>在开始讨论之前,我们首先来”自制”一个CSV文件以更好地展示这个问题</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> StringIO</span><br><span class="line"></span><br><span class="line">csv_data=\</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;A,B,C,D</span></span><br><span class="line"><span class="string">    1,2,3,4</span></span><br><span class="line"><span class="string">    5,6,,8</span></span><br><span class="line"><span class="string">    10,11,12,&#x27;&#x27;&#x27;</span></span><br><span class="line">df=pd.read_csv(StringIO(csv_data))</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<p>&lt;/style&gt;</p>
+<p><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3.0</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5</td>
+      <td>6</td>
+      <td>NaN</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>10</td>
+      <td>11</td>
+      <td>12.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table><br>&lt;/div&gt;</p>
+<p>处理缺失值的前提自然是找到缺失值,但是在一个可能非常巨大的CSV文件里面人工去找缺失值很不现实,我们可以使用<code>isnull</code>来将一个<code>DataFrame</code>转化为相应的布尔数组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.isnull().<span class="built_in">sum</span>()</span><br></pre></td></tr></table></figure>
+<pre><code>A    0
+B    0
+C    1
+D    1
+dtype: int64
+</code></pre><p>可以看到,C列和D列各有一个缺失值  </p>
+<blockquote>
+<p>需要注意到的是,<code>DataFrame</code>更加适合于数据的处理,但是机器学习所用的数据往往是以<code>Ndarray</code>的形式出现的,我们可以使用<code>df.values</code>实现这一转换</p>
+</blockquote>
+<h3 id="删除具有缺失值的样本或特征"><a href="#删除具有缺失值的样本或特征" class="headerlink" title="删除具有缺失值的样本或特征"></a>删除具有缺失值的样本或特征</h3><p>对付缺失值,最简单的方法莫过于是直接将其删除,我们可以使用<code>dropna</code>将存在缺失值的行或列删除</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.dropna(axis=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3.0</td>
+      <td>4.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.dropna(axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>10</td>
+      <td>11</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>当然,<code>dropna</code>也支持其他选项,下面有几个比较重要的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.dropna(how=<span class="string">&quot;all&quot;</span>)<span class="comment">#只有全部缺失才删除</span></span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3.0</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5</td>
+      <td>6</td>
+      <td>NaN</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>10</td>
+      <td>11</td>
+      <td>12.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.dropna(thresh=<span class="number">4</span>)<span class="comment">#删除有效值小于4个</span></span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3.0</td>
+      <td>4.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.dropna(subset=[<span class="string">&#x27;C&#x27;</span>])<span class="comment">#只考虑C列的nan要删除</span></span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3.0</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>10</td>
+      <td>11</td>
+      <td>12.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>虽然删除缺失值非常方便,但也伴随着一些问题,我们可能会丢失太多的数据.<br>因此,我们接下来要看看最为常用的内插法处理缺失值的方法</p>
+<h3 id="计算缺失值"><a href="#计算缺失值" class="headerlink" title="计算缺失值"></a>计算缺失值</h3><p>一般而言,将缺失值全部去掉并不现实,我们这里则是采用内插处理</p>
+<p>在内插中最为常见的莫过于<strong>平均值内插</strong>,我们就将缺失值替换为整个特征的平均值,这么做有一个简单的方法就是使用<code>Imputer</code>类,就像下面所展示的那样</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.impute <span class="keyword">import</span> SimpleImputer<span class="comment">#!0.22版本以上需要使用SimpleImputer代替</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">imr=SimpleImputer(missing_values=np.nan,strategy=<span class="string">&#x27;mean&#x27;</span>)</span><br><span class="line">imr=imr.fit(df.values)</span><br><span class="line">imputed_data=imr.transform(df.values)</span><br><span class="line">imputed_data</span><br></pre></td></tr></table></figure>
+<pre><code>array([[ 1. ,  2. ,  3. ,  4. ],
+       [ 5. ,  6. ,  7.5,  8. ],
+       [10. , 11. , 12. ,  6. ]])
+</code></pre><p>可以注意到,每一处的<code>NaN</code>都已经被相应的平均值所替换了,这种手段在分类数据中非常有用</p>
+<h3 id="理解scikit-learn中的估计API"><a href="#理解scikit-learn中的估计API" class="headerlink" title="理解scikit-learn中的估计API"></a>理解<code>scikit-learn</code>中的估计API</h3><p>在之前的部分中,我们采用<code>SimpleImputer</code>类来计算我们数据集中的缺失值,这在<code>scikit-learn</code>类中被称作<strong>转换类</strong><br>转换类中最为重要的两个方法就是<code>fit</code>和<code>transform</code>,实际上,这和我们之前所学的分类数据很像,主要区别在于我们这里的训练集和测试集都要经过相同的处理(但是<code>fit</code>过程还是要用训练集),如图所示:<br><img src="image-20230222003147893.png" alt="image-20230222003147893"></p>
+<h2 id="处理分类数据"><a href="#处理分类数据" class="headerlink" title="处理分类数据"></a>处理分类数据</h2><p>到目前为止,我们处理的还主要是数值数据,但是在现实生活中一个或多个分类数据并不少见,在这一部分,我们将用一些简单而有效的例子来展现我们应当如何处理这类数据.</p>
+<h3 id="可排序与不可排序的特征"><a href="#可排序与不可排序的特征" class="headerlink" title="可排序与不可排序的特征"></a>可排序与不可排序的特征</h3><p>如果我们在讨论分类数据时,我们往往会进一步将其分为可排序和不可排序的特征</p>
+<p>可排序特征比如我们可以认为超大号&gt;大号&gt;中号&gt;小号来对衣服尺码的分类来进行排序,但是显然我们无法对一些特征例如男性或女性这样的特征进行排序</p>
+<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3><h3 id="创建一个示例数据集"><a href="#创建一个示例数据集" class="headerlink" title="创建一个示例数据集"></a>创建一个示例数据集</h3><p>在我们探索处理这样的分类数据前,我们首先先创建一个用来展现问题的数据集</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">df=pd.DataFrame([</span><br><span class="line">    [<span class="string">&#x27;green&#x27;</span>,<span class="string">&#x27;M&#x27;</span>,<span class="number">10.1</span>,<span class="string">&#x27;class1&#x27;</span>],</span><br><span class="line">    [<span class="string">&#x27;red&#x27;</span>,<span class="string">&#x27;L&#x27;</span>,<span class="number">13.5</span>,<span class="string">&#x27;class2&#x27;</span>],</span><br><span class="line">    [<span class="string">&#x27;blue&#x27;</span>,<span class="string">&#x27;XL&#x27;</span>,<span class="number">15.3</span>,<span class="string">&#x27;class1&#x27;</span>]</span><br><span class="line">    ])</span><br><span class="line">df.columns=[<span class="string">&#x27;color&#x27;</span>,<span class="string">&#x27;size&#x27;</span>,<span class="string">&#x27;price&#x27;</span>,<span class="string">&#x27;classlabel&#x27;</span>]</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>color</th>
+      <th>size</th>
+      <th>price</th>
+      <th>classlabel</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>green</td>
+      <td>M</td>
+      <td>10.1</td>
+      <td>class1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>red</td>
+      <td>L</td>
+      <td>13.5</td>
+      <td>class2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>blue</td>
+      <td>XL</td>
+      <td>15.3</td>
+      <td>class1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>我们可以看到,刚刚创建的<code>DataFrame</code>包含一个不可排序的特征,一个可以排序的特征<br>而分类标签则是被储存在了最后一列<br>在我们所使用的学习算法中,并不会使用到标签的先后顺序</p>
+<h3 id="映射可排序特征"><a href="#映射可排序特征" class="headerlink" title="映射可排序特征"></a>映射可排序特征</h3><p>为了保证学习算法可以准确地解释排序特征,我们需要将分类标签字符串转化为整数<br>不幸的是,没有可以从标签直接方便地转变成数字的方法,因此我们需要手动去定义映射</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">size_mapping=&#123;</span><br><span class="line">    <span class="string">&#x27;XL&#x27;</span>:<span class="number">3</span>,</span><br><span class="line">    <span class="string">&#x27;L&#x27;</span>:<span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;M&#x27;</span>:<span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line">df[<span class="string">&#x27;size&#x27;</span>]=df[<span class="string">&#x27;size&#x27;</span>].<span class="built_in">map</span>(size_mapping)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>color</th>
+      <th>size</th>
+      <th>price</th>
+      <th>classlabel</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>green</td>
+      <td>1</td>
+      <td>10.1</td>
+      <td>class1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>red</td>
+      <td>2</td>
+      <td>13.5</td>
+      <td>class2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>blue</td>
+      <td>3</td>
+      <td>15.3</td>
+      <td>class1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>可以看到<code>size</code>特征已经被完全地分割了,而假如最后我们希望其再替换回原来的字符串标签,我们可以使用制作一个反映射字典,其做法并不困难,用生成器非常方便</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">inv_mapping=&#123;v:k <span class="keyword">for</span> k,v <span class="keyword">in</span> size_mapping.items()&#125;</span><br><span class="line">df[<span class="string">&#x27;size&#x27;</span>].<span class="built_in">map</span>(inv_mapping)</span><br></pre></td></tr></table></figure>
+<pre><code>0     M
+1     L
+2    XL
+Name: size, dtype: object
+</code></pre><h3 id="编码类标签"><a href="#编码类标签" class="headerlink" title="编码类标签"></a>编码类标签</h3><p>许多机器学习库需要编码成正整数的类标签(虽然也有很大一部分在内部执行这一工作)<br>为了给类标签编码,我们可以用前一部分的方式,但是我们同样也要记住,此处的标签是<strong>不可排序</strong>的,因此我们只需要简单地枚举类标签(从0开始)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">class_mapping=&#123;label:idx <span class="keyword">for</span> idx,label <span class="keyword">in</span> <span class="built_in">enumerate</span>(np.unique(df[<span class="string">&#x27;classlabel&#x27;</span>]))&#125;</span><br><span class="line">class_mapping</span><br></pre></td></tr></table></figure>
+<pre><code>&#123;&#39;class1&#39;: 0, &#39;class2&#39;: 1&#125;
+</code></pre><p>接下来,我们就可以将类标签转换为整数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">&#x27;classlabel&#x27;</span>]=df[<span class="string">&#x27;classlabel&#x27;</span>].<span class="built_in">map</span>(class_mapping)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>color</th>
+      <th>size</th>
+      <th>price</th>
+      <th>classlabel</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>green</td>
+      <td>1</td>
+      <td>10.1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>red</td>
+      <td>2</td>
+      <td>13.5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>blue</td>
+      <td>3</td>
+      <td>15.3</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>我们也可以像之前那样翻转键值对以达到返回原来表示形式的目的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">inv_mapping=&#123;v:k <span class="keyword">for</span> k,v <span class="keyword">in</span> class_mapping.items()&#125;</span><br><span class="line">df[<span class="string">&#x27;classlabel&#x27;</span>]=df[<span class="string">&#x27;classlabel&#x27;</span>].<span class="built_in">map</span>(inv_mapping)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>color</th>
+      <th>size</th>
+      <th>price</th>
+      <th>classlabel</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>green</td>
+      <td>1</td>
+      <td>10.1</td>
+      <td>class1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>red</td>
+      <td>2</td>
+      <td>13.5</td>
+      <td>class2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>blue</td>
+      <td>3</td>
+      <td>15.3</td>
+      <td>class1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>相应的,在机器学习库中也有一个<code>LabelEncoder</code>类也可以直接实现这个目的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEncoder</span><br><span class="line">class_le=LabelEncoder()</span><br><span class="line">y=class_le.fit_transform(df[<span class="string">&#x27;classlabel&#x27;</span>].values)</span><br><span class="line">y</span><br></pre></td></tr></table></figure>
+<pre><code>array([0, 1, 0])
+</code></pre><p>需要注意的是<code>fit_transform</code>就是简单地先后依次调用<code>fit</code>和<code>transform</code>,接下来我们可以使用<code>inverse_transform</code>将整数类标签再转换为原来的字符串表示</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class_le.inverse_transform(y)</span><br></pre></td></tr></table></figure>
+<pre><code>array([&#39;class1&#39;, &#39;class2&#39;, &#39;class1&#39;], dtype=object)
+</code></pre><h3 id="在不可排序特征使用”单一热源”-one-hot-编码方式"><a href="#在不可排序特征使用”单一热源”-one-hot-编码方式" class="headerlink" title="在不可排序特征使用”单一热源”(one-hot)编码方式"></a>在不可排序特征使用”单一热源”(one-hot)编码方式</h3><p>在我们之前的部分中,我们采用的是一个简单的字典映射的方法进行编码<br>但是这存在一个问题,倘使我们采用这样的编码形式,那么即使我们认为各个数之间不存在大小关系,但是学习算法不会那么想,这会导致一些错误</p>
+<p>一种常见的解决方法是采用一种被称作”单一热源编码”(one-hot)的方式,其原理是为每一个特定的分类创建一个新的特征</p>
+<blockquote>
+<p>比如说颜色,从原来的颜色(红绿蓝),变成三个特征(是否是红,是否是绿,是否是蓝)</p>
+</blockquote>
+<p>我们可以使用<code>OneHotEncoder</code>实现这个功能</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[[<span class="string">&#x27;color&#x27;</span>,<span class="string">&#x27;size&#x27;</span>,<span class="string">&#x27;price&#x27;</span>]].values</span><br></pre></td></tr></table></figure>
+<pre><code>array([[&#39;green&#39;, 1, 10.1],
+       [&#39;red&#39;, 2, 13.5],
+       [&#39;blue&#39;, 3, 15.3]], dtype=object)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> OneHotEncoder</span><br><span class="line">ohe=OneHotEncoder()</span><br><span class="line">ohe.fit_transform(df[[<span class="string">&#x27;color&#x27;</span>]].values).toarray()</span><br></pre></td></tr></table></figure>
+<pre><code>array([[0., 1., 0.],
+       [0., 0., 1.],
+       [1., 0., 0.]])
+</code></pre><blockquote>
+<p>需要注意一下,如果我们希望在这里对于一整个数据集中的部分类施加这一方法,在书中的版本中,采用的是<code>categorical_features</code>这一关键字参数,但是这个参数在现在的版本中已经被废除,因此应当采用以下形式</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.compose <span class="keyword">import</span> ColumnTransformer</span><br><span class="line">X=df[[<span class="string">&#x27;color&#x27;</span>,<span class="string">&#x27;size&#x27;</span>,<span class="string">&#x27;price&#x27;</span>]].values</span><br><span class="line">color_en=ColumnTransformer([(<span class="string">&quot;Test Transform&quot;</span>,OneHotEncoder(),[<span class="number">0</span>])],remainder=<span class="string">&#x27;passthrough&#x27;</span>)</span><br><span class="line">X=color_en.fit_transform(X)</span><br><span class="line">X</span><br></pre></td></tr></table></figure>
+<pre><code>array([[0.0, 1.0, 0.0, 1, 10.1],
+       [0.0, 0.0, 1.0, 2, 13.5],
+       [1.0, 0.0, 0.0, 3, 15.3]], dtype=object)
+</code></pre><p>当然,我们处理这个还有更加方便的方法,就是使用<code>get_dummies</code>方法(<code>pandas</code>内置)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.get_dummies(df[[<span class="string">&#x27;price&#x27;</span>,<span class="string">&#x27;color&#x27;</span>,<span class="string">&#x27;size&#x27;</span>]])</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>price</th>
+      <th>size</th>
+      <th>color_blue</th>
+      <th>color_green</th>
+      <th>color_red</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>10.1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>13.5</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>15.3</td>
+      <td>3</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p><strong>注意,这个方法只会修改以字符串为内容的列,其他列不变</strong></p>
+<h2 id="将数据集分割成训练集和测试集"><a href="#将数据集分割成训练集和测试集" class="headerlink" title="将数据集分割成训练集和测试集"></a>将数据集分割成训练集和测试集</h2><p>我们之前曾经简单描述过如何将训练集进行分割,在这一部分,我们将准备一个全新的测试集<code>Wine</code>,这里面有178个酒类数据,每个有13个特征</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df=pd.read_csv(<span class="string">&quot;https://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.data&quot;</span></span><br><span class="line">               ,header=<span class="literal">None</span>)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>10</th>
+      <th>11</th>
+      <th>12</th>
+      <th>13</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>14.23</td>
+      <td>1.71</td>
+      <td>2.43</td>
+      <td>15.6</td>
+      <td>127</td>
+      <td>2.80</td>
+      <td>3.06</td>
+      <td>0.28</td>
+      <td>2.29</td>
+      <td>5.64</td>
+      <td>1.04</td>
+      <td>3.92</td>
+      <td>1065</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>13.20</td>
+      <td>1.78</td>
+      <td>2.14</td>
+      <td>11.2</td>
+      <td>100</td>
+      <td>2.65</td>
+      <td>2.76</td>
+      <td>0.26</td>
+      <td>1.28</td>
+      <td>4.38</td>
+      <td>1.05</td>
+      <td>3.40</td>
+      <td>1050</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>13.16</td>
+      <td>2.36</td>
+      <td>2.67</td>
+      <td>18.6</td>
+      <td>101</td>
+      <td>2.80</td>
+      <td>3.24</td>
+      <td>0.30</td>
+      <td>2.81</td>
+      <td>5.68</td>
+      <td>1.03</td>
+      <td>3.17</td>
+      <td>1185</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>14.37</td>
+      <td>1.95</td>
+      <td>2.50</td>
+      <td>16.8</td>
+      <td>113</td>
+      <td>3.85</td>
+      <td>3.49</td>
+      <td>0.24</td>
+      <td>2.18</td>
+      <td>7.80</td>
+      <td>0.86</td>
+      <td>3.45</td>
+      <td>1480</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>13.24</td>
+      <td>2.59</td>
+      <td>2.87</td>
+      <td>21.0</td>
+      <td>118</td>
+      <td>2.80</td>
+      <td>2.69</td>
+      <td>0.39</td>
+      <td>1.82</td>
+      <td>4.32</td>
+      <td>1.04</td>
+      <td>2.93</td>
+      <td>735</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>173</th>
+      <td>3</td>
+      <td>13.71</td>
+      <td>5.65</td>
+      <td>2.45</td>
+      <td>20.5</td>
+      <td>95</td>
+      <td>1.68</td>
+      <td>0.61</td>
+      <td>0.52</td>
+      <td>1.06</td>
+      <td>7.70</td>
+      <td>0.64</td>
+      <td>1.74</td>
+      <td>740</td>
+    </tr>
+    <tr>
+      <th>174</th>
+      <td>3</td>
+      <td>13.40</td>
+      <td>3.91</td>
+      <td>2.48</td>
+      <td>23.0</td>
+      <td>102</td>
+      <td>1.80</td>
+      <td>0.75</td>
+      <td>0.43</td>
+      <td>1.41</td>
+      <td>7.30</td>
+      <td>0.70</td>
+      <td>1.56</td>
+      <td>750</td>
+    </tr>
+    <tr>
+      <th>175</th>
+      <td>3</td>
+      <td>13.27</td>
+      <td>4.28</td>
+      <td>2.26</td>
+      <td>20.0</td>
+      <td>120</td>
+      <td>1.59</td>
+      <td>0.69</td>
+      <td>0.43</td>
+      <td>1.35</td>
+      <td>10.20</td>
+      <td>0.59</td>
+      <td>1.56</td>
+      <td>835</td>
+    </tr>
+    <tr>
+      <th>176</th>
+      <td>3</td>
+      <td>13.17</td>
+      <td>2.59</td>
+      <td>2.37</td>
+      <td>20.0</td>
+      <td>120</td>
+      <td>1.65</td>
+      <td>0.68</td>
+      <td>0.53</td>
+      <td>1.46</td>
+      <td>9.30</td>
+      <td>0.60</td>
+      <td>1.62</td>
+      <td>840</td>
+    </tr>
+    <tr>
+      <th>177</th>
+      <td>3</td>
+      <td>14.13</td>
+      <td>4.10</td>
+      <td>2.74</td>
+      <td>24.5</td>
+      <td>96</td>
+      <td>2.05</td>
+      <td>0.76</td>
+      <td>0.56</td>
+      <td>1.35</td>
+      <td>9.20</td>
+      <td>0.61</td>
+      <td>1.60</td>
+      <td>560</td>
+    </tr>
+  </tbody>
+</table>
+<p>178 rows × 14 columns</p>
+</div>
+
+
+
+<p>将这个分割成分别的训练集和测试集是使用<code>train_test_split</code>函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line">X,y=df.iloc[:,<span class="number">1</span>:].values,df.iloc[:,<span class="number">0</span>].values</span><br><span class="line">X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=<span class="number">0.3</span>,random_state=<span class="number">0</span>,stratify=y)</span><br></pre></td></tr></table></figure>
+<p>在这一步中,我们首先将数据中的特征与分类标签区分开来,然后随机划分30%的测试集,向<code>stratify</code>参数中输入标签是为了保证三种不同的标签都等量的被选中</p>
+<blockquote>
+<p>我们需要注意到,应当尽量避免出现在划分数据集时去掉了有价值的内容,因此,我们可能要选取多次划分</p>
+</blockquote>
+<h2 id="将特征归一化"><a href="#将特征归一化" class="headerlink" title="将特征归一化"></a>将特征归一化</h2><p>在我们的处理流程中,<strong>特征重放缩</strong>是一个非常容易被忘掉,但是也非常重要的一步.只有非常少见的算法(决策树和随机森林)不需要考虑重放缩的问题<br>这里我们利用梯度下降法进行机器学习来展示这种技术的效果</p>
+<p>归一化的效果非常容易想象,比如有两个特征,一个范围0~1,一个范围0~10000,那么如果我们不进行归一化,毫无疑问,算法会主要处理后面那个特征.</p>
+<p>而对于将不同的特征带到同样一个范围有两种常用的方式:归一化(<strong>normalization</strong>)和标准化(<strong>standardization</strong>),但这两种说法经常被混用,需要注意.往往归一化是将特征转换到[0,1]的范围中,使用的叫<strong>最大-最小缩放</strong>,计算公式也非常简单</p>
+<script type="math/tex; mode=display">x_{norm}^{(i)}=\frac{x^{(i)}-x_{min}}{x_{max}-x_{min}}</script><p>代码则如下所示</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> MinMaxScaler</span><br><span class="line">mms=MinMaxScaler()</span><br><span class="line">X_train_norm=mms.fit_transform(X_train)</span><br><span class="line">X_test_norm=mms.transform(X_test)</span><br></pre></td></tr></table></figure>
+<p>虽然这种最大-最小放缩在我们已知范围的数据区间内非常有用,但是<strong>标准化</strong>在许多机器学习内容中更加重要,尤其是优化算法比如梯度下降法.通过标准化,我们可以将特征集中到以0为均值,1为标准差的方位之内.<br>另外,标准化还有一个很大的好处,就是它不是那么容易受到极值的影响<br>标准化的流程可以用下式来表示:</p>
+<script type="math/tex; mode=display">x_{std}^{(i)}=\frac{x^{(i)}-\mu_x}{\sigma_x}</script><p>我们可以使用以下代码来执行标准化过程</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line">stdsc=StandardScaler()</span><br><span class="line">X_train_std=stdsc.fit_transform(X_train)</span><br><span class="line">X_test_std=stdsc.transform(X_test)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们这里仍然需要注意,<code>StandardScaler</code>在使用过程中只能<code>fit</code>一次</p>
+</blockquote>
+<h2 id="挑选有价值的信息"><a href="#挑选有价值的信息" class="headerlink" title="挑选有价值的信息"></a>挑选有价值的信息</h2><p>如果我们发现一个模型在训练集上的效果<strong>远优于</strong>测试集,那么这就意味着很有可能发生了过拟合,这样的模型收到噪音的影响太大,泛化性不好.可能的原因是使用的模型太过于复杂,常见的解决方案如下:</p>
+<ol>
+<li>选取更多的训练数据</li>
+<li>使用正则化为过度复杂的情况引入惩罚</li>
+<li>选取一个更加简单的模型</li>
+<li>减少数据的维数<br>接下来的部分我们将介绍如何通过选取特征实现降维和正则化,能给我们带来更加简单的模型</li>
+</ol>
+<h3 id="L1和L2正则化作为模型复杂度代价"><a href="#L1和L2正则化作为模型复杂度代价" class="headerlink" title="L1和L2正则化作为模型复杂度代价"></a>L1和L2正则化作为模型复杂度代价</h3><p>我们之前提到过一种正则化方法可以实现对模型的简化,通过加上一项<strong>L2模</strong></p>
+<script type="math/tex; mode=display">L2:||\omega||^2_2=\sum_{j=1}^m\omega_j^2</script><p>另外一种降低模型复杂度的方法则被称作为L1正则化:</p>
+<script type="math/tex; mode=display">L1:||\omega||_1=\sum_{j=1}^{m}|\omega_j|</script><p>相较于L2正则化,L1正则化更加适合稀疏的特征(大部分的特征向量中值为0),在这种考虑下,L1正则化可以被看作是一种<strong>特征选取的技术</strong></p>
+<h3 id="L2正则化的一种几何化解读"><a href="#L2正则化的一种几何化解读" class="headerlink" title="L2正则化的一种几何化解读"></a>L2正则化的一种几何化解读</h3><p>正如之前所描述的那样,L2正则化向代价函数中添加了代价项,在研究L1之前,我们先来看看正则化的几何解释</p>
+<p>我们首先在$\omega_1$和$\omega_2$两个轴上绘制一个凸函数,在这里,我们将考量<strong>方均根误差</strong>(SSE),因为这种方法的计算要比使用logistic回归的方式方便很多,但是两者的理念是相同的.,我们需要记住我们要找到的是满足权重较小且误差小的结合,就像在下图中展现的那样<br><img src="1.png" alt="1.png"><br>那么,我们可以认为正则化是在尽量的鼓励较小的权重,因此,通过添加正则化参量,我们让最佳点靠近原点<br><img src="2.png" alt="2.png"><br>此时$\lambda$可以用来描述这个圆有多重要,倘使$\lambda$非常大,那么这个圆就会变小</p>
+<h3 id="使用L1正则化分散解"><a href="#使用L1正则化分散解" class="headerlink" title="使用L1正则化分散解"></a>使用L1正则化分散解</h3><p>现在,我们来讨论L1正则化的结果,虽然有点类似,但是我们需要知道L1正则化是直接绝对值求和,因此可以表示为一个菱形而不是一个圆<br><img src="goodtrainingsets/3.png" alt="png"></p>
+<p>在前面那张图中,我们可以注意到代价函数的等高线与L1菱形相交(在$\omega_1=0$处),既然L1正则系统比较尖锐,那么我们可以推断最为理想的状态应当是位于轴上,此时$\omega_1=0$,这就增强了稀疏性<br>而对于正则化支持L1正则化后的模型,我们可以简单地将<code>penalty</code>参数设定为<code>l1</code></p>
+<blockquote>
+<p>注意,在这么做时,要将<code>dual</code>设为<code>False</code>,要将<code>solver</code>设为<code>liblinear</code></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line">LogisticRegression(penalty=<span class="string">&#x27;l1&#x27;</span>,dual=<span class="literal">False</span>,solver=<span class="string">&#x27;liblinear&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>我们将这个方法运用到刚才那个酒类的例子之中,我们可以得到这样的分散解</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lr=LogisticRegression(penalty=<span class="string">&#x27;l1&#x27;</span>,C=<span class="number">1.0</span>,dual=<span class="literal">False</span>,solver=<span class="string">&#x27;liblinear&#x27;</span>)</span><br><span class="line">lr.fit(X_train_std,y_train)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Training accuracy:&#x27;</span>,lr.score(X_train_std,y_train))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Test accuracy:&#x27;</span>,lr.score(X_test_std,y_test))</span><br></pre></td></tr></table></figure>
+<pre><code>Training accuracy: 1.0
+Test accuracy: 1.0
+</code></pre><p>可以看到,我们的模型对训练集和测试集都有着完美的描述,接下来我们可以看一看训练的结果参数<br>其中包含了截距和参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;The w0 is &quot;</span>,lr.intercept_)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;The wi is&quot;</span>,lr.coef_)</span><br></pre></td></tr></table></figure>
+<pre><code>The w0 is  [-1.26382301 -1.21599452 -2.36990903]
+The wi is [[ 1.24557242  0.18072145  0.74571775 -1.1636765   0.          0.
+   1.16100096  0.          0.          0.          0.          0.55564141
+   2.50903545]
+ [-1.53717924 -0.38698786 -0.99501331  0.36448555 -0.05940712  0.
+   0.66768246  0.          0.         -1.93424305  1.23445191  0.
+  -2.23163889]
+ [ 0.13578242  0.16856474  0.35719175  0.          0.          0.
+  -2.43795819  0.          0.          1.56376444 -0.81884123 -0.4924925
+   0.        ]]
+</code></pre><p>作为L1正则化的结果,我们可以看到存在一些可能与我们的推断不相关的参数.虽然前面的那个例子可能并不是非常的稀疏,因为里面仍然包含了许多的非零参数,但是我们也可以通过加大<code>C</code>的方式使得正则化强度增加</p>
+<p>而对于在这一部分的最后一个例子,我们将展现随着C的逐渐增大,正则化参数的效果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">fig=plt.figure()</span><br><span class="line">ax=plt.subplot(<span class="number">111</span>)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">line_gen</span>():  </span><br><span class="line">    <span class="string">&quot;&quot;&quot;line_gen 产生不超过九个线形</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Yields</span></span><br><span class="line"><span class="string">    ------</span></span><br><span class="line"><span class="string">    str</span></span><br><span class="line"><span class="string">        产生得到线形的字符串</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span>    </span><br><span class="line">    line_shapes=[<span class="string">&quot;-&quot;</span>,<span class="string">&quot;--&quot;</span>,<span class="string">&quot;-.&quot;</span>,<span class="string">&quot;-*&quot;</span>]</span><br><span class="line">    line_cols=[<span class="string">&quot;r&quot;</span>,<span class="string">&quot;g&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;y&quot;</span>,<span class="string">&quot;o&quot;</span>]</span><br><span class="line">    <span class="keyword">for</span> line_shape <span class="keyword">in</span> line_shapes:</span><br><span class="line">        <span class="keyword">for</span> line_col <span class="keyword">in</span> line_cols:</span><br><span class="line">            <span class="keyword">yield</span> line_col+line_shape</span><br><span class="line"></span><br><span class="line">weights,params=[],[]</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> np.arange(-<span class="number">4.</span>,<span class="number">6.</span>):</span><br><span class="line">    lr=LogisticRegression(penalty=<span class="string">&#x27;l1&#x27;</span>,C=<span class="number">10</span>**c,solver=<span class="string">&#x27;liblinear&#x27;</span>,random_state=<span class="number">0</span>)</span><br><span class="line">    lr.fit(X_train_std,y_train)</span><br><span class="line">    weights.append(lr.coef_[<span class="number">1</span>])</span><br><span class="line">    params.append(<span class="number">10</span>**c)</span><br><span class="line">weights=np.array(weights)   </span><br><span class="line">lg=line_gen()</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> <span class="built_in">range</span>(weights.shape[<span class="number">1</span>]):</span><br><span class="line">    plt.plot(params,weights[:,c],<span class="built_in">next</span>(lg),label=df.columns[c+<span class="number">1</span>])</span><br><span class="line">plt.xlim([<span class="number">10</span>**(-<span class="number">5</span>),<span class="number">10</span>**<span class="number">5</span>])</span><br><span class="line">plt.ylabel(<span class="string">&quot;weighr coeff&quot;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;C&#x27;</span>)</span><br><span class="line">plt.xscale(<span class="string">&quot;log&quot;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;upper left&#x27;</span>)</span><br><span class="line">ax.legend(loc=<span class="string">&quot;best&quot;</span>,fancybox=<span class="literal">True</span>,ncol=<span class="number">1</span>)</span><br><span class="line">ax.grid(<span class="literal">True</span>,<span class="string">&#x27;both&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>​<br><img src="goodtrainingsets_68_0.png" alt="png"><br>​    </p>
+<p>我们可以看到如果我们将<code>C</code>设置很小(相当于很高的正则化参数),那么各个参数将会趋向0</p>
+<h2 id="序列特征选择算法"><a href="#序列特征选择算法" class="headerlink" title="序列特征选择算法"></a>序列特征选择算法</h2><p>另外一种降低模型复杂度并且避免过拟合的手段是<strong>降维法</strong>,常见有两种降维的手段:特征选取和特征提取,使用前者我们会得到特征的一个子集,使用后者我们则会得到一个全新的特征空间</p>
+<p>在这一部分中,我们将讨论一个特征选择算法中传统的一族.</p>
+<p>序列特征选择算法是一种贪心算法,其目的在于选取出与与问题关联程度最高的子集,可以提高计算效率并且降低误差的影响</p>
+<p>一个经典的序列特征选择算法是<strong>序列后向选择(SBS)</strong>,其目的在于减少初始特征子空间位数,而SBS在模型面临过拟合的困境时,还可以提高模型的说服力.</p>
+<p>SBS算法背后的思想非常简单,SBS一步步减少特征直到最后拥有指定数量,而为了判断移除特征的顺序,我们需要定义一个标准函数$J$达到最小值,这个函数可以简单地认为是保留这个特征和删除这个特征训练效果之差,也就是说让这个函数最小的特征可以被看作是<strong>最不重要</strong>的特征</p>
+<blockquote>
+<p>虽然书中原文讲并没有可以实现这个目的的函数,但是可能由于版本迭代,我在<a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SequentialFeatureSelector.html">这里</a>看到了有关函数的资料,也许可以用一下   </p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> SequentialFeatureSelector</span><br><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score</span><br><span class="line">scorel=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">13</span>):</span><br><span class="line">    sbs=SequentialFeatureSelector(KNeighborsClassifier(p=<span class="number">2</span>),n_features_to_select=i,direction=<span class="string">&quot;backward&quot;</span>)</span><br><span class="line">    sbs.fit(X_train_std,y_train)</span><br><span class="line">    nxt=X_train_std[:,sbs.support_]</span><br><span class="line">    c=KNeighborsClassifier(p=<span class="number">2</span>)</span><br><span class="line">    c.fit(nxt,y_train)</span><br><span class="line">    sc=accuracy_score(c.predict(nxt),y_train)</span><br><span class="line">    scorel.append(sc)</span><br></pre></td></tr></table></figure>
+<p>在上面,我们应用了所给的<code>SequentialFeatureSelector</code>进行后向选取,但是我们需要注意到,在我们对分数进行评估的时候,必须要使用<strong>训练集</strong>进行评估,实际上是要保证<strong>测试集的数据无论如何不会影响到训练过程</strong>,否则测试集的效果将会降低</p>
+<p>下面展现出使用序列选取后准确率的效果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(<span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">1</span>,<span class="number">13</span>)),scorel,<span class="string">&quot;*-&quot;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;Number of features&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;Accuracy&quot;</span>)</span><br><span class="line">plt.grid(<span class="literal">True</span>,<span class="string">&quot;both&quot;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>​<br><img src="goodtrainingsets_files/goodtrainingsets_73_0.png" alt="png"><br>​    </p>
+<blockquote>
+<p>其他还有许多类型的选取方法,可以去参考官方网页</p>
+</blockquote>
+<h2 id="使用随机森林方法评估特征的重要性"><a href="#使用随机森林方法评估特征的重要性" class="headerlink" title="使用随机森林方法评估特征的重要性"></a>使用随机森林方法评估特征的重要性</h2><p>在之前的部分中,我们通过L1正则化方法学会如何去除无关的特征,另外一种常用方法是<strong>随机森林</strong>,因为在之前我们就提到过,随机森林会随机选取某些特征和某些样本进行训练,在我们训练完后,我们就可以得到不同特征的重要程度</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line">flabel=df.columns[<span class="number">1</span>:]</span><br><span class="line">forest=RandomForestClassifier(n_estimators=<span class="number">500</span>,random_state=<span class="number">1</span>)</span><br><span class="line">forest.fit(X_train,y_train)</span><br><span class="line">imp=forest.feature_importances_</span><br><span class="line">indices=np.argsort(imp)[::-<span class="number">1</span>]</span><br><span class="line">plt.bar(<span class="built_in">range</span>(X_train.shape[<span class="number">1</span>]),imp[indices],align=<span class="string">&#x27;center&#x27;</span>)</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>​<br><img src="goodtrainingsets_76_0.png" alt="png"><br>​    </p>
+<p>从这张图我们可以清晰地看出哪些特征更加重要</p>
+<p>作为对随机森林的总结,<code>sklearn</code>里面还包含了一种<code>SelectFromModel</code>类支持用户用自定义阈值来实现模型选取,那么我们就可以用随机森林作为中间步骤,例如我们下面就可以将阈值设为0.1,看到五个最为重要的特征</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> SelectFromModel</span><br><span class="line">sfm=SelectFromModel(forest,threshold=<span class="number">0.1</span>,prefit=<span class="literal">True</span>)</span><br><span class="line">X_selected=sfm.transform(X_train)</span><br><span class="line">X_selected</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我们首先看了处理缺失数据的正确方法,然后对数据进行编码以方便进行学习</p>
+<p>接下来,我们介绍了L1正则化方法,可以规避过拟合现象发生,同时,选取合适的学习特征也有其他的手段可以使用.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/02/21/physicsnote/light/" rel="prev" title="光学期末复习">
+      <i class="fa fa-chevron-left"></i> 光学期末复习
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E4%B8%A2%E5%A4%B1%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">1.</span> <span class="nav-text">处理丢失的数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E8%A1%A8%E6%A0%BC%E6%95%B0%E6%8D%AE%E4%B8%AD%E6%89%BE%E5%88%B0%E7%BC%BA%E5%A4%B1%E5%80%BC"><span class="nav-number">1.1.</span> <span class="nav-text">在表格数据中找到缺失值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%85%B7%E6%9C%89%E7%BC%BA%E5%A4%B1%E5%80%BC%E7%9A%84%E6%A0%B7%E6%9C%AC%E6%88%96%E7%89%B9%E5%BE%81"><span class="nav-number">1.2.</span> <span class="nav-text">删除具有缺失值的样本或特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E7%BC%BA%E5%A4%B1%E5%80%BC"><span class="nav-number">1.3.</span> <span class="nav-text">计算缺失值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%90%86%E8%A7%A3scikit-learn%E4%B8%AD%E7%9A%84%E4%BC%B0%E8%AE%A1API"><span class="nav-number">1.4.</span> <span class="nav-text">理解scikit-learn中的估计API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%88%86%E7%B1%BB%E6%95%B0%E6%8D%AE"><span class="nav-number">2.</span> <span class="nav-text">处理分类数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E6%8E%92%E5%BA%8F%E4%B8%8E%E4%B8%8D%E5%8F%AF%E6%8E%92%E5%BA%8F%E7%9A%84%E7%89%B9%E5%BE%81"><span class="nav-number">2.1.</span> <span class="nav-text">可排序与不可排序的特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%A4%BA%E4%BE%8B%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">2.3.</span> <span class="nav-text">创建一个示例数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%A0%E5%B0%84%E5%8F%AF%E6%8E%92%E5%BA%8F%E7%89%B9%E5%BE%81"><span class="nav-number">2.4.</span> <span class="nav-text">映射可排序特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E7%B1%BB%E6%A0%87%E7%AD%BE"><span class="nav-number">2.5.</span> <span class="nav-text">编码类标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E4%B8%8D%E5%8F%AF%E6%8E%92%E5%BA%8F%E7%89%B9%E5%BE%81%E4%BD%BF%E7%94%A8%E2%80%9D%E5%8D%95%E4%B8%80%E7%83%AD%E6%BA%90%E2%80%9D-one-hot-%E7%BC%96%E7%A0%81%E6%96%B9%E5%BC%8F"><span class="nav-number">2.6.</span> <span class="nav-text">在不可排序特征使用”单一热源”(one-hot)编码方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E6%95%B0%E6%8D%AE%E9%9B%86%E5%88%86%E5%89%B2%E6%88%90%E8%AE%AD%E7%BB%83%E9%9B%86%E5%92%8C%E6%B5%8B%E8%AF%95%E9%9B%86"><span class="nav-number">3.</span> <span class="nav-text">将数据集分割成训练集和测试集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E7%89%B9%E5%BE%81%E5%BD%92%E4%B8%80%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">将特征归一化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%91%E9%80%89%E6%9C%89%E4%BB%B7%E5%80%BC%E7%9A%84%E4%BF%A1%E6%81%AF"><span class="nav-number">5.</span> <span class="nav-text">挑选有价值的信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#L1%E5%92%8CL2%E6%AD%A3%E5%88%99%E5%8C%96%E4%BD%9C%E4%B8%BA%E6%A8%A1%E5%9E%8B%E5%A4%8D%E6%9D%82%E5%BA%A6%E4%BB%A3%E4%BB%B7"><span class="nav-number">5.1.</span> <span class="nav-text">L1和L2正则化作为模型复杂度代价</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#L2%E6%AD%A3%E5%88%99%E5%8C%96%E7%9A%84%E4%B8%80%E7%A7%8D%E5%87%A0%E4%BD%95%E5%8C%96%E8%A7%A3%E8%AF%BB"><span class="nav-number">5.2.</span> <span class="nav-text">L2正则化的一种几何化解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8L1%E6%AD%A3%E5%88%99%E5%8C%96%E5%88%86%E6%95%A3%E8%A7%A3"><span class="nav-number">5.3.</span> <span class="nav-text">使用L1正则化分散解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9%E7%AE%97%E6%B3%95"><span class="nav-number">6.</span> <span class="nav-text">序列特征选择算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E6%96%B9%E6%B3%95%E8%AF%84%E4%BC%B0%E7%89%B9%E5%BE%81%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7"><span class="nav-number">7.</span> <span class="nav-text">使用随机森林方法评估特征的重要性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Songyuli</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Songyuli</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://UNICODE_STRING.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://lsyxiaopang.github.io/2023/02/22/machine-learning/goodtrainingsets/";
+    this.page.identifier = "2023/02/22/machine-learning/goodtrainingsets/";
+    this.page.title = "对机器学习数据集进行处理和筛选";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://UNICODE_STRING.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

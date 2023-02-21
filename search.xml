@@ -2214,102 +2214,6 @@ Along axis 1 is [ 6 15]
       </tags>
   </entry>
   <entry>
-    <title>光学期末复习</title>
-    <url>/2023/02/21/physicsnote/%E5%85%89%E5%AD%A6%E6%95%B4%E7%90%862/</url>
-    <content><![CDATA[<p>以下内容主要包含光学期末复习相关笔记</p>
-<span id="more"></span>
-
-<h2 id="内容整理"><a href="#内容整理" class="headerlink" title="内容整理"></a>内容整理</h2><h3 id="光的干涉"><a href="#光的干涉" class="headerlink" title="光的干涉"></a>光的干涉</h3><h5 id="光干涉的几个要求"><a href="#光干涉的几个要求" class="headerlink" title="光干涉的几个要求"></a>光干涉的几个要求</h5><p>频率相同,振动方向相同(可能这里指的是分量),相位稳定</p>
-<h5 id="干涉光强计算"><a href="#干涉光强计算" class="headerlink" title="干涉光强计算"></a>干涉光强计算</h5><p>$I&#x3D;\frac{1}{2}EE^*$,对于相干光,是$E$的叠加;对于非相干光,是$I$的叠加</p>
-<h4 id="频谱宽度的计算与注意事项"><a href="#频谱宽度的计算与注意事项" class="headerlink" title="频谱宽度的计算与注意事项"></a>频谱宽度的计算与注意事项</h4><p>$\Delta x\Delta k\approx 2\pi$其中$\Delta x$为发光长度</p>
-<p>或者可以用</p>
-<p>$\Delta t\Delta \nu&#x3D;1$,其中$\Delta t$为发光时间</p>
-<h5 id="相干光的两种产生方式"><a href="#相干光的两种产生方式" class="headerlink" title="相干光的两种产生方式"></a>相干光的两种产生方式</h5><p>分波前与分振幅</p>
-<h4 id="典型分波前干涉-杨氏双缝干涉"><a href="#典型分波前干涉-杨氏双缝干涉" class="headerlink" title="典型分波前干涉:杨氏双缝干涉"></a>典型分波前干涉:杨氏双缝干涉</h4><p>$$I&#x3D;I_0\cos^2\left(\pi\frac{\Delta xl}{L\lambda}\right)$$</p>
-<p>需要注意,这里假定缝非常小,否则还要考虑<strong>光的衍射</strong></p>
-<h5 id="杨氏双缝干涉中单缝作用"><a href="#杨氏双缝干涉中单缝作用" class="headerlink" title="杨氏双缝干涉中单缝作用"></a>杨氏双缝干涉中单缝作用</h5><p>用来产生相干光</p>
-<p>随着与中心距离的逐渐变大,条纹会逐渐变暗,一般有两个原因:</p>
-<ol>
-<li>干涉距离变大,逐渐变得不相干</li>
-<li>由于后面会讨论的衍射因子的作用</li>
-</ol>
-<p>如果非单色光,那么会出现分光的现象</p>
-<h4 id="分波面干涉-劈尖干涉与牛顿环"><a href="#分波面干涉-劈尖干涉与牛顿环" class="headerlink" title="分波面干涉:劈尖干涉与牛顿环"></a>分波面干涉:劈尖干涉与牛顿环</h4><p>需要注意,在分拨面干涉中的光路<strong>并不是任意的</strong>,需要注意<strong>成像问题</strong></p>
-<p>对于劈尖,需要关心介质的折射率关系以分析半波损失</p>
-<p>关于牛顿环,可以直接计算透镜的曲率半径$R$为</p>
-<p>$$R&#x3D;\frac{r^2_{m+i}-r^2_m}{i\lambda}$$</p>
-<h5 id="等厚干涉与等倾干涉的综合区别"><a href="#等厚干涉与等倾干涉的综合区别" class="headerlink" title="等厚干涉与等倾干涉的综合区别"></a>等厚干涉与等倾干涉的综合区别</h5><p>等厚干涉的光程差来源于不同位置透明介质厚度不同,等倾干涉光程差来源于不同位置光角度不同,经过厚度不同</p>
-<h4 id="迈克耳孙干涉"><a href="#迈克耳孙干涉" class="headerlink" title="迈克耳孙干涉"></a>迈克耳孙干涉</h4><p>需要注意到的问题:</p>
-<ol>
-<li>在第一个反射镜处,是否有镀膜会<strong>对干涉的半波损失带来巨大影响</strong></li>
-<li>如果没有补偿镜,需要使用<strong>单色性更好的光</strong></li>
-</ol>
-<h4 id="多光束干涉"><a href="#多光束干涉" class="headerlink" title="多光束干涉"></a>多光束干涉</h4><p>相当于在薄膜干涉的基础上多考虑反射和折射</p>
-<p>可以得到总的反射相对光强和总的投射相对光强</p>
-<p>$$\frac{I_r}{I_i}&#x3D;\frac{F\sin^2(\frac{\sigma}{2})}{1+F\sin^2(\frac{\sigma}{2})}$$</p>
-<p>$$\frac{I_t}{I_i}&#x3D;\frac{1}{1+F\sin^2(\frac{\sigma}{2})}$$</p>
-<p>此处$\sigma&#x3D;\frac{4\pi n h \cos\theta_t}{\lambda}$为每一级条纹之间的相位差($\theta_t$为介质中投射角),$F$为锐度系数$F&#x3D;\left(\frac{2r}{1-r^2}\right)^2$</p>
-<p>同时,我们可以定义从光强最大到光强为$\frac{1}{2}$的距离为<strong>半峰宽</strong>$\delta_{\frac{1}{2}}$,可以有</p>
-<p>$$\delta\theta\frac{4\pi nh\sin\theta_t}{\lambda}&#x3D;\delta_{1}{2}&#x3D;2\arcsin(\frac{1}{\sqrt{F}})\approx\frac{2}{\sqrt{F}}$$</p>
-<p>从这里,我们可以求解出来其角分辨能力</p>
-<h3 id="衍射理论"><a href="#衍射理论" class="headerlink" title="衍射理论"></a>衍射理论</h3><h4 id="近场与远场"><a href="#近场与远场" class="headerlink" title="近场与远场"></a>近场与远场</h4><p>远场:满足射入的光近似于平行光(或者用透镜实现无穷远成像)<em>菲涅尔衍射</em></p>
-<p>近场:存在角度<em>夫琅和费衍射</em></p>
-<h4 id="单个狭缝的夫琅和费衍射"><a href="#单个狭缝的夫琅和费衍射" class="headerlink" title="单个狭缝的夫琅和费衍射"></a>单个狭缝的夫琅和费衍射</h4><h5 id="分析手段"><a href="#分析手段" class="headerlink" title="分析手段"></a>分析手段</h5><ol>
-<li>可以使用矢量图法,每一小部分光源相当于构成了一个小矢量,而这些矢量首尾叠加构成圆弧,合成光就是圆弧首尾相连</li>
-<li>可以使用半波带法分析明暗条纹</li>
-<li>直接积分</li>
-</ol>
-<h5 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h5><p>记住光强为</p>
-<p>$$I&#x3D;\frac{\sin^2\beta}{\beta^2}$$</p>
-<p>其中$\beta&#x3D;\frac{\pi b}{\lambda}\sin\theta$(可以看作以某一角度射出时极限光程差相位差的一半)</p>
-<h5 id="特殊情况"><a href="#特殊情况" class="headerlink" title="特殊情况"></a>特殊情况</h5><p>如果入射光存在角度,那么<strong>需要叠加计算</strong></p>
-<p>$$\beta&#x3D;\frac{\pi b}{\lambda}(\sin\theta+\sin\alpha)$$</p>
-<p>其中$\alpha$新入射效果</p>
-<h5 id="矩形孔"><a href="#矩形孔" class="headerlink" title="矩形孔"></a>矩形孔</h5><p>可以看作两个方向的狭缝,最后结果就是两个方向衍射相乘</p>
-<h4 id="圆孔夫琅和费衍射"><a href="#圆孔夫琅和费衍射" class="headerlink" title="圆孔夫琅和费衍射"></a>圆孔夫琅和费衍射</h4><p>我们无法获得圆孔夫琅和费衍射的解析解,其可以被写作$U(\theta)&#x3D;\frac{2kJ_1(x)}{x}$</p>
-<p>而$\frac{2\pi}{\lambda}a\sin\theta$,$a$为圆孔半径</p>
-<p>因此,可以得到第一个暗环的半角宽为$\delta\theta&#x3D;0.61\frac{\lambda}{a}&#x3D;1.22\frac{\lambda}{D}$</p>
-<p>这也是<strong>最小角分辨率</strong>,而对于研究线分辨率$d&#x3D;\Delta\theta f$</p>
-<h4 id="多缝衍射"><a href="#多缝衍射" class="headerlink" title="多缝衍射"></a>多缝衍射</h4><p>对于多峰衍射,可以考虑干涉因子和衍射因子相乘</p>
-<p>其中干涉因子与一个完整的遮挡和缝的<strong>总宽度</strong>$d$相关</p>
-<p>$$I&#x3D;I_0\frac{\sin^2N\gamma}{\sin^2\gamma}\frac{\sin^2\beta}{\beta^2}$$</p>
-<p>其中干涉的强度极大值位置为$d\sin\theta&#x3D;\pm m\lambda$,极小值$\sin N\gamma&#x3D;0$且$\sin\gamma\neq 0$</p>
-<blockquote>
-<p>注意,如果$d$和$b$呈现简单整数比,那么会存在缺级</p>
-</blockquote>
-<h5 id="角色散率"><a href="#角色散率" class="headerlink" title="角色散率"></a>角色散率</h5><p>我们可以定义角色散率$D&#x3D;\frac{\delta\theta}{\delta\lambda}$</p>
-<p>可以得到:级次越大,角色散率越大,刻线越密,色散越大</p>
-<p>而使用<strong>瑞利判据</strong>,可以得到色分辨本领$R&#x3D;\frac{\lambda}{\Delta\lambda}&#x3D;mN$</p>
-<p>$N$为总刻线数</p>
-<h5 id="闪耀光栅"><a href="#闪耀光栅" class="headerlink" title="闪耀光栅"></a>闪耀光栅</h5><p>我们可以让反射面倾斜,这样可以使得衍射极大发生偏离,使得干涉级数大的部分<strong>比较亮</strong></p>
-<h4 id="菲涅尔衍射"><a href="#菲涅尔衍射" class="headerlink" title="菲涅尔衍射"></a>菲涅尔衍射</h4><p>分析:可以使用半波带法,如果有奇数个半波带,那么光强较强,偶数个半波带,光强较弱</p>
-<h5 id="三种不同的情况"><a href="#三种不同的情况" class="headerlink" title="三种不同的情况"></a>三种不同的情况</h5><ol>
-<li>光阑,随着$r$变大,会从一个亮点中间产生黑点再生长….</li>
-<li>自由传播:总光场一半</li>
-<li>Posson亮斑:中心点总是亮的</li>
-</ol>
-<h5 id="光阑的半波带个数"><a href="#光阑的半波带个数" class="headerlink" title="光阑的半波带个数"></a>光阑的半波带个数</h5><p>在光阑半径为$R$一点与光阑中心的那一点的光程差</p>
-<p>$$\Delta S&#x3D;\frac{R(r_0+\rho)}{\rho r_0\lambda}$$</p>
-<p>$\rho$为波面半径,$r_0$为波面到观测点的最短距离</p>
-<blockquote>
-<p>可以利用半波带性质做透镜,满足</p>
-<p>$$(\frac{1}{\rho}+\frac{1}{r})&#x3D;\frac{m\lambda}{R^2_m}$$</p>
-</blockquote>
-<h2 id="综合性内容"><a href="#综合性内容" class="headerlink" title="综合性内容"></a>综合性内容</h2><h3 id="“恰好分辨”"><a href="#“恰好分辨”" class="headerlink" title="“恰好分辨”"></a>“恰好分辨”</h3><ol>
-<li>对于波长存在范围的干涉而言,恰好分辨是<strong>前一级条纹中波长最大和后一级条纹波长最小重合</strong></li>
-<li>对于多光束干涉而言,恰好分辨是<strong>两个干涉峰恰好错开半峰宽</strong></li>
-<li>对于衍射的瑞利判据,恰好分辨是<strong>一个衍射极大恰好落在另一个衍射极小</strong></li>
-</ol>
-<h2 id="做题存在问题"><a href="#做题存在问题" class="headerlink" title="做题存在问题"></a>做题存在问题</h2><ol>
-<li>在每一次做到和干涉衍射相关的题目时,需要<strong>小心的分析半波损失问题</strong></li>
-<li>需要去理解半波带法的绘图</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>物理学</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>复数与复变函数</title>
     <url>/2023/02/20/physicsnote/mathematicsforphysics/math-physics/</url>
     <content><![CDATA[<p>以下内容主要包含复变函数的相关笔记(基本定义到微分和积分)</p>
@@ -2381,6 +2285,1048 @@ Along axis 1 is [ 6 15]
       <tags>
         <tag>物理学</tag>
         <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对机器学习数据集进行处理和筛选</title>
+    <url>/2023/02/22/machine-learning/goodtrainingsets/</url>
+    <content><![CDATA[<p>数据的优劣和有效信息量的多少是决定机器学习算法能够学的多好的核心要素,因此,我们在喂给机器学习算法之前确保去检查和预处理一个数据集非常重要,在这一章,我们将介绍以下内容:</p>
+<ol>
+<li>移除和内插空白值</li>
+<li>将分类数据整形为机器学习算法</li>
+<li>为模型建构选择相关的特征<span id="more"></span>
+</li>
+</ol>
+<h2 id="处理丢失的数据"><a href="#处理丢失的数据" class="headerlink" title="处理丢失的数据"></a>处理丢失的数据</h2><p>在现实生活中的数据集中,数据丢失并不罕见,这些可能来自于数据收集过程中的错误,一部分无法实现的测量或者对于调查而言一部分值空白之类.<br>我们一般会看到这些缺失值为<code>NaN</code>或者如<code>NULL</code><br>不幸的是,许多计算工具无法处理缺失值,或者会给出一些非常诡异的答案,因此我们必须亲自去处理这些问题</p>
+<h3 id="在表格数据中找到缺失值"><a href="#在表格数据中找到缺失值" class="headerlink" title="在表格数据中找到缺失值"></a>在表格数据中找到缺失值</h3><p>在开始讨论之前,我们首先来”自制”一个CSV文件以更好地展示这个问题</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> StringIO</span><br><span class="line"></span><br><span class="line">csv_data=\</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;A,B,C,D</span></span><br><span class="line"><span class="string">    1,2,3,4</span></span><br><span class="line"><span class="string">    5,6,,8</span></span><br><span class="line"><span class="string">    10,11,12,&#x27;&#x27;&#x27;</span></span><br><span class="line">df=pd.read_csv(StringIO(csv_data))</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<p>&lt;/style&gt;</p>
+<p><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3.0</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5</td>
+      <td>6</td>
+      <td>NaN</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>10</td>
+      <td>11</td>
+      <td>12.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table><br>&lt;/div&gt;</p>
+<p>处理缺失值的前提自然是找到缺失值,但是在一个可能非常巨大的CSV文件里面人工去找缺失值很不现实,我们可以使用<code>isnull</code>来将一个<code>DataFrame</code>转化为相应的布尔数组</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df.isnull().<span class="built_in">sum</span>()</span><br></pre></td></tr></table></figure>
+<pre><code>A    0
+B    0
+C    1
+D    1
+dtype: int64
+</code></pre><p>可以看到,C列和D列各有一个缺失值  </p>
+<blockquote>
+<p>需要注意到的是,<code>DataFrame</code>更加适合于数据的处理,但是机器学习所用的数据往往是以<code>Ndarray</code>的形式出现的,我们可以使用<code>df.values</code>实现这一转换</p>
+</blockquote>
+<h3 id="删除具有缺失值的样本或特征"><a href="#删除具有缺失值的样本或特征" class="headerlink" title="删除具有缺失值的样本或特征"></a>删除具有缺失值的样本或特征</h3><p>对付缺失值,最简单的方法莫过于是直接将其删除,我们可以使用<code>dropna</code>将存在缺失值的行或列删除</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df.dropna(axis=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3.0</td>
+      <td>4.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df.dropna(axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>10</td>
+      <td>11</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>当然,<code>dropna</code>也支持其他选项,下面有几个比较重要的</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df.dropna(how=<span class="string">&quot;all&quot;</span>)<span class="comment">#只有全部缺失才删除</span></span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3.0</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5</td>
+      <td>6</td>
+      <td>NaN</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>10</td>
+      <td>11</td>
+      <td>12.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df.dropna(thresh=<span class="number">4</span>)<span class="comment">#删除有效值小于4个</span></span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3.0</td>
+      <td>4.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df.dropna(subset=[<span class="string">&#x27;C&#x27;</span>])<span class="comment">#只考虑C列的nan要删除</span></span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3.0</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>10</td>
+      <td>11</td>
+      <td>12.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>虽然删除缺失值非常方便,但也伴随着一些问题,我们可能会丢失太多的数据.<br>因此,我们接下来要看看最为常用的内插法处理缺失值的方法</p>
+<h3 id="计算缺失值"><a href="#计算缺失值" class="headerlink" title="计算缺失值"></a>计算缺失值</h3><p>一般而言,将缺失值全部去掉并不现实,我们这里则是采用内插处理</p>
+<p>在内插中最为常见的莫过于<strong>平均值内插</strong>,我们就将缺失值替换为整个特征的平均值,这么做有一个简单的方法就是使用<code>Imputer</code>类,就像下面所展示的那样</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.impute <span class="keyword">import</span> SimpleImputer<span class="comment">#!0.22版本以上需要使用SimpleImputer代替</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">imr=SimpleImputer(missing_values=np.nan,strategy=<span class="string">&#x27;mean&#x27;</span>)</span><br><span class="line">imr=imr.fit(df.values)</span><br><span class="line">imputed_data=imr.transform(df.values)</span><br><span class="line">imputed_data</span><br></pre></td></tr></table></figure>
+<pre><code>array([[ 1. ,  2. ,  3. ,  4. ],
+       [ 5. ,  6. ,  7.5,  8. ],
+       [10. , 11. , 12. ,  6. ]])
+</code></pre><p>可以注意到,每一处的<code>NaN</code>都已经被相应的平均值所替换了,这种手段在分类数据中非常有用</p>
+<h3 id="理解scikit-learn中的估计API"><a href="#理解scikit-learn中的估计API" class="headerlink" title="理解scikit-learn中的估计API"></a>理解<code>scikit-learn</code>中的估计API</h3><p>在之前的部分中,我们采用<code>SimpleImputer</code>类来计算我们数据集中的缺失值,这在<code>scikit-learn</code>类中被称作<strong>转换类</strong><br>转换类中最为重要的两个方法就是<code>fit</code>和<code>transform</code>,实际上,这和我们之前所学的分类数据很像,主要区别在于我们这里的训练集和测试集都要经过相同的处理(但是<code>fit</code>过程还是要用训练集),如图所示:<br><img src="image-20230222003147893.png" alt="image-20230222003147893"></p>
+<h2 id="处理分类数据"><a href="#处理分类数据" class="headerlink" title="处理分类数据"></a>处理分类数据</h2><p>到目前为止,我们处理的还主要是数值数据,但是在现实生活中一个或多个分类数据并不少见,在这一部分,我们将用一些简单而有效的例子来展现我们应当如何处理这类数据.</p>
+<h3 id="可排序与不可排序的特征"><a href="#可排序与不可排序的特征" class="headerlink" title="可排序与不可排序的特征"></a>可排序与不可排序的特征</h3><p>如果我们在讨论分类数据时,我们往往会进一步将其分为可排序和不可排序的特征</p>
+<p>可排序特征比如我们可以认为超大号&gt;大号&gt;中号&gt;小号来对衣服尺码的分类来进行排序,但是显然我们无法对一些特征例如男性或女性这样的特征进行排序</p>
+<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3><h3 id="创建一个示例数据集"><a href="#创建一个示例数据集" class="headerlink" title="创建一个示例数据集"></a>创建一个示例数据集</h3><p>在我们探索处理这样的分类数据前,我们首先先创建一个用来展现问题的数据集</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">df=pd.DataFrame([</span><br><span class="line">    [<span class="string">&#x27;green&#x27;</span>,<span class="string">&#x27;M&#x27;</span>,<span class="number">10.1</span>,<span class="string">&#x27;class1&#x27;</span>],</span><br><span class="line">    [<span class="string">&#x27;red&#x27;</span>,<span class="string">&#x27;L&#x27;</span>,<span class="number">13.5</span>,<span class="string">&#x27;class2&#x27;</span>],</span><br><span class="line">    [<span class="string">&#x27;blue&#x27;</span>,<span class="string">&#x27;XL&#x27;</span>,<span class="number">15.3</span>,<span class="string">&#x27;class1&#x27;</span>]</span><br><span class="line">    ])</span><br><span class="line">df.columns=[<span class="string">&#x27;color&#x27;</span>,<span class="string">&#x27;size&#x27;</span>,<span class="string">&#x27;price&#x27;</span>,<span class="string">&#x27;classlabel&#x27;</span>]</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>color</th>
+      <th>size</th>
+      <th>price</th>
+      <th>classlabel</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>green</td>
+      <td>M</td>
+      <td>10.1</td>
+      <td>class1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>red</td>
+      <td>L</td>
+      <td>13.5</td>
+      <td>class2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>blue</td>
+      <td>XL</td>
+      <td>15.3</td>
+      <td>class1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>我们可以看到,刚刚创建的<code>DataFrame</code>包含一个不可排序的特征,一个可以排序的特征<br>而分类标签则是被储存在了最后一列<br>在我们所使用的学习算法中,并不会使用到标签的先后顺序</p>
+<h3 id="映射可排序特征"><a href="#映射可排序特征" class="headerlink" title="映射可排序特征"></a>映射可排序特征</h3><p>为了保证学习算法可以准确地解释排序特征,我们需要将分类标签字符串转化为整数<br>不幸的是,没有可以从标签直接方便地转变成数字的方法,因此我们需要手动去定义映射</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">size_mapping=&#123;</span><br><span class="line">    <span class="string">&#x27;XL&#x27;</span>:<span class="number">3</span>,</span><br><span class="line">    <span class="string">&#x27;L&#x27;</span>:<span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;M&#x27;</span>:<span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line">df[<span class="string">&#x27;size&#x27;</span>]=df[<span class="string">&#x27;size&#x27;</span>].<span class="built_in">map</span>(size_mapping)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>color</th>
+      <th>size</th>
+      <th>price</th>
+      <th>classlabel</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>green</td>
+      <td>1</td>
+      <td>10.1</td>
+      <td>class1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>red</td>
+      <td>2</td>
+      <td>13.5</td>
+      <td>class2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>blue</td>
+      <td>3</td>
+      <td>15.3</td>
+      <td>class1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>可以看到<code>size</code>特征已经被完全地分割了,而假如最后我们希望其再替换回原来的字符串标签,我们可以使用制作一个反映射字典,其做法并不困难,用生成器非常方便</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">inv_mapping=&#123;v:k <span class="keyword">for</span> k,v <span class="keyword">in</span> size_mapping.items()&#125;</span><br><span class="line">df[<span class="string">&#x27;size&#x27;</span>].<span class="built_in">map</span>(inv_mapping)</span><br></pre></td></tr></table></figure>
+<pre><code>0     M
+1     L
+2    XL
+Name: size, dtype: object
+</code></pre><h3 id="编码类标签"><a href="#编码类标签" class="headerlink" title="编码类标签"></a>编码类标签</h3><p>许多机器学习库需要编码成正整数的类标签(虽然也有很大一部分在内部执行这一工作)<br>为了给类标签编码,我们可以用前一部分的方式,但是我们同样也要记住,此处的标签是<strong>不可排序</strong>的,因此我们只需要简单地枚举类标签(从0开始)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">class_mapping=&#123;label:idx <span class="keyword">for</span> idx,label <span class="keyword">in</span> <span class="built_in">enumerate</span>(np.unique(df[<span class="string">&#x27;classlabel&#x27;</span>]))&#125;</span><br><span class="line">class_mapping</span><br></pre></td></tr></table></figure>
+<pre><code>&#123;&#39;class1&#39;: 0, &#39;class2&#39;: 1&#125;
+</code></pre><p>接下来,我们就可以将类标签转换为整数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df[<span class="string">&#x27;classlabel&#x27;</span>]=df[<span class="string">&#x27;classlabel&#x27;</span>].<span class="built_in">map</span>(class_mapping)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>color</th>
+      <th>size</th>
+      <th>price</th>
+      <th>classlabel</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>green</td>
+      <td>1</td>
+      <td>10.1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>red</td>
+      <td>2</td>
+      <td>13.5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>blue</td>
+      <td>3</td>
+      <td>15.3</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>我们也可以像之前那样翻转键值对以达到返回原来表示形式的目的</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">inv_mapping=&#123;v:k <span class="keyword">for</span> k,v <span class="keyword">in</span> class_mapping.items()&#125;</span><br><span class="line">df[<span class="string">&#x27;classlabel&#x27;</span>]=df[<span class="string">&#x27;classlabel&#x27;</span>].<span class="built_in">map</span>(inv_mapping)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>color</th>
+      <th>size</th>
+      <th>price</th>
+      <th>classlabel</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>green</td>
+      <td>1</td>
+      <td>10.1</td>
+      <td>class1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>red</td>
+      <td>2</td>
+      <td>13.5</td>
+      <td>class2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>blue</td>
+      <td>3</td>
+      <td>15.3</td>
+      <td>class1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>相应的,在机器学习库中也有一个<code>LabelEncoder</code>类也可以直接实现这个目的</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEncoder</span><br><span class="line">class_le=LabelEncoder()</span><br><span class="line">y=class_le.fit_transform(df[<span class="string">&#x27;classlabel&#x27;</span>].values)</span><br><span class="line">y</span><br></pre></td></tr></table></figure>
+<pre><code>array([0, 1, 0])
+</code></pre><p>需要注意的是<code>fit_transform</code>就是简单地先后依次调用<code>fit</code>和<code>transform</code>,接下来我们可以使用<code>inverse_transform</code>将整数类标签再转换为原来的字符串表示</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">class_le.inverse_transform(y)</span><br></pre></td></tr></table></figure>
+<pre><code>array([&#39;class1&#39;, &#39;class2&#39;, &#39;class1&#39;], dtype=object)
+</code></pre><h3 id="在不可排序特征使用”单一热源”-one-hot-编码方式"><a href="#在不可排序特征使用”单一热源”-one-hot-编码方式" class="headerlink" title="在不可排序特征使用”单一热源”(one-hot)编码方式"></a>在不可排序特征使用”单一热源”(one-hot)编码方式</h3><p>在我们之前的部分中,我们采用的是一个简单的字典映射的方法进行编码<br>但是这存在一个问题,倘使我们采用这样的编码形式,那么即使我们认为各个数之间不存在大小关系,但是学习算法不会那么想,这会导致一些错误</p>
+<p>一种常见的解决方法是采用一种被称作”单一热源编码”(one-hot)的方式,其原理是为每一个特定的分类创建一个新的特征</p>
+<blockquote>
+<p>比如说颜色,从原来的颜色(红绿蓝),变成三个特征(是否是红,是否是绿,是否是蓝)</p>
+</blockquote>
+<p>我们可以使用<code>OneHotEncoder</code>实现这个功能</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df[[<span class="string">&#x27;color&#x27;</span>,<span class="string">&#x27;size&#x27;</span>,<span class="string">&#x27;price&#x27;</span>]].values</span><br></pre></td></tr></table></figure>
+<pre><code>array([[&#39;green&#39;, 1, 10.1],
+       [&#39;red&#39;, 2, 13.5],
+       [&#39;blue&#39;, 3, 15.3]], dtype=object)
+</code></pre><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> OneHotEncoder</span><br><span class="line">ohe=OneHotEncoder()</span><br><span class="line">ohe.fit_transform(df[[<span class="string">&#x27;color&#x27;</span>]].values).toarray()</span><br></pre></td></tr></table></figure>
+<pre><code>array([[0., 1., 0.],
+       [0., 0., 1.],
+       [1., 0., 0.]])
+</code></pre><blockquote>
+<p>需要注意一下,如果我们希望在这里对于一整个数据集中的部分类施加这一方法,在书中的版本中,采用的是<code>categorical_features</code>这一关键字参数,但是这个参数在现在的版本中已经被废除,因此应当采用以下形式</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.compose <span class="keyword">import</span> ColumnTransformer</span><br><span class="line">X=df[[<span class="string">&#x27;color&#x27;</span>,<span class="string">&#x27;size&#x27;</span>,<span class="string">&#x27;price&#x27;</span>]].values</span><br><span class="line">color_en=ColumnTransformer([(<span class="string">&quot;Test Transform&quot;</span>,OneHotEncoder(),[<span class="number">0</span>])],remainder=<span class="string">&#x27;passthrough&#x27;</span>)</span><br><span class="line">X=color_en.fit_transform(X)</span><br><span class="line">X</span><br></pre></td></tr></table></figure>
+<pre><code>array([[0.0, 1.0, 0.0, 1, 10.1],
+       [0.0, 0.0, 1.0, 2, 13.5],
+       [1.0, 0.0, 0.0, 3, 15.3]], dtype=object)
+</code></pre><p>当然,我们处理这个还有更加方便的方法,就是使用<code>get_dummies</code>方法(<code>pandas</code>内置)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pd.get_dummies(df[[<span class="string">&#x27;price&#x27;</span>,<span class="string">&#x27;color&#x27;</span>,<span class="string">&#x27;size&#x27;</span>]])</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>price</th>
+      <th>size</th>
+      <th>color_blue</th>
+      <th>color_green</th>
+      <th>color_red</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>10.1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>13.5</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>15.3</td>
+      <td>3</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p><strong>注意,这个方法只会修改以字符串为内容的列,其他列不变</strong></p>
+<h2 id="将数据集分割成训练集和测试集"><a href="#将数据集分割成训练集和测试集" class="headerlink" title="将数据集分割成训练集和测试集"></a>将数据集分割成训练集和测试集</h2><p>我们之前曾经简单描述过如何将训练集进行分割,在这一部分,我们将准备一个全新的测试集<code>Wine</code>,这里面有178个酒类数据,每个有13个特征</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df=pd.read_csv(<span class="string">&quot;https://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.data&quot;</span></span><br><span class="line">               ,header=<span class="literal">None</span>)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>10</th>
+      <th>11</th>
+      <th>12</th>
+      <th>13</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>14.23</td>
+      <td>1.71</td>
+      <td>2.43</td>
+      <td>15.6</td>
+      <td>127</td>
+      <td>2.80</td>
+      <td>3.06</td>
+      <td>0.28</td>
+      <td>2.29</td>
+      <td>5.64</td>
+      <td>1.04</td>
+      <td>3.92</td>
+      <td>1065</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>13.20</td>
+      <td>1.78</td>
+      <td>2.14</td>
+      <td>11.2</td>
+      <td>100</td>
+      <td>2.65</td>
+      <td>2.76</td>
+      <td>0.26</td>
+      <td>1.28</td>
+      <td>4.38</td>
+      <td>1.05</td>
+      <td>3.40</td>
+      <td>1050</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>13.16</td>
+      <td>2.36</td>
+      <td>2.67</td>
+      <td>18.6</td>
+      <td>101</td>
+      <td>2.80</td>
+      <td>3.24</td>
+      <td>0.30</td>
+      <td>2.81</td>
+      <td>5.68</td>
+      <td>1.03</td>
+      <td>3.17</td>
+      <td>1185</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>14.37</td>
+      <td>1.95</td>
+      <td>2.50</td>
+      <td>16.8</td>
+      <td>113</td>
+      <td>3.85</td>
+      <td>3.49</td>
+      <td>0.24</td>
+      <td>2.18</td>
+      <td>7.80</td>
+      <td>0.86</td>
+      <td>3.45</td>
+      <td>1480</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>13.24</td>
+      <td>2.59</td>
+      <td>2.87</td>
+      <td>21.0</td>
+      <td>118</td>
+      <td>2.80</td>
+      <td>2.69</td>
+      <td>0.39</td>
+      <td>1.82</td>
+      <td>4.32</td>
+      <td>1.04</td>
+      <td>2.93</td>
+      <td>735</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>173</th>
+      <td>3</td>
+      <td>13.71</td>
+      <td>5.65</td>
+      <td>2.45</td>
+      <td>20.5</td>
+      <td>95</td>
+      <td>1.68</td>
+      <td>0.61</td>
+      <td>0.52</td>
+      <td>1.06</td>
+      <td>7.70</td>
+      <td>0.64</td>
+      <td>1.74</td>
+      <td>740</td>
+    </tr>
+    <tr>
+      <th>174</th>
+      <td>3</td>
+      <td>13.40</td>
+      <td>3.91</td>
+      <td>2.48</td>
+      <td>23.0</td>
+      <td>102</td>
+      <td>1.80</td>
+      <td>0.75</td>
+      <td>0.43</td>
+      <td>1.41</td>
+      <td>7.30</td>
+      <td>0.70</td>
+      <td>1.56</td>
+      <td>750</td>
+    </tr>
+    <tr>
+      <th>175</th>
+      <td>3</td>
+      <td>13.27</td>
+      <td>4.28</td>
+      <td>2.26</td>
+      <td>20.0</td>
+      <td>120</td>
+      <td>1.59</td>
+      <td>0.69</td>
+      <td>0.43</td>
+      <td>1.35</td>
+      <td>10.20</td>
+      <td>0.59</td>
+      <td>1.56</td>
+      <td>835</td>
+    </tr>
+    <tr>
+      <th>176</th>
+      <td>3</td>
+      <td>13.17</td>
+      <td>2.59</td>
+      <td>2.37</td>
+      <td>20.0</td>
+      <td>120</td>
+      <td>1.65</td>
+      <td>0.68</td>
+      <td>0.53</td>
+      <td>1.46</td>
+      <td>9.30</td>
+      <td>0.60</td>
+      <td>1.62</td>
+      <td>840</td>
+    </tr>
+    <tr>
+      <th>177</th>
+      <td>3</td>
+      <td>14.13</td>
+      <td>4.10</td>
+      <td>2.74</td>
+      <td>24.5</td>
+      <td>96</td>
+      <td>2.05</td>
+      <td>0.76</td>
+      <td>0.56</td>
+      <td>1.35</td>
+      <td>9.20</td>
+      <td>0.61</td>
+      <td>1.60</td>
+      <td>560</td>
+    </tr>
+  </tbody>
+</table>
+<p>178 rows × 14 columns</p>
+</div>
+
+
+
+<p>将这个分割成分别的训练集和测试集是使用<code>train_test_split</code>函数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line">X,y=df.iloc[:,<span class="number">1</span>:].values,df.iloc[:,<span class="number">0</span>].values</span><br><span class="line">X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=<span class="number">0.3</span>,random_state=<span class="number">0</span>,stratify=y)</span><br></pre></td></tr></table></figure>
+<p>在这一步中,我们首先将数据中的特征与分类标签区分开来,然后随机划分30%的测试集,向<code>stratify</code>参数中输入标签是为了保证三种不同的标签都等量的被选中</p>
+<blockquote>
+<p>我们需要注意到,应当尽量避免出现在划分数据集时去掉了有价值的内容,因此,我们可能要选取多次划分</p>
+</blockquote>
+<h2 id="将特征归一化"><a href="#将特征归一化" class="headerlink" title="将特征归一化"></a>将特征归一化</h2><p>在我们的处理流程中,<strong>特征重放缩</strong>是一个非常容易被忘掉,但是也非常重要的一步.只有非常少见的算法(决策树和随机森林)不需要考虑重放缩的问题<br>这里我们利用梯度下降法进行机器学习来展示这种技术的效果</p>
+<p>归一化的效果非常容易想象,比如有两个特征,一个范围0~1,一个范围0~10000,那么如果我们不进行归一化,毫无疑问,算法会主要处理后面那个特征.</p>
+<p>而对于将不同的特征带到同样一个范围有两种常用的方式:归一化(<strong>normalization</strong>)和标准化(<strong>standardization</strong>),但这两种说法经常被混用,需要注意.往往归一化是将特征转换到[0,1]的范围中,使用的叫<strong>最大-最小缩放</strong>,计算公式也非常简单</p>
+<script type="math/tex; mode=display">x_{norm}^{(i)}=\frac{x^{(i)}-x_{min}}{x_{max}-x_{min}}</script><p>代码则如下所示</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> MinMaxScaler</span><br><span class="line">mms=MinMaxScaler()</span><br><span class="line">X_train_norm=mms.fit_transform(X_train)</span><br><span class="line">X_test_norm=mms.transform(X_test)</span><br></pre></td></tr></table></figure>
+<p>虽然这种最大-最小放缩在我们已知范围的数据区间内非常有用,但是<strong>标准化</strong>在许多机器学习内容中更加重要,尤其是优化算法比如梯度下降法.通过标准化,我们可以将特征集中到以0为均值,1为标准差的方位之内.<br>另外,标准化还有一个很大的好处,就是它不是那么容易受到极值的影响<br>标准化的流程可以用下式来表示:</p>
+<script type="math/tex; mode=display">x_{std}^{(i)}=\frac{x^{(i)}-\mu_x}{\sigma_x}</script><p>我们可以使用以下代码来执行标准化过程</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line">stdsc=StandardScaler()</span><br><span class="line">X_train_std=stdsc.fit_transform(X_train)</span><br><span class="line">X_test_std=stdsc.transform(X_test)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们这里仍然需要注意,<code>StandardScaler</code>在使用过程中只能<code>fit</code>一次</p>
+</blockquote>
+<h2 id="挑选有价值的信息"><a href="#挑选有价值的信息" class="headerlink" title="挑选有价值的信息"></a>挑选有价值的信息</h2><p>如果我们发现一个模型在训练集上的效果<strong>远优于</strong>测试集,那么这就意味着很有可能发生了过拟合,这样的模型收到噪音的影响太大,泛化性不好.可能的原因是使用的模型太过于复杂,常见的解决方案如下:</p>
+<ol>
+<li>选取更多的训练数据</li>
+<li>使用正则化为过度复杂的情况引入惩罚</li>
+<li>选取一个更加简单的模型</li>
+<li>减少数据的维数<br>接下来的部分我们将介绍如何通过选取特征实现降维和正则化,能给我们带来更加简单的模型</li>
+</ol>
+<h3 id="L1和L2正则化作为模型复杂度代价"><a href="#L1和L2正则化作为模型复杂度代价" class="headerlink" title="L1和L2正则化作为模型复杂度代价"></a>L1和L2正则化作为模型复杂度代价</h3><p>我们之前提到过一种正则化方法可以实现对模型的简化,通过加上一项<strong>L2模</strong></p>
+<script type="math/tex; mode=display">L2:||\omega||^2_2=\sum_{j=1}^m\omega_j^2</script><p>另外一种降低模型复杂度的方法则被称作为L1正则化:</p>
+<script type="math/tex; mode=display">L1:||\omega||_1=\sum_{j=1}^{m}|\omega_j|</script><p>相较于L2正则化,L1正则化更加适合稀疏的特征(大部分的特征向量中值为0),在这种考虑下,L1正则化可以被看作是一种<strong>特征选取的技术</strong></p>
+<h3 id="L2正则化的一种几何化解读"><a href="#L2正则化的一种几何化解读" class="headerlink" title="L2正则化的一种几何化解读"></a>L2正则化的一种几何化解读</h3><p>正如之前所描述的那样,L2正则化向代价函数中添加了代价项,在研究L1之前,我们先来看看正则化的几何解释</p>
+<p>我们首先在$\omega_1$和$\omega_2$两个轴上绘制一个凸函数,在这里,我们将考量<strong>方均根误差</strong>(SSE),因为这种方法的计算要比使用logistic回归的方式方便很多,但是两者的理念是相同的.,我们需要记住我们要找到的是满足权重较小且误差小的结合,就像在下图中展现的那样<br><img src="1.png" alt="1.png"><br>那么,我们可以认为正则化是在尽量的鼓励较小的权重,因此,通过添加正则化参量,我们让最佳点靠近原点<br><img src="2.png" alt="2.png"><br>此时$\lambda$可以用来描述这个圆有多重要,倘使$\lambda$非常大,那么这个圆就会变小</p>
+<h3 id="使用L1正则化分散解"><a href="#使用L1正则化分散解" class="headerlink" title="使用L1正则化分散解"></a>使用L1正则化分散解</h3><p>现在,我们来讨论L1正则化的结果,虽然有点类似,但是我们需要知道L1正则化是直接绝对值求和,因此可以表示为一个菱形而不是一个圆<br><img src="goodtrainingsets/3.png" alt="png"></p>
+<p>在前面那张图中,我们可以注意到代价函数的等高线与L1菱形相交(在$\omega_1=0$处),既然L1正则系统比较尖锐,那么我们可以推断最为理想的状态应当是位于轴上,此时$\omega_1=0$,这就增强了稀疏性<br>而对于正则化支持L1正则化后的模型,我们可以简单地将<code>penalty</code>参数设定为<code>l1</code></p>
+<blockquote>
+<p>注意,在这么做时,要将<code>dual</code>设为<code>False</code>,要将<code>solver</code>设为<code>liblinear</code></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line">LogisticRegression(penalty=<span class="string">&#x27;l1&#x27;</span>,dual=<span class="literal">False</span>,solver=<span class="string">&#x27;liblinear&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>我们将这个方法运用到刚才那个酒类的例子之中,我们可以得到这样的分散解</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">lr=LogisticRegression(penalty=<span class="string">&#x27;l1&#x27;</span>,C=<span class="number">1.0</span>,dual=<span class="literal">False</span>,solver=<span class="string">&#x27;liblinear&#x27;</span>)</span><br><span class="line">lr.fit(X_train_std,y_train)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Training accuracy:&#x27;</span>,lr.score(X_train_std,y_train))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Test accuracy:&#x27;</span>,lr.score(X_test_std,y_test))</span><br></pre></td></tr></table></figure>
+<pre><code>Training accuracy: 1.0
+Test accuracy: 1.0
+</code></pre><p>可以看到,我们的模型对训练集和测试集都有着完美的描述,接下来我们可以看一看训练的结果参数<br>其中包含了截距和参数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;The w0 is &quot;</span>,lr.intercept_)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;The wi is&quot;</span>,lr.coef_)</span><br></pre></td></tr></table></figure>
+<pre><code>The w0 is  [-1.26382301 -1.21599452 -2.36990903]
+The wi is [[ 1.24557242  0.18072145  0.74571775 -1.1636765   0.          0.
+   1.16100096  0.          0.          0.          0.          0.55564141
+   2.50903545]
+ [-1.53717924 -0.38698786 -0.99501331  0.36448555 -0.05940712  0.
+   0.66768246  0.          0.         -1.93424305  1.23445191  0.
+  -2.23163889]
+ [ 0.13578242  0.16856474  0.35719175  0.          0.          0.
+  -2.43795819  0.          0.          1.56376444 -0.81884123 -0.4924925
+   0.        ]]
+</code></pre><p>作为L1正则化的结果,我们可以看到存在一些可能与我们的推断不相关的参数.虽然前面的那个例子可能并不是非常的稀疏,因为里面仍然包含了许多的非零参数,但是我们也可以通过加大<code>C</code>的方式使得正则化强度增加</p>
+<p>而对于在这一部分的最后一个例子,我们将展现随着C的逐渐增大,正则化参数的效果</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">fig=plt.figure()</span><br><span class="line">ax=plt.subplot(<span class="number">111</span>)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">line_gen</span>():  </span><br><span class="line">    <span class="string">&quot;&quot;&quot;line_gen 产生不超过九个线形</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Yields</span></span><br><span class="line"><span class="string">    ------</span></span><br><span class="line"><span class="string">    str</span></span><br><span class="line"><span class="string">        产生得到线形的字符串</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span>    </span><br><span class="line">    line_shapes=[<span class="string">&quot;-&quot;</span>,<span class="string">&quot;--&quot;</span>,<span class="string">&quot;-.&quot;</span>,<span class="string">&quot;-*&quot;</span>]</span><br><span class="line">    line_cols=[<span class="string">&quot;r&quot;</span>,<span class="string">&quot;g&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;y&quot;</span>,<span class="string">&quot;o&quot;</span>]</span><br><span class="line">    <span class="keyword">for</span> line_shape <span class="keyword">in</span> line_shapes:</span><br><span class="line">        <span class="keyword">for</span> line_col <span class="keyword">in</span> line_cols:</span><br><span class="line">            <span class="keyword">yield</span> line_col+line_shape</span><br><span class="line"></span><br><span class="line">weights,params=[],[]</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> np.arange(-<span class="number">4.</span>,<span class="number">6.</span>):</span><br><span class="line">    lr=LogisticRegression(penalty=<span class="string">&#x27;l1&#x27;</span>,C=<span class="number">10</span>**c,solver=<span class="string">&#x27;liblinear&#x27;</span>,random_state=<span class="number">0</span>)</span><br><span class="line">    lr.fit(X_train_std,y_train)</span><br><span class="line">    weights.append(lr.coef_[<span class="number">1</span>])</span><br><span class="line">    params.append(<span class="number">10</span>**c)</span><br><span class="line">weights=np.array(weights)   </span><br><span class="line">lg=line_gen()</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> <span class="built_in">range</span>(weights.shape[<span class="number">1</span>]):</span><br><span class="line">    plt.plot(params,weights[:,c],<span class="built_in">next</span>(lg),label=df.columns[c+<span class="number">1</span>])</span><br><span class="line">plt.xlim([<span class="number">10</span>**(-<span class="number">5</span>),<span class="number">10</span>**<span class="number">5</span>])</span><br><span class="line">plt.ylabel(<span class="string">&quot;weighr coeff&quot;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;C&#x27;</span>)</span><br><span class="line">plt.xscale(<span class="string">&quot;log&quot;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;upper left&#x27;</span>)</span><br><span class="line">ax.legend(loc=<span class="string">&quot;best&quot;</span>,fancybox=<span class="literal">True</span>,ncol=<span class="number">1</span>)</span><br><span class="line">ax.grid(<span class="literal">True</span>,<span class="string">&#x27;both&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>​<br><img src="goodtrainingsets_68_0.png" alt="png"><br>​    </p>
+<p>我们可以看到如果我们将<code>C</code>设置很小(相当于很高的正则化参数),那么各个参数将会趋向0</p>
+<h2 id="序列特征选择算法"><a href="#序列特征选择算法" class="headerlink" title="序列特征选择算法"></a>序列特征选择算法</h2><p>另外一种降低模型复杂度并且避免过拟合的手段是<strong>降维法</strong>,常见有两种降维的手段:特征选取和特征提取,使用前者我们会得到特征的一个子集,使用后者我们则会得到一个全新的特征空间</p>
+<p>在这一部分中,我们将讨论一个特征选择算法中传统的一族.</p>
+<p>序列特征选择算法是一种贪心算法,其目的在于选取出与与问题关联程度最高的子集,可以提高计算效率并且降低误差的影响</p>
+<p>一个经典的序列特征选择算法是<strong>序列后向选择(SBS)</strong>,其目的在于减少初始特征子空间位数,而SBS在模型面临过拟合的困境时,还可以提高模型的说服力.</p>
+<p>SBS算法背后的思想非常简单,SBS一步步减少特征直到最后拥有指定数量,而为了判断移除特征的顺序,我们需要定义一个标准函数$J$达到最小值,这个函数可以简单地认为是保留这个特征和删除这个特征训练效果之差,也就是说让这个函数最小的特征可以被看作是<strong>最不重要</strong>的特征</p>
+<blockquote>
+<p>虽然书中原文讲并没有可以实现这个目的的函数,但是可能由于版本迭代,我在<a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SequentialFeatureSelector.html">这里</a>看到了有关函数的资料,也许可以用一下   </p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> SequentialFeatureSelector</span><br><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score</span><br><span class="line">scorel=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">13</span>):</span><br><span class="line">    sbs=SequentialFeatureSelector(KNeighborsClassifier(p=<span class="number">2</span>),n_features_to_select=i,direction=<span class="string">&quot;backward&quot;</span>)</span><br><span class="line">    sbs.fit(X_train_std,y_train)</span><br><span class="line">    nxt=X_train_std[:,sbs.support_]</span><br><span class="line">    c=KNeighborsClassifier(p=<span class="number">2</span>)</span><br><span class="line">    c.fit(nxt,y_train)</span><br><span class="line">    sc=accuracy_score(c.predict(nxt),y_train)</span><br><span class="line">    scorel.append(sc)</span><br></pre></td></tr></table></figure>
+<p>在上面,我们应用了所给的<code>SequentialFeatureSelector</code>进行后向选取,但是我们需要注意到,在我们对分数进行评估的时候,必须要使用<strong>训练集</strong>进行评估,实际上是要保证<strong>测试集的数据无论如何不会影响到训练过程</strong>,否则测试集的效果将会降低</p>
+<p>下面展现出使用序列选取后准确率的效果</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plt.plot(<span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">1</span>,<span class="number">13</span>)),scorel,<span class="string">&quot;*-&quot;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;Number of features&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;Accuracy&quot;</span>)</span><br><span class="line">plt.grid(<span class="literal">True</span>,<span class="string">&quot;both&quot;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>​<br><img src="goodtrainingsets_files/goodtrainingsets_73_0.png" alt="png"><br>​    </p>
+<blockquote>
+<p>其他还有许多类型的选取方法,可以去参考官方网页</p>
+</blockquote>
+<h2 id="使用随机森林方法评估特征的重要性"><a href="#使用随机森林方法评估特征的重要性" class="headerlink" title="使用随机森林方法评估特征的重要性"></a>使用随机森林方法评估特征的重要性</h2><p>在之前的部分中,我们通过L1正则化方法学会如何去除无关的特征,另外一种常用方法是<strong>随机森林</strong>,因为在之前我们就提到过,随机森林会随机选取某些特征和某些样本进行训练,在我们训练完后,我们就可以得到不同特征的重要程度</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line">flabel=df.columns[<span class="number">1</span>:]</span><br><span class="line">forest=RandomForestClassifier(n_estimators=<span class="number">500</span>,random_state=<span class="number">1</span>)</span><br><span class="line">forest.fit(X_train,y_train)</span><br><span class="line">imp=forest.feature_importances_</span><br><span class="line">indices=np.argsort(imp)[::-<span class="number">1</span>]</span><br><span class="line">plt.bar(<span class="built_in">range</span>(X_train.shape[<span class="number">1</span>]),imp[indices],align=<span class="string">&#x27;center&#x27;</span>)</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>​<br><img src="goodtrainingsets_76_0.png" alt="png"><br>​    </p>
+<p>从这张图我们可以清晰地看出哪些特征更加重要</p>
+<p>作为对随机森林的总结,<code>sklearn</code>里面还包含了一种<code>SelectFromModel</code>类支持用户用自定义阈值来实现模型选取,那么我们就可以用随机森林作为中间步骤,例如我们下面就可以将阈值设为0.1,看到五个最为重要的特征</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> SelectFromModel</span><br><span class="line">sfm=SelectFromModel(forest,threshold=<span class="number">0.1</span>,prefit=<span class="literal">True</span>)</span><br><span class="line">X_selected=sfm.transform(X_train)</span><br><span class="line">X_selected</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我们首先看了处理缺失数据的正确方法,然后对数据进行编码以方便进行学习</p>
+<p>接下来,我们介绍了L1正则化方法,可以规避过拟合现象发生,同时,选取合适的学习特征也有其他的手段可以使用.</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>python</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>光学期末复习</title>
+    <url>/2023/02/21/physicsnote/light/</url>
+    <content><![CDATA[<p>以下内容主要包含光学期末复习相关笔记<br><span id="more"></span></p>
+<h2 id="内容整理"><a href="#内容整理" class="headerlink" title="内容整理"></a>内容整理</h2><h3 id="光的干涉"><a href="#光的干涉" class="headerlink" title="光的干涉"></a>光的干涉</h3><h5 id="光干涉的几个要求"><a href="#光干涉的几个要求" class="headerlink" title="光干涉的几个要求"></a>光干涉的几个要求</h5><p>频率相同,振动方向相同(可能这里指的是分量),相位稳定</p>
+<h5 id="干涉光强计算"><a href="#干涉光强计算" class="headerlink" title="干涉光强计算"></a>干涉光强计算</h5><p>$I=\frac{1}{2}EE^*$,对于相干光,是$E$的叠加;对于非相干光,是$I$的叠加</p>
+<h4 id="频谱宽度的计算与注意事项"><a href="#频谱宽度的计算与注意事项" class="headerlink" title="频谱宽度的计算与注意事项"></a>频谱宽度的计算与注意事项</h4><p>$\Delta x\Delta k\approx 2\pi$其中$\Delta x$为发光长度</p>
+<p>或者可以用</p>
+<p>$\Delta t\Delta \nu=1$,其中$\Delta t$为发光时间</p>
+<h5 id="相干光的两种产生方式"><a href="#相干光的两种产生方式" class="headerlink" title="相干光的两种产生方式"></a>相干光的两种产生方式</h5><p>分波前与分振幅</p>
+<h4 id="典型分波前干涉-杨氏双缝干涉"><a href="#典型分波前干涉-杨氏双缝干涉" class="headerlink" title="典型分波前干涉:杨氏双缝干涉"></a>典型分波前干涉:杨氏双缝干涉</h4><script type="math/tex; mode=display">I=I_0\cos^2\left(\pi\frac{\Delta xl}{L\lambda}\right)</script><p>需要注意,这里假定缝非常小,否则还要考虑<strong>光的衍射</strong></p>
+<h5 id="杨氏双缝干涉中单缝作用"><a href="#杨氏双缝干涉中单缝作用" class="headerlink" title="杨氏双缝干涉中单缝作用"></a>杨氏双缝干涉中单缝作用</h5><p>用来产生相干光</p>
+<p>随着与中心距离的逐渐变大,条纹会逐渐变暗,一般有两个原因:</p>
+<ol>
+<li>干涉距离变大,逐渐变得不相干</li>
+<li>由于后面会讨论的衍射因子的作用</li>
+</ol>
+<p>如果非单色光,那么会出现分光的现象</p>
+<h4 id="分波面干涉-劈尖干涉与牛顿环"><a href="#分波面干涉-劈尖干涉与牛顿环" class="headerlink" title="分波面干涉:劈尖干涉与牛顿环"></a>分波面干涉:劈尖干涉与牛顿环</h4><p>需要注意,在分拨面干涉中的光路<strong>并不是任意的</strong>,需要注意<strong>成像问题</strong></p>
+<p>对于劈尖,需要关心介质的折射率关系以分析半波损失</p>
+<p>关于牛顿环,可以直接计算透镜的曲率半径$R$为</p>
+<script type="math/tex; mode=display">R=\frac{r^2_{m+i}-r^2_m}{i\lambda}</script><h5 id="等厚干涉与等倾干涉的综合区别"><a href="#等厚干涉与等倾干涉的综合区别" class="headerlink" title="等厚干涉与等倾干涉的综合区别"></a>等厚干涉与等倾干涉的综合区别</h5><p>等厚干涉的光程差来源于不同位置透明介质厚度不同,等倾干涉光程差来源于不同位置光角度不同,经过厚度不同</p>
+<h4 id="迈克耳孙干涉"><a href="#迈克耳孙干涉" class="headerlink" title="迈克耳孙干涉"></a>迈克耳孙干涉</h4><p>需要注意到的问题:</p>
+<ol>
+<li>在第一个反射镜处,是否有镀膜会<strong>对干涉的半波损失带来巨大影响</strong></li>
+<li>如果没有补偿镜,需要使用<strong>单色性更好的光</strong></li>
+</ol>
+<h4 id="多光束干涉"><a href="#多光束干涉" class="headerlink" title="多光束干涉"></a>多光束干涉</h4><p>相当于在薄膜干涉的基础上多考虑反射和折射</p>
+<p>可以得到总的反射相对光强和总的投射相对光强</p>
+<script type="math/tex; mode=display">\frac{I_r}{I_i}=\frac{F\sin^2(\frac{\sigma}{2})}{1+F\sin^2(\frac{\sigma}{2})}</script><script type="math/tex; mode=display">\frac{I_t}{I_i}=\frac{1}{1+F\sin^2(\frac{\sigma}{2})}</script><p>此处$\sigma=\frac{4\pi n h \cos\theta_t}{\lambda}$为每一级条纹之间的相位差($\theta_t$为介质中投射角),$F$为锐度系数$F=\left(\frac{2r}{1-r^2}\right)^2$</p>
+<p>同时,我们可以定义从光强最大到光强为$\frac{1}{2}$的距离为<strong>半峰宽</strong>$\delta_{\frac{1}{2}}$,可以有</p>
+<script type="math/tex; mode=display">\delta\theta\frac{4\pi nh\sin\theta_t}{\lambda}=\delta_{1}{2}=2\arcsin(\frac{1}{\sqrt{F}})\approx\frac{2}{\sqrt{F}}</script><p>从这里,我们可以求解出来其角分辨能力</p>
+<h3 id="衍射理论"><a href="#衍射理论" class="headerlink" title="衍射理论"></a>衍射理论</h3><h4 id="近场与远场"><a href="#近场与远场" class="headerlink" title="近场与远场"></a>近场与远场</h4><p>远场:满足射入的光近似于平行光(或者用透镜实现无穷远成像)<em>菲涅尔衍射</em></p>
+<p>近场:存在角度<em>夫琅和费衍射</em></p>
+<h4 id="单个狭缝的夫琅和费衍射"><a href="#单个狭缝的夫琅和费衍射" class="headerlink" title="单个狭缝的夫琅和费衍射"></a>单个狭缝的夫琅和费衍射</h4><h5 id="分析手段"><a href="#分析手段" class="headerlink" title="分析手段"></a>分析手段</h5><ol>
+<li>可以使用矢量图法,每一小部分光源相当于构成了一个小矢量,而这些矢量首尾叠加构成圆弧,合成光就是圆弧首尾相连</li>
+<li>可以使用半波带法分析明暗条纹</li>
+<li>直接积分</li>
+</ol>
+<h5 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h5><p>记住光强为</p>
+<script type="math/tex; mode=display">I=\frac{\sin^2\beta}{\beta^2}</script><p>其中$\beta=\frac{\pi b}{\lambda}\sin\theta$(可以看作以某一角度射出时极限光程差相位差的一半)</p>
+<h5 id="特殊情况"><a href="#特殊情况" class="headerlink" title="特殊情况"></a>特殊情况</h5><p>如果入射光存在角度,那么<strong>需要叠加计算</strong></p>
+<script type="math/tex; mode=display">\beta=\frac{\pi b}{\lambda}(\sin\theta+\sin\alpha)</script><p>其中$\alpha$新入射效果</p>
+<h5 id="矩形孔"><a href="#矩形孔" class="headerlink" title="矩形孔"></a>矩形孔</h5><p>可以看作两个方向的狭缝,最后结果就是两个方向衍射相乘</p>
+<h4 id="圆孔夫琅和费衍射"><a href="#圆孔夫琅和费衍射" class="headerlink" title="圆孔夫琅和费衍射"></a>圆孔夫琅和费衍射</h4><p>我们无法获得圆孔夫琅和费衍射的解析解,其可以被写作$U(\theta)=\frac{2kJ_1(x)}{x}$</p>
+<p>而$\frac{2\pi}{\lambda}a\sin\theta$,$a$为圆孔半径</p>
+<p>因此,可以得到第一个暗环的半角宽为$\delta\theta=0.61\frac{\lambda}{a}=1.22\frac{\lambda}{D}$</p>
+<p>这也是<strong>最小角分辨率</strong>,而对于研究线分辨率$d=\Delta\theta f$</p>
+<h4 id="多缝衍射"><a href="#多缝衍射" class="headerlink" title="多缝衍射"></a>多缝衍射</h4><p>对于多峰衍射,可以考虑干涉因子和衍射因子相乘</p>
+<p>其中干涉因子与一个完整的遮挡和缝的<strong>总宽度</strong>$d$相关</p>
+<script type="math/tex; mode=display">I=I_0\frac{\sin^2N\gamma}{\sin^2\gamma}\frac{\sin^2\beta}{\beta^2}</script><p>其中干涉的强度极大值位置为$d\sin\theta=\pm m\lambda$,极小值$\sin N\gamma=0$且$\sin\gamma\neq 0$</p>
+<blockquote>
+<p>注意,如果$d$和$b$呈现简单整数比,那么会存在缺级</p>
+</blockquote>
+<h5 id="角色散率"><a href="#角色散率" class="headerlink" title="角色散率"></a>角色散率</h5><p>我们可以定义角色散率$D=\frac{\delta\theta}{\delta\lambda}$</p>
+<p>可以得到:级次越大,角色散率越大,刻线越密,色散越大</p>
+<p>而使用<strong>瑞利判据</strong>,可以得到色分辨本领$R=\frac{\lambda}{\Delta\lambda}=mN$</p>
+<p>$N$为总刻线数</p>
+<h5 id="闪耀光栅"><a href="#闪耀光栅" class="headerlink" title="闪耀光栅"></a>闪耀光栅</h5><p>我们可以让反射面倾斜,这样可以使得衍射极大发生偏离,使得干涉级数大的部分<strong>比较亮</strong></p>
+<h4 id="菲涅尔衍射"><a href="#菲涅尔衍射" class="headerlink" title="菲涅尔衍射"></a>菲涅尔衍射</h4><p>分析:可以使用半波带法,如果有奇数个半波带,那么光强较强,偶数个半波带,光强较弱</p>
+<h5 id="三种不同的情况"><a href="#三种不同的情况" class="headerlink" title="三种不同的情况"></a>三种不同的情况</h5><ol>
+<li>光阑,随着$r$变大,会从一个亮点中间产生黑点再生长….</li>
+<li>自由传播:总光场一半</li>
+<li>Posson亮斑:中心点总是亮的</li>
+</ol>
+<h5 id="光阑的半波带个数"><a href="#光阑的半波带个数" class="headerlink" title="光阑的半波带个数"></a>光阑的半波带个数</h5><p>在光阑半径为$R$一点与光阑中心的那一点的光程差</p>
+<script type="math/tex; mode=display">\Delta S=\frac{R(r_0+\rho)}{\rho r_0\lambda}</script><p>$\rho$为波面半径,$r_0$为波面到观测点的最短距离</p>
+<blockquote>
+<p>可以利用半波带性质做透镜,满足</p>
+<script type="math/tex; mode=display">(\frac{1}{\rho}+\frac{1}{r})=\frac{m\lambda}{R^2_m}</script></blockquote>
+<h3 id="几何光学"><a href="#几何光学" class="headerlink" title="几何光学"></a>几何光学</h3><h4 id="几何光学成像"><a href="#几何光学成像" class="headerlink" title="几何光学成像"></a>几何光学成像</h4><p>物空间-&gt;光学系统-&gt;像空间</p>
+<p><img src="F:\OneDrive\blog\source\_posts\physicsnote\light\1.png" alt="png"></p>
+<h4 id="理想透镜"><a href="#理想透镜" class="headerlink" title="理想透镜"></a>理想透镜</h4><p>原理<strong>光程相等,构成波阵面</strong>,一般理想透镜的透镜方程</p>
+<p><img src="F:\OneDrive\blog\source\_posts\physicsnote\light\2 .png" alt=""></p>
+<p>对于双曲面镜,有AD为双曲面准线,O为双曲线一个焦点,如果$e=\frac{n}{n_0}$</p>
+<p>那么可以知道OB光程加上BC光程相当于在玻璃介质中AC,因此<strong>双曲面镜可以点源到平行光</strong></p>
+<p><img src="F:\OneDrive\blog\source\_posts\physicsnote\light\3.png" alt="3"></p>
+<p>相似的,椭圆面镜也可以使平行光汇聚</p>
+<blockquote>
+<p>如何判断应当使用<strong>双曲面镜</strong>还是使用<strong>椭圆面镜</strong>的手段</p>
+<p>在<strong>双曲面镜中</strong>,平行光出现在<strong>折射率大的部分</strong></p>
+<p>在<strong>椭圆面镜中</strong>,平行光出现在<strong>折射率小的部分</strong></p>
+</blockquote>
+<p>可以使用双曲面+球面(光线过球心,不会在表面折射)制作理想双曲面镜</p>
+<h4 id="球面透镜"><a href="#球面透镜" class="headerlink" title="球面透镜"></a>球面透镜</h4><h2 id="综合性内容"><a href="#综合性内容" class="headerlink" title="综合性内容"></a>综合性内容</h2><h3 id="“恰好分辨”"><a href="#“恰好分辨”" class="headerlink" title="“恰好分辨”"></a>“恰好分辨”</h3><ol>
+<li><p>对于波长存在范围的干涉而言,恰好分辨是<strong>前一级条纹中波长最大和后一级条纹波长最小重合</strong></p>
+</li>
+<li><p>对于多光束干涉而言,恰好分辨是<strong>两个干涉峰恰好错开半峰宽</strong>(这可以认为是一种较为简单的判据)</p>
+<blockquote>
+<p>对于多光束干涉使用<strong>瑞利判据</strong>,一般认为两光束合成后亮度的<strong>鞍点</strong>亮度为最大辐照亮度的$\frac{8}{\pi^2}$倍,这个时候的推导要更为复杂,但是可以直接记住结论:使用该判据,两个光束的<strong>衍射相位差至少为</strong></p>
+<script type="math/tex; mode=display">(\Delta\delta\approx\frac{4.2}{\sqrt{F}})</script></blockquote>
+</li>
+<li><p>对于衍射的瑞利判据,恰好分辨是<strong>一个衍射极大恰好落在另一个衍射极小</strong></p>
+</li>
+</ol>
+<h3 id="相矢量图"><a href="#相矢量图" class="headerlink" title="相矢量图"></a>相矢量图</h3><p>这个问题主要来自于多缝衍射</p>
+<p>首先,多缝衍射倘使不考虑缺级以及如衍射光强等一系列问题,完全可以看作<strong>多缝干涉</strong>的模型,此时我们可以通过绘制相矢量图来解题</p>
+<p>但是这个时候,需要关注到<strong>一个易错点</strong>:相矢量图两个矢量之间的夹角<strong>就是光程差带来的相位差</strong>,但是在式子$\frac{\sin^2(N\alpha)}{\sin^2\alpha}$中$\alpha$的定义确是前者的<strong>一半</strong></p>
+<p>同时,我们需要知道<strong>辅极大的位置无法直接求解</strong>,近似在$\sin N\alpha$取极大的位置上</p>
+<p>而对于极小的位置,就是$\sin N\alpha=0$的位置(这在求解恰好分辨的问题非常重要)</p>
+<h2 id="做题存在问题"><a href="#做题存在问题" class="headerlink" title="做题存在问题"></a>做题存在问题</h2><ol>
+<li>在每一次做到和干涉衍射相关的题目时,需要<strong>小心的分析半波损失问题</strong></li>
+<li>需要去理解半波带法的绘图 </li>
+<li>多看闪耀光栅的题目</li>
+<li>如果两个发光点相距很远,那么在整个空间中,可以看作总体的$I_1I_2$的空间平均为0,如果两个发光点距离很近(远小于一个波长),<strong>可以看作一个光源,亮度为两倍</strong></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>物理学</tag>
       </tags>
   </entry>
 </search>
