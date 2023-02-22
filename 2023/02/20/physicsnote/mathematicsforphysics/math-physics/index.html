@@ -27,12 +27,15 @@
 <meta property="og:site_name" content="Songyuli&#39;s blog">
 <meta property="og:description" content="以下内容主要包含复变函数的相关笔记(基本定义到微分和积分)">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/02/20/physicsnote/mathematicsforphysics/math-physics/1.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/02/20/physicsnote/mathematicsforphysics/math-physics/2.png">
 <meta property="article:published_time" content="2023-02-20T13:25:31.000Z">
-<meta property="article:modified_time" content="2023-02-20T13:35:41.821Z">
+<meta property="article:modified_time" content="2023-02-22T16:32:31.744Z">
 <meta property="article:author" content="Songyuli">
 <meta property="article:tag" content="物理学">
 <meta property="article:tag" content="数学">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lsyxiaopang.github.io/2023/02/20/physicsnote/mathematicsforphysics/math-physics/1.png">
 
 <link rel="canonical" href="https://lsyxiaopang.github.io/2023/02/20/physicsnote/mathematicsforphysics/math-physics/">
 
@@ -229,10 +232,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-02-20 21:25:31 / Modified: 21:35:41" itemprop="dateCreated datePublished" datetime="2023-02-20T21:25:31+08:00">2023-02-20</time>
+              <time title="Created: 2023-02-20 21:25:31" itemprop="dateCreated datePublished" datetime="2023-02-20T21:25:31+08:00">2023-02-20</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-02-23 00:32:31" itemprop="dateModified" datetime="2023-02-23T00:32:31+08:00">2023-02-23</time>
+              </span>
 
           
   
@@ -324,6 +333,34 @@
 <h3 id="复变函数可导的充分条件"><a href="#复变函数可导的充分条件" class="headerlink" title="复变函数可导的充分条件"></a>复变函数可导的充分条件</h3><p>在满足C-R条件的基础上,如果同时满足$u,v$的偏导数<strong>连续</strong>,那么必然可导</p>
 <h3 id="解析函数"><a href="#解析函数" class="headerlink" title="解析函数"></a>解析函数</h3><p>若$f_0$在$z_0$<strong>及其邻域$E(z_0)$处处可导</strong>,那么称$f(z)$在$z_0$处是解析的</p>
 <p>(如果在区域中处处可导,那么<strong>其处处解析</strong>)</p>
+<h4 id="解析函数需要满足的性质"><a href="#解析函数需要满足的性质" class="headerlink" title="解析函数需要满足的性质"></a>解析函数需要满足的性质</h4><p>$f(x,y)&#x3D;u(x,y)+iv(x,y)$</p>
+<p>其中$u,v$需要是调和函数,即$\nabla^2u&#x3D;\nabla^2v&#x3D;0$</p>
+<p>同时有$\frac{\partial f}{\partial z^*}&#x3D;0$</p>
+<blockquote>
+<p>这个性质的证明和应用都用到了对所有复数$z&#x3D;x+iy$,都有$x&#x3D;\frac{z+z^*}{2}$,$y&#x3D;\frac{z-z^*}{2}$</p>
+<p>因此,解析函数对$z^*$偏导恒等于0意味着解析函数必然可以被写作$u(z)+iv(z)$的形式</p>
+</blockquote>
+<h2 id="多值函数"><a href="#多值函数" class="headerlink" title="多值函数"></a>多值函数</h2><p>在这里,我们将以一个例子开始,分析多值函数的性质</p>
+<p>设$w&#x3D;\sqrt{z}$,可以将$w$的模长和辐角提取出来,我们得到</p>
+<p>$$r&#x3D;\sqrt{|z|},\theta&#x3D;\frac{1}{2}Argz&#x3D;\frac{1}{2}argz+n\pi$$</p>
+<p>那么我们注意到,$w$的主辐角可以取$\theta_1&#x3D;\frac{1}{2}argz,\theta_2&#x3D;\frac{1}{2}argz+\pi$</p>
+<p><strong>这里给出了两个不同的值</strong></p>
+<p>可以看作为两个单支</p>
+<blockquote>
+<p>我们要注意到,这和实函数中的多值函数不同,这里的多值<strong>不独立</strong></p>
+</blockquote>
+<h3 id="支点"><a href="#支点" class="headerlink" title="支点"></a>支点</h3><p>对于给定多值函数$w&#x3D;f(z)$,$z$绕某点一周,$w$不复原,那么该点为多值函数的<strong>支点</strong></p>
+<p>例如,对于前面的那个例子</p>
+<p><img src="/2023/02/20/physicsnote/mathematicsforphysics/math-physics/1.png"></p>
+<p>可以注意到若$w$沿蓝色线转一圈,那么会跑到另外一支上,但是如果沿着绿色线转一圈,就不会,因此可以说$z&#x3D;0$是函数$\sqrt{z}$的支点</p>
+<p>同时,如果绕着该点转$n$圈可以回到原来的函数值,那么称该点为函数的$n-1$阶支点</p>
+<blockquote>
+<p>比如$z&#x3D;0$就是一阶支点</p>
+</blockquote>
+<h3 id="黎曼面"><a href="#黎曼面" class="headerlink" title="黎曼面"></a>黎曼面</h3><p>我们从刚才这个例子可以看出总共可能会有两支,但是这种展示方法并不直观</p>
+<p>我们可以通过建立两张复平面实现将辐角从$2\pi$到$4\pi$,如图所示,将BC相连,DA相连</p>
+<p><img src="/2023/02/20/physicsnote/mathematicsforphysics/math-physics/2.png"></p>
+<p>那么前面绕支点转一圈的例子就非常明显了(绿线),其不能像蓝线那样回到原处</p>
 
     </div>
 
@@ -415,7 +452,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">复数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%AE%9A%E4%B9%89-%E7%9B%B4%E8%A7%92%E5%9D%90%E6%A0%87%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">基本定义(直角坐标定义)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%81%E5%9D%90%E6%A0%87%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.</span> <span class="nav-text">极坐标定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E7%89%B9%E6%AE%8A%E7%82%B9"><span class="nav-number">1.3.</span> <span class="nav-text">两个特殊点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E7%AE%97"><span class="nav-number">1.4.</span> <span class="nav-text">运算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">复变函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E4%BA%8E%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89"><span class="nav-number">2.0.1.</span> <span class="nav-text">对于复变函数定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BA%E5%9F%9F"><span class="nav-number">2.0.2.</span> <span class="nav-text">区域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0"><span class="nav-number">2.0.3.</span> <span class="nav-text">常见的复变函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E6%B1%82%E5%AF%BC%E4%B8%8E%E8%A7%A3%E6%9E%90%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">复变函数求导与解析函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E5%8F%AF%E5%AF%BC%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%9D%A1%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">复变函数可导的两个条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E5%8F%AF%E5%AF%BC%E7%9A%84%E6%9F%AF%E8%A5%BF-%E9%BB%8E%E6%9B%BC%E6%9D%A1%E4%BB%B6"><span class="nav-number">3.2.</span> <span class="nav-text">复变函数可导的柯西-黎曼条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E5%8F%AF%E5%AF%BC%E7%9A%84%E5%85%85%E5%88%86%E6%9D%A1%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">复变函数可导的充分条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90%E5%87%BD%E6%95%B0"><span class="nav-number">3.4.</span> <span class="nav-text">解析函数</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">复数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%AE%9A%E4%B9%89-%E7%9B%B4%E8%A7%92%E5%9D%90%E6%A0%87%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">基本定义(直角坐标定义)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%81%E5%9D%90%E6%A0%87%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.</span> <span class="nav-text">极坐标定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E7%89%B9%E6%AE%8A%E7%82%B9"><span class="nav-number">1.3.</span> <span class="nav-text">两个特殊点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E7%AE%97"><span class="nav-number">1.4.</span> <span class="nav-text">运算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">复变函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E4%BA%8E%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89"><span class="nav-number">2.0.1.</span> <span class="nav-text">对于复变函数定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BA%E5%9F%9F"><span class="nav-number">2.0.2.</span> <span class="nav-text">区域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0"><span class="nav-number">2.0.3.</span> <span class="nav-text">常见的复变函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E6%B1%82%E5%AF%BC%E4%B8%8E%E8%A7%A3%E6%9E%90%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">复变函数求导与解析函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E5%8F%AF%E5%AF%BC%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%9D%A1%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">复变函数可导的两个条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E5%8F%AF%E5%AF%BC%E7%9A%84%E6%9F%AF%E8%A5%BF-%E9%BB%8E%E6%9B%BC%E6%9D%A1%E4%BB%B6"><span class="nav-number">3.2.</span> <span class="nav-text">复变函数可导的柯西-黎曼条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E5%8F%AF%E5%AF%BC%E7%9A%84%E5%85%85%E5%88%86%E6%9D%A1%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">复变函数可导的充分条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90%E5%87%BD%E6%95%B0"><span class="nav-number">3.4.</span> <span class="nav-text">解析函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90%E5%87%BD%E6%95%B0%E9%9C%80%E8%A6%81%E6%BB%A1%E8%B6%B3%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="nav-number">3.4.1.</span> <span class="nav-text">解析函数需要满足的性质</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E5%80%BC%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">多值函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%AF%E7%82%B9"><span class="nav-number">4.1.</span> <span class="nav-text">支点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%8E%E6%9B%BC%E9%9D%A2"><span class="nav-number">4.2.</span> <span class="nav-text">黎曼面</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

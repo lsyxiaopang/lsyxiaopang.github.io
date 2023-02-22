@@ -2281,6 +2281,34 @@ Along axis 1 is [ 6 15]
 <h3 id="复变函数可导的充分条件"><a href="#复变函数可导的充分条件" class="headerlink" title="复变函数可导的充分条件"></a>复变函数可导的充分条件</h3><p>在满足C-R条件的基础上,如果同时满足$u,v$的偏导数<strong>连续</strong>,那么必然可导</p>
 <h3 id="解析函数"><a href="#解析函数" class="headerlink" title="解析函数"></a>解析函数</h3><p>若$f_0$在$z_0$<strong>及其邻域$E(z_0)$处处可导</strong>,那么称$f(z)$在$z_0$处是解析的</p>
 <p>(如果在区域中处处可导,那么<strong>其处处解析</strong>)</p>
+<h4 id="解析函数需要满足的性质"><a href="#解析函数需要满足的性质" class="headerlink" title="解析函数需要满足的性质"></a>解析函数需要满足的性质</h4><p>$f(x,y)&#x3D;u(x,y)+iv(x,y)$</p>
+<p>其中$u,v$需要是调和函数,即$\nabla^2u&#x3D;\nabla^2v&#x3D;0$</p>
+<p>同时有$\frac{\partial f}{\partial z^*}&#x3D;0$</p>
+<blockquote>
+<p>这个性质的证明和应用都用到了对所有复数$z&#x3D;x+iy$,都有$x&#x3D;\frac{z+z^*}{2}$,$y&#x3D;\frac{z-z^*}{2}$</p>
+<p>因此,解析函数对$z^*$偏导恒等于0意味着解析函数必然可以被写作$u(z)+iv(z)$的形式</p>
+</blockquote>
+<h2 id="多值函数"><a href="#多值函数" class="headerlink" title="多值函数"></a>多值函数</h2><p>在这里,我们将以一个例子开始,分析多值函数的性质</p>
+<p>设$w&#x3D;\sqrt{z}$,可以将$w$的模长和辐角提取出来,我们得到</p>
+<p>$$r&#x3D;\sqrt{|z|},\theta&#x3D;\frac{1}{2}Argz&#x3D;\frac{1}{2}argz+n\pi$$</p>
+<p>那么我们注意到,$w$的主辐角可以取$\theta_1&#x3D;\frac{1}{2}argz,\theta_2&#x3D;\frac{1}{2}argz+\pi$</p>
+<p><strong>这里给出了两个不同的值</strong></p>
+<p>可以看作为两个单支</p>
+<blockquote>
+<p>我们要注意到,这和实函数中的多值函数不同,这里的多值<strong>不独立</strong></p>
+</blockquote>
+<h3 id="支点"><a href="#支点" class="headerlink" title="支点"></a>支点</h3><p>对于给定多值函数$w&#x3D;f(z)$,$z$绕某点一周,$w$不复原,那么该点为多值函数的<strong>支点</strong></p>
+<p>例如,对于前面的那个例子</p>
+<p><img src="/2023/02/20/physicsnote/mathematicsforphysics/math-physics/1.png"></p>
+<p>可以注意到若$w$沿蓝色线转一圈,那么会跑到另外一支上,但是如果沿着绿色线转一圈,就不会,因此可以说$z&#x3D;0$是函数$\sqrt{z}$的支点</p>
+<p>同时,如果绕着该点转$n$圈可以回到原来的函数值,那么称该点为函数的$n-1$阶支点</p>
+<blockquote>
+<p>比如$z&#x3D;0$就是一阶支点</p>
+</blockquote>
+<h3 id="黎曼面"><a href="#黎曼面" class="headerlink" title="黎曼面"></a>黎曼面</h3><p>我们从刚才这个例子可以看出总共可能会有两支,但是这种展示方法并不直观</p>
+<p>我们可以通过建立两张复平面实现将辐角从$2\pi$到$4\pi$,如图所示,将BC相连,DA相连</p>
+<p><img src="/2023/02/20/physicsnote/mathematicsforphysics/math-physics/2.png"></p>
+<p>那么前面绕支点转一圈的例子就非常明显了(绿线),其不能像蓝线那样回到原处</p>
 ]]></content>
       <tags>
         <tag>物理学</tag>
@@ -3221,14 +3249,17 @@ The wi is [[ 1.24557242  0.18072145  0.74571775 -1.1636765   0.          0.
   <entry>
     <title>光学期末复习</title>
     <url>/2023/02/21/physicsnote/light/</url>
-    <content><![CDATA[<p>以下内容主要包含光学期末复习相关笔记<br><span id="more"></span></p>
+    <content><![CDATA[<p>以下内容主要包含光学期末复习相关笔记</p>
+<span id="more"></span>
+
 <h2 id="内容整理"><a href="#内容整理" class="headerlink" title="内容整理"></a>内容整理</h2><h3 id="光的干涉"><a href="#光的干涉" class="headerlink" title="光的干涉"></a>光的干涉</h3><h5 id="光干涉的几个要求"><a href="#光干涉的几个要求" class="headerlink" title="光干涉的几个要求"></a>光干涉的几个要求</h5><p>频率相同,振动方向相同(可能这里指的是分量),相位稳定</p>
-<h5 id="干涉光强计算"><a href="#干涉光强计算" class="headerlink" title="干涉光强计算"></a>干涉光强计算</h5><p>$I=\frac{1}{2}EE^*$,对于相干光,是$E$的叠加;对于非相干光,是$I$的叠加</p>
+<h5 id="干涉光强计算"><a href="#干涉光强计算" class="headerlink" title="干涉光强计算"></a>干涉光强计算</h5><p>$I&#x3D;\frac{1}{2}EE^*$,对于相干光,是$E$的叠加;对于非相干光,是$I$的叠加</p>
 <h4 id="频谱宽度的计算与注意事项"><a href="#频谱宽度的计算与注意事项" class="headerlink" title="频谱宽度的计算与注意事项"></a>频谱宽度的计算与注意事项</h4><p>$\Delta x\Delta k\approx 2\pi$其中$\Delta x$为发光长度</p>
 <p>或者可以用</p>
-<p>$\Delta t\Delta \nu=1$,其中$\Delta t$为发光时间</p>
+<p>$\Delta t\Delta \nu&#x3D;1$,其中$\Delta t$为发光时间</p>
 <h5 id="相干光的两种产生方式"><a href="#相干光的两种产生方式" class="headerlink" title="相干光的两种产生方式"></a>相干光的两种产生方式</h5><p>分波前与分振幅</p>
-<h4 id="典型分波前干涉-杨氏双缝干涉"><a href="#典型分波前干涉-杨氏双缝干涉" class="headerlink" title="典型分波前干涉:杨氏双缝干涉"></a>典型分波前干涉:杨氏双缝干涉</h4><script type="math/tex; mode=display">I=I_0\cos^2\left(\pi\frac{\Delta xl}{L\lambda}\right)</script><p>需要注意,这里假定缝非常小,否则还要考虑<strong>光的衍射</strong></p>
+<h4 id="典型分波前干涉-杨氏双缝干涉"><a href="#典型分波前干涉-杨氏双缝干涉" class="headerlink" title="典型分波前干涉:杨氏双缝干涉"></a>典型分波前干涉:杨氏双缝干涉</h4><p>$$I&#x3D;I_0\cos^2\left(\pi\frac{\Delta xl}{L\lambda}\right)$$</p>
+<p>需要注意,这里假定缝非常小,否则还要考虑<strong>光的衍射</strong></p>
 <h5 id="杨氏双缝干涉中单缝作用"><a href="#杨氏双缝干涉中单缝作用" class="headerlink" title="杨氏双缝干涉中单缝作用"></a>杨氏双缝干涉中单缝作用</h5><p>用来产生相干光</p>
 <p>随着与中心距离的逐渐变大,条纹会逐渐变暗,一般有两个原因:</p>
 <ol>
@@ -3239,7 +3270,8 @@ The wi is [[ 1.24557242  0.18072145  0.74571775 -1.1636765   0.          0.
 <h4 id="分波面干涉-劈尖干涉与牛顿环"><a href="#分波面干涉-劈尖干涉与牛顿环" class="headerlink" title="分波面干涉:劈尖干涉与牛顿环"></a>分波面干涉:劈尖干涉与牛顿环</h4><p>需要注意,在分拨面干涉中的光路<strong>并不是任意的</strong>,需要注意<strong>成像问题</strong></p>
 <p>对于劈尖,需要关心介质的折射率关系以分析半波损失</p>
 <p>关于牛顿环,可以直接计算透镜的曲率半径$R$为</p>
-<script type="math/tex; mode=display">R=\frac{r^2_{m+i}-r^2_m}{i\lambda}</script><h5 id="等厚干涉与等倾干涉的综合区别"><a href="#等厚干涉与等倾干涉的综合区别" class="headerlink" title="等厚干涉与等倾干涉的综合区别"></a>等厚干涉与等倾干涉的综合区别</h5><p>等厚干涉的光程差来源于不同位置透明介质厚度不同,等倾干涉光程差来源于不同位置光角度不同,经过厚度不同</p>
+<p>$$R&#x3D;\frac{r^2_{m+i}-r^2_m}{i\lambda}$$</p>
+<h5 id="等厚干涉与等倾干涉的综合区别"><a href="#等厚干涉与等倾干涉的综合区别" class="headerlink" title="等厚干涉与等倾干涉的综合区别"></a>等厚干涉与等倾干涉的综合区别</h5><p>等厚干涉的光程差来源于不同位置透明介质厚度不同,等倾干涉光程差来源于不同位置光角度不同,经过厚度不同</p>
 <h4 id="迈克耳孙干涉"><a href="#迈克耳孙干涉" class="headerlink" title="迈克耳孙干涉"></a>迈克耳孙干涉</h4><p>需要注意到的问题:</p>
 <ol>
 <li>在第一个反射镜处,是否有镀膜会<strong>对干涉的半波损失带来巨大影响</strong></li>
@@ -3247,9 +3279,12 @@ The wi is [[ 1.24557242  0.18072145  0.74571775 -1.1636765   0.          0.
 </ol>
 <h4 id="多光束干涉"><a href="#多光束干涉" class="headerlink" title="多光束干涉"></a>多光束干涉</h4><p>相当于在薄膜干涉的基础上多考虑反射和折射</p>
 <p>可以得到总的反射相对光强和总的投射相对光强</p>
-<script type="math/tex; mode=display">\frac{I_r}{I_i}=\frac{F\sin^2(\frac{\sigma}{2})}{1+F\sin^2(\frac{\sigma}{2})}</script><script type="math/tex; mode=display">\frac{I_t}{I_i}=\frac{1}{1+F\sin^2(\frac{\sigma}{2})}</script><p>此处$\sigma=\frac{4\pi n h \cos\theta_t}{\lambda}$为每一级条纹之间的相位差($\theta_t$为介质中投射角),$F$为锐度系数$F=\left(\frac{2r}{1-r^2}\right)^2$</p>
+<p>$$\frac{I_r}{I_i}&#x3D;\frac{F\sin^2(\frac{\sigma}{2})}{1+F\sin^2(\frac{\sigma}{2})}$$</p>
+<p>$$\frac{I_t}{I_i}&#x3D;\frac{1}{1+F\sin^2(\frac{\sigma}{2})}$$</p>
+<p>此处$\sigma&#x3D;\frac{4\pi n h \cos\theta_t}{\lambda}$为每一级条纹之间的相位差($\theta_t$为介质中投射角),$F$为锐度系数$F&#x3D;\left(\frac{2r}{1-r^2}\right)^2$</p>
 <p>同时,我们可以定义从光强最大到光强为$\frac{1}{2}$的距离为<strong>半峰宽</strong>$\delta_{\frac{1}{2}}$,可以有</p>
-<script type="math/tex; mode=display">\delta\theta\frac{4\pi nh\sin\theta_t}{\lambda}=\delta_{1}{2}=2\arcsin(\frac{1}{\sqrt{F}})\approx\frac{2}{\sqrt{F}}</script><p>从这里,我们可以求解出来其角分辨能力</p>
+<p>$$\delta\theta\frac{4\pi nh\sin\theta_t}{\lambda}&#x3D;\delta_{1}{2}&#x3D;2\arcsin(\frac{1}{\sqrt{F}})\approx\frac{2}{\sqrt{F}}$$</p>
+<p>从这里,我们可以求解出来其角分辨能力</p>
 <h3 id="衍射理论"><a href="#衍射理论" class="headerlink" title="衍射理论"></a>衍射理论</h3><h4 id="近场与远场"><a href="#近场与远场" class="headerlink" title="近场与远场"></a>近场与远场</h4><p>远场:满足射入的光近似于平行光(或者用透镜实现无穷远成像)<em>菲涅尔衍射</em></p>
 <p>近场:存在角度<em>夫琅和费衍射</em></p>
 <h4 id="单个狭缝的夫琅和费衍射"><a href="#单个狭缝的夫琅和费衍射" class="headerlink" title="单个狭缝的夫琅和费衍射"></a>单个狭缝的夫琅和费衍射</h4><h5 id="分析手段"><a href="#分析手段" class="headerlink" title="分析手段"></a>分析手段</h5><ol>
@@ -3258,23 +3293,26 @@ The wi is [[ 1.24557242  0.18072145  0.74571775 -1.1636765   0.          0.
 <li>直接积分</li>
 </ol>
 <h5 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h5><p>记住光强为</p>
-<script type="math/tex; mode=display">I=\frac{\sin^2\beta}{\beta^2}</script><p>其中$\beta=\frac{\pi b}{\lambda}\sin\theta$(可以看作以某一角度射出时极限光程差相位差的一半)</p>
+<p>$$I&#x3D;\frac{\sin^2\beta}{\beta^2}$$</p>
+<p>其中$\beta&#x3D;\frac{\pi b}{\lambda}\sin\theta$(可以看作以某一角度射出时极限光程差相位差的一半)</p>
 <h5 id="特殊情况"><a href="#特殊情况" class="headerlink" title="特殊情况"></a>特殊情况</h5><p>如果入射光存在角度,那么<strong>需要叠加计算</strong></p>
-<script type="math/tex; mode=display">\beta=\frac{\pi b}{\lambda}(\sin\theta+\sin\alpha)</script><p>其中$\alpha$新入射效果</p>
+<p>$$\beta&#x3D;\frac{\pi b}{\lambda}(\sin\theta+\sin\alpha)$$</p>
+<p>其中$\alpha$新入射效果</p>
 <h5 id="矩形孔"><a href="#矩形孔" class="headerlink" title="矩形孔"></a>矩形孔</h5><p>可以看作两个方向的狭缝,最后结果就是两个方向衍射相乘</p>
-<h4 id="圆孔夫琅和费衍射"><a href="#圆孔夫琅和费衍射" class="headerlink" title="圆孔夫琅和费衍射"></a>圆孔夫琅和费衍射</h4><p>我们无法获得圆孔夫琅和费衍射的解析解,其可以被写作$U(\theta)=\frac{2kJ_1(x)}{x}$</p>
+<h4 id="圆孔夫琅和费衍射"><a href="#圆孔夫琅和费衍射" class="headerlink" title="圆孔夫琅和费衍射"></a>圆孔夫琅和费衍射</h4><p>我们无法获得圆孔夫琅和费衍射的解析解,其可以被写作$U(\theta)&#x3D;\frac{2kJ_1(x)}{x}$</p>
 <p>而$\frac{2\pi}{\lambda}a\sin\theta$,$a$为圆孔半径</p>
-<p>因此,可以得到第一个暗环的半角宽为$\delta\theta=0.61\frac{\lambda}{a}=1.22\frac{\lambda}{D}$</p>
-<p>这也是<strong>最小角分辨率</strong>,而对于研究线分辨率$d=\Delta\theta f$</p>
+<p>因此,可以得到第一个暗环的半角宽为$\delta\theta&#x3D;0.61\frac{\lambda}{a}&#x3D;1.22\frac{\lambda}{D}$</p>
+<p>这也是<strong>最小角分辨率</strong>,而对于研究线分辨率$d&#x3D;\Delta\theta f$</p>
 <h4 id="多缝衍射"><a href="#多缝衍射" class="headerlink" title="多缝衍射"></a>多缝衍射</h4><p>对于多峰衍射,可以考虑干涉因子和衍射因子相乘</p>
 <p>其中干涉因子与一个完整的遮挡和缝的<strong>总宽度</strong>$d$相关</p>
-<script type="math/tex; mode=display">I=I_0\frac{\sin^2N\gamma}{\sin^2\gamma}\frac{\sin^2\beta}{\beta^2}</script><p>其中干涉的强度极大值位置为$d\sin\theta=\pm m\lambda$,极小值$\sin N\gamma=0$且$\sin\gamma\neq 0$</p>
+<p>$$I&#x3D;I_0\frac{\sin^2N\gamma}{\sin^2\gamma}\frac{\sin^2\beta}{\beta^2}$$</p>
+<p>其中干涉的强度极大值位置为$d\sin\theta&#x3D;\pm m\lambda$,极小值$\sin N\gamma&#x3D;0$且$\sin\gamma\neq 0$</p>
 <blockquote>
 <p>注意,如果$d$和$b$呈现简单整数比,那么会存在缺级</p>
 </blockquote>
-<h5 id="角色散率"><a href="#角色散率" class="headerlink" title="角色散率"></a>角色散率</h5><p>我们可以定义角色散率$D=\frac{\delta\theta}{\delta\lambda}$</p>
+<h5 id="角色散率"><a href="#角色散率" class="headerlink" title="角色散率"></a>角色散率</h5><p>我们可以定义角色散率$D&#x3D;\frac{\delta\theta}{\delta\lambda}$</p>
 <p>可以得到:级次越大,角色散率越大,刻线越密,色散越大</p>
-<p>而使用<strong>瑞利判据</strong>,可以得到色分辨本领$R=\frac{\lambda}{\Delta\lambda}=mN$</p>
+<p>而使用<strong>瑞利判据</strong>,可以得到色分辨本领$R&#x3D;\frac{\lambda}{\Delta\lambda}&#x3D;mN$</p>
 <p>$N$为总刻线数</p>
 <h5 id="闪耀光栅"><a href="#闪耀光栅" class="headerlink" title="闪耀光栅"></a>闪耀光栅</h5><p>我们可以让反射面倾斜,这样可以使得衍射极大发生偏离,使得干涉级数大的部分<strong>比较亮</strong></p>
 <h4 id="菲涅尔衍射"><a href="#菲涅尔衍射" class="headerlink" title="菲涅尔衍射"></a>菲涅尔衍射</h4><p>分析:可以使用半波带法,如果有奇数个半波带,那么光强较强,偶数个半波带,光强较弱</p>
@@ -3284,17 +3322,19 @@ The wi is [[ 1.24557242  0.18072145  0.74571775 -1.1636765   0.          0.
 <li>Posson亮斑:中心点总是亮的</li>
 </ol>
 <h5 id="光阑的半波带个数"><a href="#光阑的半波带个数" class="headerlink" title="光阑的半波带个数"></a>光阑的半波带个数</h5><p>在光阑半径为$R$一点与光阑中心的那一点的光程差</p>
-<script type="math/tex; mode=display">\Delta S=\frac{R(r_0+\rho)}{\rho r_0\lambda}</script><p>$\rho$为波面半径,$r_0$为波面到观测点的最短距离</p>
+<p>$$\Delta S&#x3D;\frac{R(r_0+\rho)}{\rho r_0\lambda}$$</p>
+<p>$\rho$为波面半径,$r_0$为波面到观测点的最短距离</p>
 <blockquote>
 <p>可以利用半波带性质做透镜,满足</p>
-<script type="math/tex; mode=display">(\frac{1}{\rho}+\frac{1}{r})=\frac{m\lambda}{R^2_m}</script></blockquote>
+<p>$$(\frac{1}{\rho}+\frac{1}{r})&#x3D;\frac{m\lambda}{R^2_m}$$</p>
+</blockquote>
 <h3 id="几何光学"><a href="#几何光学" class="headerlink" title="几何光学"></a>几何光学</h3><h4 id="几何光学成像"><a href="#几何光学成像" class="headerlink" title="几何光学成像"></a>几何光学成像</h4><p>物空间-&gt;光学系统-&gt;像空间</p>
-<p><img src="F:\OneDrive\blog\source\_posts\physicsnote\light\1.png" alt="png"></p>
+<p><img src="/2023/02/21/physicsnote/light/1.png" alt="png"></p>
 <h4 id="理想透镜"><a href="#理想透镜" class="headerlink" title="理想透镜"></a>理想透镜</h4><p>原理<strong>光程相等,构成波阵面</strong>,一般理想透镜的透镜方程</p>
-<p><img src="F:\OneDrive\blog\source\_posts\physicsnote\light\2 .png" alt=""></p>
-<p>对于双曲面镜,有AD为双曲面准线,O为双曲线一个焦点,如果$e=\frac{n}{n_0}$</p>
+<p><img src="/2023/02/21/physicsnote/light/2.png"></p>
+<p>对于双曲面镜,有AD为双曲面准线,O为双曲线一个焦点,如果$e&#x3D;\frac{n}{n_0}$</p>
 <p>那么可以知道OB光程加上BC光程相当于在玻璃介质中AC,因此<strong>双曲面镜可以点源到平行光</strong></p>
-<p><img src="F:\OneDrive\blog\source\_posts\physicsnote\light\3.png" alt="3"></p>
+<p><img src="/2023/02/21/physicsnote/light/3.png" alt="3"></p>
 <p>相似的,椭圆面镜也可以使平行光汇聚</p>
 <blockquote>
 <p>如何判断应当使用<strong>双曲面镜</strong>还是使用<strong>椭圆面镜</strong>的手段</p>
@@ -3302,13 +3342,123 @@ The wi is [[ 1.24557242  0.18072145  0.74571775 -1.1636765   0.          0.
 <p>在<strong>椭圆面镜中</strong>,平行光出现在<strong>折射率小的部分</strong></p>
 </blockquote>
 <p>可以使用双曲面+球面(光线过球心,不会在表面折射)制作理想双曲面镜</p>
-<h4 id="球面透镜"><a href="#球面透镜" class="headerlink" title="球面透镜"></a>球面透镜</h4><h2 id="综合性内容"><a href="#综合性内容" class="headerlink" title="综合性内容"></a>综合性内容</h2><h3 id="“恰好分辨”"><a href="#“恰好分辨”" class="headerlink" title="“恰好分辨”"></a>“恰好分辨”</h3><ol>
+<h4 id="球面透镜"><a href="#球面透镜" class="headerlink" title="球面透镜"></a>球面透镜</h4><p>对于球面透镜,我们往往需要进行小角度近似,可以得到</p>
+<p>$$\frac{n_1}{s_o}+\frac{n_2}{s_i}&#x3D;\frac{n_2-n_1}{R}$$</p>
+<h4 id="实虚关系"><a href="#实虚关系" class="headerlink" title="实虚关系"></a>实虚关系</h4><h4 id="成像符号约定"><a href="#成像符号约定" class="headerlink" title="成像符号约定"></a>成像符号约定</h4><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>符号</th>
+<th>类型</th>
+<th>符号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实物$s_o$&gt;0</td>
+<td>+</td>
+<td>虚物$s_o$&lt;0</td>
+<td>-</td>
+</tr>
+<tr>
+<td>实像$s_i&gt;0$</td>
+<td>+</td>
+<td>虚像$s_i&lt;0$</td>
+<td>-</td>
+</tr>
+<tr>
+<td>球心在球面右侧</td>
+<td>+</td>
+<td>球心在球面左侧</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h4 id="薄透镜"><a href="#薄透镜" class="headerlink" title="薄透镜"></a>薄透镜</h4><p>设外界折射率为$n_m$,透镜折射率为$n_l$,则有透镜成像公式</p>
+<p>$$\frac{1}{s_o}+\frac{1}{s_i}&#x3D;\frac{1}{f}&#x3D;\frac{n_l-n_m}{n_m}\left(\frac{1}{R_1}-\frac{1}{R_2}\right)$$</p>
+<p>需要注意,焦距的<strong>决定式</strong>很重要,需要专门记忆(注意分子上的$n_l-n_m$)</p>
+<p>对于$R_1,R_2$的符号,参考上表</p>
+<h4 id="作图法求解光学问题"><a href="#作图法求解光学问题" class="headerlink" title="作图法求解光学问题"></a>作图法求解光学问题</h4><p>对于单次成像的问题,往往使用三条光线</p>
+<ol>
+<li>过光心</li>
+<li>过第一个焦点</li>
+<li>平行于光轴</li>
+</ol>
+<p>但是有时会要有多个透镜多次成像,此时可以先绘制出一个透镜的成像,然后做出从该像过第二个透镜光心的光线</p>
+<p><img src="/2023/02/21/physicsnote/light/4.png"></p>
+<p>例如此处红色光线就是透镜1所成的像(在实际中不会被看到),转换成蓝色线所成的两次叠加成像.</p>
+<h4 id="光阑"><a href="#光阑" class="headerlink" title="光阑"></a>光阑</h4><p>入射光瞳:<strong>从物的位置</strong>看到的孔的像</p>
+<p>出射光瞳:<strong>从像的位置</strong>看到的孔的像</p>
+<h4 id="曲面镜"><a href="#曲面镜" class="headerlink" title="曲面镜"></a>曲面镜</h4><ol>
+<li><p>抛物面镜:将平行光汇聚在焦点(有时常常会用离轴抛物面镜)</p>
+</li>
+<li><p>共轭点成像:对于椭圆面镜或双曲面镜,一个焦点和另一个焦点</p>
+</li>
+<li><p>球面镜:可以类比于透镜成像,但是<strong>有关符号,需要注意</strong></p>
+<p>球面镜的等效焦距为$-\frac{R}{2}$,但是此时像距的符号与位置和实虚关系是<strong>反的</strong>,同时,对于凹面镜成像,$R$是负的,因此$f$是正的,从而有可能成实像.</p>
+</li>
+</ol>
+<h4 id="棱镜"><a href="#棱镜" class="headerlink" title="棱镜"></a>棱镜</h4><p>偏向角$\delta&#x3D;\theta_{i1}+\theta_{t2}-\alpha$</p>
+<p><img src="/2023/02/21/physicsnote/light/5.png"></p>
+<p>关于$\delta$,满足有</p>
+<p>$$\delta&#x3D;\theta_{i1}+\arcsin (\sin\alpha(n^2-\sin^2\theta_{i1})^\frac{1}{2}-\sin\theta_{i1}\cos\alpha)-\alpha$$</p>
+<p>需要注意的是,当**$\theta_{i1}&#x3D;\theta_{t2}$时,有偏向角最小**</p>
+<p>如果要使用棱镜做光谱,需要使用<strong>透镜制造平行光</strong></p>
+<h4 id="人眼"><a href="#人眼" class="headerlink" title="人眼"></a>人眼</h4><p>不考虑任何病变,<strong>人眼最为理想的成像状态是平行光入射</strong></p>
+<blockquote>
+<p>这个平行光入射在设计制造光学仪器的过程中非常重要</p>
+</blockquote>
+<p>眼镜可以被看作<strong>紧贴于眼睛的一个透镜</strong>,可以直接焦距合成</p>
+<p>$$\frac{1}{f}&#x3D;\frac{1}{f_1}+\frac{1}{f_2}$$</p>
+<p>或者是定义<strong>屈光度</strong>为$\mathcal{D}&#x3D;\mathcal{D_1}+\mathcal{D_2}$</p>
+<h5 id="眼镜的作用"><a href="#眼镜的作用" class="headerlink" title="眼镜的作用"></a>眼镜的作用</h5><p>近视眼镜将无穷远点投射到近视眼的<strong>远点</strong>上,远视眼镜将正常人的近点投射到远视眼的近点上</p>
+<h4 id="色差"><a href="#色差" class="headerlink" title="色差"></a>色差</h4><p>因为一块玻璃对于不同波长的光的折射率存在区别,因此不同波长的光在透镜中会发生<strong>色散</strong></p>
+<p>而根据前面提到的<strong>透镜焦距公式</strong></p>
+<p>$$\frac{1}{f}&#x3D;\frac{n-n_0}{n_0}(\frac{1}{R_1}-\frac{1}{R_2})$$</p>
+<p>我们能够计算出不同颜色光波长的<strong>色差</strong></p>
+<p>而<strong>使用一块凹透镜和一块凸透镜可以较好地消除色差</strong></p>
+<h3 id="光的偏振"><a href="#光的偏振" class="headerlink" title="光的偏振"></a>光的偏振</h3><p>一般而言,光矢量都可以被分解为$x$,$y$两个分量,对于自然光而言,光的偏振是杂乱无章的</p>
+<p>产生偏振光的方法:</p>
+<ol>
+<li><p>利用二项色性:可以使只有某一个方向的偏振光通过,于其正交的偏振光被吸收</p>
+<p>满足马吕斯定律$I&#x3D;I_0\cos^2\alpha$</p>
+</li>
+<li><p>利用反射:非偏振光在反射后也会成为良好的偏振光</p>
+</li>
+</ol>
+<h4 id="双折射现象"><a href="#双折射现象" class="headerlink" title="双折射现象"></a>双折射现象</h4><p>首先是<strong>光轴</strong>,一般而言,我们讨论的问题中<strong>只有一个光轴</strong>,可以有以下的简单结论</p>
+<blockquote>
+<p>沿光轴的相对介电常数和垂直于光轴的相对介电常数<strong>不同</strong></p>
+</blockquote>
+<p>于是,我们就可以分出来<strong>寻常光(o光)<strong>和</strong>非常光(e光)</strong></p>
+<p>寻常光<strong>与光轴平行的光,偏振方向垂直于光轴</strong>,因此传播不受到影响</p>
+<p>非常光<strong>与光轴垂直的光,偏振方向存在垂直光轴和平行光轴的成分</strong>,因此传播会受到影响</p>
+<p><img src="/2023/02/21/physicsnote/light/6-1.png"></p>
+<p>如图所示的波阵面图像,可以看到原本光的波矢是<strong>竖直向下</strong>的</p>
+<p>需要注意到,即使是e光,其<strong>电位移矢量与波矢</strong>的方向(绿色线)保持不变,但是像<strong>电场强度与坡印廷矢量</strong>的方向(蓝色线)发生偏移</p>
+<blockquote>
+<p>为什么波矢方向不变,我们仍然认为e光传播方向发生了变化原因在于</p>
+<p>我们看到所谓<strong>光线</strong>,是由于光的直线传播,而从光的波动推导到直线传播是通过<strong>计算光的干涉得到相干相长</strong>的结论实现的</p>
+<p>而光的干涉则是<strong>光电场相互叠加</strong>的结果,并且$S$传递能量(这只是个人猜想)</p>
+</blockquote>
+<h4 id="双折射的惠更斯做图"><a href="#双折射的惠更斯做图" class="headerlink" title="双折射的惠更斯做图"></a>双折射的惠更斯做图</h4><p><img src="C:\Users\lison\OneDrive\blog\source_posts\physicsnote\light\7.png"></p>
+<p>可以看出,当偏振方向与光轴垂直的波速为$v_o$,对应的折射率为$n_o$</p>
+<p>当偏振方向与光轴平行的波速为$v_e$,对应的折射率为$n_e$</p>
+<blockquote>
+<p>$n_o&lt;n_e$为正晶体</p>
+<p>$n_o&gt;n_e$为负晶体</p>
+</blockquote>
+<p>可以使用这个图像来<strong>确定光的传播</strong></p>
+<h4 id="波片的使用"><a href="#波片的使用" class="headerlink" title="波片的使用"></a>波片的使用</h4><p>波片的使用可以让两个方向的偏振光<strong>发生一个相位变化</strong>,导致可能出现干涉</p>
+<h4 id="克尔效应与泡克耳斯效应"><a href="#克尔效应与泡克耳斯效应" class="headerlink" title="克尔效应与泡克耳斯效应"></a>克尔效应与泡克耳斯效应</h4><p>透明介质放在电场中会出现双折射现象$n_e-n_o&#x3D;\lambda_0 KE^2$</p>
+<p>同时可以利用这一效应做克尔盒对相位进行调节$\Delta\varphi&#x3D;2\pi KlV^2&#x2F;d^2$($l$为盒子的长度)</p>
+<p>而泡克耳斯效应的相位差则为$\Delta\varphi&#x3D;2\pi n_0^3r_{63}V&#x2F;\lambda_0$</p>
+<h2 id="综合性内容"><a href="#综合性内容" class="headerlink" title="综合性内容"></a>综合性内容</h2><h3 id="“恰好分辨”"><a href="#“恰好分辨”" class="headerlink" title="“恰好分辨”"></a>“恰好分辨”</h3><ol>
 <li><p>对于波长存在范围的干涉而言,恰好分辨是<strong>前一级条纹中波长最大和后一级条纹波长最小重合</strong></p>
 </li>
 <li><p>对于多光束干涉而言,恰好分辨是<strong>两个干涉峰恰好错开半峰宽</strong>(这可以认为是一种较为简单的判据)</p>
 <blockquote>
 <p>对于多光束干涉使用<strong>瑞利判据</strong>,一般认为两光束合成后亮度的<strong>鞍点</strong>亮度为最大辐照亮度的$\frac{8}{\pi^2}$倍,这个时候的推导要更为复杂,但是可以直接记住结论:使用该判据,两个光束的<strong>衍射相位差至少为</strong></p>
-<script type="math/tex; mode=display">(\Delta\delta\approx\frac{4.2}{\sqrt{F}})</script></blockquote>
+<p>$$(\Delta\delta\approx\frac{4.2}{\sqrt{F}})$$</p>
+</blockquote>
 </li>
 <li><p>对于衍射的瑞利判据,恰好分辨是<strong>一个衍射极大恰好落在另一个衍射极小</strong></p>
 </li>
@@ -3317,12 +3467,52 @@ The wi is [[ 1.24557242  0.18072145  0.74571775 -1.1636765   0.          0.
 <p>首先,多缝衍射倘使不考虑缺级以及如衍射光强等一系列问题,完全可以看作<strong>多缝干涉</strong>的模型,此时我们可以通过绘制相矢量图来解题</p>
 <p>但是这个时候,需要关注到<strong>一个易错点</strong>:相矢量图两个矢量之间的夹角<strong>就是光程差带来的相位差</strong>,但是在式子$\frac{\sin^2(N\alpha)}{\sin^2\alpha}$中$\alpha$的定义确是前者的<strong>一半</strong></p>
 <p>同时,我们需要知道<strong>辅极大的位置无法直接求解</strong>,近似在$\sin N\alpha$取极大的位置上</p>
-<p>而对于极小的位置,就是$\sin N\alpha=0$的位置(这在求解恰好分辨的问题非常重要)</p>
+<p>而对于极小的位置,就是$\sin N\alpha&#x3D;0$的位置(这在求解恰好分辨的问题非常重要)</p>
+<h4 id="人眼的分辨能力与仪器放大率"><a href="#人眼的分辨能力与仪器放大率" class="headerlink" title="人眼的分辨能力与仪器放大率"></a>人眼的分辨能力与仪器放大率</h4><h4 id="放大率的种类"><a href="#放大率的种类" class="headerlink" title="放大率的种类"></a>放大率的种类</h4><ol>
+<li><p>横向放大率$M_T&#x3D;\frac{y_i}{y_o}–\frac{v}{u}$</p>
+</li>
+<li><p>纵向放大率$M_L&#x3D;\frac{dv}{du}$(这个代表像会拉的多长)</p>
+<blockquote>
+<p>纵向放大率的选取:对于一般照相机,希望能同时拍摄到近处景物和远处景物,那么此时$M_L$要尽量小</p>
+<p>但是对于一些其他的成像设备(例如显微镜),需要让成像的平面性尽量强,那么就要选择大的$M_L$</p>
+</blockquote>
+</li>
+<li><p>角放大倍率$M&#x3D;\frac{\theta’}{\theta}$</p>
+<p>其中,$\theta$为人眼在明视距离的条件下看这个物体的张角</p>
+</li>
+</ol>
+<h4 id="放大镜与目镜"><a href="#放大镜与目镜" class="headerlink" title="放大镜与目镜"></a>放大镜与目镜</h4><p>一般而言,放大镜的角放大倍率前面已经说明</p>
+<p>但是需要注意到的是,如果物体放在放大镜的<strong>焦平面</strong>上,那么此时放大镜出来的是平行光(最理想状态)</p>
+<p>此时的角放大率$M&#x3D;\frac{25cm}{f}$</p>
+<h4 id="显微镜与望远镜"><a href="#显微镜与望远镜" class="headerlink" title="显微镜与望远镜"></a>显微镜与望远镜</h4><p>显微镜和望远镜可以看做一个物镜加一个目镜实现,其中最后的放大率为$M&#x3D;M_{To}M’$为物镜的<strong>横向放大率</strong>乘以目镜在该成像条件的<strong>角放大率</strong></p>
+<p>而一般而言,从目镜中出来的应当是<strong>平行光</strong></p>
+<p>那么此时从显微镜出来的放大率$MP&#x3D;(-\frac{160mm}{f_o})(\frac{254mm}{f_e})$(160mm为标准目镜和物镜焦距距离)</p>
+<p>而从望远镜出来的放大率$MP&#x3D;-\frac{f_o}{f_e}$(默认入射光为平行光)</p>
+<h4 id="数值孔径-f-数与衍射"><a href="#数值孔径-f-数与衍射" class="headerlink" title="数值孔径,$f$数与衍射"></a>数值孔径,$f$数与衍射</h4><p>数值孔径可以理解为介质折射率乘以收光的半角度正弦$NA&#x3D;n\sin\theta\approx\frac{nD}{2f}$后面一个近似是在$f$很大的时候成立</p>
+<p>而在一些相机镜头中,会定义<strong>焦比(f数)</strong>$f&#x2F;#&#x3D;\frac{f}{D}$</p>
+<p>这样的定义是用在研究夫琅禾费衍射所产生的光斑,光斑的半径$1.22f\frac{\lambda_n}{D}$</p>
+<p>数值孔径越大,其理论分辨极限越大,提高数值孔径有三种方法:</p>
+<ol>
+<li>增大镜头直径</li>
+<li>降低焦距</li>
+<li>提高折射率(例如使用油镜)</li>
+</ol>
+<p>同时,我们也需要注意到,数值孔径会影响<strong>横向放大率</strong></p>
 <h2 id="做题存在问题"><a href="#做题存在问题" class="headerlink" title="做题存在问题"></a>做题存在问题</h2><ol>
-<li>在每一次做到和干涉衍射相关的题目时,需要<strong>小心的分析半波损失问题</strong></li>
-<li>需要去理解半波带法的绘图 </li>
-<li>多看闪耀光栅的题目</li>
-<li>如果两个发光点相距很远,那么在整个空间中,可以看作总体的$I_1I_2$的空间平均为0,如果两个发光点距离很近(远小于一个波长),<strong>可以看作一个光源,亮度为两倍</strong></li>
+<li><p>在每一次做到和干涉衍射相关的题目时,需要<strong>小心的分析半波损失问题</strong></p>
+</li>
+<li><p>需要去理解半波带法的绘图 </p>
+</li>
+<li><p>多看闪耀光栅的题目</p>
+</li>
+<li><p>如果两个发光点相距很远,那么在整个空间中,可以看作总体的$I_1I_2$的空间平均为0,如果两个发光点距离很近(远小于一个波长),<strong>可以看作一个光源,亮度为两倍</strong></p>
+</li>
+<li><p>波片与旋光性的区分:</p>
+<p>波片的讨论往往使用的是分解为两个线偏振光</p>
+<p>旋光性的讨论往往使用的是分解为左旋光和右旋光</p>
+</li>
+<li><p>两个同样厚度,但是摆放方向呈现镜像关系的<strong>会让o光和e光又回到一起</strong></p>
+</li>
 </ol>
 ]]></content>
       <tags>
