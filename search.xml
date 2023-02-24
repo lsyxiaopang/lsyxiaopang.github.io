@@ -3409,6 +3409,7 @@ The wi is [[ 1.24557242  0.18072145  0.74571775 -1.1636765   0.          0.
 <p>眼镜可以被看作<strong>紧贴于眼睛的一个透镜</strong>,可以直接焦距合成</p>
 <p>$$\frac{1}{f}&#x3D;\frac{1}{f_1}+\frac{1}{f_2}$$</p>
 <p>或者是定义<strong>屈光度</strong>为$\mathcal{D}&#x3D;\mathcal{D_1}+\mathcal{D_2}$</p>
+<p>一般而言$1D$的屈光度意味着<strong>透镜焦距为1m</strong></p>
 <h5 id="眼镜的作用"><a href="#眼镜的作用" class="headerlink" title="眼镜的作用"></a>眼镜的作用</h5><p>近视眼镜将无穷远点投射到近视眼的<strong>远点</strong>上,远视眼镜将正常人的近点投射到远视眼的近点上</p>
 <h4 id="色差"><a href="#色差" class="headerlink" title="色差"></a>色差</h4><p>因为一块玻璃对于不同波长的光的折射率存在区别,因此不同波长的光在透镜中会发生<strong>色散</strong></p>
 <p>而根据前面提到的<strong>透镜焦距公式</strong></p>
@@ -3439,7 +3440,7 @@ The wi is [[ 1.24557242  0.18072145  0.74571775 -1.1636765   0.          0.
 <p>我们看到所谓<strong>光线</strong>,是由于光的直线传播,而从光的波动推导到直线传播是通过<strong>计算光的干涉得到相干相长</strong>的结论实现的</p>
 <p>而光的干涉则是<strong>光电场相互叠加</strong>的结果,并且$S$传递能量(这只是个人猜想)</p>
 </blockquote>
-<h4 id="双折射的惠更斯做图"><a href="#双折射的惠更斯做图" class="headerlink" title="双折射的惠更斯做图"></a>双折射的惠更斯做图</h4><p><img src="C:\Users\lison\OneDrive\blog\source_posts\physicsnote\light\7.png"></p>
+<h4 id="双折射的惠更斯做图"><a href="#双折射的惠更斯做图" class="headerlink" title="双折射的惠更斯做图"></a>双折射的惠更斯做图</h4><p><img src="/2023/02/21/physicsnote/light/7.png"></p>
 <p>可以看出,当偏振方向与光轴垂直的波速为$v_o$,对应的折射率为$n_o$</p>
 <p>当偏振方向与光轴平行的波速为$v_e$,对应的折射率为$n_e$</p>
 <blockquote>
@@ -3453,6 +3454,8 @@ The wi is [[ 1.24557242  0.18072145  0.74571775 -1.1636765   0.          0.
 <p>而泡克耳斯效应的相位差则为$\Delta\varphi&#x3D;2\pi n_0^3r_{63}V&#x2F;\lambda_0$</p>
 <h2 id="综合性内容"><a href="#综合性内容" class="headerlink" title="综合性内容"></a>综合性内容</h2><h3 id="“恰好分辨”"><a href="#“恰好分辨”" class="headerlink" title="“恰好分辨”"></a>“恰好分辨”</h3><ol>
 <li><p>对于波长存在范围的干涉而言,恰好分辨是<strong>前一级条纹中波长最大和后一级条纹波长最小重合</strong></p>
+</li>
+<li><p>相似的,在杨氏双缝干涉实验中,如果光源有限宽,可以考虑一个端点到另一个端点的<strong>0级和1级条纹重合</strong></p>
 </li>
 <li><p>对于多光束干涉而言,恰好分辨是<strong>两个干涉峰恰好错开半峰宽</strong>(这可以认为是一种较为简单的判据)</p>
 <blockquote>
@@ -3498,6 +3501,14 @@ The wi is [[ 1.24557242  0.18072145  0.74571775 -1.1636765   0.          0.
 <li>提高折射率(例如使用油镜)</li>
 </ol>
 <p>同时,我们也需要注意到,数值孔径会影响<strong>横向放大率</strong></p>
+<blockquote>
+<p>有时题目会给出数值孔径与瞳孔直径,然后要求<strong>正常放大率</strong>,可以这样考虑</p>
+<ol>
+<li>从数值孔径可以得到最小分辨长度$s&#x3D;0.61\frac{\lambda}{NA}$</li>
+<li>可以使用人眼明视距离得到人眼最小分辨长度$s’&#x3D;1.22\frac{s_0\lambda}{D}$</li>
+<li>放大率要相互匹配.即$sM&#x3D;s’$</li>
+</ol>
+</blockquote>
 <h2 id="做题存在问题"><a href="#做题存在问题" class="headerlink" title="做题存在问题"></a>做题存在问题</h2><ol>
 <li><p>在每一次做到和干涉衍射相关的题目时,需要<strong>小心的分析半波损失问题</strong></p>
 </li>
@@ -3512,6 +3523,59 @@ The wi is [[ 1.24557242  0.18072145  0.74571775 -1.1636765   0.          0.
 <p>旋光性的讨论往往使用的是分解为左旋光和右旋光</p>
 </li>
 <li><p>两个同样厚度,但是摆放方向呈现镜像关系的<strong>会让o光和e光又回到一起</strong></p>
+</li>
+<li><p>焦深可以认为是成像移动前后多少还能近似看清的一个量度</p>
+</li>
+<li><p>共轭光线指<strong>物空间和像空间互相对应的点</strong></p>
+</li>
+<li><p>虽然PPT中没有涉及到关于<em>光阑</em>的问题,但是近似记住:成像系统的入射光瞳就是物镜的直径,出射光瞳往往是物镜通过目镜成的</p>
+</li>
+<li><p>虽然没有说考,但是在使用偏振的时候还是可能会涉及到</p>
+</li>
+<li><p>关于双折射定律中,倘使光轴在光学平面内,那么可以用以下公式计算折射率(其中$\theta$为法向和光轴方向夹角)</p>
+<p>$$n^2(\theta)&#x3D;\frac{n_o^2n_e^2}{n_e^2\cos^2\theta+n_o^2\sin^2\theta}$$</p>
+</li>
+<li><p>对于偏振器件要加以了解,例如<strong>尼科尔棱镜</strong></p>
+</li>
+<li><p>在<strong>瑞利斑</strong>相关计算中,对于从直径求角度变化使用的系数<strong>都是1.22</strong>,使用0.61只有在<strong>使用孔半径</strong>或者<strong>使用数值孔径</strong>时才会出现</p>
+</li>
+<li><p>在考虑多缝衍射模型,<strong>注意零点光强不是1</strong></p>
+</li>
+</ol>
+<h1 id="看到要立刻想起来的公式"><a href="#看到要立刻想起来的公式" class="headerlink" title="看到要立刻想起来的公式"></a>看到要立刻想起来的公式</h1><ol>
+<li><p>$k,E,B$依次构成右手坐标</p>
+</li>
+<li><p>玻印亭矢量定义$S&#x3D;\frac{1}{\mu_0}E\times B$</p>
+</li>
+<li><p>偏振光的反射与折射强度</p>
+<p>对于$E$<strong>平行</strong>于光线所在平面的例子</p>
+<p>$$r&#x3D;\frac{n_t\cos\theta_i-n_i\cos\theta_t}{n_i\cos\theta_t+n_t\cos\theta_i}$$</p>
+<p>$$t&#x3D;\frac{2n_i\cos\theta_i}{n_i\cos\theta_t+n_t\cos\theta_i}$$</p>
+<p>对于$E$<strong>垂直</strong>于光线所在平面的例子</p>
+<p>$$r&#x3D;\frac{n_i\cos\theta_t-n_t\cos\theta_t}{n_i\cos\theta_i+n_t\cos\theta_t}$$</p>
+<p>$$t&#x3D;\frac{2n_i\cos\theta_i}{n_i\cos\theta_i+n_t\cos\theta_t}$$</p>
+<p>(从中可以得到布儒斯特角)</p>
+</li>
+<li><p>频谱宽度计算$\Delta t\Delta v&#x3D;1$</p>
+</li>
+<li><p>多光线干涉</p>
+<p>相位差$\sigma&#x3D;\frac{4\pi nh\cos\theta_i}{\lambda}$</p>
+<p>锐度系数$F&#x3D;(\frac{2r}{1-r^2})^2$</p>
+<p>从最大光强到光强一半的距离为半峰宽$\delta_{\frac{1}{2}}&#x3D;2\arcsin(\frac{1}{\sqrt{F}})\approx\frac{2}{\sqrt{F}}$</p>
+<p>(判断两个条纹是否可以分辨就是看<strong>两个条纹间距恰为一个半峰宽</strong>)</p>
+</li>
+<li><p>偏振仪器:</p>
+<p>克尔盒:$\Delta\varphi&#x3D;2\pi KlV^2&#x2F;d^2$</p>
+<p>跑科尔斯效应$\Delta\varphi&#x3D;2\pi n_0^3r_{63}V&#x2F;\lambda_0$</p>
+</li>
+<li><p>几何光学:</p>
+<p>透镜焦距公式$\frac{1}{f}&#x3D;\frac{n-n_0}{n_0}(\frac{1}{R_1}-\frac{1}{R_2})$</p>
+<p>显微镜角放大率$MP&#x3D;(-\frac{160mm}{f_o})(\frac{254mm}{f_e})$</p>
+<p>数值孔径$NA&#x3D;n\sin\theta$</p>
+</li>
+<li><p>在计算衍射与多光束干涉,要记得<strong>光程差除以二</strong>再代入式中</p>
+<p>瑞利斑的半径为$1.22f\frac{\lambda_n}{D}$</p>
+<p>光阑半径R处一点到中心光程差(用于计算菲涅尔衍射)$\Delta S&#x3D;\frac{R(r_0+\rho)}{\rho r_0\lambda}$</p>
 </li>
 </ol>
 ]]></content>
