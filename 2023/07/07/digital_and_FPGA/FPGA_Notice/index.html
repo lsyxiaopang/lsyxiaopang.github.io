@@ -23,19 +23,19 @@
   <meta name="description" content="最近在学习基于DE10-Nano的FPGA程序设计,这个过程有相对比较复杂的环境配置和一些容易犯的错误,在这里记录一下 环境的配置与操作流程 DE10-Nano所使用的FPGA的编号为Cyclone V 5CSEBA6U23I7,在配置Quartus的时候可以方便一点 包含有仿真的项目,首先指定仿真工具使用ModelSim;在主程序基本完成后(记得编译),自动生成TestBranch脚本;最后将其">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FPGA编程与仿真注意">
-<meta property="og:url" content="https://lsyxiaopang.github.io/2023/07/07/digital_and_FPGA/FPGA%E7%BC%96%E7%A8%8B%E4%B8%8E%E4%BB%BF%E7%9C%9F%E6%B3%A8%E6%84%8F/index.html">
+<meta property="og:url" content="https://lsyxiaopang.github.io/2023/07/07/digital_and_FPGA/FPGA_Notice/index.html">
 <meta property="og:site_name" content="Songyuli&#39;s blog">
 <meta property="og:description" content="最近在学习基于DE10-Nano的FPGA程序设计,这个过程有相对比较复杂的环境配置和一些容易犯的错误,在这里记录一下 环境的配置与操作流程 DE10-Nano所使用的FPGA的编号为Cyclone V 5CSEBA6U23I7,在配置Quartus的时候可以方便一点 包含有仿真的项目,首先指定仿真工具使用ModelSim;在主程序基本完成后(记得编译),自动生成TestBranch脚本;最后将其">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/07/digital_and_FPGA/FPGA%E7%BC%96%E7%A8%8B%E4%B8%8E%E4%BB%BF%E7%9C%9F%E6%B3%A8%E6%84%8F/image-9.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/07/digital_and_FPGA/FPGA_Notice/image-9.png">
 <meta property="article:published_time" content="2023-07-06T16:25:23.000Z">
 <meta property="article:modified_time" content="2023-07-09T09:26:41.594Z">
 <meta property="article:author" content="Songyuli">
 <meta property="article:tag" content="FPGA">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://lsyxiaopang.github.io/2023/07/07/digital_and_FPGA/FPGA%E7%BC%96%E7%A8%8B%E4%B8%8E%E4%BB%BF%E7%9C%9F%E6%B3%A8%E6%84%8F/image-9.png">
+<meta name="twitter:image" content="https://lsyxiaopang.github.io/2023/07/07/digital_and_FPGA/FPGA_Notice/image-9.png">
 
-<link rel="canonical" href="https://lsyxiaopang.github.io/2023/07/07/digital_and_FPGA/FPGA%E7%BC%96%E7%A8%8B%E4%B8%8E%E4%BB%BF%E7%9C%9F%E6%B3%A8%E6%84%8F/">
+<link rel="canonical" href="https://lsyxiaopang.github.io/2023/07/07/digital_and_FPGA/FPGA_Notice/">
 
 
 <script id="page-configurations">
@@ -208,7 +208,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/07/07/digital_and_FPGA/FPGA%E7%BC%96%E7%A8%8B%E4%B8%8E%E4%BB%BF%E7%9C%9F%E6%B3%A8%E6%84%8F/">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/07/07/digital_and_FPGA/FPGA_Notice/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -250,8 +250,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2023/07/07/digital_and_FPGA/FPGA%E7%BC%96%E7%A8%8B%E4%B8%8E%E4%BB%BF%E7%9C%9F%E6%B3%A8%E6%84%8F/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/07/07/digital_and_FPGA/FPGA编程与仿真注意/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2023/07/07/digital_and_FPGA/FPGA_Notice/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/07/07/digital_and_FPGA/FPGA_Notice/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -274,7 +274,7 @@
 </ol>
 <h1 id="Verilog编写注意"><a href="#Verilog编写注意" class="headerlink" title="Verilog编写注意"></a>Verilog编写注意</h1><ol>
 <li><strong>不能在不同的<code>always</code>块中对同一个变量修改</strong></li>
-<li>对于不同状态进行编码时,可以参考这张表<br><img src="/2023/07/07/digital_and_FPGA/FPGA%E7%BC%96%E7%A8%8B%E4%B8%8E%E4%BB%BF%E7%9C%9F%E6%B3%A8%E6%84%8F/image-9.png" alt="Alt text"></li>
+<li>对于不同状态进行编码时,可以参考这张表<br><img src="/2023/07/07/digital_and_FPGA/FPGA_Notice/image-9.png" alt="Alt text"></li>
 <li>非阻塞复制的操作计算<strong>是在时钟边沿到来之前的值</strong></li>
 <li>如果一个<code>always</code>块对某个寄存器赋值,而另外一个<code>always</code>块判断这个寄存器的值,那么这个值对应于<strong>时钟沿到来前的值</strong>(类似于非阻塞赋值)<blockquote>
 <p>此时需要正确使用非阻塞赋值,避免出现冲突</p>
@@ -566,8 +566,8 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://lsyxiaopang.github.io/2023/07/07/digital_and_FPGA/FPGA%E7%BC%96%E7%A8%8B%E4%B8%8E%E4%BB%BF%E7%9C%9F%E6%B3%A8%E6%84%8F/";
-    this.page.identifier = "2023/07/07/digital_and_FPGA/FPGA编程与仿真注意/";
+    this.page.url = "https://lsyxiaopang.github.io/2023/07/07/digital_and_FPGA/FPGA_Notice/";
+    this.page.identifier = "2023/07/07/digital_and_FPGA/FPGA_Notice/";
     this.page.title = "FPGA编程与仿真注意";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {

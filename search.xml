@@ -709,40 +709,6 @@
       </tags>
   </entry>
   <entry>
-    <title>FPGA编程与仿真注意</title>
-    <url>/2023/07/07/digital_and_FPGA/FPGA%E7%BC%96%E7%A8%8B%E4%B8%8E%E4%BB%BF%E7%9C%9F%E6%B3%A8%E6%84%8F/</url>
-    <content><![CDATA[<p>最近在学习基于<code>DE10-Nano</code>的FPGA程序设计,这个过程有相对比较复杂的环境配置和一些容易犯的错误,在这里记录一下</p>
-<h1 id="环境的配置与操作流程"><a href="#环境的配置与操作流程" class="headerlink" title="环境的配置与操作流程"></a>环境的配置与操作流程</h1><ol>
-<li><code>DE10-Nano</code>所使用的FPGA的编号为<code>Cyclone V 5CSEBA6U23I7</code>,在配置<code>Quartus</code>的时候可以方便一点</li>
-<li>包含有仿真的项目,首先<strong>指定仿真工具使用<code>ModelSim</code></strong>;在主程序基本完成后(记得编译),自动生成<code>TestBranch</code>脚本;最后将其加入到仿真设定中</li>
-<li>每次编译后都要重新生成<code>TestBranch</code>,所以建议改一下文件名</li>
-</ol>
-<h1 id="Verilog编写注意"><a href="#Verilog编写注意" class="headerlink" title="Verilog编写注意"></a>Verilog编写注意</h1><ol>
-<li><strong>不能在不同的<code>always</code>块中对同一个变量修改</strong></li>
-<li>对于不同状态进行编码时,可以参考这张表<br><img src="/2023/07/07/digital_and_FPGA/FPGA%E7%BC%96%E7%A8%8B%E4%B8%8E%E4%BB%BF%E7%9C%9F%E6%B3%A8%E6%84%8F/image-9.png" alt="Alt text"></li>
-<li>非阻塞复制的操作计算<strong>是在时钟边沿到来之前的值</strong></li>
-<li>如果一个<code>always</code>块对某个寄存器赋值,而另外一个<code>always</code>块判断这个寄存器的值,那么这个值对应于<strong>时钟沿到来前的值</strong>(类似于非阻塞赋值)<blockquote>
-<p>此时需要正确使用非阻塞赋值,避免出现冲突</p>
-</blockquote>
-</li>
-<li>在<strong>时序逻辑</strong>中,使用非阻塞赋值</li>
-<li>注意在按钮摁下的过程<strong>会有非常多的时钟周期</strong><blockquote>
-<p>例如每次摁下按钮,将某一个量加一,这个时候有两种解决方案,一个是使用按钮的上升沿触发,另外一种是使用系统时钟,处理<strong>按钮按下事件是否为第一次触发</strong></p>
-</blockquote>
-</li>
-<li>例如复位”高电平触发”,是指<strong>当信号为高电平时,会发生复位</strong></li>
-</ol>
-<h1 id="ModelSim使用注意"><a href="#ModelSim使用注意" class="headerlink" title="ModelSim使用注意"></a>ModelSim使用注意</h1><ol>
-<li>为了和系统时钟相匹配,需要记得修改时间尺度</li>
-<li><code>TestBranch</code>的<code>always</code>块中**记得把<code>@allvec</code>删去,否则无法仿真</li>
-<li></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>FPGA</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>对机器学习数据集进行处理和筛选</title>
     <url>/2023/02/22/machine-learning/goodtrainingsets/</url>
     <content><![CDATA[<p>数据的优劣和有效信息量的多少是决定机器学习算法能够学的多好的核心要素,因此,我们在喂给机器学习算法之前确保去检查和预处理一个数据集非常重要,在这一章,我们将介绍以下内容:</p>
@@ -4266,6 +4232,40 @@ Along axis 1 is [ 6 15]
       <tags>
         <tag>物理学</tag>
         <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>FPGA编程与仿真注意</title>
+    <url>/2023/07/07/digital_and_FPGA/FPGA_Notice/</url>
+    <content><![CDATA[<p>最近在学习基于<code>DE10-Nano</code>的FPGA程序设计,这个过程有相对比较复杂的环境配置和一些容易犯的错误,在这里记录一下</p>
+<h1 id="环境的配置与操作流程"><a href="#环境的配置与操作流程" class="headerlink" title="环境的配置与操作流程"></a>环境的配置与操作流程</h1><ol>
+<li><code>DE10-Nano</code>所使用的FPGA的编号为<code>Cyclone V 5CSEBA6U23I7</code>,在配置<code>Quartus</code>的时候可以方便一点</li>
+<li>包含有仿真的项目,首先<strong>指定仿真工具使用<code>ModelSim</code></strong>;在主程序基本完成后(记得编译),自动生成<code>TestBranch</code>脚本;最后将其加入到仿真设定中</li>
+<li>每次编译后都要重新生成<code>TestBranch</code>,所以建议改一下文件名</li>
+</ol>
+<h1 id="Verilog编写注意"><a href="#Verilog编写注意" class="headerlink" title="Verilog编写注意"></a>Verilog编写注意</h1><ol>
+<li><strong>不能在不同的<code>always</code>块中对同一个变量修改</strong></li>
+<li>对于不同状态进行编码时,可以参考这张表<br><img src="/2023/07/07/digital_and_FPGA/FPGA_Notice/image-9.png" alt="Alt text"></li>
+<li>非阻塞复制的操作计算<strong>是在时钟边沿到来之前的值</strong></li>
+<li>如果一个<code>always</code>块对某个寄存器赋值,而另外一个<code>always</code>块判断这个寄存器的值,那么这个值对应于<strong>时钟沿到来前的值</strong>(类似于非阻塞赋值)<blockquote>
+<p>此时需要正确使用非阻塞赋值,避免出现冲突</p>
+</blockquote>
+</li>
+<li>在<strong>时序逻辑</strong>中,使用非阻塞赋值</li>
+<li>注意在按钮摁下的过程<strong>会有非常多的时钟周期</strong><blockquote>
+<p>例如每次摁下按钮,将某一个量加一,这个时候有两种解决方案,一个是使用按钮的上升沿触发,另外一种是使用系统时钟,处理<strong>按钮按下事件是否为第一次触发</strong></p>
+</blockquote>
+</li>
+<li>例如复位”高电平触发”,是指<strong>当信号为高电平时,会发生复位</strong></li>
+</ol>
+<h1 id="ModelSim使用注意"><a href="#ModelSim使用注意" class="headerlink" title="ModelSim使用注意"></a>ModelSim使用注意</h1><ol>
+<li>为了和系统时钟相匹配,需要记得修改时间尺度</li>
+<li><code>TestBranch</code>的<code>always</code>块中**记得把<code>@allvec</code>删去,否则无法仿真</li>
+<li></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>FPGA</tag>
       </tags>
   </entry>
 </search>

@@ -200,7 +200,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/07/07/digital_and_FPGA/FPGA%E7%BC%96%E7%A8%8B%E4%B8%8E%E4%BB%BF%E7%9C%9F%E6%B3%A8%E6%84%8F/">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/07/07/digital_and_FPGA/FPGA_Notice/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -214,7 +214,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/07/07/digital_and_FPGA/FPGA%E7%BC%96%E7%A8%8B%E4%B8%8E%E4%BB%BF%E7%9C%9F%E6%B3%A8%E6%84%8F/" class="post-title-link" itemprop="url">FPGA编程与仿真注意</a>
+            <a href="/2023/07/07/digital_and_FPGA/FPGA_Notice/" class="post-title-link" itemprop="url">FPGA编程与仿真注意</a>
         </h2>
 
         <div class="post-meta">
@@ -243,8 +243,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2023/07/07/digital_and_FPGA/FPGA%E7%BC%96%E7%A8%8B%E4%B8%8E%E4%BB%BF%E7%9C%9F%E6%B3%A8%E6%84%8F/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/07/07/digital_and_FPGA/FPGA编程与仿真注意/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2023/07/07/digital_and_FPGA/FPGA_Notice/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/07/07/digital_and_FPGA/FPGA_Notice/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -267,7 +267,7 @@
 </ol>
 <h1 id="Verilog编写注意"><a href="#Verilog编写注意" class="headerlink" title="Verilog编写注意"></a>Verilog编写注意</h1><ol>
 <li><strong>不能在不同的<code>always</code>块中对同一个变量修改</strong></li>
-<li>对于不同状态进行编码时,可以参考这张表<br><img src="/2023/07/07/digital_and_FPGA/FPGA%E7%BC%96%E7%A8%8B%E4%B8%8E%E4%BB%BF%E7%9C%9F%E6%B3%A8%E6%84%8F/image-9.png" alt="Alt text"></li>
+<li>对于不同状态进行编码时,可以参考这张表<br><img src="/2023/07/07/digital_and_FPGA/FPGA_Notice/image-9.png" alt="Alt text"></li>
 <li>非阻塞复制的操作计算<strong>是在时钟边沿到来之前的值</strong></li>
 <li>如果一个<code>always</code>块对某个寄存器赋值,而另外一个<code>always</code>块判断这个寄存器的值,那么这个值对应于<strong>时钟沿到来前的值</strong>(类似于非阻塞赋值)<blockquote>
 <p>此时需要正确使用非阻塞赋值,避免出现冲突</p>
