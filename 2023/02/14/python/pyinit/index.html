@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="Songyuli&#39;s blog">
 <meta property="og:description" content="__init__.py,这个文件很不起眼,而且经常会被人忽略,但是实际在软件开发的过程中非常重要,在这里,我将简单介绍一下__init__.py的编写以及相关可能会遇到的坑.">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://lsyxiaopang.github.io/2023/02/14/python/pyinit/Pasted%20image%2020230214235917.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/Pasted%20image%2020230214235917.png">
 <meta property="article:published_time" content="2023-02-14T15:44:17.000Z">
-<meta property="article:modified_time" content="2023-02-15T16:33:43.962Z">
+<meta property="article:modified_time" content="2023-02-15T16:33:43.000Z">
 <meta property="article:author" content="Songyuli">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://lsyxiaopang.github.io/2023/02/14/python/pyinit/Pasted%20image%2020230214235917.png">
+<meta name="twitter:image" content="https://lsyxiaopang.github.io/Pasted%20image%2020230214235917.png">
 
 <link rel="canonical" href="https://lsyxiaopang.github.io/2023/02/14/python/pyinit/">
 
@@ -275,13 +275,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><code>__init__.py</code>,这个文件很不起眼,而且经常会被人忽略,但是实际在软件开发的过程中非常重要,在这里,我将简单介绍一下<code>__init__.py</code>的编写以及相关可能会遇到的坑.<br><span id="more"></span></p>
+        <p><code>__init__.py</code>,这个文件很不起眼,而且经常会被人忽略,但是实际在软件开发的过程中非常重要,在这里,我将简单介绍一下<code>__init__.py</code>的编写以及相关可能会遇到的坑.</p>
+<span id="more"></span>
 <h2 id="引入-多文件夹运行模式"><a href="#引入-多文件夹运行模式" class="headerlink" title="引入:多文件夹运行模式"></a>引入:多文件夹运行模式</h2><p>就以之前的三维移动平台中遇到的例子,由于测量设备三天两头更换,因此需要设计一个方便的切换模块的方式</p>
 <blockquote>
 <p>我个人感觉这有点像C里面的<code>#ifdef</code>命令,但是这里是脚本语言</p>
 </blockquote>
-<p>于是就有了这样一个文件结构<br><img src="Pasted%20image%2020230214235917.png" alt=""><br>当我在外面调用<code>import Measuredevices</code>这个命令的时候,我希望能够通过调用<code>Measuredevices.MeasureControl</code>来直接得到</p>
-<h2 id="基本的概念"><a href="#基本的概念" class="headerlink" title="基本的概念"></a>基本的概念</h2><p>当你<code>import</code>一个文件夹时,解释器会首先运行<code>__init__.py</code>,执行其中的内容,那么你可以在这一步中进行一些初始化的操作(比如检查系统版本,依赖库之类)<br>因此,我可以这么做,在<code>__init__.py</code>中写入<br><code>from mps import *</code><br>这样的写法使得我们无需关注内部的库结构,实现遍历的调用</p>
+<p>于是就有了这样一个文件结构<br><img src="/Pasted%20image%2020230214235917.png"><br>当我在外面调用<code>import Measuredevices</code>这个命令的时候,我希望能够通过调用<code>Measuredevices.MeasureControl</code>来直接得到</p>
+<h2 id="基本的概念"><a href="#基本的概念" class="headerlink" title="基本的概念"></a>基本的概念</h2><p>当你<code>import</code>一个文件夹时,解释器会首先运行<code>__init__.py</code>,执行其中的内容,那么你可以在这一步中进行一些初始化的操作(比如检查系统版本,依赖库之类)<br>因此,我可以这么做,在<code>__init__.py</code>中写入<br><code>from mps import * </code><br>这样的写法使得我们无需关注内部的库结构,实现遍历的调用</p>
 <blockquote>
 <p>这在为不同系统提供环境支持的时候尤为重要,可能用户看起来调用的同一个库,因为环境不同而实现完全不同</p>
 </blockquote>
@@ -394,7 +395,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -407,7 +408,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

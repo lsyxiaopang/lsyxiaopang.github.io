@@ -270,12 +270,12 @@
 
       
         <h2 id="事情起因"><a href="#事情起因" class="headerlink" title="事情起因"></a>事情起因</h2><p>今天我刷到了一个<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV163411Z7BD">视频</a>了解到<code>EasyConnect</code>似乎有滥用权限,泄露用户数据的可能,因此希望找到一种方法,在正常访问内网资源的同时实现对<code>EasyConnect</code>的控制.</p>
-<h2 id="解决手段"><a href="#解决手段" class="headerlink" title="解决手段"></a>解决手段</h2><p>我采用的是视频中提供的方案,是<code>docker-easyconnect</code>,[此为源代码地址][<a target="_blank" rel="noopener" href="https://github.com/Hagb/docker-easyconnect">https://github.com/Hagb/docker-easyconnect</a>]</p>
+<h2 id="解决手段"><a href="#解决手段" class="headerlink" title="解决手段"></a>解决手段</h2><p>我采用的是视频中提供的方案,是<code>docker-easyconnect</code>,[此为源代码地址][<a target="_blank" rel="noopener" href="https://github.com/Hagb/docker-easyconnect]">https://github.com/Hagb/docker-easyconnect]</a></p>
 <p>在操作的时候,需要使用<code>Docker</code>环境进行隔离,刚好也对<code>Docker</code>环境进行学习</p>
 <blockquote>
 <p>需要注意的,在使用<code>socks5</code>代理的时候,把端口从1080改为其他类型的端口</p>
 </blockquote>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>算是实现了部分的功能,在<code>Docker</code>上顺利登陆了,并且使用<code>Firefox</code>上的<code>SwichyOmega</code>实现对于流量的分流(基于<code>socks5</code>原理)(不过目前只代理了`<em>.fudan.edu.cn</em>网页),这么做可以保障我在使用内网资源的时候同时可以访问外网资料</p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>算是实现了部分的功能,在<code>Docker</code>上顺利登陆了,并且使用<code>Firefox</code>上的<code>SwichyOmega</code>实现对于流量的分流(基于<code>socks5</code>原理)(不过目前只代理了&#96;<em>.fudan.edu.cn</em>网页),这么做可以保障我在使用内网资源的时候同时可以访问外网资料</p>
 <p>不过,这样的连接存在较为严重的稳定性问题,问题比较像<a target="_blank" rel="noopener" href="https://github.com/Hagb/docker-easyconnect/issues/177">一个issue</a>,如何解决目前不明.</p>
 <p>同时,非常遗憾的,使用这种手段无法解决我使用<code>ssh</code>的问题,而网上的资料似乎主要针对<code>Linux</code>系统,因此还是无法摆脱<code>EasyConnect</code>的困扰.</p>
 
@@ -384,7 +384,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -397,7 +397,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -200,6 +200,207 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/12/Linux/linux-server1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Songyuli">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songyuli's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/02/12/Linux/linux-server1/" class="post-title-link" itemprop="url">Linux服务器配置日志1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-02-12 19:58:24" itemprop="dateCreated datePublished" datetime="2023-02-12T19:58:24+08:00">2023-02-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-02-13 10:37:44" itemprop="dateModified" datetime="2023-02-13T10:37:44+08:00">2023-02-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">Linux服务器</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/02/12/Linux/linux-server1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/02/12/Linux/linux-server1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>因为我认为需要搭建一个Linux服务器用于一些用途(比如说,练习使用Linux,或者未来搭建一些网页,以及部署偏微分方程求解器,都是很有用的).<br>我第一步,先在宿舍里面搭建这个服务器,好处是宿舍用的电信宽带拥有<strong>公网ip</strong>,因此我可以在任何地方访问到这台服务器,而且配置相对简单,因为不用使用校园网那样一套专门的认证系统,非常麻烦.<br>但相应的,缺点也非常显著,因为在宿舍,由于安全和考虑,白天必须断电,所以这就产生了定时开关机的问题<br>同时,一个服务器放在公网上总是显得不是那么安全,因此未来我会考虑把它搬到校内(这样的话也可以省去使用easyconnect这种软件)<br>下面是我在2.12日配置Linux服务器遇到的问题.</p>
+<h2 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h2><p>版本: Ubuntu 20.04.5 LTS</p>
+<h2 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h2><h3 id="连上网"><a href="#连上网" class="headerlink" title="连上网"></a>连上网</h3><p>下面是万恶的网络配置环节,由于安装的Linux-Server是完全没有GUI界面的,结果就网络配置起来非常痛苦.<br>幸好我有网线,可以在网络配置的过程中方便一些,我参考的是[这篇网页][1]对我的有限网络进行配置,但有一点不同,就是在我配置好这个,并且reboot之后,实际上还是没有反应.<br>就在我心灰意冷准备去改为使用无线连接时,在输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo netplan apply</span><br></pre></td></tr></table></figure>
+<p>之后,突然就可以了,我不确定是不是<code>netplan</code>的效果,但是未来也许可以参考</p>
+<h3 id="外网访问"><a href="#外网访问" class="headerlink" title="外网访问"></a>外网访问</h3><p>我这里使用的是TP-LINK路由器提供的外网连接服务”DMZ主机”功能</p>
+<blockquote>
+<p>我之前发现机器重启之后不能用了,原因是没有分配静态ip</p>
+</blockquote>
+<h3 id="关于Samba访问"><a href="#关于Samba访问" class="headerlink" title="关于Samba访问"></a>关于Samba访问</h3><p>似乎由于之前的一个病毒,因此445端口的访问被关闭了,所以无法正常连接samba,所以还是得移到校内局域网环境</p>
+<h2 id="邮件问题"><a href="#邮件问题" class="headerlink" title="邮件问题"></a>邮件问题</h2><h3 id="邮件"><a href="#邮件" class="headerlink" title="邮件"></a>邮件</h3><p>这里先颠倒一下顺序,讲一下邮件<br>一开始,我打算使用Linux里面的<code>mail</code>命令,但是不幸的是,<code>mail</code>命令不支持修改邮件的发送者,也就是说我发送的邮件会毫无例外地被移到垃圾箱中,而且还不好移出来(会提示说邮件格式有问题),因此我打算使用<code>mailx</code>来解决问题<br>但是<code>mailx</code>也遇到的相应的问题,那就是对于外来的邮件似乎还是无法解析<br>看起来目前只有两种选项:</p>
+<ol>
+<li>使用前面已经妥善处理了的python脚本进行邮件处理</li>
+<li>就扔到垃圾箱好了<br>这个问题值得去讨论<br>[1]:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wayneliu007/p/10312202.html">https://www.cnblogs.com/wayneliu007/p/10312202.html</a></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/09/3Dmover/ant/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Songyuli">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songyuli's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/02/09/3Dmover/ant/" class="post-title-link" itemprop="url">蚁群算法分析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-02-09 21:40:14" itemprop="dateCreated datePublished" datetime="2023-02-09T21:40:14+08:00">2023-02-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-02-10 14:55:16" itemprop="dateModified" datetime="2023-02-10T14:55:16+08:00">2023-02-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/3D%E4%BD%8D%E7%A7%BB%E6%B5%8B%E9%87%8F%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">3D位移测量平台设计</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/02/09/3Dmover/ant/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/02/09/3Dmover/ant/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>之前提到过三维路径的查找的方法,使用A*寻找,但是在找完之后就面临一个问题,如何挑选出一个合适的路径.<br>很明显,我们这里的这个问题是一个旅行商问题,这玩意不可能有一个”完美”的算法.<br>之前我所使用的方法是使用基于贪心算法的最小生成树进行路径查找但是这种方法的结果只能保证路径总代价不超过2倍.<br>原本我想想只需要无脑调库就可以了,但是一查,虽然有一个民间制作的蚁群优化算法,但是那些都是基于python的python库,完全没法用.</p>
+<blockquote>
+<p>虽然你可能会觉得上面那句话很怪,但如果你了解过python的运行效率,那么就会知道这么做就是自寻死路</p>
+</blockquote>
+<p>所以我看来又得”自己造轮子”,使用C++处理蚁群算法</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/02/09/3Dmover/ant/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/07/python/vectorize/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -544,11 +745,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="使用模型匹配法进行增益调整"><a href="#使用模型匹配法进行增益调整" class="headerlink" title="使用模型匹配法进行增益调整"></a>使用模型匹配法进行增益调整</h2><p>所谓<strong>模型匹配法</strong>就是通过指定合适的<strong>标准模型</strong>$\mathcal{M}(s)$尽量的去模拟目标值到控制量的传递函数$\mathcal{G}_{yr}(s)$<br>标准模型往往采用<strong>二项式系数标准型</strong>和<strong>巴特沃斯标准型</strong><br>例如,二阶系统的标准模型为: </p>
-<script type="math/tex; mode=display">\mathcal{M}(s)=\frac{\omega_n^2}{s^2+2\zeta\omega_ns+\omega_n^2}</script><p>当我们将阻尼系数$\zeta$设为$\zeta=1$时,就是二项式系数标准型,设为$\zeta=\frac{1}{\sqrt{2}}$为巴特沃斯标准型<br>而无阻尼自然振荡频率$\omega_n$为决定快速性的参数,值越大控制系统启动上升越快  </p>
-<p>而对于三阶系统,其标准模型为</p>
-<script type="math/tex; mode=display">\mathcal{M}(s)=\frac{\omega_n^3}{s^3+\alpha_2\omega_ns^2+\alpha_1\omega_n^2s+\omega_n^3}</script><p>当$(\alpha_1,\alpha_2)=(3,3)$时这个模型为二项式系数标准型,当$(\alpha_1,\alpha_2)=(2,2)$时这个模型为巴特沃斯标准型<br>此外,还有<strong>ITAE最小标准型</strong>,其可以使误差绝对值的时间加权积分最小,即</p>
-<script type="math/tex; mode=display">\int_0^t\tau|e(\tau)|\mathrm{d}\tau</script><p>值最小,可以将$(\alpha_1,\alpha_2)=(2.15,1.75)$</p>
+          <h2 id="使用模型匹配法进行增益调整"><a href="#使用模型匹配法进行增益调整" class="headerlink" title="使用模型匹配法进行增益调整"></a>使用模型匹配法进行增益调整</h2><p>所谓<strong>模型匹配法</strong>就是通过指定合适的<strong>标准模型</strong>$\mathcal{M}(s)$尽量的去模拟目标值到控制量的传递函数$\mathcal{G}_{yr}(s)$<br>标准模型往往采用<strong>二项式系数标准型</strong>和<strong>巴特沃斯标准型</strong><br>例如,二阶系统的标准模型为:<br>$$\mathcal{M}(s)&#x3D;\frac{\omega_n^2}{s^2+2\zeta\omega_ns+\omega_n^2}$$<br>当我们将阻尼系数$\zeta$设为$\zeta&#x3D;1$时,就是二项式系数标准型,设为$\zeta&#x3D;\frac{1}{\sqrt{2}}$为巴特沃斯标准型<br>而无阻尼自然振荡频率$\omega_n$为决定快速性的参数,值越大控制系统启动上升越快  </p>
+<p>而对于三阶系统,其标准模型为<br>$$\mathcal{M}(s)&#x3D;\frac{\omega_n^3}{s^3+\alpha_2\omega_ns^2+\alpha_1\omega_n^2s+\omega_n^3}$$<br>当$(\alpha_1,\alpha_2)&#x3D;(3,3)$时这个模型为二项式系数标准型,当$(\alpha_1,\alpha_2)&#x3D;(2,2)$时这个模型为巴特沃斯标准型<br>此外,还有<strong>ITAE最小标准型</strong>,其可以使误差绝对值的时间加权积分最小,即<br>$$\int_0^t\tau|e(\tau)|\mathrm{d}\tau$$<br>值最小,可以将$(\alpha_1,\alpha_2)&#x3D;(2.15,1.75)$</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/02/05/control%20system/closecontrol2/#more" rel="contents">
@@ -736,7 +934,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>对于一个被控制对象$\mathcal{P}$,我们需要搭建一个反馈控制系统,如图所示:<br><img src="image-20230131204212577.png" alt="image-20230131204212577"><br>其中$\mathcal{K}$为控制器,$r$为目标值,$u$为控制输入,$d$为扰动,$y$为输出,$e$为误差,下面来分别介绍稳定性,时域特性以及频域响应特性</p>
+          <p>对于一个被控制对象$\mathcal{P}$,我们需要搭建一个反馈控制系统,如图所示:<br><img src="/2023/01/31/control%20system/close-sys1/image-20230131204212577.png" alt="image-20230131204212577"><br>其中$\mathcal{K}$为控制器,$r$为目标值,$u$为控制输入,$d$为扰动,$y$为输出,$e$为误差,下面来分别介绍稳定性,时域特性以及频域响应特性</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/01/31/control%20system/close-sys1/#more" rel="contents">
@@ -927,298 +1125,43 @@
 <p>我在使用<code>pip install email</code>的时候一直出错,但是到<code>pip install emails</code>就可以,目前不确定两者关系,但是都可以使用<code>import email</code>调用</p>
 </blockquote>
 <p>而编写完邮件后,对于邮件的发送则是通过<code>smtp</code>服务进行,这一部分则是用<code>smtplib</code>实现,而其安装可以用<code>pip install aiosmtplib</code>进行</p>
-<h2 id="配置smtp"><a href="#配置smtp" class="headerlink" title="配置smtp"></a>配置<code>smtp</code></h2><p>我计划使用<code>Gmail</code>对这些邮件进行配置,为此,我打开了<code>Gmail</code>中的<code>imap</code>和<code>pop3</code>服务,关于<code>Gmail</code>更多信息如下,<a target="_blank" rel="noopener" href="https://support.google.com/mail/answer/7126229">摘自于此</a><br>|内容|配置|<br>| —————————————— | —————————————————————————————— |<br>| 接收邮件 (IMAP) 服务器       | imap.gmail.com       要求 SSL：是       端口：993            |<br>| 发送邮件 (SMTP) 服务器       | smtp.gmail.com       要求 SSL：是       要求 TLS：是（如适用）       使用身份验证：是       SSL 端口：465       TLS/STARTTLS 端口：587 |<br>| 完整名称或显示名称           | 您的姓名                                                     |<br>| 帐号名、用户名或电子邮件地址 | 您的完整电子邮件地址                                         |<br>| 密码                         | 您的 Gmail 密码                                              |</p>
+<h2 id="配置smtp"><a href="#配置smtp" class="headerlink" title="配置smtp"></a>配置<code>smtp</code></h2><p>我计划使用<code>Gmail</code>对这些邮件进行配置,为此,我打开了<code>Gmail</code>中的<code>imap</code>和<code>pop3</code>服务,关于<code>Gmail</code>更多信息如下,<a target="_blank" rel="noopener" href="https://support.google.com/mail/answer/7126229">摘自于此</a></p>
+<table>
+<thead>
+<tr>
+<th>内容</th>
+<th>配置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>接收邮件 (IMAP) 服务器</td>
+<td>imap.gmail.com       要求 SSL：是       端口：993</td>
+</tr>
+<tr>
+<td>发送邮件 (SMTP) 服务器</td>
+<td>smtp.gmail.com       要求 SSL：是       要求 TLS：是（如适用）       使用身份验证：是       SSL 端口：465       TLS&#x2F;STARTTLS 端口：587</td>
+</tr>
+<tr>
+<td>完整名称或显示名称</td>
+<td>您的姓名</td>
+</tr>
+<tr>
+<td>帐号名、用户名或电子邮件地址</td>
+<td>您的完整电子邮件地址</td>
+</tr>
+<tr>
+<td>密码</td>
+<td>您的 Gmail 密码</td>
+</tr>
+</tbody></table>
 <h2 id="尝试发送邮件"><a href="#尝试发送邮件" class="headerlink" title="尝试发送邮件"></a>尝试发送邮件</h2><p>下面代码展示发送测试邮件过程</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> smtplib</span><br><span class="line"><span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText</span><br><span class="line"></span><br><span class="line">mail_host=<span class="string">&#x27;&#x27;</span></span><br><span class="line">mail_user=<span class="string">&#x27;&#x27;</span></span><br><span class="line">mail_pass=<span class="string">&#x27;&#x27;</span></span><br><span class="line">sender=<span class="string">&#x27;&#x27;</span></span><br><span class="line">receivers=[<span class="string">&#x27;&#x27;</span>]<span class="comment">#可以群发</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置邮件信息</span></span><br><span class="line">message=MIMEText(<span class="string">&#x27;content&#x27;</span>,<span class="string">&#x27;plain&#x27;</span>,<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">message[<span class="string">&#x27;Subject&#x27;</span>]=<span class="string">&quot;Test email&quot;</span></span><br><span class="line">message[<span class="string">&#x27;From&#x27;</span>]=sender</span><br><span class="line">message[<span class="string">&#x27;To&#x27;</span>]=receivers[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># smtpobj=smtplib.SMTP()</span></span><br><span class="line">    <span class="comment"># smtpobj.connect(mail_host,25)#这是无需ssl验证的情况</span></span><br><span class="line">    smtpobj=smtplib.SMTP_SSL(mail_host)<span class="comment">#这是需要ssl验证的情况</span></span><br><span class="line">    smtpobj.login(mail_user,mail_pass)</span><br><span class="line">    smtpobj.sendmail(sender,receivers,message.as_string())</span><br><span class="line">    smtpobj.quit()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Success&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> smtplib.SMTPException <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;error&#x27;</span>,e)</span><br></pre></td></tr></table></figure>
+
 <p>这个代码确实可以发送邮件,测试完成</p>
 <h2 id="添加附件"><a href="#添加附件" class="headerlink" title="添加附件"></a>添加附件</h2><p>我们可以利用<code>MIMENonMultipart</code>中的<code>MIMEText</code>类来发送我们得到的csv文件</p>
 <p>可以参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/sunjump/p/15593585.html">这篇文章</a></p>
 <h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2><p>自然,我们可以实现更多内容(比如HTML等),但是我目前不需要,就先留在这里,可能未来还会更新</p>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/27/misc/pylog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Songyuli">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Songyuli's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/27/misc/pylog/" class="post-title-link" itemprop="url">使用loguru编写日志文件</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-01-27 19:02:22" itemprop="dateCreated datePublished" datetime="2023-01-27T19:02:22+08:00">2023-01-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-28 22:13:15" itemprop="dateModified" datetime="2023-01-28T22:13:15+08:00">2023-01-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E9%A1%B9/" itemprop="url" rel="index"><span itemprop="name">杂项</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2023/01/27/misc/pylog/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/27/misc/pylog/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在编写程序,尤其是某些运行时间长,中间存在可能错误的程序,往往需要记录日志以便于调试.  </p>
-<p>但是日志的编写往往存在大量重复劳动,并且对于我目前的状况来讲可能需要在已有的程序中添加日志代码.  </p>
-<p>经过相关资料查阅,我找到了一个内置<code>logging</code>库,其可以较好地实现对于日志的编写.但是查阅了一下相关资料后,发现似乎<code>logging</code>的使用较为复杂,我们往往不需要那么复杂的应用场景,因此我在这里选择另外一个库<code>loguru</code>对日志进行记录</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>如果使用<code>anaconda</code>,可以用以下命令安装:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install -c conda-forge loguru</span><br></pre></td></tr></table></figure>
-<h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><p>我们可以直接利用封装好的<code>logger</code>对象,直接对不同级别的日志进行输出,例如使用以下代码可以实现不同级别的日志:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> loguru <span class="keyword">import</span> logger</span><br><span class="line"></span><br><span class="line">logger.debug(<span class="string">&#x27;This is debug information&#x27;</span>)</span><br><span class="line">logger.info(<span class="string">&#x27;This is info information&#x27;</span>)</span><br><span class="line">logger.warning(<span class="string">&#x27;This is warn information&#x27;</span>)</span><br><span class="line">logger.error(<span class="string">&#x27;This is error information&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>可以注意到在运行时,其对于不同级别的结果,有着不同的格式化与颜色</p>
-<p><img src="image-20230127192915053.png" alt="image-20230127192915053"></p>
-<p>接下来,我们可以注意到<code>logger</code>编写日志的一个优势在于其无需设定复杂的如处理器,过滤器等信息</p>
-<h2 id="输出到文件"><a href="#输出到文件" class="headerlink" title="输出到文件"></a>输出到文件</h2><p>我们往往需要将数据输出到文件,<em>尤其是在使用如<code>xspec</code>这样自己会有大量数据输出的程序</em>(默认是在<code>sys.std_err</code>中输出),可以使用<code>add</code>改变输出位置(<code>add</code>的具体用法之后会讲)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logger.add(<span class="string">&quot;file_&#123;time&#125;.log&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>其中<code>&#123;time&#125;</code>会自动替换为当前时间,还有其他的格式化字典如下:  </p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Description</th>
-<th>Attributes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>elapsed</td>
-<td>The time elapsed since the start of the program</td>
-<td>See <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta"><code>datetime.timedelta</code></a></td>
-</tr>
-<tr>
-<td>exception</td>
-<td>The formatted exception if any, <code>None</code> otherwise</td>
-<td><code>type</code>, <code>value</code>, <code>traceback</code></td>
-</tr>
-<tr>
-<td>extra</td>
-<td>The dict of attributes bound by the user (see <a target="_blank" rel="noopener" href="https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind"><code>bind()</code></a>)</td>
-<td>None</td>
-</tr>
-<tr>
-<td>file</td>
-<td>The file where the logging call was made</td>
-<td><code>name</code> (default), <code>path</code></td>
-</tr>
-<tr>
-<td>function</td>
-<td>The function from which the logging call was made</td>
-<td>None</td>
-</tr>
-<tr>
-<td>level</td>
-<td>The severity used to log the message</td>
-<td><code>name</code> (default), <code>no</code>, <code>icon</code></td>
-</tr>
-<tr>
-<td>line</td>
-<td>The line number in the source code</td>
-<td>None</td>
-</tr>
-<tr>
-<td>message</td>
-<td>The logged message (not yet formatted)</td>
-<td>None</td>
-</tr>
-<tr>
-<td>module</td>
-<td>The module where the logging call was made</td>
-<td>None</td>
-</tr>
-<tr>
-<td>name</td>
-<td>The <code>__name__</code> where the logging call was made</td>
-<td>None</td>
-</tr>
-<tr>
-<td>process</td>
-<td>The process in which the logging call was made</td>
-<td><code>name</code>, <code>id</code> (default)</td>
-</tr>
-<tr>
-<td>thread</td>
-<td>The thread in which the logging call was made</td>
-<td><code>name</code>, <code>id</code> (default)</td>
-</tr>
-<tr>
-<td>time</td>
-<td>The aware local time when the logging call was made</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>输出到文件还有滚动和压缩等功能,在这里不再过多赘述(目前也用不到)</p>
-<blockquote>
-<p>关于字符着色:</p>
-<p>字符着色的问题是通过调节<code>add</code>中的参数<code>colorize</code>来控制的,其添加后有好处有坏处</p>
-<p>好处在于可以使用<code>tail -f</code>等很方便看到数据内容</p>
-<p>坏处在于由于字符串着色的机理是通过添加字符串进行的,会对编辑器查看带来不便</p>
-<p>因此可以尝试同时记录两个log</p>
-</blockquote>
-<h2 id="过滤器与格式化"><a href="#过滤器与格式化" class="headerlink" title="过滤器与格式化"></a>过滤器与格式化</h2><p>下面是关于更加复杂的过滤器写法和格式化写法的问题,这里不涉及(可能以后会),可以先看参考资料</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://github.com/Delgan/loguru">源代码与特性介绍</a></p>
-<p><a target="_blank" rel="noopener" href="https://loguru.readthedocs.io/en/stable/api/logger.html">类定义</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/26/misc/graphviz/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Songyuli">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Songyuli's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/26/misc/graphviz/" class="post-title-link" itemprop="url">所思即所得,一些画图软件(包)介绍</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-01-26 22:56:18" itemprop="dateCreated datePublished" datetime="2023-01-26T22:56:18+08:00">2023-01-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-28 22:13:07" itemprop="dateModified" datetime="2023-01-28T22:13:07+08:00">2023-01-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E9%A1%B9/" itemprop="url" rel="index"><span itemprop="name">杂项</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2023/01/26/misc/graphviz/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/26/misc/graphviz/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>由于我在学习控制系统的时候,感觉<code>Visio</code>绘图手感像坨屎(我承认是我手不行),但是像流程图这样的东西有特点,即如果你能在这些空间里面把你想要塞的东西全部塞进去,那么优化这样的工作可以是完全交由计算机自行处理的.</p>
-<p>在这里,我主要将介绍两种方式进行该类绘图,一种是使用<code>LaTex</code>中<code>tikz</code>包进行绘图,还有一种是使用<code>Graphviz</code>进行绘图</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/01/26/misc/graphviz/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 
@@ -1302,7 +1245,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1315,7 +1258,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

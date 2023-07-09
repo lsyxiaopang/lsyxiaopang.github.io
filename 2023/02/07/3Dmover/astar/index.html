@@ -282,26 +282,33 @@
 <p>同时由于这种算法的性质,其运算过程是<strong>难以矢量化的</strong>,所以直接拿python去跑会变得非常让人难以接受,因此我们必须拿C++来实现这个功能</p>
 <p>具体而言,我们可以将这个问题转化为:<strong>网格化-&gt;A*寻路-&gt;矢量化</strong>三步进行</p>
 <span id="more"></span>
+
 <h2 id="网格化"><a href="#网格化" class="headerlink" title="网格化"></a>网格化</h2><p>在进行网格化的过程中,我是首先制作了一个<code>Mesh</code>类,这个类中会储存已知起点和终点以及密度的网格.然后其中有一个方法,可以将<strong>现实坐标</strong>转化为<strong>网格坐标</strong></p>
 <p>之后,这个类提供一个接口,可以将<strong>首尾不相连</strong>的多边形转换为网格,其原理就是先转换首末端点,然后用<code>Bresenham</code>算法对直线进行绘制(这种方法避免浮点运算,效率较高)</p>
 <p>这样就实现了对于坐标的网格化.</p>
 <blockquote>
-<p>==索引问题==</p>
+<p>&#x3D;&#x3D;索引问题&#x3D;&#x3D;</p>
 <p>由于在C中,数组的索引形式与<code>Eigen</code>(一个C++扩展,支持线性代数运算,可以参考<a target="_blank" rel="noopener" href="https://eigen.tuxfamily.org/">这个网页</a>)相同,都是先行后列的索引</p>
 <p>因此我们会看到像<code>a[y][x]</code>或是<code>a(y,x)</code>这样的索引</p>
 <p>在编写接口的过程中,需要多加小心</p>
 <p><em>现在看好像并没有什么很显著的问题</em></p>
-<p>==网格化的优化==</p>
+</blockquote>
+<blockquote>
+<p>&#x3D;&#x3D;网格化的优化&#x3D;&#x3D;</p>
 <p>这种网格化提供了网格”生长”的可能性,例如在实际的操作中,我们知道机器必然不能精确的沿着边缘走,但是根据这一算法得到的结果,很多就是沿着边缘进行的</p>
 <p>这个时候如果我们已经进行了网格化,就可以实现较为容易的计算机图形学中的膨胀操作</p>
 <p>这里也许可以参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33732358/article/details/88725971">这篇文章</a></p>
-<p>==向下舍入问题==</p>
-<p>我们的计算是向下舍入的,即$a_x=(x-x_{beg})/\Delta x$一式向下舍入,那么我们在将网格倒推时,就需要加上0.5,减小误差</p>
+</blockquote>
+<blockquote>
+<p>&#x3D;&#x3D;向下舍入问题&#x3D;&#x3D;</p>
+<p>我们的计算是向下舍入的,即$a_x&#x3D;(x-x_{beg})&#x2F;\Delta x$一式向下舍入,那么我们在将网格倒推时,就需要加上0.5,减小误差</p>
 </blockquote>
 <h2 id="A-搜索"><a href="#A-搜索" class="headerlink" title="A*搜索"></a>A*搜索</h2><p>接下来就是我们讨论的A*搜索部分,实际上这一部分的内容网上都有,我就在这里给大家大略复述一下流程</p>
 <ol>
-<li>创建一个<code>open_set</code>和一个<code>close_set</code></li>
-<li>从起点开始,将设定一个代价值(这个后面会讨论),然后将起点添加进<code>open_set</code>中</li>
+<li><p>创建一个<code>open_set</code>和一个<code>close_set</code></p>
+</li>
+<li><p>从起点开始,将设定一个代价值(这个后面会讨论),然后将起点添加进<code>open_set</code>中</p>
+</li>
 <li><p>开始循环,直到达到终点:</p>
 <ol>
 <li>取出<code>open_set</code>中代价值最低的点,并将其加到<code>close_set</code>中</li>
@@ -314,17 +321,19 @@
 </li>
 </ol>
 <blockquote>
-<p>==关于代价函数==</p>
+<p>&#x3D;&#x3D;关于代价函数&#x3D;&#x3D;</p>
 <p>我目前是使用曼哈顿距离作为代价函数进行计算实际上用欧几里得距离什么的也可以(但是计算效率会下降)</p>
 <p>但是使用的代价函数必须满足一个条件:<strong>一个点的代价必须是唯一的</strong>(可以不同点有相同代价)</p>
 <p>这与我们在算法中采用的<code>set</code>有关,如果出现一个点有不同代价,那么比较函数将无法抵达红黑树树叶,然后就会出错</p>
 <p>必须满足传递原则:若a&gt;b,b&gt;c则a&gt;c</p>
-<p>==对于优化==</p>
+</blockquote>
+<blockquote>
+<p>&#x3D;&#x3D;对于优化&#x3D;&#x3D;</p>
 <p>上面描述的是一般的代价函数,但是我们这里比较特殊,在进行计算前,我们需要对所有点进行初始化,此时一个起点对应的就不仅仅是一个终点了,也许可以极大的提高运算效率</p>
 </blockquote>
 <h2 id="反网格化"><a href="#反网格化" class="headerlink" title="反网格化"></a>反网格化</h2><p>这里就相当于是网格化的逆过程,我也不必过多解释,但是要注意最后为了减小误差,需要加上半个步长</p>
 <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>下面是我用python调取C++库采用曼哈顿距离作为代价函数的运行结果,蓝色线为障碍物边界,红色线为规划得到的路径,其效果非常可观.</p>
-<p><img src="outfig.png" alt="outfig"></p>
+<p><img src="/2023/02/07/3Dmover/astar/outfig.png" alt="outfig"></p>
 
     </div>
 
@@ -431,7 +440,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -444,7 +453,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
