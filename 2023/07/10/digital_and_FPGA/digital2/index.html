@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="z变换离散时间傅里叶变换的局限性与z变换介绍傅里叶变换对于一部分序列并不收敛例如$X(\omega)&#x3D;\sum x(n)e^{-j\omega n}$我们需要其收敛,需要判断其条件 可以使用三角不等式,最终会得到前者收敛的条件为$\sum |x(n)|&lt;\infty$(绝对可和)  我们之前所讨论的稳定性,可以得到一个稳定系统中的$H(\omega)$是绝对可和的  一个例子对于$x(n)&#x3D;">
+  <meta name="description" content="z变换离散时间傅里叶变换的局限性与z变换介绍傅里叶变换对于一部分序列并不收敛例如$X(\omega)&#x3D;\sum x(n)e^{-j\omega n}$我们需要其收敛,需要判断其条件 可以使用三角不等式,最终会得到前者收敛的条件为$\sum |x(n)|&lt;\infty$(绝对可和)  我们之前所讨论的稳定性,可以得到一个稳定系统中的$H(\omega)$是绝对可和的  一个例子对于$">
 <meta property="og:type" content="article">
 <meta property="og:title" content="z变换">
 <meta property="og:url" content="https://lsyxiaopang.github.io/2023/07/10/digital_and_FPGA/digital2/index.html">
 <meta property="og:site_name" content="Songyuli&#39;s blog">
-<meta property="og:description" content="z变换离散时间傅里叶变换的局限性与z变换介绍傅里叶变换对于一部分序列并不收敛例如$X(\omega)&#x3D;\sum x(n)e^{-j\omega n}$我们需要其收敛,需要判断其条件 可以使用三角不等式,最终会得到前者收敛的条件为$\sum |x(n)|&lt;\infty$(绝对可和)  我们之前所讨论的稳定性,可以得到一个稳定系统中的$H(\omega)$是绝对可和的  一个例子对于$x(n)&#x3D;">
+<meta property="og:description" content="z变换离散时间傅里叶变换的局限性与z变换介绍傅里叶变换对于一部分序列并不收敛例如$X(\omega)&#x3D;\sum x(n)e^{-j\omega n}$我们需要其收敛,需要判断其条件 可以使用三角不等式,最终会得到前者收敛的条件为$\sum |x(n)|&lt;\infty$(绝对可和)  我们之前所讨论的稳定性,可以得到一个稳定系统中的$H(\omega)$是绝对可和的  一个例子对于$">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/10/digital_and_FPGA/digital2/image.png">
 <meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/10/digital_and_FPGA/digital2/image-1.png">
@@ -281,71 +281,76 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="z变换"><a href="#z变换" class="headerlink" title="z变换"></a>z变换</h1><h2 id="离散时间傅里叶变换的局限性与z变换介绍"><a href="#离散时间傅里叶变换的局限性与z变换介绍" class="headerlink" title="离散时间傅里叶变换的局限性与z变换介绍"></a>离散时间傅里叶变换的局限性与z变换介绍</h2><p>傅里叶变换对于一部分序列<strong>并不收敛</strong><br>例如$X(\omega)=\sum x(n)e^{-j\omega n}$我们需要其收敛,需要判断其条件</p>
+        <h1 id="z变换"><a href="#z变换" class="headerlink" title="z变换"></a>z变换</h1><h2 id="离散时间傅里叶变换的局限性与z变换介绍"><a href="#离散时间傅里叶变换的局限性与z变换介绍" class="headerlink" title="离散时间傅里叶变换的局限性与z变换介绍"></a>离散时间傅里叶变换的局限性与z变换介绍</h2><p>傅里叶变换对于一部分序列<strong>并不收敛</strong><br>例如$X(\omega)&#x3D;\sum x(n)e^{-j\omega n}$我们需要其收敛,需要判断其条件</p>
 <p>可以使用三角不等式,最终会得到前者收敛的条件为$\sum |x(n)|&lt;\infty$(绝对可和)</p>
 <blockquote>
 <p>我们之前所讨论的<strong>稳定性</strong>,可以得到一个稳定系统中的$H(\omega)$是绝对可和的</p>
 </blockquote>
-<h3 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h3><p>对于$x(n)=2^nu(n)$,我们能够注意到$\sum x(n)=\infty$,因此傅里叶变换<strong>不收敛</strong></p>
+<h3 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h3><p>对于$x(n)&#x3D;2^nu(n)$,我们能够注意到$\sum x(n)&#x3D;\infty$,因此傅里叶变换<strong>不收敛</strong></p>
 <blockquote>
 <p>根据一个非常常用的结论,假如我们有一个(模)指数下降的序列,那么其<strong>傅里叶变换</strong>必然收敛<br>因此我们可以采用类似于处理拉普拉斯变换的方法,乘以一个指数下降的数列</p>
 </blockquote>
 <p>如果我们选取一个$r&gt;2$,那么我们能够得到一个收敛的序列$x(n)r^{-n}$</p>
-<h2 id="z变换定义"><a href="#z变换定义" class="headerlink" title="z变换定义"></a>z变换定义</h2><script type="math/tex; mode=display">X(z)=\sum x(n)z^{-n}</script><p>与傅里叶变换的联系之处在于</p>
-<script type="math/tex; mode=display">X(\omega)=X(z)|_{z=e^{j\omega}}</script><p>对于某些$r$值,z变换会收敛,对于某些$r$值,其并不会收敛</p>
+<h2 id="z变换定义"><a href="#z变换定义" class="headerlink" title="z变换定义"></a>z变换定义</h2><p>$$X(z)&#x3D;\sum x(n)z^{-n}$$<br>与傅里叶变换的联系之处在于<br>$$X(\omega)&#x3D;X(z)|_{z&#x3D;e^{j\omega}}$$</p>
+<p>对于某些$r$值,z变换会收敛,对于某些$r$值,其并不会收敛</p>
 <h3 id="如何处理"><a href="#如何处理" class="headerlink" title="如何处理"></a>如何处理</h3><blockquote>
 <p>这里视频中有许多,但我认为只需要将整个模长保持在<strong>小于1</strong>的部分,那么我们就可以绘制出一个<strong>收敛圆</strong><br>特别地,如果收敛圆包含了单位圆,那么我们可以知道这个序列的<strong>离散傅里叶变换也是收敛的</strong></p>
+</blockquote>
+<blockquote>
 <p>同时,我们也要注意到,对于不同的$u(n)$情况,会有不同的收敛域</p>
+</blockquote>
+<blockquote>
 <p>在这里讨论的极点是<strong>使用求和公式求出来的结果</strong>,而对于不同的条件下,其可能是零点,也有可能是极点</p>
 </blockquote>
-<p><img src="image.png" alt="Alt text"></p>
+<p><img src="/2023/07/10/digital_and_FPGA/digital2/image.png" alt="Alt text"></p>
 <h3 id="收敛域的一些性质"><a href="#收敛域的一些性质" class="headerlink" title="收敛域的一些性质"></a>收敛域的一些性质</h3><ol>
-<li>收敛的范围总是被限制在极点和(0/$\infty$)</li>
+<li>收敛的范围总是被限制在极点和(0&#x2F;$\infty$)</li>
 <li>对于有限长的序列,收敛域为$0&lt;|z|&lt;\infty$</li>
 <li>右侧序列($n$有下界),那么$|z|$有下界</li>
 <li>左侧序列($n$有上界),那么$|z|$有上界</li>
 <li>两侧序列($n$无界),那么有$R_{x-}&lt;|z|&lt;R_{x+}$</li>
 </ol>
 <p>下面展示了一个判断傅里叶变换是否存在的例子</p>
-<p><img src="image-1.png" alt="Alt text"></p>
-<p>而对于两侧序列的判定,我们可以参考</p>
-<script type="math/tex; mode=display">(\frac{1}{2})^{|n|}</script><p>其可以被视作两侧序列,而$|z|$的收敛范围是$(\frac{1}{2},2)$</p>
-<h2 id="z变换的性质"><a href="#z变换的性质" class="headerlink" title="z变换的性质"></a>z变换的性质</h2><p>我们仍然可以得到一些像卷积定理的内容</p>
-<script type="math/tex; mode=display">y(n)=x(n)*h(n)</script><script type="math/tex; mode=display">Y(z)=X(z)H(z)</script><p>我们也可以通过$z$变换的过程得到信号序列的一些性质</p>
+<p><img src="/2023/07/10/digital_and_FPGA/digital2/image-1.png" alt="Alt text"></p>
+<p>而对于两侧序列的判定,我们可以参考<br>$$(\frac{1}{2})^{|n|}$$<br>其可以被视作两侧序列,而$|z|$的收敛范围是$(\frac{1}{2},2)$</p>
+<h2 id="z变换的性质"><a href="#z变换的性质" class="headerlink" title="z变换的性质"></a>z变换的性质</h2><p>我们仍然可以得到一些像卷积定理的内容<br>$$y(n)&#x3D;x(n)*h(n)$$<br>$$Y(z)&#x3D;X(z)H(z)$$</p>
+<p>我们也可以通过$z$变换的过程得到信号序列的一些性质</p>
 <ol>
 <li>如果信号序列是<strong>稳定的</strong>,那么单位圆必然在收敛域中</li>
 <li>如果信号序列是<strong>关联的</strong>,那么必然是一个右侧序列</li>
 </ol>
-<h3 id="使用线性差分方程表示的例子"><a href="#使用线性差分方程表示的例子" class="headerlink" title="使用线性差分方程表示的例子"></a>使用线性差分方程表示的例子</h3><script type="math/tex; mode=display">y(n)-\frac{1}{2}y(n-1)=x(n)</script><p>我们需要使用一些好用的性质</p>
-<script type="math/tex; mode=display">y(n)\lrArr Y(z)</script><script type="math/tex; mode=display">y(n+n_0)\lrArr z^{n_0}Y(z)</script><p>我们可以得到一个代数方程,得到</p>
-<script type="math/tex; mode=display">H(z)=\frac{1}{1-\frac{1}{2}z^{-1}}</script><blockquote>
+<h3 id="使用线性差分方程表示的例子"><a href="#使用线性差分方程表示的例子" class="headerlink" title="使用线性差分方程表示的例子"></a>使用线性差分方程表示的例子</h3><p>$$y(n)-\frac{1}{2}y(n-1)&#x3D;x(n)$$<br>我们需要使用一些好用的性质<br>$$y(n)\lrArr Y(z)$$<br>$$y(n+n_0)\lrArr z^{n_0}Y(z)$$<br>我们可以得到一个代数方程,得到<br>$$H(z)&#x3D;\frac{1}{1-\frac{1}{2}z^{-1}}$$</p>
+<blockquote>
 <p>这里和那拉普拉斯变换解微分方程如出一辙</p>
-<p>同时我们需要注意到,这里的收敛域会随着序列中$n$条件的变化而变化(如图所示)<br><img src="image-2.png" alt="Alt text"></p>
 </blockquote>
-<h1 id="z反变换"><a href="#z反变换" class="headerlink" title="z反变换"></a>z反变换</h1><script type="math/tex; mode=display">X(z)=\sum x(n)z^{-n}</script><p>z反变换可以从$X(z)$得到$x(n)$</p>
-<h2 id="直接观察法"><a href="#直接观察法" class="headerlink" title="直接观察法"></a>直接观察法</h2><p>例如</p>
-<script type="math/tex; mode=display">a^nu(n)\lrArr \frac{1}{1-az^{-1}}</script><p>这样的序列,我们可以直接从z反变换的结果反推出原本的过程</p>
+<blockquote>
+<p>同时我们需要注意到,这里的收敛域会随着序列中$n$条件的变化而变化(如图所示)<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-2.png" alt="Alt text"></p>
+</blockquote>
+<h1 id="z反变换"><a href="#z反变换" class="headerlink" title="z反变换"></a>z反变换</h1><p>$$X(z)&#x3D;\sum x(n)z^{-n}$$<br>z反变换可以从$X(z)$得到$x(n)$</p>
+<h2 id="直接观察法"><a href="#直接观察法" class="headerlink" title="直接观察法"></a>直接观察法</h2><p>例如<br>$$a^nu(n)\lrArr \frac{1}{1-az^{-1}}$$<br>这样的序列,我们可以直接从z反变换的结果反推出原本的过程</p>
 <blockquote>
 <p>注意,这里需要讨论$|z|$的范围(改变$n$的范围)</p>
-<h2 id="暴力展开"><a href="#暴力展开" class="headerlink" title="暴力展开"></a>暴力展开</h2><p>例如对于$X(z)=\frac{1}{1-az^{-1}}$的反变换,我们可以有<strong>这个式子的展开</strong><br><img src="image-3.png" alt="Alt text"></p>
+</blockquote>
+<h2 id="暴力展开"><a href="#暴力展开" class="headerlink" title="暴力展开"></a>暴力展开</h2><p>例如对于$X(z)&#x3D;\frac{1}{1-az^{-1}}$的反变换,我们可以有<strong>这个式子的展开</strong><br><img src="/2023/07/10/digital_and_FPGA/digital2/image-3.png" alt="Alt text"></p>
+<blockquote>
 <p>我们可以看到,这里对应于$n&gt;0$或者$n&lt;0$的情况,两者有着不同的展开<br>但是这种方法我们<strong>只能得到一系列的式子</strong>,我们还要将其综合起来</p>
 </blockquote>
-<h2 id="部分分式展开"><a href="#部分分式展开" class="headerlink" title="部分分式展开"></a>部分分式展开</h2><p>考虑一个一般有理函数</p>
-<script type="math/tex; mode=display">F(x)=\frac{P(x)}{Q(x)}=\sum\frac{R_k}{x-x_k}</script><p>其中$x_k$为$Q$的零点,而$R_k$为留数</p>
+<h2 id="部分分式展开"><a href="#部分分式展开" class="headerlink" title="部分分式展开"></a>部分分式展开</h2><p>考虑一个一般有理函数<br>$$F(x)&#x3D;\frac{P(x)}{Q(x)}&#x3D;\sum\frac{R_k}{x-x_k}$$<br>其中$x_k$为$Q$的零点,而$R_k$为留数</p>
 <blockquote>
 <p>为了讨论方便,我们假定分母次数更高,并且没有重根<br>这里使用了一些留数定理的内容</p>
 </blockquote>
-<p>可以使用两种不同的方法(视作$z$和$z^{-1}$)<br>下面展示了一个例子<br><img src="image-4.png" alt="Alt text"><br><img src="image-5.png" alt="Alt text"></p>
+<p>可以使用两种不同的方法(视作$z$和$z^{-1}$)<br>下面展示了一个例子<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-4.png" alt="Alt text"><br><img src="/2023/07/10/digital_and_FPGA/digital2/image-5.png" alt="Alt text"></p>
 <blockquote>
 <p>但是这种方法只适用于分式的情况,因此不能广泛地使用(但是在讨论一些性质的时候非常有用)</p>
 </blockquote>
-<h2 id="路径积分法"><a href="#路径积分法" class="headerlink" title="路径积分法"></a>路径积分法</h2><p>我们直接给出结论</p>
-<script type="math/tex; mode=display">x(n)=\frac{1}{2\pi j}\int_C X(z)z^{n-1}dz</script><p>($C$环路为包含原点的边缘在收敛域内的环路)</p>
+<h2 id="路径积分法"><a href="#路径积分法" class="headerlink" title="路径积分法"></a>路径积分法</h2><p>我们直接给出结论<br>$$x(n)&#x3D;\frac{1}{2\pi j}\int_C X(z)z^{n-1}dz$$<br>($C$环路为包含原点的边缘在收敛域内的环路)</p>
 <blockquote>
 <p>这个公式的证明实际上来自于$n$阶导的柯西公式</p>
+</blockquote>
+<blockquote>
 <p>在实际计算的时候需要使用留数定理计算($X(z)z^{n-1}$)的留数</p>
 </blockquote>
-<h3 id="一个简单的例子"><a href="#一个简单的例子" class="headerlink" title="一个简单的例子"></a>一个简单的例子</h3><p>我们以$X(z)=\frac{1}{1-\frac{1}{2}z^{-1}}$<br>其具体的做法如下<br><img src="image-6.png" alt="Alt text">  </p>
+<h3 id="一个简单的例子"><a href="#一个简单的例子" class="headerlink" title="一个简单的例子"></a>一个简单的例子</h3><p>我们以$X(z)&#x3D;\frac{1}{1-\frac{1}{2}z^{-1}}$<br>其具体的做法如下<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-6.png" alt="Alt text">  </p>
 <blockquote>
 <p>可以看出来,对于$n&gt;0$的情况,计算要显得方便的很多,但是$n&lt;0$的话,可以考虑使用变量代换的方式计算<br>不过我觉得直接继续用留数定理的公式还是方便的</p>
 </blockquote>
@@ -354,30 +359,29 @@
 <li>对于前面讨论的着一种情况,我们需要小心在环路积分之余,可能<strong>会有单独留出来的项</strong></li>
 <li>展开的时候经常会犯迷糊,记得把式子展开为$a_nz^{-n}$的形式,其中注意$z$的符号</li>
 </ol>
-<h1 id="z变换的相关性质"><a href="#z变换的相关性质" class="headerlink" title="z变换的相关性质"></a>z变换的相关性质</h1><h2 id="频率响应的几何意义"><a href="#频率响应的几何意义" class="headerlink" title="频率响应的几何意义"></a>频率响应的几何意义</h2><h3 id="卷积性质"><a href="#卷积性质" class="headerlink" title="卷积性质"></a>卷积性质</h3><p>对于$y(n)=x(n)*h(z)$,我们可以得到z变换$X(z)H(z)=Y(z)$</p>
+<h1 id="z变换的相关性质"><a href="#z变换的相关性质" class="headerlink" title="z变换的相关性质"></a>z变换的相关性质</h1><h2 id="频率响应的几何意义"><a href="#频率响应的几何意义" class="headerlink" title="频率响应的几何意义"></a>频率响应的几何意义</h2><h3 id="卷积性质"><a href="#卷积性质" class="headerlink" title="卷积性质"></a>卷积性质</h3><p>对于$y(n)&#x3D;x(n)*h(z)$,我们可以得到z变换$X(z)H(z)&#x3D;Y(z)$</p>
 <p>同时,我们也可以得到,<strong>在单位圆上的z变换就是傅里叶变换</strong></p>
-<p>作为一个例子,我们请出我们的老朋友$H(z)=\frac{z}{z-a}$,<br>进一步,可以把$z$看作矢量,这样就可以看作是<strong>从零点出来的矢量除以从极点出来的矢量</strong><br>相应的,模长就是两者相除,辐角就是两者相减<br><img src="image-7.png" alt="Alt text"><br><img src="image-8.png" alt="Alt text">  </p>
+<p>作为一个例子,我们请出我们的老朋友$H(z)&#x3D;\frac{z}{z-a}$,<br>进一步,可以把$z$看作矢量,这样就可以看作是<strong>从零点出来的矢量除以从极点出来的矢量</strong><br>相应的,模长就是两者相除,辐角就是两者相减<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-7.png" alt="Alt text"><br><img src="/2023/07/10/digital_and_FPGA/digital2/image-8.png" alt="Alt text">  </p>
 <p>接下来,我们考虑$z$是在单位圆上的矢量,那么$z$的<strong>模长不再改变</strong></p>
-<p>在整个$z$旋转的时候,$z-a$的模长<strong>先增加后减小</strong><br>这样我们就可以简单地得到频率响应<br><img src="image-9.png" alt="Alt text">  </p>
-<h3 id="一般讨论"><a href="#一般讨论" class="headerlink" title="一般讨论"></a>一般讨论</h3><p>对于频率响应$|H(e^{j\omega})|=\frac{\Pi length zero}{\Pi length pole}$,<br>对于相位相应,则有<br><img src="image-10.png" alt="Alt text"></p>
+<p>在整个$z$旋转的时候,$z-a$的模长<strong>先增加后减小</strong><br>这样我们就可以简单地得到频率响应<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-9.png" alt="Alt text">  </p>
+<h3 id="一般讨论"><a href="#一般讨论" class="headerlink" title="一般讨论"></a>一般讨论</h3><p>对于频率响应$|H(e^{j\omega})|&#x3D;\frac{\Pi length zero}{\Pi length pole}$,<br>对于相位相应,则有<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-10.png" alt="Alt text"></p>
 <blockquote>
 <p>这意味着我们可以仅仅知道所有的极点和零点,就可以大致知道频率响应和相位谱<br>如果有多重极点的情况,可以当成多个极点计算</p>
 </blockquote>
-<h2 id="变换性质"><a href="#变换性质" class="headerlink" title="变换性质"></a>变换性质</h2><h3 id="一般变换性质-可以和连续状况类比"><a href="#一般变换性质-可以和连续状况类比" class="headerlink" title="一般变换性质(可以和连续状况类比)"></a>一般变换性质(可以和连续状况类比)</h3><p>下面列举出了<strong>最为有用的</strong>一些性质<br><img src="image-11.png" alt="Alt text">   </p>
+<h2 id="变换性质"><a href="#变换性质" class="headerlink" title="变换性质"></a>变换性质</h2><h3 id="一般变换性质-可以和连续状况类比"><a href="#一般变换性质-可以和连续状况类比" class="headerlink" title="一般变换性质(可以和连续状况类比)"></a>一般变换性质(可以和连续状况类比)</h3><p>下面列举出了<strong>最为有用的</strong>一些性质<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-11.png" alt="Alt text">   </p>
 <h3 id="变换性质与几何性质"><a href="#变换性质与几何性质" class="headerlink" title="变换性质与几何性质"></a>变换性质与几何性质</h3><p>以第四个性质为例,我们可以考虑<strong>极点与零点</strong>,会得到原本的$z-z_0$变成了$a^{-1}(z-az_0)$</p>
 <blockquote>
 <p>如果$a$是实数,那么极点(零点)会在轴上移动,如果是复数,那么就同时会改变角度</p>
 </blockquote>
-<h3 id="性质在Boxcar序列中的应用"><a href="#性质在Boxcar序列中的应用" class="headerlink" title="性质在Boxcar序列中的应用"></a>性质在Boxcar序列中的应用</h3><h4 id="Boxcar序列"><a href="#Boxcar序列" class="headerlink" title="Boxcar序列"></a>Boxcar序列</h4><script type="math/tex; mode=display">x(n)=1 (0\le n\le (N-1)</script><p><img src="image-12.png" alt="Alt text"><br>我们可以将Boxcar序列视作为两个阶梯序列相减$x(n)=u(n)-u(n-N)$</p>
-<h4 id="Boxcar的z变换"><a href="#Boxcar的z变换" class="headerlink" title="Boxcar的z变换"></a>Boxcar的z变换</h4><p>使用上面的观点,可以得到</p>
-<script type="math/tex; mode=display">X(z)=\frac{1}{1-z^{-1}}-\frac{z^{-N}}{1-z^{-1}}=\frac{z^N-1}{z^{N-1}(z-1)}</script><p>接下来,我们可以注意到整个系统在单位圆上有一个极点,在原点有$N-1$个零点<br>而对于零点,则是相当于在单位圆上均匀分布的点</p>
+<h3 id="性质在Boxcar序列中的应用"><a href="#性质在Boxcar序列中的应用" class="headerlink" title="性质在Boxcar序列中的应用"></a>性质在Boxcar序列中的应用</h3><h4 id="Boxcar序列"><a href="#Boxcar序列" class="headerlink" title="Boxcar序列"></a>Boxcar序列</h4><p>$$x(n)&#x3D;1 (0\le n\le (N-1)$$<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-12.png" alt="Alt text"><br>我们可以将Boxcar序列视作为两个阶梯序列相减$x(n)&#x3D;u(n)-u(n-N)$</p>
+<h4 id="Boxcar的z变换"><a href="#Boxcar的z变换" class="headerlink" title="Boxcar的z变换"></a>Boxcar的z变换</h4><p>使用上面的观点,可以得到<br>$$X(z)&#x3D;\frac{1}{1-z^{-1}}-\frac{z^{-N}}{1-z^{-1}}&#x3D;\frac{z^N-1}{z^{N-1}(z-1)}$$</p>
+<p>接下来,我们可以注意到整个系统在单位圆上有一个极点,在原点有$N-1$个零点<br>而对于零点,则是相当于在单位圆上均匀分布的点</p>
 <blockquote>
-<p>这里需要注意到,一个零点和一个极点约掉了<br><img src="image-13.png" alt="Alt text">  </p>
+<p>这里需要注意到,一个零点和一个极点约掉了<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-13.png" alt="Alt text">  </p>
 </blockquote>
-<h4 id="Boxcar的频率相应"><a href="#Boxcar的频率相应" class="headerlink" title="Boxcar的频率相应"></a>Boxcar的频率相应</h4><p>分母上不构成影响,所以只需要讨论零点伸出来的矢量的影响(越靠近那个确实的零点,<strong>整体的模长值越大</strong>)<br><img src="image-14.png" alt="Alt text">  </p>
-<p>或者直接使用计算法,可以得到</p>
-<script type="math/tex; mode=display">X(\omega)=\frac{1-e^{-j\omega N}}{1-e^{-j\omega}}</script><p>通过化简,可以得到</p>
-<script type="math/tex; mode=display">e^{j\omega\frac{N-1}{2}}\frac{\omega \frac{N}{2}}{\frac{N}{2}}</script><p>而我们展示其图象<br><img src="image-15.png" alt="Alt text"></p>
+<h4 id="Boxcar的频率相应"><a href="#Boxcar的频率相应" class="headerlink" title="Boxcar的频率相应"></a>Boxcar的频率相应</h4><p>分母上不构成影响,所以只需要讨论零点伸出来的矢量的影响(越靠近那个确实的零点,<strong>整体的模长值越大</strong>)<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-14.png" alt="Alt text">  </p>
+<p>或者直接使用计算法,可以得到<br>$$X(\omega)&#x3D;\frac{1-e^{-j\omega N}}{1-e^{-j\omega}}$$<br>通过化简,可以得到<br>$$e^{j\omega\frac{N-1}{2}}\frac{\omega \frac{N}{2}}{\frac{N}{2}}$$</p>
+<p>而我们展示其图象<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-15.png" alt="Alt text"></p>
 <blockquote>
 <p>可以看出,我们的估计还算是相当不错的</p>
 </blockquote>
@@ -402,7 +406,10 @@
     <a href="/2023/07/07/digital_and_FPGA/FPGA_Notice/" rel="prev" title="FPGA编程与仿真注意">
       <i class="fa fa-chevron-left"></i> FPGA编程与仿真注意
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/07/14/digital_and_FPGA/digital3/" rel="next" title="离散傅里叶级数与离散傅里叶变换">
+      离散傅里叶级数与离散傅里叶变换 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -482,7 +489,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -607,112 +607,6 @@
       </tags>
   </entry>
   <entry>
-    <title>数字信号处理(介绍至离散时间傅里叶变换)</title>
-    <url>/2023/07/02/digital_and_FPGA/digital1/</url>
-    <content><![CDATA[<h1 id="数字信号处理介绍"><a href="#数字信号处理介绍" class="headerlink" title="数字信号处理介绍"></a>数字信号处理介绍</h1><p>数字信号处理具有非常强的<strong>扩展性</strong>,例如对于频率响应不一致的器件进行补偿<br>而对于一些图象处理领域,可以将图像看作为二维信号.</p>
-<h1 id="离散时间系统"><a href="#离散时间系统" class="headerlink" title="离散时间系统"></a>离散时间系统</h1><p>以一个数字滤波器为例包含以下部分:</p>
-<ol>
-<li>采样器</li>
-<li>连续/数字信号转换器(C/D)</li>
-<li>数字滤波</li>
-<li>数字/连续信号转换器(D/C)</li>
-<li>滤波器</li>
-</ol>
-<h2 id="C-D信号转换器的效果"><a href="#C-D信号转换器的效果" class="headerlink" title="C/D信号转换器的效果"></a>C/D信号转换器的效果</h2><p>存在有<strong>倍频变形</strong>,一般可以使用低通滤波器实现,然而,如果信号频谱本来就沿伸的比较大,那么就会出现<strong>混叠</strong>的情况<br>因此数字信号处理时需要小心地处理高频情况<br>因此,数字信号采样率<strong>必须远大于</strong>关心的信号的频率的两倍</p>
-<p>相似地,对于数字信号处理的情况,整个数字信号处理的波形会发生变化</p>
-<p>而在数字滤波器中,其形状与模拟滤波器相同,但是<strong>具有不同的频率坐标轴</strong></p>
-<p>对于数字滤波器可能会发现在采样频率的倍频发生<strong>周期行为</strong></p>
-<blockquote>
-<p>似乎一定的采样频率可以等效于一个低通滤波器,但是我不清楚怎么搞的</p>
-</blockquote>
-<h1 id="离散时间信号与系统"><a href="#离散时间信号与系统" class="headerlink" title="离散时间信号与系统"></a>离散时间信号与系统</h1><p>对于我们所关心的离散时间系统,我们主要讨论的是有一列一定长度$n$的信号</p>
-<h2 id="一些常用的离散时间信号序列"><a href="#一些常用的离散时间信号序列" class="headerlink" title="一些常用的离散时间信号序列"></a>一些常用的离散时间信号序列</h2><h3 id="单位"><a href="#单位" class="headerlink" title="单位"></a>单位</h3><p><img src="image.png" alt="单位响应的图象"></p>
-<h3 id="单位阶跃"><a href="#单位阶跃" class="headerlink" title="单位阶跃"></a>单位阶跃</h3><p><img src="image-1.png" alt="单位阶跃响应的图象"></p>
-<h3 id="两者之间联系"><a href="#两者之间联系" class="headerlink" title="两者之间联系"></a>两者之间联系</h3><p>实际上单位样本$\delta(n)$可以直接从单位阶跃样本中直接得到</p>
-<script type="math/tex; mode=display">\delta(n)=u(n)-u(n-1)</script><p>相似地,也可以用求和来实现逆操作<br><img src="image-2.png" alt="离散时间信号的转换"></p>
-<h3 id="其他的一些常见样本"><a href="#其他的一些常见样本" class="headerlink" title="其他的一些常见样本"></a>其他的一些常见样本</h3><p><img src="image-3.png" alt="其他的一些常见样本"></p>
-<blockquote>
-<p>需要注意到,一些原本是周期的信号在数字信号采样下不一定是周期信号</p>
-</blockquote>
-<p>这些信号可以用来描述更加普遍的信号(相当于函数展开)</p>
-<h2 id="将一般信号使用特殊信号的转化"><a href="#将一般信号使用特殊信号的转化" class="headerlink" title="将一般信号使用特殊信号的转化"></a>将一般信号使用特殊信号的转化</h2><h3 id="使用单位脉冲转化"><a href="#使用单位脉冲转化" class="headerlink" title="使用单位脉冲转化"></a>使用单位脉冲转化</h3><p><img src="image-4.png" alt="Alt text"></p>
-<p>(这个应该算是相当简单和显然的)</p>
-<h2 id="离散时间系统的性质"><a href="#离散时间系统的性质" class="headerlink" title="离散时间系统的性质"></a>离散时间系统的性质</h2><ol>
-<li>线性性</li>
-<li>具有时间平移对称性$x(n-n_0)-&gt;y(n-n_0)$<h3 id="一般表达-卷积和"><a href="#一般表达-卷积和" class="headerlink" title="一般表达(卷积和)"></a>一般表达(卷积和)</h3>对于$x(n)=\sum x(k)\delta (n-k)$在经过一个系统后,我们可以得到其相应$y(n)=\sum y(k)\rho (n-k)$,其中$rho$为脉冲响应<blockquote>
-<p>这可以用卷积的方式来理解这个性质(我们可以把$x$和$\delta$地位互换)</p>
-<h3 id="卷积和的计算"><a href="#卷积和的计算" class="headerlink" title="卷积和的计算"></a>卷积和的计算</h3><p><img src="image-5.png" alt="卷积和"><br>卷积和来源于线性性和时间平移不变性</p>
-</blockquote>
-</li>
-</ol>
-<h2 id="稳定性与相关性"><a href="#稳定性与相关性" class="headerlink" title="稳定性与相关性"></a>稳定性与相关性</h2><h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3><p>如果系统的输入是有界的,那么系统的输出是有界</p>
-<p>例如我们可以判断一组基是不是有界的$(\frac{1}{2})^nh(n)$就是有界的,但很显然$2^nh(n)$不是</p>
-<blockquote>
-<p>判断一个系统的稳定性有一个充要条件:单位冲激响应$h(n)$是<strong>绝对可和的</strong></p>
-</blockquote>
-<h3 id="相关性"><a href="#相关性" class="headerlink" title="相关性"></a>相关性</h3><p>一个系统的响应应当<strong>只和之前的输入有关</strong></p>
-<blockquote>
-<p>这意味着系统不会预测系统的未来输入</p>
-</blockquote>
-<h2 id="线性常系数差分方程"><a href="#线性常系数差分方程" class="headerlink" title="线性常系数差分方程"></a>线性常系数差分方程</h2><p>输入$x(n)$和输出$y(n)$满足$n$阶线性常系数差分方程可以被表示为</p>
-<script type="math/tex; mode=display">\sum_{k=0}^{N}a_ky(n-k)=\sum_{r=0}^Mb_rx(n-r)</script><h3 id="一些特殊情况"><a href="#一些特殊情况" class="headerlink" title="一些特殊情况"></a>一些特殊情况</h3><p>对于零阶方程,$b_r$系数的确定可以看作是脉冲响应</p>
-<p>而对于非零阶的方程,那么我们可以将方程写作如下形式<br><img src="image-6.png" alt="Alt text"></p>
-<p>那么我们可以利用<strong>输入</strong>和<strong>过去的输出</strong>实现对于当前输出的预测(这个时候需要边界条件)</p>
-<p>例如,下面一个一阶差分方程展示出一个如何求脉冲响应的例子<br><img src="image-7.png" alt="Alt text"><br><img src="image-8.png" alt="Alt text"></p>
-<blockquote>
-<p>需要根据边界条件合理地选择差分方程方向</p>
-<p>注意,<strong>不是每个差分方程(包含边界条件)都对应线性和时间平移不变的系统</strong>(似乎一般需要满足边界条件齐次)</p>
-</blockquote>
-<h2 id="系统的频率响应"><a href="#系统的频率响应" class="headerlink" title="系统的频率响应"></a>系统的频率响应</h2><h3 id="复指数的特点"><a href="#复指数的特点" class="headerlink" title="复指数的特点"></a>复指数的特点</h3><p>复指数函数是<strong>特性函数</strong>,也就是说,如果输入是一个复指数,那么输出是输入乘上一个系数的结果(其中实数部分表示振幅,复数部分表示相位)</p>
-<p>因此,对于输入为$x(n)=e^{j\omega n}$,我们可以有输出</p>
-<script type="math/tex; mode=display">y(n)=H(e^{j\omega n})e</script><p>相似地,我们可以将任意一个正弦或余弦函数转化成复指数运算</p>
-<blockquote>
-<p>如果使用上一部分的差分方程的例子研究频率响应,我们可以得到一个幅频响应呈现周期变化的系统</p>
-</blockquote>
-<h3 id="频率响应的重要性质"><a href="#频率响应的重要性质" class="headerlink" title="频率响应的重要性质"></a>频率响应的重要性质</h3><ol>
-<li>频率响应的自变量是<strong>连续的</strong></li>
-<li>频率响应是$\omega$的周期函数,周期为$2\pi$(注意,这里的自变量是$n$)</li>
-</ol>
-<h2 id="离散时间系统的傅里叶变换"><a href="#离散时间系统的傅里叶变换" class="headerlink" title="离散时间系统的傅里叶变换"></a>离散时间系统的傅里叶变换</h2><blockquote>
-<p>之前我们讨论过系统的频率响应,我们知道对于一个复指数的输入,输出也可以被表示为复指数.我们现在要研究如何从频率响应得到冲激响应<br>如果我们分析$H(e^{j\omega})$的性质,我们会发现其作为一个<strong>周期函数</strong>,可以有<strong>傅里叶级数展开</strong>,由于其周期为$2\pi$,我们可以得到</p>
-<script type="math/tex; mode=display">H(\omega)=\sum_{n=-\infin}^{\infin}h(n)e^{-\omega n}</script><p>通过比较,我们可以发现此时的$h(n)$<strong>就是系统冲激响应</strong>,因此我们可以得到一个结论:<br>系统的冲激响应和频率响应构成傅里叶变换对</p>
-</blockquote>
-<h3 id="任意信号的傅里叶变换"><a href="#任意信号的傅里叶变换" class="headerlink" title="任意信号的傅里叶变换"></a>任意信号的傅里叶变换</h3><script type="math/tex; mode=display">X(\omega)=\sum_{n=-\infin}^{n=\infin}x(n)e^{-j\omega n}</script><script type="math/tex; mode=display">x(n)=\frac{1}{2\pi}\int_{-\pi}^{\pi}X(\omega)e^{j\omega n}d\omega</script><blockquote>
-<p>这里和一般的傅里叶级数的关系可以看作是”反过来”的,离散的是时域,连续且周期变化的是频域</p>
-</blockquote>
-<h3 id="卷积特性"><a href="#卷积特性" class="headerlink" title="卷积特性"></a>卷积特性</h3><script type="math/tex; mode=display">x(n)*y(n)\lrArr X(\omega)Y(\omega)</script><p>这个似乎和连续的卷积相似</p>
-<h4 id="一种更具有启发性的观点"><a href="#一种更具有启发性的观点" class="headerlink" title="一种更具有启发性的观点"></a>一种更具有启发性的观点</h4><p>对于一个系统,我们有频域转换$e^{j\omega n}\rArr H(\omega)e^{j\omega n}$</p>
-<p>那么我们可以有</p>
-<script type="math/tex; mode=display">\int X(\omega)e^{j\omega n}\rArr \int A(\omega)H(e^{j\omega})e^{j\omega n}d\omega</script><p>等式左边是输入信号$x(n)$,等式右边则为输出信号$y(n)$</p>
-<p>对于某一特定的频率信号,我们是乘积关系<br>对于冲激响应,我们是卷积关系<br><strong>两者可以使用傅里叶变换联合在一起</strong></p>
-<h3 id="对偶性"><a href="#对偶性" class="headerlink" title="对偶性"></a>对偶性</h3><p>对于$x(n)$为实信号的情况,我们可以得到$X(\omega)=X^*(-\omega)$</p>
-<p>进一步,我们可以将$X$分解为实部与虚部$X=X_R+jX_I$<br>那么我们可以有对于实信号,有</p>
-<script type="math/tex; mode=display">X_R(\omega)=X_R(-\omega),X_I(\omega)=X_R(-\omega)</script><p>实部为偶函数,虚部为奇函数,相似的,对于傅里叶变换的模关于$\omega$为偶函数,辐角为奇函数</p>
-<h3 id="与连续时间傅里叶变换的关系"><a href="#与连续时间傅里叶变换的关系" class="headerlink" title="与连续时间傅里叶变换的关系"></a>与连续时间傅里叶变换的关系</h3><p><img src="image-10.png" alt="Alt text"><br>将时间$t$转换为$n$,我们可以得到对应于离散时间变量$n$,其所对应的$t$为$nT$,其中$T$为两个采样点之间的距离,图上展示了不同采样间隔下的波形的形状</p>
-<p>我们可以考虑具有傅里叶变换的模拟信号</p>
-<script type="math/tex; mode=display">x_\alpha (t)=\frac{1}{2\pi}\int_{-\infty}^{\infty}X_\alpha(j\Omega)e^{j\Omega t}d\Omega</script><blockquote>
-<p>这里为了和离散时间的傅里叶变换相契合,我们把变换和反变换颠倒了一下</p>
-</blockquote>
-<h4 id="从连续到冲激的转换"><a href="#从连续到冲激的转换" class="headerlink" title="从连续到冲激的转换"></a>从连续到冲激的转换</h4><p>我们可以将转换看作为<strong>冲激的叠加</strong>  </p>
-<script type="math/tex; mode=display">x'_A=\sum_{-\infty}^{\infty} x_A(nT)\delta(t-nT)</script><blockquote>
-<p>这里的做法比较类似于将卷积得到的结果和直接傅里叶变换得到的结果之间进行比较</p>
-</blockquote>
-<p>这里最左边部分需要使用到<strong>泊松求和方程</strong></p>
-<script type="math/tex; mode=display">\sum_{n=-\infty}^{\infty}f(n)=\sum_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(x)e^{-2\pi jkx}</script><p><img src="image-11.png" alt="Alt text"></p>
-<blockquote>
-<p>注意最后一个式子,这里可以得到离散傅里叶变换的频率谱与连续傅里叶变换谱的关系,并且包含了由于采样所带来的周期性(<strong>采样定理</strong>)</p>
-</blockquote>
-<p><img src="image-12.png" alt="Alt text"></p>
-<h4 id="实际应用时的注意事项"><a href="#实际应用时的注意事项" class="headerlink" title="实际应用时的注意事项"></a>实际应用时的注意事项</h4><ol>
-<li>考虑一个数字滤波器的效果时,需要将一个模拟输入(频率轴下)进行抽样,然后经过数字滤波器的效果,最后再恢复(低通滤波)</li>
-<li>在一些非关联的系统(许多非实时系统)中,可以构造数字滤波器使得<strong>原有滤波器不再产生相位变化</strong></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>数字信号处理</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>对机器学习数据集进行处理和筛选</title>
     <url>/2023/02/22/machine-learning/goodtrainingsets/</url>
     <content><![CDATA[<p>数据的优劣和有效信息量的多少是决定机器学习算法能够学的多好的核心要素,因此,我们在喂给机器学习算法之前确保去检查和预处理一个数据集非常重要,在这一章,我们将介绍以下内容:</p>
@@ -4239,6 +4133,315 @@ Along axis 1 is [ 6 15]
       </tags>
   </entry>
   <entry>
+    <title>数字信号处理(介绍至离散时间傅里叶变换)</title>
+    <url>/2023/07/02/digital_and_FPGA/digital1/</url>
+    <content><![CDATA[<h1 id="数字信号处理介绍"><a href="#数字信号处理介绍" class="headerlink" title="数字信号处理介绍"></a>数字信号处理介绍</h1><p>数字信号处理具有非常强的<strong>扩展性</strong>,例如对于频率响应不一致的器件进行补偿<br>而对于一些图象处理领域,可以将图像看作为二维信号.</p>
+<h1 id="离散时间系统"><a href="#离散时间系统" class="headerlink" title="离散时间系统"></a>离散时间系统</h1><p>以一个数字滤波器为例包含以下部分:</p>
+<ol>
+<li>采样器</li>
+<li>连续&#x2F;数字信号转换器(C&#x2F;D)</li>
+<li>数字滤波</li>
+<li>数字&#x2F;连续信号转换器(D&#x2F;C)</li>
+<li>滤波器</li>
+</ol>
+<h2 id="C-x2F-D信号转换器的效果"><a href="#C-x2F-D信号转换器的效果" class="headerlink" title="C&#x2F;D信号转换器的效果"></a>C&#x2F;D信号转换器的效果</h2><p>存在有<strong>倍频变形</strong>,一般可以使用低通滤波器实现,然而,如果信号频谱本来就沿伸的比较大,那么就会出现<strong>混叠</strong>的情况<br>因此数字信号处理时需要小心地处理高频情况<br>因此,数字信号采样率<strong>必须远大于</strong>关心的信号的频率的两倍</p>
+<p>相似地,对于数字信号处理的情况,整个数字信号处理的波形会发生变化</p>
+<p>而在数字滤波器中,其形状与模拟滤波器相同,但是<strong>具有不同的频率坐标轴</strong></p>
+<p>对于数字滤波器可能会发现在采样频率的倍频发生<strong>周期行为</strong></p>
+<blockquote>
+<p>似乎一定的采样频率可以等效于一个低通滤波器,但是我不清楚怎么搞的</p>
+</blockquote>
+<h1 id="离散时间信号与系统"><a href="#离散时间信号与系统" class="headerlink" title="离散时间信号与系统"></a>离散时间信号与系统</h1><p>对于我们所关心的离散时间系统,我们主要讨论的是有一列一定长度$n$的信号</p>
+<h2 id="一些常用的离散时间信号序列"><a href="#一些常用的离散时间信号序列" class="headerlink" title="一些常用的离散时间信号序列"></a>一些常用的离散时间信号序列</h2><h3 id="单位"><a href="#单位" class="headerlink" title="单位"></a>单位</h3><p><img src="/image.png" alt="单位响应的图象"></p>
+<h3 id="单位阶跃"><a href="#单位阶跃" class="headerlink" title="单位阶跃"></a>单位阶跃</h3><p><img src="/image-1.png" alt="单位阶跃响应的图象"></p>
+<h3 id="两者之间联系"><a href="#两者之间联系" class="headerlink" title="两者之间联系"></a>两者之间联系</h3><p>实际上单位样本$\delta(n)$可以直接从单位阶跃样本中直接得到<br>$$\delta(n)&#x3D;u(n)-u(n-1)$$</p>
+<p>相似地,也可以用求和来实现逆操作<br><img src="/image-2.png" alt="离散时间信号的转换"></p>
+<h3 id="其他的一些常见样本"><a href="#其他的一些常见样本" class="headerlink" title="其他的一些常见样本"></a>其他的一些常见样本</h3><p><img src="/image-3.png" alt="其他的一些常见样本"></p>
+<blockquote>
+<p>需要注意到,一些原本是周期的信号在数字信号采样下不一定是周期信号</p>
+</blockquote>
+<p>这些信号可以用来描述更加普遍的信号(相当于函数展开)</p>
+<h2 id="将一般信号使用特殊信号的转化"><a href="#将一般信号使用特殊信号的转化" class="headerlink" title="将一般信号使用特殊信号的转化"></a>将一般信号使用特殊信号的转化</h2><h3 id="使用单位脉冲转化"><a href="#使用单位脉冲转化" class="headerlink" title="使用单位脉冲转化"></a>使用单位脉冲转化</h3><p><img src="/image-4.png" alt="Alt text"></p>
+<p>(这个应该算是相当简单和显然的)</p>
+<h2 id="离散时间系统的性质"><a href="#离散时间系统的性质" class="headerlink" title="离散时间系统的性质"></a>离散时间系统的性质</h2><ol>
+<li>线性性</li>
+<li>具有时间平移对称性$x(n-n_0)-&gt;y(n-n_0)$</li>
+</ol>
+<h3 id="一般表达-卷积和"><a href="#一般表达-卷积和" class="headerlink" title="一般表达(卷积和)"></a>一般表达(卷积和)</h3><p>对于$x(n)&#x3D;\sum x(k)\delta (n-k)$在经过一个系统后,我们可以得到其相应$y(n)&#x3D;\sum y(k)\rho (n-k)$,其中$rho$为脉冲响应</p>
+<blockquote>
+<p>这可以用卷积的方式来理解这个性质(我们可以把$x$和$\delta$地位互换)</p>
+</blockquote>
+<h3 id="卷积和的计算"><a href="#卷积和的计算" class="headerlink" title="卷积和的计算"></a>卷积和的计算</h3><p><img src="/image-5.png" alt="卷积和"></p>
+<blockquote>
+<p>卷积和来源于线性性和时间平移不变性</p>
+</blockquote>
+<h2 id="稳定性与相关性"><a href="#稳定性与相关性" class="headerlink" title="稳定性与相关性"></a>稳定性与相关性</h2><h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3><p>如果系统的输入是有界的,那么系统的输出是有界</p>
+<p>例如我们可以判断一组基是不是有界的$(\frac{1}{2})^nh(n)$就是有界的,但很显然$2^nh(n)$不是</p>
+<blockquote>
+<p>判断一个系统的稳定性有一个充要条件:单位冲激响应$h(n)$是<strong>绝对可和的</strong></p>
+</blockquote>
+<h3 id="相关性"><a href="#相关性" class="headerlink" title="相关性"></a>相关性</h3><p>一个系统的响应应当<strong>只和之前的输入有关</strong></p>
+<blockquote>
+<p>这意味着系统不会预测系统的未来输入</p>
+</blockquote>
+<h2 id="线性常系数差分方程"><a href="#线性常系数差分方程" class="headerlink" title="线性常系数差分方程"></a>线性常系数差分方程</h2><p>输入$x(n)$和输出$y(n)$满足$n$阶线性常系数差分方程可以被表示为<br>$$\sum_{k&#x3D;0}^{N}a_ky(n-k)&#x3D;\sum_{r&#x3D;0}^Mb_rx(n-r)$$</p>
+<h3 id="一些特殊情况"><a href="#一些特殊情况" class="headerlink" title="一些特殊情况"></a>一些特殊情况</h3><p>对于零阶方程,$b_r$系数的确定可以看作是脉冲响应</p>
+<p>而对于非零阶的方程,那么我们可以将方程写作如下形式<br><img src="/image-6.png" alt="Alt text"></p>
+<p>那么我们可以利用<strong>输入</strong>和<strong>过去的输出</strong>实现对于当前输出的预测(这个时候需要边界条件)</p>
+<p>例如,下面一个一阶差分方程展示出一个如何求脉冲响应的例子<br><img src="/image-7.png" alt="Alt text"><br><img src="/image-8.png" alt="Alt text"></p>
+<blockquote>
+<p>需要根据边界条件合理地选择差分方程方向</p>
+</blockquote>
+<blockquote>
+<p>注意,<strong>不是每个差分方程(包含边界条件)都对应线性和时间平移不变的系统</strong>(似乎一般需要满足边界条件齐次)</p>
+</blockquote>
+<h2 id="系统的频率响应"><a href="#系统的频率响应" class="headerlink" title="系统的频率响应"></a>系统的频率响应</h2><h3 id="复指数的特点"><a href="#复指数的特点" class="headerlink" title="复指数的特点"></a>复指数的特点</h3><p>复指数函数是<strong>特性函数</strong>,也就是说,如果输入是一个复指数,那么输出是输入乘上一个系数的结果(其中实数部分表示振幅,复数部分表示相位)</p>
+<p>因此,对于输入为$x(n)&#x3D;e^{j\omega n}$,我们可以有输出<br>$$y(n)&#x3D;H(e^{j\omega n})e$$</p>
+<p>相似地,我们可以将任意一个正弦或余弦函数转化成复指数运算</p>
+<blockquote>
+<p>如果使用上一部分的差分方程的例子研究频率响应,我们可以得到一个幅频响应呈现周期变化的系统</p>
+</blockquote>
+<h3 id="频率响应的重要性质"><a href="#频率响应的重要性质" class="headerlink" title="频率响应的重要性质"></a>频率响应的重要性质</h3><ol>
+<li>频率响应的自变量是<strong>连续的</strong></li>
+<li>频率响应是$\omega$的周期函数,周期为$2\pi$(注意,这里的自变量是$n$)</li>
+</ol>
+<h2 id="离散时间系统的傅里叶变换"><a href="#离散时间系统的傅里叶变换" class="headerlink" title="离散时间系统的傅里叶变换"></a>离散时间系统的傅里叶变换</h2><blockquote>
+<p>之前我们讨论过系统的频率响应,我们知道对于一个复指数的输入,输出也可以被表示为复指数.我们现在要研究如何从频率响应得到冲激响应<br>如果我们分析$H(e^{j\omega})$的性质,我们会发现其作为一个<strong>周期函数</strong>,可以有<strong>傅里叶级数展开</strong>,由于其周期为$2\pi$,我们可以得到<br>$$H(\omega)&#x3D;\sum_{n&#x3D;-\infin}^{\infin}h(n)e^{-\omega n}$$<br>通过比较,我们可以发现此时的$h(n)$<strong>就是系统冲激响应</strong>,因此我们可以得到一个结论:<br>系统的冲激响应和频率响应构成傅里叶变换对</p>
+</blockquote>
+<h3 id="任意信号的傅里叶变换"><a href="#任意信号的傅里叶变换" class="headerlink" title="任意信号的傅里叶变换"></a>任意信号的傅里叶变换</h3><p>$$X(\omega)&#x3D;\sum_{n&#x3D;-\infin}^{n&#x3D;\infin}x(n)e^{-j\omega n}$$<br>$$x(n)&#x3D;\frac{1}{2\pi}\int_{-\pi}^{\pi}X(\omega)e^{j\omega n}d\omega$$</p>
+<blockquote>
+<p>这里和一般的傅里叶级数的关系可以看作是”反过来”的,离散的是时域,连续且周期变化的是频域</p>
+</blockquote>
+<h3 id="卷积特性"><a href="#卷积特性" class="headerlink" title="卷积特性"></a>卷积特性</h3><p>$$x(n)*y(n)\lrArr X(\omega)Y(\omega)$$<br>这个似乎和连续的卷积相似</p>
+<h4 id="一种更具有启发性的观点"><a href="#一种更具有启发性的观点" class="headerlink" title="一种更具有启发性的观点"></a>一种更具有启发性的观点</h4><p>对于一个系统,我们有频域转换$e^{j\omega n}\rArr H(\omega)e^{j\omega n}$</p>
+<p>那么我们可以有<br>$$\int X(\omega)e^{j\omega n}\rArr \int A(\omega)H(e^{j\omega})e^{j\omega n}d\omega$$</p>
+<p>等式左边是输入信号$x(n)$,等式右边则为输出信号$y(n)$</p>
+<p>对于某一特定的频率信号,我们是乘积关系<br>对于冲激响应,我们是卷积关系<br><strong>两者可以使用傅里叶变换联合在一起</strong></p>
+<h3 id="对偶性"><a href="#对偶性" class="headerlink" title="对偶性"></a>对偶性</h3><p>对于$x(n)$为实信号的情况,我们可以得到$X(\omega)&#x3D;X^*(-\omega)$</p>
+<p>进一步,我们可以将$X$分解为实部与虚部$X&#x3D;X_R+jX_I$<br>那么我们可以有对于实信号,有<br>$$X_R(\omega)&#x3D;X_R(-\omega),X_I(\omega)&#x3D;X_R(-\omega)$$<br>实部为偶函数,虚部为奇函数,相似的,对于傅里叶变换的模关于$\omega$为偶函数,辐角为奇函数</p>
+<h3 id="与连续时间傅里叶变换的关系"><a href="#与连续时间傅里叶变换的关系" class="headerlink" title="与连续时间傅里叶变换的关系"></a>与连续时间傅里叶变换的关系</h3><p><img src="/image-10.png" alt="Alt text"><br>将时间$t$转换为$n$,我们可以得到对应于离散时间变量$n$,其所对应的$t$为$nT$,其中$T$为两个采样点之间的距离,图上展示了不同采样间隔下的波形的形状</p>
+<p>我们可以考虑具有傅里叶变换的模拟信号<br>$$x_\alpha (t)&#x3D;\frac{1}{2\pi}\int_{-\infty}^{\infty}X_\alpha(j\Omega)e^{j\Omega t}d\Omega$$</p>
+<blockquote>
+<p>这里为了和离散时间的傅里叶变换相契合,我们把变换和反变换颠倒了一下</p>
+</blockquote>
+<h4 id="从连续到冲激的转换"><a href="#从连续到冲激的转换" class="headerlink" title="从连续到冲激的转换"></a>从连续到冲激的转换</h4><p>我们可以将转换看作为<strong>冲激的叠加</strong>  </p>
+<p>$$x’<em>A&#x3D;\sum</em>{-\infty}^{\infty} x_A(nT)\delta(t-nT)$$</p>
+<blockquote>
+<p>这里的做法比较类似于将卷积得到的结果和直接傅里叶变换得到的结果之间进行比较</p>
+</blockquote>
+<p>这里最左边部分需要使用到<strong>泊松求和方程</strong><br>$$\sum_{n&#x3D;-\infty}^{\infty}f(n)&#x3D;\sum_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(x)e^{-2\pi jkx}$$</p>
+<p><img src="/image-11.png" alt="Alt text"></p>
+<blockquote>
+<p>注意最后一个式子,这里可以得到离散傅里叶变换的频率谱与连续傅里叶变换谱的关系,并且包含了由于采样所带来的周期性(<strong>采样定理</strong>)</p>
+</blockquote>
+<p><img src="/image-12.png" alt="Alt text"></p>
+<h4 id="实际应用时的注意事项"><a href="#实际应用时的注意事项" class="headerlink" title="实际应用时的注意事项"></a>实际应用时的注意事项</h4><ol>
+<li>考虑一个数字滤波器的效果时,需要将一个模拟输入(频率轴下)进行抽样,然后经过数字滤波器的效果,最后再恢复(低通滤波)</li>
+<li>在一些非关联的系统(许多非实时系统)中,可以构造数字滤波器使得<strong>原有滤波器不再产生相位变化</strong></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>数字信号处理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>离散傅里叶级数与离散傅里叶变换</title>
+    <url>/2023/07/14/digital_and_FPGA/digital3/</url>
+    <content><![CDATA[<h1 id="离散傅里叶级数"><a href="#离散傅里叶级数" class="headerlink" title="离散傅里叶级数"></a>离散傅里叶级数</h1><blockquote>
+<p>对于大部分情况,傅里叶变换和z变换是初等的变换,但是必须要<strong>处理无限长的情况</strong>,这在实际情况中不太现实<br>离散傅里叶变换有着与傅里叶变换相似的性质,但是也有着<strong>显著的区别</strong>,但是在实际的应用中会<strong>直接使用到离散傅里叶变换</strong><br>其主要思想是:<strong>使用傅里叶变换的采样来描述一段有限长的序列</strong></p>
+</blockquote>
+<h2 id="使用周期序列介绍离散傅里叶级数"><a href="#使用周期序列介绍离散傅里叶级数" class="headerlink" title="使用周期序列介绍离散傅里叶级数"></a>使用周期序列介绍离散傅里叶级数</h2><p>首先考虑一个有限长的$x(n)$序列,总长度为$N$</p>
+<blockquote>
+<p>这里是至小于0或者大于$N-1$的序列值<strong>均为0</strong><br><img src="/2023/07/14/digital_and_FPGA/digital3/image.png" alt="Alt text"><br>我们可以<strong>周期延拓</strong>这个序列,得到$x’(n)&#x3D;x(n)+x(N+n)+…$<br><img src="/2023/07/14/digital_and_FPGA/digital3/image-1.png" alt="Alt text"><br>我们可以在有限长度序列和周期序列之间相互转换<br>这里的效果就像把输入序列放在油漆刷上,然后一遍遍涂出来的效果</p>
+</blockquote>
+<p>将周期序列乘上一个矩形门就可以得到原始的序列</p>
+<p>做这个延拓的意义在于:既然在连续的情况下,周期序列有傅里叶级数表示,<strong>离散也应当类似</strong>,于是可以得到离散傅里叶变换(DFT)的定义:<br>$x’$的离散傅里叶级数<strong>就是</strong>$x$的离散傅里叶变换</p>
+<p>$$x’(n)&#x3D;\sum X’(k)e^{j\frac{2\pi}{N}nk}$$<br>其中$X’(k)$是展开系数($k$与$n$都是离散的)  </p>
+<h2 id="离散傅里叶级数的特性"><a href="#离散傅里叶级数的特性" class="headerlink" title="离散傅里叶级数的特性"></a>离散傅里叶级数的特性</h2><p>我们可以注意到不仅仅$n$是周期的,$k$也应当是周期变化的<br>所以我们可以得到一个求和区间$\sum_{k&#x3D;0}^{N-1}$<br>我们同样也可以用一个关系得到其系数的计算<br>$$X’(k)&#x3D;\sum_{n&#x3D;0}^{N-1}x(n)e^{-j\frac{2\pi}{N}nk}$$<br>这里的$k$是有有限多个值,相应的$X’(k)$也是有有限多个值</p>
+<blockquote>
+<p>$x(n)$是周期的,相应的$X(k)$也是周期的</p>
+</blockquote>
+<p>为了简化表示,我们可以记$w_m&#x3D;e^{-j2\pi&#x2F;N}$,那么原来的式子就可以被表示为<br>$$x’(n)&#x3D;\frac{1}{N}\sum X’(k)w_N^{-nk}$$<br>$$X’(k)&#x3D;\sum x’(n)w_N^{nk}$$</p>
+<h2 id="离散傅里叶变换的特性"><a href="#离散傅里叶变换的特性" class="headerlink" title="离散傅里叶变换的特性"></a>离散傅里叶变换的特性</h2><blockquote>
+<p>在时域上的特性,我们也会在频域上找到,这是离散傅里叶变换<strong>特别的特性</strong></p>
+</blockquote>
+<h3 id="频移"><a href="#频移" class="headerlink" title="频移"></a>频移</h3><p>$$x(n+m)\lrArr w_N^{km}X(k)$$<br>$$w_N^{ln}x(n)\lrArr X(k+l)$$</p>
+<h3 id="对称性"><a href="#对称性" class="headerlink" title="对称性"></a>对称性</h3><p>这个和傅里叶变换的结果相似,在这里不再介绍</p>
+<h3 id="卷积性质"><a href="#卷积性质" class="headerlink" title="卷积性质"></a>卷积性质</h3><p><img src="/2023/07/14/digital_and_FPGA/digital3/image-2.png" alt="Alt text"><br>下图可以看到卷积性质的应用<br><img src="/2023/07/14/digital_and_FPGA/digital3/image-3.png" alt="Alt text"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我们在这里可以仅仅通过<strong>有限多</strong>的频率信息得到有限长度序列的信息</p>
+<h2 id="离散傅里叶变换"><a href="#离散傅里叶变换" class="headerlink" title="离散傅里叶变换"></a>离散傅里叶变换</h2><p>我们之前讨论了循环序列的离散傅里叶级数,(用有限多个数表示)<br>$$x’(n)&#x3D;x(n mod N)&#x3D;x((n))_N$$</p>
+<blockquote>
+<p>我们这里使用余数来描述沿伸的信号<br>其中离散傅里叶级数表示为<br>$$X’(k)&#x3D;\sum_{n&#x3D;0}^{N-1}x’(n)w_N^{nk}$$<br>$$x’(n)&#x3D;\frac{1}{N}\sum X’(k)w_N^{-nk}$$</p>
+</blockquote>
+<h3 id="离散傅里叶变换-1"><a href="#离散傅里叶变换-1" class="headerlink" title="离散傅里叶变换"></a>离散傅里叶变换</h3><p>我们令$X(k)&#x3D;\sum_{n&#x3D;0}^{N-1}x(n)w_n^{nk}$($k&#x3D;0,1,…,N-1$)</p>
+<blockquote>
+<p>这样我们就同样拥有一个<strong>有限长的傅里叶变换</strong></p>
+</blockquote>
+<blockquote>
+<p>我们可以看出来这里的离散傅里叶变换结果和信号序列的效果几乎完全一样</p>
+</blockquote>
+<p>同样也有$X(k)&#x3D;X’(k)Q_N(k)$,$X’(k)&#x3D;X((k))_N$<br>因此我们可以得到离散傅里叶变换的关系<br><img src="/2023/07/14/digital_and_FPGA/digital3/image-4.png" alt="Alt text">  </p>
+<blockquote>
+<p>相应的,对于z变换,DFT可以视作为z变换的一种<strong>采样</strong></p>
+</blockquote>
+<h3 id="离散傅里叶变换性质"><a href="#离散傅里叶变换性质" class="headerlink" title="离散傅里叶变换性质"></a>离散傅里叶变换性质</h3><blockquote>
+<p>这里我们主要注意到离散变换和连续变换之间的区别(始终记住作用是针对<strong>周期信号而言</strong>的)</p>
+</blockquote>
+<h4 id="平移性质"><a href="#平移性质" class="headerlink" title="平移性质"></a>平移性质</h4><p><img src="/2023/07/14/digital_and_FPGA/digital3/image-6.png" alt="Alt text"></p>
+<p>我们需要注意,这里的平移<strong>不是简单的$n$移动</strong>,而是像如图所示的那样<br><img src="/2023/07/14/digital_and_FPGA/digital3/image-7.png" alt="Alt text">  </p>
+<blockquote>
+<p>这里是把后面的移动到了前面来(就像之前所说的”圆柱体”一样)</p>
+</blockquote>
+<h4 id="对称性-1"><a href="#对称性-1" class="headerlink" title="对称性"></a>对称性</h4><p>这个性质讨论的是有关于实信号的结果<br><img src="/2023/07/14/digital_and_FPGA/digital3/image-8.png" alt="Alt text"></p>
+<blockquote>
+<p>这里的变换在运算时<strong>需要转化为周期的级数来处理</strong><br>下图展示了这一性质的效果<br><img src="/2023/07/14/digital_and_FPGA/digital3/image-9.png" alt="Alt text"></p>
+</blockquote>
+<h4 id="卷积性质-1"><a href="#卷积性质-1" class="headerlink" title="卷积性质"></a>卷积性质</h4><p><img src="/2023/07/14/digital_and_FPGA/digital3/image-10.png" alt="Alt text">  </p>
+<blockquote>
+<p>这里需要注意到<strong>卷积的原始定义发生了变化</strong></p>
+</blockquote>
+<blockquote>
+<p>不过实际上循环卷积非常丰富,其主要的意义将在后面一节阐明<br>下图展示了循环卷积的一个例子<br><img src="/2023/07/14/digital_and_FPGA/digital3/image-11.png" alt="Alt text"></p>
+</blockquote>
+<h2 id="环路卷积"><a href="#环路卷积" class="headerlink" title="环路卷积"></a>环路卷积</h2><blockquote>
+<p>由于FFT的存在,因此卷积实际上非常的方便</p>
+</blockquote>
+<h3 id="卷积性质的复习"><a href="#卷积性质的复习" class="headerlink" title="卷积性质的复习"></a>卷积性质的复习</h3><p><img src="/2023/07/14/digital_and_FPGA/digital3/image-12.png" alt="Alt text"></p>
+<blockquote>
+<p>注意,首先要把序列变成重复序列(或者用取模序列)<br>最后一个式子可以理解为将$x_2$与一个<strong>周期脉冲</strong>相互卷积,然后再和$x_1$卷积<br>就像这张图中所展示的一样<img src="/2023/07/14/digital_and_FPGA/digital3/image-14.png" alt="Alt text"></p>
+</blockquote>
+<p>下图则展示了像这样的操作是如何被计算出来的<br><img src="/2023/07/14/digital_and_FPGA/digital3/image-13.png" alt="Alt text"></p>
+<h3 id="有关卷积的有趣的解释"><a href="#有关卷积的有趣的解释" class="headerlink" title="有关卷积的有趣的解释"></a>有关卷积的有趣的解释</h3><p>如果我们看如下所示的两个系统<br><img src="/2023/07/14/digital_and_FPGA/digital3/image-15.png" alt="Alt text"><br>这意味着我们可以首先用<strong>两段信号相应的线性卷积</strong>通过一个<strong>单位相应是间隔为$N$的脉冲序列</strong>得到<strong>两段信号的环路卷积</strong></p>
+<p>我们可以得到一个重要的结论<br><strong>环路卷积可以被视作线性卷积与混叠共同作用的结果</strong><br>如果将$x’<em>3(n)$看作为线性卷积,那么我们可以有关系<br>$$x_3(n)&#x3D;[\sum</em>{r}x’_3(n+rN)]R_N(n)$$</p>
+<blockquote>
+<p>注意一下,这里的形式和<strong>离散傅里叶变换</strong>有着异曲同工之处</p>
+</blockquote>
+<h4 id="一些例子以及如何从循环卷积得到线性卷积"><a href="#一些例子以及如何从循环卷积得到线性卷积" class="headerlink" title="一些例子以及如何从循环卷积得到线性卷积"></a>一些例子以及如何从循环卷积得到线性卷积</h4><p><img src="/2023/07/14/digital_and_FPGA/digital3/image-16.png" alt="Alt text"><br>如果我们将周期变成$2N$,那么又会有什么样的变化<br><img src="/2023/07/14/digital_and_FPGA/digital3/image-17.png" alt="Alt text">  </p>
+<blockquote>
+<p>可以注意到,混叠的效果消失了<br>如果我们在处理信号的时候,我们就需要<strong>避免循环卷积</strong>,所以需要多一段0(总的处理点数应该是<strong>信号点数加上单位响应</strong>)</p>
+</blockquote>
+<h3 id="信号的分段"><a href="#信号的分段" class="headerlink" title="信号的分段"></a>信号的分段</h3><p>目前我们所讨论的问题针对与滤波器<strong>已经知道整个序列的前提之下</strong>,但是实际上,这种情况<strong>很难实现</strong></p>
+<p>以下面一个例子为例,我们可以将输入的信号<strong>分成$L$为段的信号</strong><br><img src="/2023/07/14/digital_and_FPGA/digital3/image-18.png" alt="Alt text"><br>经过转化后,我们有这样几段信号<br><img src="/2023/07/14/digital_and_FPGA/digital3/image-19.png" alt="Alt text"><br>经过卷积(这里虽然是循环卷积,但由于填的0足够长,所以就是线性卷积),我们可以得到以下结果<br><img src="/2023/07/14/digital_and_FPGA/digital3/image-20.png" alt="Alt text"><br>最后将其叠加到一起即可</p>
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><p>由于我们将会有非常高效的方法进行DFT(FFT),所以一般信号处理所使用的卷积可以使用DFT来处理</p>
+<p>然而,由于DFT的卷积定理是使用<strong>环路卷积</strong>实现的,所以我们需要填0来实现<strong>线性卷积</strong>的表示</p>
+]]></content>
+      <tags>
+        <tag>数字信号处理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>z变换</title>
+    <url>/2023/07/10/digital_and_FPGA/digital2/</url>
+    <content><![CDATA[<h1 id="z变换"><a href="#z变换" class="headerlink" title="z变换"></a>z变换</h1><h2 id="离散时间傅里叶变换的局限性与z变换介绍"><a href="#离散时间傅里叶变换的局限性与z变换介绍" class="headerlink" title="离散时间傅里叶变换的局限性与z变换介绍"></a>离散时间傅里叶变换的局限性与z变换介绍</h2><p>傅里叶变换对于一部分序列<strong>并不收敛</strong><br>例如$X(\omega)&#x3D;\sum x(n)e^{-j\omega n}$我们需要其收敛,需要判断其条件</p>
+<p>可以使用三角不等式,最终会得到前者收敛的条件为$\sum |x(n)|&lt;\infty$(绝对可和)</p>
+<blockquote>
+<p>我们之前所讨论的<strong>稳定性</strong>,可以得到一个稳定系统中的$H(\omega)$是绝对可和的</p>
+</blockquote>
+<h3 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h3><p>对于$x(n)&#x3D;2^nu(n)$,我们能够注意到$\sum x(n)&#x3D;\infty$,因此傅里叶变换<strong>不收敛</strong></p>
+<blockquote>
+<p>根据一个非常常用的结论,假如我们有一个(模)指数下降的序列,那么其<strong>傅里叶变换</strong>必然收敛<br>因此我们可以采用类似于处理拉普拉斯变换的方法,乘以一个指数下降的数列</p>
+</blockquote>
+<p>如果我们选取一个$r&gt;2$,那么我们能够得到一个收敛的序列$x(n)r^{-n}$</p>
+<h2 id="z变换定义"><a href="#z变换定义" class="headerlink" title="z变换定义"></a>z变换定义</h2><p>$$X(z)&#x3D;\sum x(n)z^{-n}$$<br>与傅里叶变换的联系之处在于<br>$$X(\omega)&#x3D;X(z)|_{z&#x3D;e^{j\omega}}$$</p>
+<p>对于某些$r$值,z变换会收敛,对于某些$r$值,其并不会收敛</p>
+<h3 id="如何处理"><a href="#如何处理" class="headerlink" title="如何处理"></a>如何处理</h3><blockquote>
+<p>这里视频中有许多,但我认为只需要将整个模长保持在<strong>小于1</strong>的部分,那么我们就可以绘制出一个<strong>收敛圆</strong><br>特别地,如果收敛圆包含了单位圆,那么我们可以知道这个序列的<strong>离散傅里叶变换也是收敛的</strong></p>
+</blockquote>
+<blockquote>
+<p>同时,我们也要注意到,对于不同的$u(n)$情况,会有不同的收敛域</p>
+</blockquote>
+<blockquote>
+<p>在这里讨论的极点是<strong>使用求和公式求出来的结果</strong>,而对于不同的条件下,其可能是零点,也有可能是极点</p>
+</blockquote>
+<p><img src="/2023/07/10/digital_and_FPGA/digital2/image.png" alt="Alt text"></p>
+<h3 id="收敛域的一些性质"><a href="#收敛域的一些性质" class="headerlink" title="收敛域的一些性质"></a>收敛域的一些性质</h3><ol>
+<li>收敛的范围总是被限制在极点和(0&#x2F;$\infty$)</li>
+<li>对于有限长的序列,收敛域为$0&lt;|z|&lt;\infty$</li>
+<li>右侧序列($n$有下界),那么$|z|$有下界</li>
+<li>左侧序列($n$有上界),那么$|z|$有上界</li>
+<li>两侧序列($n$无界),那么有$R_{x-}&lt;|z|&lt;R_{x+}$</li>
+</ol>
+<p>下面展示了一个判断傅里叶变换是否存在的例子</p>
+<p><img src="/2023/07/10/digital_and_FPGA/digital2/image-1.png" alt="Alt text"></p>
+<p>而对于两侧序列的判定,我们可以参考<br>$$(\frac{1}{2})^{|n|}$$<br>其可以被视作两侧序列,而$|z|$的收敛范围是$(\frac{1}{2},2)$</p>
+<h2 id="z变换的性质"><a href="#z变换的性质" class="headerlink" title="z变换的性质"></a>z变换的性质</h2><p>我们仍然可以得到一些像卷积定理的内容<br>$$y(n)&#x3D;x(n)*h(n)$$<br>$$Y(z)&#x3D;X(z)H(z)$$</p>
+<p>我们也可以通过$z$变换的过程得到信号序列的一些性质</p>
+<ol>
+<li>如果信号序列是<strong>稳定的</strong>,那么单位圆必然在收敛域中</li>
+<li>如果信号序列是<strong>关联的</strong>,那么必然是一个右侧序列</li>
+</ol>
+<h3 id="使用线性差分方程表示的例子"><a href="#使用线性差分方程表示的例子" class="headerlink" title="使用线性差分方程表示的例子"></a>使用线性差分方程表示的例子</h3><p>$$y(n)-\frac{1}{2}y(n-1)&#x3D;x(n)$$<br>我们需要使用一些好用的性质<br>$$y(n)\lrArr Y(z)$$<br>$$y(n+n_0)\lrArr z^{n_0}Y(z)$$<br>我们可以得到一个代数方程,得到<br>$$H(z)&#x3D;\frac{1}{1-\frac{1}{2}z^{-1}}$$</p>
+<blockquote>
+<p>这里和那拉普拉斯变换解微分方程如出一辙</p>
+</blockquote>
+<blockquote>
+<p>同时我们需要注意到,这里的收敛域会随着序列中$n$条件的变化而变化(如图所示)<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-2.png" alt="Alt text"></p>
+</blockquote>
+<h1 id="z反变换"><a href="#z反变换" class="headerlink" title="z反变换"></a>z反变换</h1><p>$$X(z)&#x3D;\sum x(n)z^{-n}$$<br>z反变换可以从$X(z)$得到$x(n)$</p>
+<h2 id="直接观察法"><a href="#直接观察法" class="headerlink" title="直接观察法"></a>直接观察法</h2><p>例如<br>$$a^nu(n)\lrArr \frac{1}{1-az^{-1}}$$<br>这样的序列,我们可以直接从z反变换的结果反推出原本的过程</p>
+<blockquote>
+<p>注意,这里需要讨论$|z|$的范围(改变$n$的范围)</p>
+</blockquote>
+<h2 id="暴力展开"><a href="#暴力展开" class="headerlink" title="暴力展开"></a>暴力展开</h2><p>例如对于$X(z)&#x3D;\frac{1}{1-az^{-1}}$的反变换,我们可以有<strong>这个式子的展开</strong><br><img src="/2023/07/10/digital_and_FPGA/digital2/image-3.png" alt="Alt text"></p>
+<blockquote>
+<p>我们可以看到,这里对应于$n&gt;0$或者$n&lt;0$的情况,两者有着不同的展开<br>但是这种方法我们<strong>只能得到一系列的式子</strong>,我们还要将其综合起来</p>
+</blockquote>
+<h2 id="部分分式展开"><a href="#部分分式展开" class="headerlink" title="部分分式展开"></a>部分分式展开</h2><p>考虑一个一般有理函数<br>$$F(x)&#x3D;\frac{P(x)}{Q(x)}&#x3D;\sum\frac{R_k}{x-x_k}$$<br>其中$x_k$为$Q$的零点,而$R_k$为留数</p>
+<blockquote>
+<p>为了讨论方便,我们假定分母次数更高,并且没有重根<br>这里使用了一些留数定理的内容</p>
+</blockquote>
+<p>可以使用两种不同的方法(视作$z$和$z^{-1}$)<br>下面展示了一个例子<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-4.png" alt="Alt text"><br><img src="/2023/07/10/digital_and_FPGA/digital2/image-5.png" alt="Alt text"></p>
+<blockquote>
+<p>但是这种方法只适用于分式的情况,因此不能广泛地使用(但是在讨论一些性质的时候非常有用)</p>
+</blockquote>
+<h2 id="路径积分法"><a href="#路径积分法" class="headerlink" title="路径积分法"></a>路径积分法</h2><p>我们直接给出结论<br>$$x(n)&#x3D;\frac{1}{2\pi j}\int_C X(z)z^{n-1}dz$$<br>($C$环路为包含原点的边缘在收敛域内的环路)</p>
+<blockquote>
+<p>这个公式的证明实际上来自于$n$阶导的柯西公式</p>
+</blockquote>
+<blockquote>
+<p>在实际计算的时候需要使用留数定理计算($X(z)z^{n-1}$)的留数</p>
+</blockquote>
+<h3 id="一个简单的例子"><a href="#一个简单的例子" class="headerlink" title="一个简单的例子"></a>一个简单的例子</h3><p>我们以$X(z)&#x3D;\frac{1}{1-\frac{1}{2}z^{-1}}$<br>其具体的做法如下<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-6.png" alt="Alt text">  </p>
+<blockquote>
+<p>可以看出来,对于$n&gt;0$的情况,计算要显得方便的很多,但是$n&lt;0$的话,可以考虑使用变量代换的方式计算<br>不过我觉得直接继续用留数定理的公式还是方便的</p>
+</blockquote>
+<h2 id="一些结论以及重要的注意事项"><a href="#一些结论以及重要的注意事项" class="headerlink" title="一些结论以及重要的注意事项"></a>一些结论以及重要的注意事项</h2><ol>
+<li>我们讨论的时候强调<strong>上面的次数要小于下面的次数</strong>,这里体现出<strong>关联性</strong>(否则就会有$z$的正数次项留出来)</li>
+<li>对于前面讨论的着一种情况,我们需要小心在环路积分之余,可能<strong>会有单独留出来的项</strong></li>
+<li>展开的时候经常会犯迷糊,记得把式子展开为$a_nz^{-n}$的形式,其中注意$z$的符号</li>
+</ol>
+<h1 id="z变换的相关性质"><a href="#z变换的相关性质" class="headerlink" title="z变换的相关性质"></a>z变换的相关性质</h1><h2 id="频率响应的几何意义"><a href="#频率响应的几何意义" class="headerlink" title="频率响应的几何意义"></a>频率响应的几何意义</h2><h3 id="卷积性质"><a href="#卷积性质" class="headerlink" title="卷积性质"></a>卷积性质</h3><p>对于$y(n)&#x3D;x(n)*h(z)$,我们可以得到z变换$X(z)H(z)&#x3D;Y(z)$</p>
+<p>同时,我们也可以得到,<strong>在单位圆上的z变换就是傅里叶变换</strong></p>
+<p>作为一个例子,我们请出我们的老朋友$H(z)&#x3D;\frac{z}{z-a}$,<br>进一步,可以把$z$看作矢量,这样就可以看作是<strong>从零点出来的矢量除以从极点出来的矢量</strong><br>相应的,模长就是两者相除,辐角就是两者相减<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-7.png" alt="Alt text"><br><img src="/2023/07/10/digital_and_FPGA/digital2/image-8.png" alt="Alt text">  </p>
+<p>接下来,我们考虑$z$是在单位圆上的矢量,那么$z$的<strong>模长不再改变</strong></p>
+<p>在整个$z$旋转的时候,$z-a$的模长<strong>先增加后减小</strong><br>这样我们就可以简单地得到频率响应<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-9.png" alt="Alt text">  </p>
+<h3 id="一般讨论"><a href="#一般讨论" class="headerlink" title="一般讨论"></a>一般讨论</h3><p>对于频率响应$|H(e^{j\omega})|&#x3D;\frac{\Pi length zero}{\Pi length pole}$,<br>对于相位相应,则有<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-10.png" alt="Alt text"></p>
+<blockquote>
+<p>这意味着我们可以仅仅知道所有的极点和零点,就可以大致知道频率响应和相位谱<br>如果有多重极点的情况,可以当成多个极点计算</p>
+</blockquote>
+<h2 id="变换性质"><a href="#变换性质" class="headerlink" title="变换性质"></a>变换性质</h2><h3 id="一般变换性质-可以和连续状况类比"><a href="#一般变换性质-可以和连续状况类比" class="headerlink" title="一般变换性质(可以和连续状况类比)"></a>一般变换性质(可以和连续状况类比)</h3><p>下面列举出了<strong>最为有用的</strong>一些性质<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-11.png" alt="Alt text">   </p>
+<h3 id="变换性质与几何性质"><a href="#变换性质与几何性质" class="headerlink" title="变换性质与几何性质"></a>变换性质与几何性质</h3><p>以第四个性质为例,我们可以考虑<strong>极点与零点</strong>,会得到原本的$z-z_0$变成了$a^{-1}(z-az_0)$</p>
+<blockquote>
+<p>如果$a$是实数,那么极点(零点)会在轴上移动,如果是复数,那么就同时会改变角度</p>
+</blockquote>
+<h3 id="性质在Boxcar序列中的应用"><a href="#性质在Boxcar序列中的应用" class="headerlink" title="性质在Boxcar序列中的应用"></a>性质在Boxcar序列中的应用</h3><h4 id="Boxcar序列"><a href="#Boxcar序列" class="headerlink" title="Boxcar序列"></a>Boxcar序列</h4><p>$$x(n)&#x3D;1 (0\le n\le (N-1)$$<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-12.png" alt="Alt text"><br>我们可以将Boxcar序列视作为两个阶梯序列相减$x(n)&#x3D;u(n)-u(n-N)$</p>
+<h4 id="Boxcar的z变换"><a href="#Boxcar的z变换" class="headerlink" title="Boxcar的z变换"></a>Boxcar的z变换</h4><p>使用上面的观点,可以得到<br>$$X(z)&#x3D;\frac{1}{1-z^{-1}}-\frac{z^{-N}}{1-z^{-1}}&#x3D;\frac{z^N-1}{z^{N-1}(z-1)}$$</p>
+<p>接下来,我们可以注意到整个系统在单位圆上有一个极点,在原点有$N-1$个零点<br>而对于零点,则是相当于在单位圆上均匀分布的点</p>
+<blockquote>
+<p>这里需要注意到,一个零点和一个极点约掉了<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-13.png" alt="Alt text">  </p>
+</blockquote>
+<h4 id="Boxcar的频率相应"><a href="#Boxcar的频率相应" class="headerlink" title="Boxcar的频率相应"></a>Boxcar的频率相应</h4><p>分母上不构成影响,所以只需要讨论零点伸出来的矢量的影响(越靠近那个确实的零点,<strong>整体的模长值越大</strong>)<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-14.png" alt="Alt text">  </p>
+<p>或者直接使用计算法,可以得到<br>$$X(\omega)&#x3D;\frac{1-e^{-j\omega N}}{1-e^{-j\omega}}$$<br>通过化简,可以得到<br>$$e^{j\omega\frac{N-1}{2}}\frac{\omega \frac{N}{2}}{\frac{N}{2}}$$</p>
+<p>而我们展示其图象<br><img src="/2023/07/10/digital_and_FPGA/digital2/image-15.png" alt="Alt text"></p>
+<blockquote>
+<p>可以看出,我们的估计还算是相当不错的</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>数字信号处理</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>FPGA编程与仿真注意</title>
     <url>/2023/07/07/digital_and_FPGA/FPGA_Notice/</url>
     <content><![CDATA[<p>最近在学习基于<code>DE10-Nano</code>的FPGA程序设计,这个过程有相对比较复杂的环境配置和一些容易犯的错误,在这里记录一下</p>
@@ -4270,114 +4473,6 @@ Along axis 1 is [ 6 15]
 ]]></content>
       <tags>
         <tag>FPGA</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>z变换</title>
-    <url>/2023/07/10/digital_and_FPGA/digital2/</url>
-    <content><![CDATA[<h1 id="z变换"><a href="#z变换" class="headerlink" title="z变换"></a>z变换</h1><h2 id="离散时间傅里叶变换的局限性与z变换介绍"><a href="#离散时间傅里叶变换的局限性与z变换介绍" class="headerlink" title="离散时间傅里叶变换的局限性与z变换介绍"></a>离散时间傅里叶变换的局限性与z变换介绍</h2><p>傅里叶变换对于一部分序列<strong>并不收敛</strong><br>例如$X(\omega)=\sum x(n)e^{-j\omega n}$我们需要其收敛,需要判断其条件</p>
-<p>可以使用三角不等式,最终会得到前者收敛的条件为$\sum |x(n)|&lt;\infty$(绝对可和)</p>
-<blockquote>
-<p>我们之前所讨论的<strong>稳定性</strong>,可以得到一个稳定系统中的$H(\omega)$是绝对可和的</p>
-</blockquote>
-<h3 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h3><p>对于$x(n)=2^nu(n)$,我们能够注意到$\sum x(n)=\infty$,因此傅里叶变换<strong>不收敛</strong></p>
-<blockquote>
-<p>根据一个非常常用的结论,假如我们有一个(模)指数下降的序列,那么其<strong>傅里叶变换</strong>必然收敛<br>因此我们可以采用类似于处理拉普拉斯变换的方法,乘以一个指数下降的数列</p>
-</blockquote>
-<p>如果我们选取一个$r&gt;2$,那么我们能够得到一个收敛的序列$x(n)r^{-n}$</p>
-<h2 id="z变换定义"><a href="#z变换定义" class="headerlink" title="z变换定义"></a>z变换定义</h2><script type="math/tex; mode=display">X(z)=\sum x(n)z^{-n}</script><p>与傅里叶变换的联系之处在于</p>
-<script type="math/tex; mode=display">X(\omega)=X(z)|_{z=e^{j\omega}}</script><p>对于某些$r$值,z变换会收敛,对于某些$r$值,其并不会收敛</p>
-<h3 id="如何处理"><a href="#如何处理" class="headerlink" title="如何处理"></a>如何处理</h3><blockquote>
-<p>这里视频中有许多,但我认为只需要将整个模长保持在<strong>小于1</strong>的部分,那么我们就可以绘制出一个<strong>收敛圆</strong><br>特别地,如果收敛圆包含了单位圆,那么我们可以知道这个序列的<strong>离散傅里叶变换也是收敛的</strong></p>
-<p>同时,我们也要注意到,对于不同的$u(n)$情况,会有不同的收敛域</p>
-<p>在这里讨论的极点是<strong>使用求和公式求出来的结果</strong>,而对于不同的条件下,其可能是零点,也有可能是极点</p>
-</blockquote>
-<p><img src="image.png" alt="Alt text"></p>
-<h3 id="收敛域的一些性质"><a href="#收敛域的一些性质" class="headerlink" title="收敛域的一些性质"></a>收敛域的一些性质</h3><ol>
-<li>收敛的范围总是被限制在极点和(0/$\infty$)</li>
-<li>对于有限长的序列,收敛域为$0&lt;|z|&lt;\infty$</li>
-<li>右侧序列($n$有下界),那么$|z|$有下界</li>
-<li>左侧序列($n$有上界),那么$|z|$有上界</li>
-<li>两侧序列($n$无界),那么有$R_{x-}&lt;|z|&lt;R_{x+}$</li>
-</ol>
-<p>下面展示了一个判断傅里叶变换是否存在的例子</p>
-<p><img src="image-1.png" alt="Alt text"></p>
-<p>而对于两侧序列的判定,我们可以参考</p>
-<script type="math/tex; mode=display">(\frac{1}{2})^{|n|}</script><p>其可以被视作两侧序列,而$|z|$的收敛范围是$(\frac{1}{2},2)$</p>
-<h2 id="z变换的性质"><a href="#z变换的性质" class="headerlink" title="z变换的性质"></a>z变换的性质</h2><p>我们仍然可以得到一些像卷积定理的内容</p>
-<script type="math/tex; mode=display">y(n)=x(n)*h(n)</script><script type="math/tex; mode=display">Y(z)=X(z)H(z)</script><p>我们也可以通过$z$变换的过程得到信号序列的一些性质</p>
-<ol>
-<li>如果信号序列是<strong>稳定的</strong>,那么单位圆必然在收敛域中</li>
-<li>如果信号序列是<strong>关联的</strong>,那么必然是一个右侧序列</li>
-</ol>
-<h3 id="使用线性差分方程表示的例子"><a href="#使用线性差分方程表示的例子" class="headerlink" title="使用线性差分方程表示的例子"></a>使用线性差分方程表示的例子</h3><script type="math/tex; mode=display">y(n)-\frac{1}{2}y(n-1)=x(n)</script><p>我们需要使用一些好用的性质</p>
-<script type="math/tex; mode=display">y(n)\lrArr Y(z)</script><script type="math/tex; mode=display">y(n+n_0)\lrArr z^{n_0}Y(z)</script><p>我们可以得到一个代数方程,得到</p>
-<script type="math/tex; mode=display">H(z)=\frac{1}{1-\frac{1}{2}z^{-1}}</script><blockquote>
-<p>这里和那拉普拉斯变换解微分方程如出一辙</p>
-<p>同时我们需要注意到,这里的收敛域会随着序列中$n$条件的变化而变化(如图所示)<br><img src="image-2.png" alt="Alt text"></p>
-</blockquote>
-<h1 id="z反变换"><a href="#z反变换" class="headerlink" title="z反变换"></a>z反变换</h1><script type="math/tex; mode=display">X(z)=\sum x(n)z^{-n}</script><p>z反变换可以从$X(z)$得到$x(n)$</p>
-<h2 id="直接观察法"><a href="#直接观察法" class="headerlink" title="直接观察法"></a>直接观察法</h2><p>例如</p>
-<script type="math/tex; mode=display">a^nu(n)\lrArr \frac{1}{1-az^{-1}}</script><p>这样的序列,我们可以直接从z反变换的结果反推出原本的过程</p>
-<blockquote>
-<p>注意,这里需要讨论$|z|$的范围(改变$n$的范围)</p>
-<h2 id="暴力展开"><a href="#暴力展开" class="headerlink" title="暴力展开"></a>暴力展开</h2><p>例如对于$X(z)=\frac{1}{1-az^{-1}}$的反变换,我们可以有<strong>这个式子的展开</strong><br><img src="image-3.png" alt="Alt text"></p>
-<p>我们可以看到,这里对应于$n&gt;0$或者$n&lt;0$的情况,两者有着不同的展开<br>但是这种方法我们<strong>只能得到一系列的式子</strong>,我们还要将其综合起来</p>
-</blockquote>
-<h2 id="部分分式展开"><a href="#部分分式展开" class="headerlink" title="部分分式展开"></a>部分分式展开</h2><p>考虑一个一般有理函数</p>
-<script type="math/tex; mode=display">F(x)=\frac{P(x)}{Q(x)}=\sum\frac{R_k}{x-x_k}</script><p>其中$x_k$为$Q$的零点,而$R_k$为留数</p>
-<blockquote>
-<p>为了讨论方便,我们假定分母次数更高,并且没有重根<br>这里使用了一些留数定理的内容</p>
-</blockquote>
-<p>可以使用两种不同的方法(视作$z$和$z^{-1}$)<br>下面展示了一个例子<br><img src="image-4.png" alt="Alt text"><br><img src="image-5.png" alt="Alt text"></p>
-<blockquote>
-<p>但是这种方法只适用于分式的情况,因此不能广泛地使用(但是在讨论一些性质的时候非常有用)</p>
-</blockquote>
-<h2 id="路径积分法"><a href="#路径积分法" class="headerlink" title="路径积分法"></a>路径积分法</h2><p>我们直接给出结论</p>
-<script type="math/tex; mode=display">x(n)=\frac{1}{2\pi j}\int_C X(z)z^{n-1}dz</script><p>($C$环路为包含原点的边缘在收敛域内的环路)</p>
-<blockquote>
-<p>这个公式的证明实际上来自于$n$阶导的柯西公式</p>
-<p>在实际计算的时候需要使用留数定理计算($X(z)z^{n-1}$)的留数</p>
-</blockquote>
-<h3 id="一个简单的例子"><a href="#一个简单的例子" class="headerlink" title="一个简单的例子"></a>一个简单的例子</h3><p>我们以$X(z)=\frac{1}{1-\frac{1}{2}z^{-1}}$<br>其具体的做法如下<br><img src="image-6.png" alt="Alt text">  </p>
-<blockquote>
-<p>可以看出来,对于$n&gt;0$的情况,计算要显得方便的很多,但是$n&lt;0$的话,可以考虑使用变量代换的方式计算<br>不过我觉得直接继续用留数定理的公式还是方便的</p>
-</blockquote>
-<h2 id="一些结论以及重要的注意事项"><a href="#一些结论以及重要的注意事项" class="headerlink" title="一些结论以及重要的注意事项"></a>一些结论以及重要的注意事项</h2><ol>
-<li>我们讨论的时候强调<strong>上面的次数要小于下面的次数</strong>,这里体现出<strong>关联性</strong>(否则就会有$z$的正数次项留出来)</li>
-<li>对于前面讨论的着一种情况,我们需要小心在环路积分之余,可能<strong>会有单独留出来的项</strong></li>
-<li>展开的时候经常会犯迷糊,记得把式子展开为$a_nz^{-n}$的形式,其中注意$z$的符号</li>
-</ol>
-<h1 id="z变换的相关性质"><a href="#z变换的相关性质" class="headerlink" title="z变换的相关性质"></a>z变换的相关性质</h1><h2 id="频率响应的几何意义"><a href="#频率响应的几何意义" class="headerlink" title="频率响应的几何意义"></a>频率响应的几何意义</h2><h3 id="卷积性质"><a href="#卷积性质" class="headerlink" title="卷积性质"></a>卷积性质</h3><p>对于$y(n)=x(n)*h(z)$,我们可以得到z变换$X(z)H(z)=Y(z)$</p>
-<p>同时,我们也可以得到,<strong>在单位圆上的z变换就是傅里叶变换</strong></p>
-<p>作为一个例子,我们请出我们的老朋友$H(z)=\frac{z}{z-a}$,<br>进一步,可以把$z$看作矢量,这样就可以看作是<strong>从零点出来的矢量除以从极点出来的矢量</strong><br>相应的,模长就是两者相除,辐角就是两者相减<br><img src="image-7.png" alt="Alt text"><br><img src="image-8.png" alt="Alt text">  </p>
-<p>接下来,我们考虑$z$是在单位圆上的矢量,那么$z$的<strong>模长不再改变</strong></p>
-<p>在整个$z$旋转的时候,$z-a$的模长<strong>先增加后减小</strong><br>这样我们就可以简单地得到频率响应<br><img src="image-9.png" alt="Alt text">  </p>
-<h3 id="一般讨论"><a href="#一般讨论" class="headerlink" title="一般讨论"></a>一般讨论</h3><p>对于频率响应$|H(e^{j\omega})|=\frac{\Pi length zero}{\Pi length pole}$,<br>对于相位相应,则有<br><img src="image-10.png" alt="Alt text"></p>
-<blockquote>
-<p>这意味着我们可以仅仅知道所有的极点和零点,就可以大致知道频率响应和相位谱<br>如果有多重极点的情况,可以当成多个极点计算</p>
-</blockquote>
-<h2 id="变换性质"><a href="#变换性质" class="headerlink" title="变换性质"></a>变换性质</h2><h3 id="一般变换性质-可以和连续状况类比"><a href="#一般变换性质-可以和连续状况类比" class="headerlink" title="一般变换性质(可以和连续状况类比)"></a>一般变换性质(可以和连续状况类比)</h3><p>下面列举出了<strong>最为有用的</strong>一些性质<br><img src="image-11.png" alt="Alt text">   </p>
-<h3 id="变换性质与几何性质"><a href="#变换性质与几何性质" class="headerlink" title="变换性质与几何性质"></a>变换性质与几何性质</h3><p>以第四个性质为例,我们可以考虑<strong>极点与零点</strong>,会得到原本的$z-z_0$变成了$a^{-1}(z-az_0)$</p>
-<blockquote>
-<p>如果$a$是实数,那么极点(零点)会在轴上移动,如果是复数,那么就同时会改变角度</p>
-</blockquote>
-<h3 id="性质在Boxcar序列中的应用"><a href="#性质在Boxcar序列中的应用" class="headerlink" title="性质在Boxcar序列中的应用"></a>性质在Boxcar序列中的应用</h3><h4 id="Boxcar序列"><a href="#Boxcar序列" class="headerlink" title="Boxcar序列"></a>Boxcar序列</h4><script type="math/tex; mode=display">x(n)=1 (0\le n\le (N-1)</script><p><img src="image-12.png" alt="Alt text"><br>我们可以将Boxcar序列视作为两个阶梯序列相减$x(n)=u(n)-u(n-N)$</p>
-<h4 id="Boxcar的z变换"><a href="#Boxcar的z变换" class="headerlink" title="Boxcar的z变换"></a>Boxcar的z变换</h4><p>使用上面的观点,可以得到</p>
-<script type="math/tex; mode=display">X(z)=\frac{1}{1-z^{-1}}-\frac{z^{-N}}{1-z^{-1}}=\frac{z^N-1}{z^{N-1}(z-1)}</script><p>接下来,我们可以注意到整个系统在单位圆上有一个极点,在原点有$N-1$个零点<br>而对于零点,则是相当于在单位圆上均匀分布的点</p>
-<blockquote>
-<p>这里需要注意到,一个零点和一个极点约掉了<br><img src="image-13.png" alt="Alt text">  </p>
-</blockquote>
-<h4 id="Boxcar的频率相应"><a href="#Boxcar的频率相应" class="headerlink" title="Boxcar的频率相应"></a>Boxcar的频率相应</h4><p>分母上不构成影响,所以只需要讨论零点伸出来的矢量的影响(越靠近那个确实的零点,<strong>整体的模长值越大</strong>)<br><img src="image-14.png" alt="Alt text">  </p>
-<p>或者直接使用计算法,可以得到</p>
-<script type="math/tex; mode=display">X(\omega)=\frac{1-e^{-j\omega N}}{1-e^{-j\omega}}</script><p>通过化简,可以得到</p>
-<script type="math/tex; mode=display">e^{j\omega\frac{N-1}{2}}\frac{\omega \frac{N}{2}}{\frac{N}{2}}</script><p>而我们展示其图象<br><img src="image-15.png" alt="Alt text"></p>
-<blockquote>
-<p>可以看出,我们的估计还算是相当不错的</p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>数字信号处理</tag>
       </tags>
   </entry>
 </search>
