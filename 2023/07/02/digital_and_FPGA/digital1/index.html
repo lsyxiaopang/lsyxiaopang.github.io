@@ -20,31 +20,31 @@
     var CONFIG = {"hostname":"lsyxiaopang.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="数字信号处理介绍数字信号处理具有非常强的扩展性,例如对于频率响应不一致的器件进行补偿而对于一些图象处理领域,可以将图像看作为二维信号. 离散时间系统以一个数字滤波器为例包含以下部分:  采样器 连续&#x2F;数字信号转换器(C&#x2F;D) 数字滤波 数字&#x2F;连续信号转换器(D&#x2F;C) 滤波器  C&#x2F;D信号转换器的效果存在有倍频变形,一般可以使用低通滤波器实现,然而,">
+  <meta name="description" content="数字信号处理介绍数字信号处理具有非常强的扩展性,例如对于频率响应不一致的器件进行补偿而对于一些图象处理领域,可以将图像看作为二维信号.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数字信号处理(介绍至离散时间傅里叶变换)">
 <meta property="og:url" content="https://lsyxiaopang.github.io/2023/07/02/digital_and_FPGA/digital1/index.html">
 <meta property="og:site_name" content="Songyuli&#39;s blog">
-<meta property="og:description" content="数字信号处理介绍数字信号处理具有非常强的扩展性,例如对于频率响应不一致的器件进行补偿而对于一些图象处理领域,可以将图像看作为二维信号. 离散时间系统以一个数字滤波器为例包含以下部分:  采样器 连续&#x2F;数字信号转换器(C&#x2F;D) 数字滤波 数字&#x2F;连续信号转换器(D&#x2F;C) 滤波器  C&#x2F;D信号转换器的效果存在有倍频变形,一般可以使用低通滤波器实现,然而,">
+<meta property="og:description" content="数字信号处理介绍数字信号处理具有非常强的扩展性,例如对于频率响应不一致的器件进行补偿而对于一些图象处理领域,可以将图像看作为二维信号.">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://lsyxiaopang.github.io/image.png">
-<meta property="og:image" content="https://lsyxiaopang.github.io/image-1.png">
-<meta property="og:image" content="https://lsyxiaopang.github.io/image-2.png">
-<meta property="og:image" content="https://lsyxiaopang.github.io/image-3.png">
-<meta property="og:image" content="https://lsyxiaopang.github.io/image-4.png">
-<meta property="og:image" content="https://lsyxiaopang.github.io/image-5.png">
-<meta property="og:image" content="https://lsyxiaopang.github.io/image-6.png">
-<meta property="og:image" content="https://lsyxiaopang.github.io/image-7.png">
-<meta property="og:image" content="https://lsyxiaopang.github.io/image-8.png">
-<meta property="og:image" content="https://lsyxiaopang.github.io/image-10.png">
-<meta property="og:image" content="https://lsyxiaopang.github.io/image-11.png">
-<meta property="og:image" content="https://lsyxiaopang.github.io/image-12.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/02/digital_and_FPGA/digital1/image.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/02/digital_and_FPGA/digital1/image-1.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/02/digital_and_FPGA/digital1/image-2.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/02/digital_and_FPGA/digital1/image-3.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/02/digital_and_FPGA/digital1/image-4.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/02/digital_and_FPGA/digital1/image-5.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/02/digital_and_FPGA/digital1/image-6.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/02/digital_and_FPGA/digital1/image-7.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/02/digital_and_FPGA/digital1/image-8.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/02/digital_and_FPGA/digital1/image-10.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/02/digital_and_FPGA/digital1/image-11.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/02/digital_and_FPGA/digital1/image-12.png">
 <meta property="article:published_time" content="2023-07-02T14:28:53.000Z">
-<meta property="article:modified_time" content="2023-07-09T16:20:41.384Z">
+<meta property="article:modified_time" content="2023-07-19T07:34:19.184Z">
 <meta property="article:author" content="Songyuli">
 <meta property="article:tag" content="数字信号处理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://lsyxiaopang.github.io/image.png">
+<meta name="twitter:image" content="https://lsyxiaopang.github.io/2023/07/02/digital_and_FPGA/digital1/image.png">
 
 <link rel="canonical" href="https://lsyxiaopang.github.io/2023/07/02/digital_and_FPGA/digital1/">
 
@@ -249,7 +249,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-10 00:20:41" itemprop="dateModified" datetime="2023-07-10T00:20:41+08:00">2023-07-10</time>
+                <time title="Modified: 2023-07-19 15:34:19" itemprop="dateModified" datetime="2023-07-19T15:34:19+08:00">2023-07-19</time>
               </span>
 
           
@@ -278,6 +278,8 @@
 
       
         <h1 id="数字信号处理介绍"><a href="#数字信号处理介绍" class="headerlink" title="数字信号处理介绍"></a>数字信号处理介绍</h1><p>数字信号处理具有非常强的<strong>扩展性</strong>,例如对于频率响应不一致的器件进行补偿<br>而对于一些图象处理领域,可以将图像看作为二维信号.</p>
+<span id="more"></span>
+
 <h1 id="离散时间系统"><a href="#离散时间系统" class="headerlink" title="离散时间系统"></a>离散时间系统</h1><p>以一个数字滤波器为例包含以下部分:</p>
 <ol>
 <li>采样器</li>
@@ -294,16 +296,16 @@
 <p>似乎一定的采样频率可以等效于一个低通滤波器,但是我不清楚怎么搞的</p>
 </blockquote>
 <h1 id="离散时间信号与系统"><a href="#离散时间信号与系统" class="headerlink" title="离散时间信号与系统"></a>离散时间信号与系统</h1><p>对于我们所关心的离散时间系统,我们主要讨论的是有一列一定长度$n$的信号</p>
-<h2 id="一些常用的离散时间信号序列"><a href="#一些常用的离散时间信号序列" class="headerlink" title="一些常用的离散时间信号序列"></a>一些常用的离散时间信号序列</h2><h3 id="单位"><a href="#单位" class="headerlink" title="单位"></a>单位</h3><p><img src="/image.png" alt="单位响应的图象"></p>
-<h3 id="单位阶跃"><a href="#单位阶跃" class="headerlink" title="单位阶跃"></a>单位阶跃</h3><p><img src="/image-1.png" alt="单位阶跃响应的图象"></p>
+<h2 id="一些常用的离散时间信号序列"><a href="#一些常用的离散时间信号序列" class="headerlink" title="一些常用的离散时间信号序列"></a>一些常用的离散时间信号序列</h2><h3 id="单位"><a href="#单位" class="headerlink" title="单位"></a>单位</h3><p><img src="/2023/07/02/digital_and_FPGA/digital1/image.png" alt="单位响应的图象"></p>
+<h3 id="单位阶跃"><a href="#单位阶跃" class="headerlink" title="单位阶跃"></a>单位阶跃</h3><p><img src="/2023/07/02/digital_and_FPGA/digital1/image-1.png" alt="单位阶跃响应的图象"></p>
 <h3 id="两者之间联系"><a href="#两者之间联系" class="headerlink" title="两者之间联系"></a>两者之间联系</h3><p>实际上单位样本$\delta(n)$可以直接从单位阶跃样本中直接得到<br>$$\delta(n)&#x3D;u(n)-u(n-1)$$</p>
-<p>相似地,也可以用求和来实现逆操作<br><img src="/image-2.png" alt="离散时间信号的转换"></p>
-<h3 id="其他的一些常见样本"><a href="#其他的一些常见样本" class="headerlink" title="其他的一些常见样本"></a>其他的一些常见样本</h3><p><img src="/image-3.png" alt="其他的一些常见样本"></p>
+<p>相似地,也可以用求和来实现逆操作<br><img src="/2023/07/02/digital_and_FPGA/digital1/image-2.png" alt="离散时间信号的转换"></p>
+<h3 id="其他的一些常见样本"><a href="#其他的一些常见样本" class="headerlink" title="其他的一些常见样本"></a>其他的一些常见样本</h3><p><img src="/2023/07/02/digital_and_FPGA/digital1/image-3.png" alt="其他的一些常见样本"></p>
 <blockquote>
 <p>需要注意到,一些原本是周期的信号在数字信号采样下不一定是周期信号</p>
 </blockquote>
 <p>这些信号可以用来描述更加普遍的信号(相当于函数展开)</p>
-<h2 id="将一般信号使用特殊信号的转化"><a href="#将一般信号使用特殊信号的转化" class="headerlink" title="将一般信号使用特殊信号的转化"></a>将一般信号使用特殊信号的转化</h2><h3 id="使用单位脉冲转化"><a href="#使用单位脉冲转化" class="headerlink" title="使用单位脉冲转化"></a>使用单位脉冲转化</h3><p><img src="/image-4.png" alt="Alt text"></p>
+<h2 id="将一般信号使用特殊信号的转化"><a href="#将一般信号使用特殊信号的转化" class="headerlink" title="将一般信号使用特殊信号的转化"></a>将一般信号使用特殊信号的转化</h2><h3 id="使用单位脉冲转化"><a href="#使用单位脉冲转化" class="headerlink" title="使用单位脉冲转化"></a>使用单位脉冲转化</h3><p><img src="/2023/07/02/digital_and_FPGA/digital1/image-4.png" alt="Alt text"></p>
 <p>(这个应该算是相当简单和显然的)</p>
 <h2 id="离散时间系统的性质"><a href="#离散时间系统的性质" class="headerlink" title="离散时间系统的性质"></a>离散时间系统的性质</h2><ol>
 <li>线性性</li>
@@ -313,7 +315,7 @@
 <blockquote>
 <p>这可以用卷积的方式来理解这个性质(我们可以把$x$和$\delta$地位互换)</p>
 </blockquote>
-<h3 id="卷积和的计算"><a href="#卷积和的计算" class="headerlink" title="卷积和的计算"></a>卷积和的计算</h3><p><img src="/image-5.png" alt="卷积和"></p>
+<h3 id="卷积和的计算"><a href="#卷积和的计算" class="headerlink" title="卷积和的计算"></a>卷积和的计算</h3><p><img src="/2023/07/02/digital_and_FPGA/digital1/image-5.png" alt="卷积和"></p>
 <blockquote>
 <p>卷积和来源于线性性和时间平移不变性</p>
 </blockquote>
@@ -328,9 +330,9 @@
 </blockquote>
 <h2 id="线性常系数差分方程"><a href="#线性常系数差分方程" class="headerlink" title="线性常系数差分方程"></a>线性常系数差分方程</h2><p>输入$x(n)$和输出$y(n)$满足$n$阶线性常系数差分方程可以被表示为<br>$$\sum_{k&#x3D;0}^{N}a_ky(n-k)&#x3D;\sum_{r&#x3D;0}^Mb_rx(n-r)$$</p>
 <h3 id="一些特殊情况"><a href="#一些特殊情况" class="headerlink" title="一些特殊情况"></a>一些特殊情况</h3><p>对于零阶方程,$b_r$系数的确定可以看作是脉冲响应</p>
-<p>而对于非零阶的方程,那么我们可以将方程写作如下形式<br><img src="/image-6.png" alt="Alt text"></p>
+<p>而对于非零阶的方程,那么我们可以将方程写作如下形式<br><img src="/2023/07/02/digital_and_FPGA/digital1/image-6.png" alt="Alt text"></p>
 <p>那么我们可以利用<strong>输入</strong>和<strong>过去的输出</strong>实现对于当前输出的预测(这个时候需要边界条件)</p>
-<p>例如,下面一个一阶差分方程展示出一个如何求脉冲响应的例子<br><img src="/image-7.png" alt="Alt text"><br><img src="/image-8.png" alt="Alt text"></p>
+<p>例如,下面一个一阶差分方程展示出一个如何求脉冲响应的例子<br><img src="/2023/07/02/digital_and_FPGA/digital1/image-7.png" alt="Alt text"><br><img src="/2023/07/02/digital_and_FPGA/digital1/image-8.png" alt="Alt text"></p>
 <blockquote>
 <p>需要根据边界条件合理地选择差分方程方向</p>
 </blockquote>
@@ -361,7 +363,7 @@
 <p>对于某一特定的频率信号,我们是乘积关系<br>对于冲激响应,我们是卷积关系<br><strong>两者可以使用傅里叶变换联合在一起</strong></p>
 <h3 id="对偶性"><a href="#对偶性" class="headerlink" title="对偶性"></a>对偶性</h3><p>对于$x(n)$为实信号的情况,我们可以得到$X(\omega)&#x3D;X^*(-\omega)$</p>
 <p>进一步,我们可以将$X$分解为实部与虚部$X&#x3D;X_R+jX_I$<br>那么我们可以有对于实信号,有<br>$$X_R(\omega)&#x3D;X_R(-\omega),X_I(\omega)&#x3D;X_R(-\omega)$$<br>实部为偶函数,虚部为奇函数,相似的,对于傅里叶变换的模关于$\omega$为偶函数,辐角为奇函数</p>
-<h3 id="与连续时间傅里叶变换的关系"><a href="#与连续时间傅里叶变换的关系" class="headerlink" title="与连续时间傅里叶变换的关系"></a>与连续时间傅里叶变换的关系</h3><p><img src="/image-10.png" alt="Alt text"><br>将时间$t$转换为$n$,我们可以得到对应于离散时间变量$n$,其所对应的$t$为$nT$,其中$T$为两个采样点之间的距离,图上展示了不同采样间隔下的波形的形状</p>
+<h3 id="与连续时间傅里叶变换的关系"><a href="#与连续时间傅里叶变换的关系" class="headerlink" title="与连续时间傅里叶变换的关系"></a>与连续时间傅里叶变换的关系</h3><p><img src="/2023/07/02/digital_and_FPGA/digital1/image-10.png" alt="Alt text"><br>将时间$t$转换为$n$,我们可以得到对应于离散时间变量$n$,其所对应的$t$为$nT$,其中$T$为两个采样点之间的距离,图上展示了不同采样间隔下的波形的形状</p>
 <p>我们可以考虑具有傅里叶变换的模拟信号<br>$$x_\alpha (t)&#x3D;\frac{1}{2\pi}\int_{-\infty}^{\infty}X_\alpha(j\Omega)e^{j\Omega t}d\Omega$$</p>
 <blockquote>
 <p>这里为了和离散时间的傅里叶变换相契合,我们把变换和反变换颠倒了一下</p>
@@ -372,11 +374,11 @@
 <p>这里的做法比较类似于将卷积得到的结果和直接傅里叶变换得到的结果之间进行比较</p>
 </blockquote>
 <p>这里最左边部分需要使用到<strong>泊松求和方程</strong><br>$$\sum_{n&#x3D;-\infty}^{\infty}f(n)&#x3D;\sum_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(x)e^{-2\pi jkx}$$</p>
-<p><img src="/image-11.png" alt="Alt text"></p>
+<p><img src="/2023/07/02/digital_and_FPGA/digital1/image-11.png" alt="Alt text"></p>
 <blockquote>
 <p>注意最后一个式子,这里可以得到离散傅里叶变换的频率谱与连续傅里叶变换谱的关系,并且包含了由于采样所带来的周期性(<strong>采样定理</strong>)</p>
 </blockquote>
-<p><img src="/image-12.png" alt="Alt text"></p>
+<p><img src="/2023/07/02/digital_and_FPGA/digital1/image-12.png" alt="Alt text"></p>
 <h4 id="实际应用时的注意事项"><a href="#实际应用时的注意事项" class="headerlink" title="实际应用时的注意事项"></a>实际应用时的注意事项</h4><ol>
 <li>考虑一个数字滤波器的效果时,需要将一个模拟输入(频率轴下)进行抽样,然后经过数字滤波器的效果,最后再恢复(低通滤波)</li>
 <li>在一些非关联的系统(许多非实时系统)中,可以构造数字滤波器使得<strong>原有滤波器不再产生相位变化</strong></li>
@@ -485,7 +487,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

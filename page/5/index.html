@@ -200,6 +200,433 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/15/maxi1820/maxi1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Songyuli">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songyuli's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/01/15/maxi1820/maxi1/" class="post-title-link" itemprop="url">The results and the problems in fitting the spectrum of the maxi1820+70</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-01-15 21:24:08" itemprop="dateCreated datePublished" datetime="2023-01-15T21:24:08+08:00">2023-01-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-01-24 16:39:04" itemprop="dateModified" datetime="2023-01-24T16:39:04+08:00">2023-01-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/maxi1820/" itemprop="url" rel="index"><span itemprop="name">maxi1820</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/01/15/maxi1820/maxi1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/15/maxi1820/maxi1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Fitting-points"><a href="#Fitting-points" class="headerlink" title="Fitting points"></a>Fitting points</h2><p>We chose three typical points from the HID graph.</p>
+<p><img src="/2023/01/15/maxi1820/maxi1/hid.png" alt="hid"></p>
+<h2 id="The-first-point"><a href="#The-first-point" class="headerlink" title="The first point"></a>The first point</h2><p>The first point is the observation is the three observation in <code>P14661084</code> and we use the low energy and mid energy part of the spectrum.</p>
+<p>We combine the spectra in <code>P14661084</code> and use the model <code>constant*TBabs*(simplcutx*(diskbb+relxillCp)+xillverCp)</code>(The reason why I didn’t use the model <code>mbknpo</code> is that if I add this model, then the spectrum of the very low energy(about 2keV) may not fit well), and I got the best-fit like this.</p>
+<p><img src="/2023/01/15/maxi1820/maxi1/fitLS.png" alt="fitLS"></p>
+<p>Also, we calculate the error of each parameter, and got the table below</p>
+<table>
+<thead>
+<tr>
+<th>par</th>
+<th>model</th>
+<th>par name</th>
+<th>value</th>
+<th>range</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3</td>
+<td><code>simplcutx</code></td>
+<td><code>Gamma</code></td>
+<td>2.32037</td>
+<td>2.29367~2.34282</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>simplcutx</code></td>
+<td><code>FracSctr</code></td>
+<td>0.146214</td>
+<td>0.139002~0.153343</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>simplcutx</code></td>
+<td><code>kT_e</code></td>
+<td>963.399</td>
+<td>151.681~0(-811.624,-963.304)</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>diskbb</code></td>
+<td><code>Tin</code></td>
+<td>0.740488</td>
+<td>0.737991~0.742486(-0.00249779,0.00199709)</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>diskbb</code></td>
+<td><code>norm</code></td>
+<td>1.53996E4</td>
+<td>15170.5~15622(-229.123,222.451)</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>relxillCp</code></td>
+<td><code>Index1</code></td>
+<td>10.00000</td>
+<td>9.20764~0(-0.792358,-10)</td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>relxillCp</code></td>
+<td><code>Incl</code></td>
+<td>73.6178</td>
+<td>72.3889~73.842(-1.22892,0.224224)</td>
+</tr>
+<tr>
+<td>14</td>
+<td><code>relxillCp</code></td>
+<td><code>Rin</code></td>
+<td>-1.01333</td>
+<td>-1.03082~-1.00407(-0.0174862,0.00926662)</td>
+</tr>
+<tr>
+<td>18</td>
+<td><code>relxillCp</code></td>
+<td><code>logxi</code></td>
+<td>3.74057</td>
+<td>3.61639~3.8515(-0.124187,0.110924)</td>
+</tr>
+<tr>
+<td>19</td>
+<td><code>relxillCp</code></td>
+<td><code>Afe</code></td>
+<td>10.0000</td>
+<td>9.32562~0(-0.67438,-10)</td>
+</tr>
+<tr>
+<td>22</td>
+<td><code>relxillCp</code></td>
+<td><code>norm</code></td>
+<td>0.340764</td>
+<td>0.29189~0.352971(-0.0488737,0.0122078)</td>
+</tr>
+<tr>
+<td>30</td>
+<td><code>xillverCp</code></td>
+<td><code>norm</code></td>
+<td>1.3216E-3</td>
+<td>0~0.00371015(-0.00132301,0.00238714)</td>
+</tr>
+<tr>
+<td>31</td>
+<td><code>constant</code>(2)</td>
+<td><code>factor</code></td>
+<td>1.02040</td>
+<td>1.01158~1.03362(-0.00881818,0.0132216)</td>
+</tr>
+</tbody></table>
+<h2 id="The-second-point"><a href="#The-second-point" class="headerlink" title="The second point"></a>The second point</h2><p>The second point is the three observation in &#96;&#96;, we used all the energy part of the spectrum.</p>
+<p>Also, we used the model <code>constant*TBabs*(simplcutx*(diskbb+relxillCp)+xillverCp)</code>to fit the spectrum. And ignored the spectrum between 21keV to 23keV. This time, however, we found that the model cannot fit the spectrum very well, especially at about Fe-line and at about 25 keV. </p>
+<p>The unfolded spectrum and the ratio is like below:</p>
+<p><img src="/2023/01/15/maxi1820/maxi1/fitLH.png" alt="fitLH"></p>
+<p>We calculated the error of each parameter, and got the table below:</p>
+<table>
+<thead>
+<tr>
+<th>par</th>
+<th>model</th>
+<th>par name</th>
+<th>value</th>
+<th>range</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3</td>
+<td><code>simplcutx</code></td>
+<td><code>Gamma</code></td>
+<td>1.55434</td>
+<td>1.54259~1.56467(-0.0117559,0.0103268)</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>simplcutx</code></td>
+<td><code>FracSctr</code></td>
+<td>0.204196</td>
+<td>0.187275~0.21611(-0.016921,0.0119141)</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>simplcutx</code></td>
+<td><code>kT_e</code></td>
+<td>50.2392</td>
+<td>49.7608 ~52.4421(-0.47835,2.20294)</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>diskbb</code></td>
+<td><code>Tin</code></td>
+<td>0.530084</td>
+<td>0.519304~0.546117(-0.0107803,0.0160332)</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>diskbb</code></td>
+<td><code>norm</code></td>
+<td>14927.14</td>
+<td>4290.33~5755.6(-636.818,828.452)</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>relxillCp</code></td>
+<td><code>Index1</code></td>
+<td>10.00000</td>
+<td>3.70664~0(-6.29336,-10)</td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>relxillCp</code></td>
+<td><code>Incl</code></td>
+<td>41.5373</td>
+<td>38.802~???(-2.73533,4.29916)</td>
+</tr>
+<tr>
+<td>14</td>
+<td><code>relxillCp</code></td>
+<td><code>Rin</code></td>
+<td>-14.5510</td>
+<td>-18.111~-9.07362(-3.56002,5.47737)</td>
+</tr>
+<tr>
+<td>18</td>
+<td><code>relxillCp</code></td>
+<td><code>logxi</code></td>
+<td>4.40865</td>
+<td>4.35113~4.44465(-0.057525,0.0360025)</td>
+</tr>
+<tr>
+<td>19</td>
+<td><code>relxillCp</code></td>
+<td><code>Afe</code></td>
+<td>9.29539</td>
+<td>7.81846~0(-1.47693,-9.29539)</td>
+</tr>
+<tr>
+<td>22</td>
+<td><code>relxillCp</code></td>
+<td><code>norm</code></td>
+<td>8.8196E-2</td>
+<td>0.0847278~ 0.0938056(-0.0034684,0.00560941)</td>
+</tr>
+<tr>
+<td>30</td>
+<td><code>xillverCp</code></td>
+<td><code>norm</code></td>
+<td>5.4875E-3</td>
+<td>0.00463134~0.00628511(-0.000856129,0.000797643)</td>
+</tr>
+<tr>
+<td>31</td>
+<td><code>constant</code>(2)</td>
+<td><code>factor</code></td>
+<td>1.03591</td>
+<td>1.02896~1.04286(-0.00695636,0.00694697)</td>
+</tr>
+<tr>
+<td>61</td>
+<td><code>constant</code>(2)</td>
+<td><code>factor</code></td>
+<td>1.05928</td>
+<td>1.05126~1.06678(-0.00801573,0.00750175)</td>
+</tr>
+</tbody></table>
+<p>I noticed that the range of the parameter <code>Rin</code>  is quite large, which may be related to the unfitted Fe-line.</p>
+<h2 id="The-third-point"><a href="#The-third-point" class="headerlink" title="The third point"></a>The third point</h2><p>The second point is the two observation in <code>P0114661136</code>, we used all the energy part of the spectrum.</p>
+<p>We use the model <code>constant*TBabs*(simplcutx*(diskbb+mbnkpo*relxillCp)+xillverCp)</code> to fit the spectrum. And ignored the spectrum between 21keV to 23keV. This time except the problem at about 20keV and 25keV, the model can fit the spectrum quite well.</p>
+<p>The unfolded spectrum and the ratio is like below:<img src="/2023/01/15/maxi1820/maxi1/fit3.png" alt="fit3"></p>
+<p>We calculated the error of each parameter, and got the table below:</p>
+<table>
+<thead>
+<tr>
+<th>par</th>
+<th>model</th>
+<th>par name</th>
+<th>value</th>
+<th>range</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3</td>
+<td><code>simplcutx</code></td>
+<td><code>Gamma</code></td>
+<td>1.70835</td>
+<td>1.69696~1.71736(-0.0113903,0.00900463)</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>simplcutx</code></td>
+<td><code>FracSctr</code></td>
+<td>0.423500</td>
+<td>0.388402~0.452862 (-0.0350982,0.0293619)</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>simplcutx</code></td>
+<td><code>kT_e</code></td>
+<td>296.876</td>
+<td>156.831~0(-140.045,-296.876)</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>diskbb</code></td>
+<td><code>Tin</code></td>
+<td>0.521368</td>
+<td>0.499858~0.547507(-0.0215105,0.0261386)</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>diskbb</code></td>
+<td><code>norm</code></td>
+<td>1679.12</td>
+<td>1315.87~2075.26(-363.28,396.115)</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>relxillCp</code></td>
+<td><code>Index1</code></td>
+<td>10.00000</td>
+<td>4.04933~0 (-5.95067,-10)</td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>relxillCp</code></td>
+<td><code>Incl</code></td>
+<td>44.0274</td>
+<td>41.2731~48.205 (-2.75424,4.17761)</td>
+</tr>
+<tr>
+<td>16</td>
+<td><code>relxillCp</code></td>
+<td><code>Rin</code></td>
+<td>-4.37220</td>
+<td>-5.43035 ~-3.03198 (-1.05815,1.34022)</td>
+</tr>
+<tr>
+<td>20</td>
+<td><code>relxillCp</code></td>
+<td><code>logxi</code></td>
+<td>3.64956</td>
+<td>3.48269~3.80451(-0.166872,0.154944)</td>
+</tr>
+<tr>
+<td>21</td>
+<td><code>relxillCp</code></td>
+<td><code>Afe</code></td>
+<td>10.0000</td>
+<td>7.14676~0 (-2.85324,-10)</td>
+</tr>
+<tr>
+<td>24</td>
+<td><code>relxillCp</code></td>
+<td><code>norm</code></td>
+<td>07.31228E-3</td>
+<td>0.0061945~0.00893408(-0.00111789,0.00162169)</td>
+</tr>
+<tr>
+<td>32</td>
+<td><code>xillverCp</code></td>
+<td><code>norm</code></td>
+<td>2.39388E-11</td>
+<td>0~0.000333344(-6.82725e-15,0.000333344)</td>
+</tr>
+<tr>
+<td>33</td>
+<td><code>constant</code>(2)</td>
+<td><code>factor</code></td>
+<td>1.00827</td>
+<td>0.985256~1.02789 (-0.0230121,0.0196176)</td>
+</tr>
+<tr>
+<td>65</td>
+<td><code>constant</code>(3)</td>
+<td><code>factor</code></td>
+<td>1.03501</td>
+<td>1.00417~1.06166(-0.0308423,0.0266517)</td>
+</tr>
+</tbody></table>
+<h2 id="Discussions"><a href="#Discussions" class="headerlink" title="Discussions"></a>Discussions</h2><ol>
+<li>In real world ,the <code>Incl</code> should not change with time, so we should fix it to some value (In the &#x3D;&#x3D;NuSTAR&#x3D;&#x3D; it is 63, but we’ve found that it cannot fit very well)</li>
+<li>We don’t need to get the best fit because our goal is to fit <strong>all</strong> the observations, so if the <code>Reduced Chi-Squared</code>(Chi-Squared&#x2F;Degrees of freedom)is under 1.2,although it is still not the best fit ,it would be ok.</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/01/15/control%20system/control2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -475,7 +902,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

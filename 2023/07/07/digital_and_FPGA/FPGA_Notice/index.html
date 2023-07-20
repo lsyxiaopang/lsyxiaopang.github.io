@@ -29,7 +29,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/07/digital_and_FPGA/FPGA_Notice/image-9.png">
 <meta property="article:published_time" content="2023-07-06T16:25:23.000Z">
-<meta property="article:modified_time" content="2023-07-09T09:26:41.594Z">
+<meta property="article:modified_time" content="2023-07-20T08:48:55.292Z">
 <meta property="article:author" content="Songyuli">
 <meta property="article:tag" content="FPGA">
 <meta name="twitter:card" content="summary">
@@ -238,7 +238,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-09 17:26:41" itemprop="dateModified" datetime="2023-07-09T17:26:41+08:00">2023-07-09</time>
+                <time title="Modified: 2023-07-20 16:48:55" itemprop="dateModified" datetime="2023-07-20T16:48:55+08:00">2023-07-20</time>
               </span>
 
           
@@ -271,6 +271,14 @@
 <li><code>DE10-Nano</code>所使用的FPGA的编号为<code>Cyclone V 5CSEBA6U23I7</code>,在配置<code>Quartus</code>的时候可以方便一点</li>
 <li>包含有仿真的项目,首先<strong>指定仿真工具使用<code>ModelSim</code></strong>;在主程序基本完成后(记得编译),自动生成<code>TestBranch</code>脚本;最后将其加入到仿真设定中</li>
 <li>每次编译后都要重新生成<code>TestBranch</code>,所以建议改一下文件名</li>
+<li>每一次不同的配置前<strong>注意是否放入SD卡以及拨码开关的位置情况</strong></li>
+<li>对于HPS中的的文件传输,我们可以使用<code>rz -Z</code>的方式实现文件传输</li>
+<li>如果希望使用HPS来刷写FPGA,那么分以下几步<ol>
+<li>调节所有拨码开关到打开</li>
+<li>向FAT分支中添加<code>rbf</code>文件,命名为<code>soc_system.rbf</code></li>
+</ol>
+</li>
+<li>由于<code>GLIBC</code>的版本问题,所有的C程序应当<strong>放在DE10-Nano上编译</strong></li>
 </ol>
 <h1 id="Verilog编写注意"><a href="#Verilog编写注意" class="headerlink" title="Verilog编写注意"></a>Verilog编写注意</h1><ol>
 <li><strong>不能在不同的<code>always</code>块中对同一个变量修改</strong></li>
@@ -396,7 +404,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
