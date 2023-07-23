@@ -55,7 +55,7 @@
 <meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/18/digital_and_FPGA/digital4/image-25.png">
 <meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/18/digital_and_FPGA/digital4/image-26.png">
 <meta property="article:published_time" content="2023-07-18T08:21:02.000Z">
-<meta property="article:modified_time" content="2023-07-20T11:06:49.352Z">
+<meta property="article:modified_time" content="2023-07-20T11:13:31.151Z">
 <meta property="article:author" content="Songyuli">
 <meta property="article:tag" content="数字信号处理">
 <meta name="twitter:card" content="summary">
@@ -264,7 +264,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-20 19:06:49" itemprop="dateModified" datetime="2023-07-20T19:06:49+08:00">2023-07-20</time>
+                <time title="Modified: 2023-07-20 19:13:31" itemprop="dateModified" datetime="2023-07-20T19:13:31+08:00">2023-07-20</time>
               </span>
 
           
@@ -384,7 +384,8 @@
 <p>这种配置只需要一般的乘法</p>
 </blockquote>
 <h3 id="频率采样结构"><a href="#频率采样结构" class="headerlink" title="频率采样结构"></a>频率采样结构</h3><p>我们考虑一个有限相应结构,可以使用DFT和z变换表示</p>
-<p>可以有<br>$$h(n)&#x3D;\frac{1}{N}[\sum_{k&#x3D;0}^{N-1}H(k)w_N^{-nk}]R_N(n)$$<br>进而得到z变换结果<br>$$H(z)&#x3D;\frac{1}{N}\sum^{N-1}<em>{k&#x3D;0}H(k)\sum^{N-1}</em>{n&#x3D;0}\sum(z^{-1}w_N^{-k})^n$$<br>$$H(z)&#x3D;(1-z^{-N})\frac{1}{N}\sum_{k&#x3D;0}^{N-1}\frac{H(k)}{1-w_N^{-k}z^{-1}}$$<br>我们可以注意到等式左边为信号输出,而等式右边的系数则是系统的<strong>频率响应</strong>,因此,我们可以把这样的结构称为<strong>频率采样结构</strong>,其结构为</p>
+<p>可以有<br>$$h(n)&#x3D;\frac{1}{N}[\sum_{k&#x3D;0}^{N-1}H(k)w_N^{-nk}]R_N(n)$$<br>进而得到z变换结果<br>$$H(z)&#x3D;\frac{1}{N}\sum^{N-1}<em>{k&#x3D;0}H(k)\sum^{N-1}</em>{n&#x3D;0}\sum(z^{-1}w_N^{-k})^n$$<br>可以推导出  </p>
+<p>$$H(z)&#x3D;(1-z^{-N})\frac{1}{N}\sum_{k&#x3D;0}^{N-1}\frac{H(k)}{1-w_N^{-k}z^{-1}}$$<br>我们可以注意到等式左边为信号输出,而等式右边的系数则是系统的<strong>频率响应</strong>,因此,我们可以把这样的结构称为<strong>频率采样结构</strong>,其结构为</p>
 <p><img src="/2023/07/18/digital_and_FPGA/digital4/image-25.png" alt="Alt text"></p>
 <blockquote>
 <p>需要注意到的是,这里的系数是<strong>复数</strong>,在实际运用中还需要做一些操作</p>
@@ -430,7 +431,10 @@
     <a href="/2023/07/14/digital_and_FPGA/digital3/" rel="prev" title="离散傅里叶级数与离散傅里叶变换">
       <i class="fa fa-chevron-left"></i> 离散傅里叶级数与离散傅里叶变换
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/07/21/digital_and_FPGA/digital5/" rel="next" title="IIR系统设计与示例">
+      IIR系统设计与示例 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -510,7 +514,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

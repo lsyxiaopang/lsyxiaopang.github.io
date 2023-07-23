@@ -4464,6 +4464,9 @@ Along axis 1 is [ 6 15]
 </li>
 <li>由于<code>GLIBC</code>的版本问题,所有的C程序应当<strong>放在DE10-Nano上编译</strong></li>
 </ol>
+<h1 id="HPS编写注意"><a href="#HPS编写注意" class="headerlink" title="HPS编写注意"></a>HPS编写注意</h1><ol>
+<li>对于输入输出的部分至少要有<strong>两个连接在AMM上</strong>,否则会因为内存地址只有1而出错</li>
+</ol>
 <h1 id="Verilog编写注意"><a href="#Verilog编写注意" class="headerlink" title="Verilog编写注意"></a>Verilog编写注意</h1><ol>
 <li><strong>不能在不同的<code>always</code>块中对同一个变量修改</strong></li>
 <li>对于不同状态进行编码时,可以参考这张表<br><img src="/2023/07/07/digital_and_FPGA/FPGA_Notice/image-9.png" alt="Alt text"></li>
@@ -4478,6 +4481,7 @@ Along axis 1 is [ 6 15]
 </blockquote>
 </li>
 <li>例如复位”高电平触发”,是指<strong>当信号为高电平时,会发生复位</strong></li>
+<li>在编写Soc系统中时,需要注意<code>output</code>是接口输出,<strong>从内存到FPGA</strong>(方向别搞错)</li>
 </ol>
 <h1 id="ModelSim使用注意"><a href="#ModelSim使用注意" class="headerlink" title="ModelSim使用注意"></a>ModelSim使用注意</h1><ol>
 <li>为了和系统时钟相匹配,需要记得修改时间尺度</li>
@@ -4584,7 +4588,8 @@ Along axis 1 is [ 6 15]
 <p>这种配置只需要一般的乘法</p>
 </blockquote>
 <h3 id="频率采样结构"><a href="#频率采样结构" class="headerlink" title="频率采样结构"></a>频率采样结构</h3><p>我们考虑一个有限相应结构,可以使用DFT和z变换表示</p>
-<p>可以有<br>$$h(n)&#x3D;\frac{1}{N}[\sum_{k&#x3D;0}^{N-1}H(k)w_N^{-nk}]R_N(n)$$<br>进而得到z变换结果<br>$$H(z)&#x3D;\frac{1}{N}\sum^{N-1}<em>{k&#x3D;0}H(k)\sum^{N-1}</em>{n&#x3D;0}\sum(z^{-1}w_N^{-k})^n$$<br>$$H(z)&#x3D;(1-z^{-N})\frac{1}{N}\sum_{k&#x3D;0}^{N-1}\frac{H(k)}{1-w_N^{-k}z^{-1}}$$<br>我们可以注意到等式左边为信号输出,而等式右边的系数则是系统的<strong>频率响应</strong>,因此,我们可以把这样的结构称为<strong>频率采样结构</strong>,其结构为</p>
+<p>可以有<br>$$h(n)&#x3D;\frac{1}{N}[\sum_{k&#x3D;0}^{N-1}H(k)w_N^{-nk}]R_N(n)$$<br>进而得到z变换结果<br>$$H(z)&#x3D;\frac{1}{N}\sum^{N-1}<em>{k&#x3D;0}H(k)\sum^{N-1}</em>{n&#x3D;0}\sum(z^{-1}w_N^{-k})^n$$<br>可以推导出  </p>
+<p>$$H(z)&#x3D;(1-z^{-N})\frac{1}{N}\sum_{k&#x3D;0}^{N-1}\frac{H(k)}{1-w_N^{-k}z^{-1}}$$<br>我们可以注意到等式左边为信号输出,而等式右边的系数则是系统的<strong>频率响应</strong>,因此,我们可以把这样的结构称为<strong>频率采样结构</strong>,其结构为</p>
 <p><img src="/2023/07/18/digital_and_FPGA/digital4/image-25.png" alt="Alt text"></p>
 <blockquote>
 <p>需要注意到的是,这里的系数是<strong>复数</strong>,在实际运用中还需要做一些操作</p>
@@ -4608,6 +4613,121 @@ Along axis 1 is [ 6 15]
 </blockquote>
 <blockquote>
 <p>同时,即使在同样的大结构中,不同零点-极点的配置也会带来区别,我们至少要<strong>注意到</strong>这样的问题</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>数字信号处理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>IIR系统设计与示例</title>
+    <url>/2023/07/21/digital_and_FPGA/digital5/</url>
+    <content><![CDATA[<h1 id="IIR系统的设计"><a href="#IIR系统的设计" class="headerlink" title="IIR系统的设计"></a>IIR系统的设计</h1><p>在之前我们讨论了数字滤波器的表示等,而在这一部分,我们将讨论如何设计一个数字滤波器<br>对于一个滤波器而言,一个频率的波输入后,<strong>只会改变振幅与相位</strong>,因此我们可以将<strong>不同频率带的信号滤除</strong>  </p>
+<p>相似的,我们可以认为数字滤波器的设计就是设计一个具有我们想要的频率响应  </p>
+<span id="more"></span>  
+<h2 id="以低通滤波器为例"><a href="#以低通滤波器为例" class="headerlink" title="以低通滤波器为例"></a>以低通滤波器为例</h2><p><img src="/2023/07/21/digital_and_FPGA/digital5/image.png" alt="Alt text">  </p>
+<h3 id="设计的技术"><a href="#设计的技术" class="headerlink" title="设计的技术"></a>设计的技术</h3><p>我们要做的是将一个理想的滤波器粗略化为一个可以实现的滤波器(允许一些变化)<br>之后主要设计出来的是一个关于z的有理函数</p>
+<ol>
+<li>在模拟的情况下分析</li>
+<li>从连续时间到分离时间(注意我们不是尝试让数字滤波器接近模拟滤波器)</li>
+<li>计算方法</li>
+</ol>
+<h3 id="将模拟滤波器技术转移到数字滤波器的要求"><a href="#将模拟滤波器技术转移到数字滤波器的要求" class="headerlink" title="将模拟滤波器技术转移到数字滤波器的要求"></a>将模拟滤波器技术转移到数字滤波器的要求</h3><p>我们将连续状态下的<strong>直接映射到数字滤波器的情况</strong><br><img src="/2023/07/21/digital_and_FPGA/digital5/image-1.png" alt="Alt text"><br>同时,如果设计的模拟滤波器是稳定的,那么相对应的数字滤波器也是稳定的</p>
+<h3 id="将微分变为差分"><a href="#将微分变为差分" class="headerlink" title="将微分变为差分"></a>将微分变为差分</h3><p>对于模拟滤波器而言,有微分方程<br>$$\sum_{k&#x3D;0}^N c_k\frac{d^k y_a(t)}{dt^k}&#x3D;\sum_{k&#x3D;0}^Md_k\frac{d^k x_a(t)}{dt^k}$$</p>
+<p>直接让$\frac{dy_a}{dt}-&gt;\Delta^{(1)} [y(n)]$<br>同时也可以表示高阶差分$\Delta^{(n)}&#x3D;\Delta^{(1)}[\Delta^{(k-1)}y(n)]$</p>
+<blockquote>
+<p>如何理解拉普拉斯变换与z变换<br>拉普拉斯变换下<br>$$\frac{dy_a(t)}{dt}&#x3D;sY_a(s)$$<br>z变换下<br>$$\frac{y(n+1)-y(n)}{T}&#x3D;\frac{z-1}{T}Y(z)$$<br>因此我们可以得到一个映射<br>$$H(z)&#x3D;Ha(s)|_{s&#x3D;\frac{z-1}{T}}$$</p>
+</blockquote>
+<p><img src="/2023/07/21/digital_and_FPGA/digital5/image-2.png" alt="Alt text"><br>可以注意到$s$平面上的轴(即为拉普拉斯变换等于傅里叶变换)映射到$z$平面成为了一条直线,<strong>不再是单位圆</strong>,所以两个模型的频率响应并不对应</p>
+<blockquote>
+<p>同时,这也不能保证数字滤波器收敛</p>
+</blockquote>
+<blockquote>
+<p>实际上,如果我们的采样率足够高,那么在$z$平面上频率响应接近切线,表明使用差分代替微分<strong>在渐近情况下是合理的</strong></p>
+</blockquote>
+<h3 id="脉冲不变量法"><a href="#脉冲不变量法" class="headerlink" title="脉冲不变量法"></a>脉冲不变量法</h3><p>我们也可以通过选择与模拟信号输入相同(按照采样率缩放)的<strong>脉冲响应</strong></p>
+<p>有$h(n)&#x3D;h_a(nT)$  </p>
+<p>那么系统的DFT就是<br>$$H(e^{j\omega})&#x3D;\frac{1}{T}\sum H_a[\frac{j\omega}{T}+\frac{j2\pi k}{T}]$$</p>
+<p><img src="/2023/07/21/digital_and_FPGA/digital5/image-3.png" alt="Alt text">  </p>
+<blockquote>
+<p>实际使用的时候会存在混叠的问题(在接近采样频率的时候会出现问题)</p>
+</blockquote>
+<blockquote>
+<p>同时我们也要注意到,脉冲不变不代表阶跃不变</p>
+</blockquote>
+<p>同时,我们也可以使用极点的角度看待这个问题<br>在连续信号中,有极点<br>$$H_a(s)&#x3D;\sum\frac{A_k}{s-s_k}$$<br>将其转换到数字($z$平面)<br>$$H(z)&#x3D;\sum_k\frac{A_k}{1-e^{s_kT}z^{-1}}$$</p>
+<blockquote>
+<p>实际上是将极点进行映射(零点就不会)<br>因此在进行转化的时候<strong>首先进行分式求和分解,然后直接转换,最后相加</strong></p>
+</blockquote>
+<blockquote>
+<p>可以看到,脉冲不变量法是设计数字滤波器一个非常好用的方法</p>
+</blockquote>
+<p>下面两张图展示了该类变换的结果(其中有混叠的影响)</p>
+<p><img src="/2023/07/21/digital_and_FPGA/digital5/image-4.png" alt="Alt text"></p>
+<h3 id="Bilinear变换法"><a href="#Bilinear变换法" class="headerlink" title="Bilinear变换法"></a>Bilinear变换法</h3><blockquote>
+<p>我们也不是没有办法来处理这种混叠的情况,但也是有代价的</p>
+</blockquote>
+<h4 id="Bilinear变换"><a href="#Bilinear变换" class="headerlink" title="Bilinear变换"></a>Bilinear变换</h4><p>对于已知的函数$H_a(s)$,<br>我们取<br>$$s&#x3D;\frac{2}{T}\left[\frac{1-z^{-1}}{1+z^{-1}}\right]$$</p>
+<blockquote>
+<p>这是一个直接映射(与前面两种不同)</p>
+</blockquote>
+<h4 id="性质检验"><a href="#性质检验" class="headerlink" title="性质检验"></a>性质检验</h4><ol>
+<li>对于$z&#x3D;e^{j\omega}$,我们可以得到$z&#x3D;j\Omega$(所以其满足频率响应相符)  <blockquote>
+<p>下图展示了是如何实现映射的(我们可以注意到这里<strong>不会有混叠</strong>(因为整个轴映射到<strong>一个单位圆</strong>))但是这个频率响应会出现<strong>变形</strong>(就像最后一张图所示的一样)<br><img src="/2023/07/21/digital_and_FPGA/digital5/image-5.png" alt="Alt text"><br>总体而言的效果像这样:<br><img src="/2023/07/21/digital_and_FPGA/digital5/image-6.png" alt="Alt text"><br>所以说,如果采样频率足够高,那么脉冲不变法要更加理想(不过主要是在低频上的效果不好)</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="代数设计法设计IIR"><a href="#代数设计法设计IIR" class="headerlink" title="代数设计法设计IIR"></a>代数设计法设计IIR</h2><p>这些方法可以绕过设计模拟滤波器,直接进行设计</p>
+<blockquote>
+<p>这种方法在响应谁都不知道的时候<strong>最为有用</strong></p>
+</blockquote>
+<h3 id="最小平均方根误差法"><a href="#最小平均方根误差法" class="headerlink" title="最小平均方根误差法"></a>最小平均方根误差法</h3><blockquote>
+<p>这种方法看起来很复杂,但是实际上非常好理解</p>
+</blockquote>
+<p>我们就是先搞一个理想的响应,然后<strong>用分式去拟合它</strong></p>
+<p><img src="/2023/07/21/digital_and_FPGA/digital5/image-7.png" alt="Alt text"></p>
+<blockquote>
+<p>这里可以玩一点花,比如说我们要”特别照顾”一些频率,就可以用统计的方法提高其权重</p>
+</blockquote>
+<h3 id="最小平方逆"><a href="#最小平方逆" class="headerlink" title="最小平方逆"></a>最小平方逆</h3><p>我们可以考虑<strong>指定脉冲响应</strong></p>
+<p>我们可以考虑一个理想状况下的响应的<strong>逆</strong>,然后两者一起作用,<strong>使结果最小</strong></p>
+<h1 id="数字BUTTERWORTH滤波器"><a href="#数字BUTTERWORTH滤波器" class="headerlink" title="数字BUTTERWORTH滤波器"></a>数字BUTTERWORTH滤波器</h1><h2 id="模拟BUTTERWORTH滤波器"><a href="#模拟BUTTERWORTH滤波器" class="headerlink" title="模拟BUTTERWORTH滤波器"></a>模拟BUTTERWORTH滤波器</h2><p>定义为<br>$$|H_a(j\Omega)|^2&#x3D;\frac{1}{1+(\frac{j\Omega}{j\Omega_c})^{2N}}$$<br>其中$\Omega_c$被称为截止频率,$N$为滤波器的阶数<br><img src="/2023/07/21/digital_and_FPGA/digital5/image-8.png" alt="Alt text"></p>
+<p>将其使用$S$代替,有(相当于从傅里叶变换变成拉普拉斯变换),则有</p>
+<p>$$H_a(s)H_a(-s)&#x3D;\frac{1}{1+(\frac{s}{j\Omega_c})^{2N}}$$</p>
+<p>这个式子有极点,位于$s_p&#x3D;(-1)^{\frac{1}{2N}}(j\Omega_c)$</p>
+<p>分解开来,有<br>$$s_p&#x3D;e^{j[\frac{\pi+2k\pi}{2N}]}e^{j\frac{\pi}{2}}\Omega_c$$<br>相当于在单位圆上等距分布的点,如图(ButterWorth圆)<br><img src="/2023/07/21/digital_and_FPGA/digital5/image-9.png" alt="Alt text">  </p>
+<blockquote>
+<p>注意:这里我们的讨论仍然是在<strong>s平面上的</strong>,不要和z平面搞混</p>
+</blockquote>
+<h2 id="数字BUTTERWORTH滤波器-1"><a href="#数字BUTTERWORTH滤波器-1" class="headerlink" title="数字BUTTERWORTH滤波器"></a>数字BUTTERWORTH滤波器</h2><h3 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h3><p>我们让系统的转变点位于$0.2\pi$<br><img src="/2023/07/21/digital_and_FPGA/digital5/image-10.png" alt="Alt text"><br>之后我们先用这些要求配合两种设计方法的特性<strong>得到相应的模拟滤波器</strong></p>
+<h3 id="使用脉冲响应不变法设计"><a href="#使用脉冲响应不变法设计" class="headerlink" title="使用脉冲响应不变法设计"></a>使用脉冲响应不变法设计</h3><p>对于脉冲响应不变法,有<br>$$H(e^{j\omega})&#x3D;\frac{1}{T}\sum_{k}H_a[\frac{j\omega}{T}+j\frac{2\pi k}{T}]$$<br>(设计的时候忽略混叠进行分析,$\Omega&#x3D;\frac{\omega}{T}$为两种之间的关系)</p>
+<p>我们可以得到如图所示的响应<br><img src="/2023/07/21/digital_and_FPGA/digital5/image-11.png" alt=" "></p>
+<p>使用之前所定的条件,我们可以得到满足条件的要求$N&#x3D;6$</p>
+<blockquote>
+<p>首先求解$N$,然后<strong>向上取整</strong>,之后<strong>考虑到混叠效应</strong>,应当满足低频的方程<br>从而有$\Omega_c T&#x3D;7032$</p>
+</blockquote>
+<p>从而可以得到滤波器的形式(最终可以得到一个低通滤波器)</p>
+<p><img src="/2023/07/21/digital_and_FPGA/digital5/image-12.png" alt="Alt text">  </p>
+<blockquote>
+<p>我们从这张图可以看出,在系统接近$\pi$的时候,整个滤波器的结果非常接近0</p>
+</blockquote>
+<blockquote>
+<p>注意,我们这里是<strong>先设计模拟</strong>,最后一步转化被省略了</p>
+</blockquote>
+<h3 id="使用Bilinear变换法设计"><a href="#使用Bilinear变换法设计" class="headerlink" title="使用Bilinear变换法设计"></a>使用Bilinear变换法设计</h3><p>由于Bilinear响应是<strong>非线性的</strong>,因此我们可以将两个核心的频率点<strong>映射到线上</strong></p>
+<p><img src="/2023/07/21/digital_and_FPGA/digital5/image-13.png" alt="Alt text"></p>
+<p>接下来我们就可以设计响应的模拟滤波器</p>
+<p><img src="/2023/07/21/digital_and_FPGA/digital5/image-14.png" alt="Alt text">  </p>
+<blockquote>
+<p>在这里我们应当满足<strong>截止</strong>,因为在频率较高的时候线性性比较强</p>
+</blockquote>
+<p><img src="/2023/07/21/digital_and_FPGA/digital5/image-15.png" alt="Alt text"></p>
+<blockquote>
+<p>这种效果使得Bilinear在高频下工作更加理想</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我们可以通过两种数字滤波器不同的形式特点<strong>首先设计出相对应的模拟滤波器,然后再将其转化成数字滤波器</strong>,同时,由于我们的要求是对着数字滤波器提的,$T$可以认为是1</p>
+<blockquote>
+<p>我们也可以通过一些手段让其变成高通或带通</p>
 </blockquote>
 ]]></content>
       <tags>

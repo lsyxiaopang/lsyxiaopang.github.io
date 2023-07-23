@@ -29,7 +29,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/07/digital_and_FPGA/FPGA_Notice/image-9.png">
 <meta property="article:published_time" content="2023-07-06T16:25:23.000Z">
-<meta property="article:modified_time" content="2023-07-20T08:48:55.292Z">
+<meta property="article:modified_time" content="2023-07-23T13:24:52.167Z">
 <meta property="article:author" content="Songyuli">
 <meta property="article:tag" content="FPGA">
 <meta name="twitter:card" content="summary">
@@ -238,7 +238,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-20 16:48:55" itemprop="dateModified" datetime="2023-07-20T16:48:55+08:00">2023-07-20</time>
+                <time title="Modified: 2023-07-23 21:24:52" itemprop="dateModified" datetime="2023-07-23T21:24:52+08:00">2023-07-23</time>
               </span>
 
           
@@ -280,6 +280,9 @@
 </li>
 <li>由于<code>GLIBC</code>的版本问题,所有的C程序应当<strong>放在DE10-Nano上编译</strong></li>
 </ol>
+<h1 id="HPS编写注意"><a href="#HPS编写注意" class="headerlink" title="HPS编写注意"></a>HPS编写注意</h1><ol>
+<li>对于输入输出的部分至少要有<strong>两个连接在AMM上</strong>,否则会因为内存地址只有1而出错</li>
+</ol>
 <h1 id="Verilog编写注意"><a href="#Verilog编写注意" class="headerlink" title="Verilog编写注意"></a>Verilog编写注意</h1><ol>
 <li><strong>不能在不同的<code>always</code>块中对同一个变量修改</strong></li>
 <li>对于不同状态进行编码时,可以参考这张表<br><img src="/2023/07/07/digital_and_FPGA/FPGA_Notice/image-9.png" alt="Alt text"></li>
@@ -294,6 +297,7 @@
 </blockquote>
 </li>
 <li>例如复位”高电平触发”,是指<strong>当信号为高电平时,会发生复位</strong></li>
+<li>在编写Soc系统中时,需要注意<code>output</code>是接口输出,<strong>从内存到FPGA</strong>(方向别搞错)</li>
 </ol>
 <h1 id="ModelSim使用注意"><a href="#ModelSim使用注意" class="headerlink" title="ModelSim使用注意"></a>ModelSim使用注意</h1><ol>
 <li>为了和系统时钟相匹配,需要记得修改时间尺度</li>
@@ -390,7 +394,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">环境的配置与操作流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Verilog%E7%BC%96%E5%86%99%E6%B3%A8%E6%84%8F"><span class="nav-number">2.</span> <span class="nav-text">Verilog编写注意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ModelSim%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F"><span class="nav-number">3.</span> <span class="nav-text">ModelSim使用注意</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">环境的配置与操作流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HPS%E7%BC%96%E5%86%99%E6%B3%A8%E6%84%8F"><span class="nav-number">2.</span> <span class="nav-text">HPS编写注意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Verilog%E7%BC%96%E5%86%99%E6%B3%A8%E6%84%8F"><span class="nav-number">3.</span> <span class="nav-text">Verilog编写注意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ModelSim%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F"><span class="nav-number">4.</span> <span class="nav-text">ModelSim使用注意</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -404,7 +408,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

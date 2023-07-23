@@ -200,6 +200,93 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/07/21/digital_and_FPGA/digital5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Songyuli">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songyuli's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/07/21/digital_and_FPGA/digital5/" class="post-title-link" itemprop="url">IIR系统设计与示例</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-07-21 15:49:59" itemprop="dateCreated datePublished" datetime="2023-07-21T15:49:59+08:00">2023-07-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-07-23 21:38:21" itemprop="dateModified" datetime="2023-07-23T21:38:21+08:00">2023-07-23</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/07/21/digital_and_FPGA/digital5/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/07/21/digital_and_FPGA/digital5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="IIR系统的设计"><a href="#IIR系统的设计" class="headerlink" title="IIR系统的设计"></a>IIR系统的设计</h1><p>在之前我们讨论了数字滤波器的表示等,而在这一部分,我们将讨论如何设计一个数字滤波器<br>对于一个滤波器而言,一个频率的波输入后,<strong>只会改变振幅与相位</strong>,因此我们可以将<strong>不同频率带的信号滤除</strong>  </p>
+<p>相似的,我们可以认为数字滤波器的设计就是设计一个具有我们想要的频率响应  </p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/07/21/digital_and_FPGA/digital5/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/07/18/digital_and_FPGA/digital4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -231,7 +318,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-20 19:06:49" itemprop="dateModified" datetime="2023-07-20T19:06:49+08:00">2023-07-20</time>
+                <time title="Modified: 2023-07-20 19:13:31" itemprop="dateModified" datetime="2023-07-20T19:13:31+08:00">2023-07-20</time>
               </span>
 
           
@@ -495,7 +582,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-20 16:48:55" itemprop="dateModified" datetime="2023-07-20T16:48:55+08:00">2023-07-20</time>
+                <time title="Modified: 2023-07-23 21:24:52" itemprop="dateModified" datetime="2023-07-23T21:24:52+08:00">2023-07-23</time>
               </span>
 
           
@@ -537,6 +624,9 @@
 </li>
 <li>由于<code>GLIBC</code>的版本问题,所有的C程序应当<strong>放在DE10-Nano上编译</strong></li>
 </ol>
+<h1 id="HPS编写注意"><a href="#HPS编写注意" class="headerlink" title="HPS编写注意"></a>HPS编写注意</h1><ol>
+<li>对于输入输出的部分至少要有<strong>两个连接在AMM上</strong>,否则会因为内存地址只有1而出错</li>
+</ol>
 <h1 id="Verilog编写注意"><a href="#Verilog编写注意" class="headerlink" title="Verilog编写注意"></a>Verilog编写注意</h1><ol>
 <li><strong>不能在不同的<code>always</code>块中对同一个变量修改</strong></li>
 <li>对于不同状态进行编码时,可以参考这张表<br><img src="/2023/07/07/digital_and_FPGA/FPGA_Notice/image-9.png" alt="Alt text"></li>
@@ -551,6 +641,7 @@
 </blockquote>
 </li>
 <li>例如复位”高电平触发”,是指<strong>当信号为高电平时,会发生复位</strong></li>
+<li>在编写Soc系统中时,需要注意<code>output</code>是接口输出,<strong>从内存到FPGA</strong>(方向别搞错)</li>
 </ol>
 <h1 id="ModelSim使用注意"><a href="#ModelSim使用注意" class="headerlink" title="ModelSim使用注意"></a>ModelSim使用注意</h1><ol>
 <li>为了和系统时钟相匹配,需要记得修改时间尺度</li>
@@ -1008,89 +1099,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://lsyxiaopang.github.io/2023/02/16/3Dmover/cncsheld/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Songyuli">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Songyuli's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/02/16/3Dmover/cncsheld/" class="post-title-link" itemprop="url">在使用CNCSheld和GRBL的一些坑</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2023-02-16 00:35:01 / Modified: 00:38:33" itemprop="dateCreated datePublished" datetime="2023-02-16T00:35:01+08:00">2023-02-16</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/3D%E4%BD%8D%E7%A7%BB%E6%B5%8B%E9%87%8F%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">3D位移测量平台设计</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2023/02/16/3Dmover/cncsheld/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/02/16/3Dmover/cncsheld/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在安装限位开关时,需要注意由于版本不对应,需要<strong>修改z限位开关接线</strong>,具体可以看<a target="_blank" rel="noopener" href="https://github.com/grbl/grbl/issues/1128">这篇文章</a></p>
-<p>GRBL的设定,应当参考<a target="_blank" rel="noopener" href="https://www.diymachining.com/downloads/GRBL_Settings_Pocket_Guide_Rev_B.pdf">这篇文档</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1160,7 +1168,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
