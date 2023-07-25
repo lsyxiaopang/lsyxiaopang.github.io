@@ -43,8 +43,18 @@
 <meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/21/digital_and_FPGA/digital5/image-13.png">
 <meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/21/digital_and_FPGA/digital5/image-14.png">
 <meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/21/digital_and_FPGA/digital5/image-15.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/21/digital_and_FPGA/digital5/image0.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/21/digital_and_FPGA/digital5/image-1-1.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/21/digital_and_FPGA/digital5/image-2-1.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/21/digital_and_FPGA/digital5/image-3-1.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/21/digital_and_FPGA/digital5/image-4-1.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/21/digital_and_FPGA/digital5/image-5-1.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/21/digital_and_FPGA/digital5/image-6-1.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/21/digital_and_FPGA/digital5/image-7-1.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/21/digital_and_FPGA/digital5/image-8-1.png">
+<meta property="og:image" content="https://lsyxiaopang.github.io/2023/07/21/digital_and_FPGA/digital5/image-9-1.png">
 <meta property="article:published_time" content="2023-07-21T07:49:59.000Z">
-<meta property="article:modified_time" content="2023-07-23T13:38:21.959Z">
+<meta property="article:modified_time" content="2023-07-25T12:36:30.448Z">
 <meta property="article:author" content="Songyuli">
 <meta property="article:tag" content="数字信号处理">
 <meta name="twitter:card" content="summary">
@@ -253,7 +263,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-23 21:38:21" itemprop="dateModified" datetime="2023-07-23T21:38:21+08:00">2023-07-23</time>
+                <time title="Modified: 2023-07-25 20:36:30" itemprop="dateModified" datetime="2023-07-25T20:36:30+08:00">2023-07-25</time>
               </span>
 
           
@@ -386,8 +396,55 @@
 </blockquote>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我们可以通过两种数字滤波器不同的形式特点<strong>首先设计出相对应的模拟滤波器,然后再将其转化成数字滤波器</strong>,同时,由于我们的要求是对着数字滤波器提的,$T$可以认为是1</p>
 <blockquote>
-<p>我们也可以通过一些手段让其变成高通或带通</p>
+<p>我们也可以通过一些手段让其变成高通或带通<br>例如:从低通($z$)变成高通($\alpha$)满足关系<br>$$z_l^{-1}&#x3D;-\frac{z^{-1}+\alpha}{1+\alpha z^{-1}}$$<br>其中<br>$$\alpha&#x3D;-\frac{\cos (\frac{\omega_1+\omega_2}{2})}{\cos(\frac{\omega_1-\omega_2}{2})}$$</p>
 </blockquote>
+<h1 id="FIR数字滤波器设计"><a href="#FIR数字滤波器设计" class="headerlink" title="FIR数字滤波器设计"></a>FIR数字滤波器设计</h1><blockquote>
+<p>我们之前讨论主要考虑将连续映射为离散,以及直接数学逼近的方法,在这一次,我们将讨论有限脉冲响应的数字滤波器<br>FIR滤波器的特点在于其<strong>良好的线性相位性质(要求$h(n)&#x3D;h(N-1-n))</strong>,以及一些其他的优势</p>
+</blockquote>
+<p>FIR数字滤波器的设计模拟滤波器要简单</p>
+<p>主要有三种设计方法:  </p>
+<ol>
+<li>加窗</li>
+<li>频率采样</li>
+<li>等值涟波设计</li>
+</ol>
+<h2 id="加窗法设计的方式"><a href="#加窗法设计的方式" class="headerlink" title="加窗法设计的方式"></a>加窗法设计的方式</h2><p>一般我们希望设计的流程为:  </p>
+<ol>
+<li>考虑一个理想的响应</li>
+<li>截断这个响应(使用窗)</li>
+</ol>
+<p>而我们得到的频率响应则相当于<strong>信号与窗的卷积</strong></p>
+<p>例如,我们的理想频率响应为如下所示的形式:<br><img src="/2023/07/21/digital_and_FPGA/digital5/image0.png" alt="Alt text"><br>而我们添加一个<strong>矩形窗</strong></p>
+<p><img src="/2023/07/21/digital_and_FPGA/digital5/image-1-1.png" alt="Alt text"></p>
+<blockquote>
+<p>可以注意到,加窗后实线部分相较于理想状态下的存在<strong>涟漪</strong></p>
+</blockquote>
+<p>FIR越长,效果越好  </p>
+<p><img src="/2023/07/21/digital_and_FPGA/digital5/image-2-1.png" alt="Alt text"><br>其加窗变换后的效果如图所示<br><img src="/2023/07/21/digital_and_FPGA/digital5/image-3-1.png" alt="Alt text">  </p>
+<p>我们还可以加一些别的窗</p>
+<h3 id="HAMMING窗与BARTLETT窗"><a href="#HAMMING窗与BARTLETT窗" class="headerlink" title="HAMMING窗与BARTLETT窗"></a>HAMMING窗与BARTLETT窗</h3><p><img src="/2023/07/21/digital_and_FPGA/digital5/image-4-1.png" alt="Alt text"></p>
+<blockquote>
+<p>使用BARLETT窗,涟漪并不明显</p>
+</blockquote>
+<p><img src="/2023/07/21/digital_and_FPGA/digital5/image-5-1.png">  </p>
+<blockquote>
+<p>使用HAMMING窗,虽然转变带会大,但是抑制效果更好</p>
+</blockquote>
+<h2 id="频率采样设计"><a href="#频率采样设计" class="headerlink" title="频率采样设计"></a>频率采样设计</h2><p><img src="/2023/07/21/digital_and_FPGA/digital5/image-6-1.png" alt="Alt text"><br>如果我们拥有一个理想的频率响应,那么我们可以使用频率采样的手段设计FIR滤波器去<strong>逼近</strong></p>
+<p>因此首先做DFT,然后再频率上等距取点,但是<strong>在这些点之间不一定性质良好</strong>,例如下图所示<br><img src="/2023/07/21/digital_and_FPGA/digital5/image-7-1.png" alt="Alt text">  </p>
+<blockquote>
+<p>注意:傅里叶变换与离散傅里叶变换<br>离散傅里叶变换是有限响应长度的结果,而讨论其效果还得看傅里叶变换的结果  </p>
+</blockquote>
+<p>特别地,假如我们对冲击响应进行滚动平移,其DFT结果不变,<strong>但是傅里叶变换结果会发生改变</strong></p>
+<p><img src="/2023/07/21/digital_and_FPGA/digital5/image-8-1.png" alt="Alt text">  </p>
+<blockquote>
+<p>不过整体效果可能会变得非常奇怪</p>
+</blockquote>
+<blockquote>
+<p>我们是否有方法减少涟漪?<br>我们可以考虑让边缘不需要那么窄的化,可以故意让边宽一点,然后实现较小的涟漪</p>
+</blockquote>
+<h2 id="等值涟波设计"><a href="#等值涟波设计" class="headerlink" title="等值涟波设计"></a>等值涟波设计</h2><p>例如,我们可以定义一些值,然后实现<strong>最小化计算</strong></p>
+<p><img src="/2023/07/21/digital_and_FPGA/digital5/image-9-1.png" alt="Alt text">  </p>
 
     </div>
 
@@ -475,7 +532,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IIR%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">IIR系统的设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E4%BD%8E%E9%80%9A%E6%BB%A4%E6%B3%A2%E5%99%A8%E4%B8%BA%E4%BE%8B"><span class="nav-number">1.1.</span> <span class="nav-text">以低通滤波器为例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E7%9A%84%E6%8A%80%E6%9C%AF"><span class="nav-number">1.1.1.</span> <span class="nav-text">设计的技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E6%A8%A1%E6%8B%9F%E6%BB%A4%E6%B3%A2%E5%99%A8%E6%8A%80%E6%9C%AF%E8%BD%AC%E7%A7%BB%E5%88%B0%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%9A%84%E8%A6%81%E6%B1%82"><span class="nav-number">1.1.2.</span> <span class="nav-text">将模拟滤波器技术转移到数字滤波器的要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E5%BE%AE%E5%88%86%E5%8F%98%E4%B8%BA%E5%B7%AE%E5%88%86"><span class="nav-number">1.1.3.</span> <span class="nav-text">将微分变为差分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%84%89%E5%86%B2%E4%B8%8D%E5%8F%98%E9%87%8F%E6%B3%95"><span class="nav-number">1.1.4.</span> <span class="nav-text">脉冲不变量法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bilinear%E5%8F%98%E6%8D%A2%E6%B3%95"><span class="nav-number">1.1.5.</span> <span class="nav-text">Bilinear变换法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Bilinear%E5%8F%98%E6%8D%A2"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">Bilinear变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8%E6%A3%80%E9%AA%8C"><span class="nav-number">1.1.5.2.</span> <span class="nav-text">性质检验</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E6%95%B0%E8%AE%BE%E8%AE%A1%E6%B3%95%E8%AE%BE%E8%AE%A1IIR"><span class="nav-number">1.2.</span> <span class="nav-text">代数设计法设计IIR</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E5%B9%B3%E5%9D%87%E6%96%B9%E6%A0%B9%E8%AF%AF%E5%B7%AE%E6%B3%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">最小平均方根误差法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E5%B9%B3%E6%96%B9%E9%80%86"><span class="nav-number">1.2.2.</span> <span class="nav-text">最小平方逆</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E5%AD%97BUTTERWORTH%E6%BB%A4%E6%B3%A2%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">数字BUTTERWORTH滤波器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%8B%9FBUTTERWORTH%E6%BB%A4%E6%B3%A2%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">模拟BUTTERWORTH滤波器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%97BUTTERWORTH%E6%BB%A4%E6%B3%A2%E5%99%A8-1"><span class="nav-number">2.2.</span> <span class="nav-text">数字BUTTERWORTH滤波器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A6%81%E6%B1%82"><span class="nav-number">2.2.1.</span> <span class="nav-text">要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%84%89%E5%86%B2%E5%93%8D%E5%BA%94%E4%B8%8D%E5%8F%98%E6%B3%95%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.2.2.</span> <span class="nav-text">使用脉冲响应不变法设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Bilinear%E5%8F%98%E6%8D%A2%E6%B3%95%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.2.3.</span> <span class="nav-text">使用Bilinear变换法设计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IIR%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">IIR系统的设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E4%BD%8E%E9%80%9A%E6%BB%A4%E6%B3%A2%E5%99%A8%E4%B8%BA%E4%BE%8B"><span class="nav-number">1.1.</span> <span class="nav-text">以低通滤波器为例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E7%9A%84%E6%8A%80%E6%9C%AF"><span class="nav-number">1.1.1.</span> <span class="nav-text">设计的技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E6%A8%A1%E6%8B%9F%E6%BB%A4%E6%B3%A2%E5%99%A8%E6%8A%80%E6%9C%AF%E8%BD%AC%E7%A7%BB%E5%88%B0%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%9A%84%E8%A6%81%E6%B1%82"><span class="nav-number">1.1.2.</span> <span class="nav-text">将模拟滤波器技术转移到数字滤波器的要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E5%BE%AE%E5%88%86%E5%8F%98%E4%B8%BA%E5%B7%AE%E5%88%86"><span class="nav-number">1.1.3.</span> <span class="nav-text">将微分变为差分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%84%89%E5%86%B2%E4%B8%8D%E5%8F%98%E9%87%8F%E6%B3%95"><span class="nav-number">1.1.4.</span> <span class="nav-text">脉冲不变量法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bilinear%E5%8F%98%E6%8D%A2%E6%B3%95"><span class="nav-number">1.1.5.</span> <span class="nav-text">Bilinear变换法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Bilinear%E5%8F%98%E6%8D%A2"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">Bilinear变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8%E6%A3%80%E9%AA%8C"><span class="nav-number">1.1.5.2.</span> <span class="nav-text">性质检验</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E6%95%B0%E8%AE%BE%E8%AE%A1%E6%B3%95%E8%AE%BE%E8%AE%A1IIR"><span class="nav-number">1.2.</span> <span class="nav-text">代数设计法设计IIR</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E5%B9%B3%E5%9D%87%E6%96%B9%E6%A0%B9%E8%AF%AF%E5%B7%AE%E6%B3%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">最小平均方根误差法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E5%B9%B3%E6%96%B9%E9%80%86"><span class="nav-number">1.2.2.</span> <span class="nav-text">最小平方逆</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E5%AD%97BUTTERWORTH%E6%BB%A4%E6%B3%A2%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">数字BUTTERWORTH滤波器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%8B%9FBUTTERWORTH%E6%BB%A4%E6%B3%A2%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">模拟BUTTERWORTH滤波器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%97BUTTERWORTH%E6%BB%A4%E6%B3%A2%E5%99%A8-1"><span class="nav-number">2.2.</span> <span class="nav-text">数字BUTTERWORTH滤波器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A6%81%E6%B1%82"><span class="nav-number">2.2.1.</span> <span class="nav-text">要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%84%89%E5%86%B2%E5%93%8D%E5%BA%94%E4%B8%8D%E5%8F%98%E6%B3%95%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.2.2.</span> <span class="nav-text">使用脉冲响应不变法设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Bilinear%E5%8F%98%E6%8D%A2%E6%B3%95%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.2.3.</span> <span class="nav-text">使用Bilinear变换法设计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FIR%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2%E5%99%A8%E8%AE%BE%E8%AE%A1"><span class="nav-number">3.</span> <span class="nav-text">FIR数字滤波器设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E7%AA%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">加窗法设计的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HAMMING%E7%AA%97%E4%B8%8EBARTLETT%E7%AA%97"><span class="nav-number">3.1.1.</span> <span class="nav-text">HAMMING窗与BARTLETT窗</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%91%E7%8E%87%E9%87%87%E6%A0%B7%E8%AE%BE%E8%AE%A1"><span class="nav-number">3.2.</span> <span class="nav-text">频率采样设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%89%E5%80%BC%E6%B6%9F%E6%B3%A2%E8%AE%BE%E8%AE%A1"><span class="nav-number">3.3.</span> <span class="nav-text">等值涟波设计</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

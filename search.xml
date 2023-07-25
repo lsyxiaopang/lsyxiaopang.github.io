@@ -4482,6 +4482,7 @@ Along axis 1 is [ 6 15]
 </li>
 <li>例如复位”高电平触发”,是指<strong>当信号为高电平时,会发生复位</strong></li>
 <li>在编写Soc系统中时,需要注意<code>output</code>是接口输出,<strong>从内存到FPGA</strong>(方向别搞错)</li>
+<li>在编写模块时的参数<strong>都是<code>wire</code></strong></li>
 </ol>
 <h1 id="ModelSim使用注意"><a href="#ModelSim使用注意" class="headerlink" title="ModelSim使用注意"></a>ModelSim使用注意</h1><ol>
 <li>为了和系统时钟相匹配,需要记得修改时间尺度</li>
@@ -4727,8 +4728,55 @@ Along axis 1 is [ 6 15]
 </blockquote>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我们可以通过两种数字滤波器不同的形式特点<strong>首先设计出相对应的模拟滤波器,然后再将其转化成数字滤波器</strong>,同时,由于我们的要求是对着数字滤波器提的,$T$可以认为是1</p>
 <blockquote>
-<p>我们也可以通过一些手段让其变成高通或带通</p>
+<p>我们也可以通过一些手段让其变成高通或带通<br>例如:从低通($z$)变成高通($\alpha$)满足关系<br>$$z_l^{-1}&#x3D;-\frac{z^{-1}+\alpha}{1+\alpha z^{-1}}$$<br>其中<br>$$\alpha&#x3D;-\frac{\cos (\frac{\omega_1+\omega_2}{2})}{\cos(\frac{\omega_1-\omega_2}{2})}$$</p>
 </blockquote>
+<h1 id="FIR数字滤波器设计"><a href="#FIR数字滤波器设计" class="headerlink" title="FIR数字滤波器设计"></a>FIR数字滤波器设计</h1><blockquote>
+<p>我们之前讨论主要考虑将连续映射为离散,以及直接数学逼近的方法,在这一次,我们将讨论有限脉冲响应的数字滤波器<br>FIR滤波器的特点在于其<strong>良好的线性相位性质(要求$h(n)&#x3D;h(N-1-n))</strong>,以及一些其他的优势</p>
+</blockquote>
+<p>FIR数字滤波器的设计模拟滤波器要简单</p>
+<p>主要有三种设计方法:  </p>
+<ol>
+<li>加窗</li>
+<li>频率采样</li>
+<li>等值涟波设计</li>
+</ol>
+<h2 id="加窗法设计的方式"><a href="#加窗法设计的方式" class="headerlink" title="加窗法设计的方式"></a>加窗法设计的方式</h2><p>一般我们希望设计的流程为:  </p>
+<ol>
+<li>考虑一个理想的响应</li>
+<li>截断这个响应(使用窗)</li>
+</ol>
+<p>而我们得到的频率响应则相当于<strong>信号与窗的卷积</strong></p>
+<p>例如,我们的理想频率响应为如下所示的形式:<br><img src="/2023/07/21/digital_and_FPGA/digital5/image0.png" alt="Alt text"><br>而我们添加一个<strong>矩形窗</strong></p>
+<p><img src="/2023/07/21/digital_and_FPGA/digital5/image-1-1.png" alt="Alt text"></p>
+<blockquote>
+<p>可以注意到,加窗后实线部分相较于理想状态下的存在<strong>涟漪</strong></p>
+</blockquote>
+<p>FIR越长,效果越好  </p>
+<p><img src="/2023/07/21/digital_and_FPGA/digital5/image-2-1.png" alt="Alt text"><br>其加窗变换后的效果如图所示<br><img src="/2023/07/21/digital_and_FPGA/digital5/image-3-1.png" alt="Alt text">  </p>
+<p>我们还可以加一些别的窗</p>
+<h3 id="HAMMING窗与BARTLETT窗"><a href="#HAMMING窗与BARTLETT窗" class="headerlink" title="HAMMING窗与BARTLETT窗"></a>HAMMING窗与BARTLETT窗</h3><p><img src="/2023/07/21/digital_and_FPGA/digital5/image-4-1.png" alt="Alt text"></p>
+<blockquote>
+<p>使用BARLETT窗,涟漪并不明显</p>
+</blockquote>
+<p><img src="/2023/07/21/digital_and_FPGA/digital5/image-5-1.png">  </p>
+<blockquote>
+<p>使用HAMMING窗,虽然转变带会大,但是抑制效果更好</p>
+</blockquote>
+<h2 id="频率采样设计"><a href="#频率采样设计" class="headerlink" title="频率采样设计"></a>频率采样设计</h2><p><img src="/2023/07/21/digital_and_FPGA/digital5/image-6-1.png" alt="Alt text"><br>如果我们拥有一个理想的频率响应,那么我们可以使用频率采样的手段设计FIR滤波器去<strong>逼近</strong></p>
+<p>因此首先做DFT,然后再频率上等距取点,但是<strong>在这些点之间不一定性质良好</strong>,例如下图所示<br><img src="/2023/07/21/digital_and_FPGA/digital5/image-7-1.png" alt="Alt text">  </p>
+<blockquote>
+<p>注意:傅里叶变换与离散傅里叶变换<br>离散傅里叶变换是有限响应长度的结果,而讨论其效果还得看傅里叶变换的结果  </p>
+</blockquote>
+<p>特别地,假如我们对冲击响应进行滚动平移,其DFT结果不变,<strong>但是傅里叶变换结果会发生改变</strong></p>
+<p><img src="/2023/07/21/digital_and_FPGA/digital5/image-8-1.png" alt="Alt text">  </p>
+<blockquote>
+<p>不过整体效果可能会变得非常奇怪</p>
+</blockquote>
+<blockquote>
+<p>我们是否有方法减少涟漪?<br>我们可以考虑让边缘不需要那么窄的化,可以故意让边宽一点,然后实现较小的涟漪</p>
+</blockquote>
+<h2 id="等值涟波设计"><a href="#等值涟波设计" class="headerlink" title="等值涟波设计"></a>等值涟波设计</h2><p>例如,我们可以定义一些值,然后实现<strong>最小化计算</strong></p>
+<p><img src="/2023/07/21/digital_and_FPGA/digital5/image-9-1.png" alt="Alt text">  </p>
 ]]></content>
       <tags>
         <tag>数字信号处理</tag>
